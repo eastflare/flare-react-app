@@ -10,6 +10,7 @@ function App() {
     <>
       <div>
         <span>Next라 쓰고 Back 이라 읽는다.</span>
+        <span>월급도둑 최상원</span>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
