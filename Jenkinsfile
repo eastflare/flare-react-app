@@ -10,5 +10,11 @@ pipeline {
                 sh "npm run build"
             }
         }
+        stage('deploy') {
+            steps {
+                sh "rm -r /web/*"
+                sh "mv ./dist/* /web"
+            }
+        }
     }
 }
