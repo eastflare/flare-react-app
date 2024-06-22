@@ -9,9 +9,10 @@ function App() {
   return (
     <>
       <div>
-        <span>Next라 쓰고 Back 이라 읽는다.</span>
-        <span>월급도둑 최상원</span>
-        <p>카공족 전기도둑 김주현</p>
+        <p>BRSE 전선배</p>
+        <p>월급루팡 최XX</p>
+        <p>카공족 전기도둑 김XX</p>
+        <p>(구)요시키 (현)송심당</p>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
