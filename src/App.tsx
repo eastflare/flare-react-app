@@ -1,14 +1,20 @@
 import './App.css'
+import { useState } from 'react';
+import MyModal from './components/MyModal'
 
 function App() {
+
+  const [isOpen, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  }
 
   return (
     <>
       <div>
-        <p>BRSE 전선배</p>
-        <p>월급루팡 최XX</p>
-        <p>카공족 전기도둑 김XX</p>
-        <p>(구)요시키 (현)송심당</p>
+        <button onClick={handleClick}>모달열기</button>
+        <MyModal isOpen={isOpen}/>
       </div>
     </>
   )
