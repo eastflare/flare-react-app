@@ -22,10 +22,10 @@ function App() {
   return (
     <>
       <div>
-        <button onClick={handleClick}>모달 열기</button>
-        <button onClick={handleClick1}>모달1 열기</button>
-        <button onClick={handleClick2}>모달2 열기</button>
-        <button onClick={handleClick3}>모달3 열기</button>
+        <button onClick={handleClick}>월급루팡</button>
+        <button onClick={handleClick1}>전선배</button>
+        <button onClick={handleClick2}>요시키상</button>
+        <button onClick={handleClick3}>카공족</button>
         <Modals/>
       </div>
     </>
