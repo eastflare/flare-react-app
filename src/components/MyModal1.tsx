@@ -7,6 +7,7 @@ interface Props {
 
 const MyModal = ({ onSubmit, onClose } : Props) => {
 
+    
     const handleClickSubmit = () => {
         onSubmit();
     };
@@ -17,7 +18,7 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
 
     return (
         <ReactModal isOpen>
-            <div>모달 입니다.</div>
+            <div>모달1 입니다.</div>
             <div>
                 <button onClick={handleClickSubmit}>확인</button>
                 <button onClick={handleClickCancel}>취소</button>
