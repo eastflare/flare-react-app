@@ -1,4 +1,6 @@
 import ReactModal from 'react-modal';
+import useModals from '../hooks/useModals'
+import {modals} from '../components/Modals'
 
 interface Props {
     onSubmit : () => void;
@@ -7,6 +9,7 @@ interface Props {
 
 const MyModal = ({ onSubmit, onClose } : Props) => {
 
+    const { openModal } = useModals();
     
     const handleClickSubmit = () => {
         onSubmit();
@@ -15,6 +18,10 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
     const handleClickCancel = () => {
         onClose();
     };
+
+    const openYoshiki = () => {
+        openModal(modals.myModal2, { onSubmit:()=>{alert('요시키상 어제 송심당에서 저녁먹음');}, foo: 'bar' });
+    }
 
     return (
         <ReactModal isOpen>
@@ -30,6 +37,7 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
                 <li>베트남 전문가</li>
             </ul>
             <div>
+                <button onClick={openYoshiki}>요시키상</button>
                 <button onClick={handleClickSubmit}>확인</button>
                 <button onClick={handleClickCancel}>취소</button>
             </div>

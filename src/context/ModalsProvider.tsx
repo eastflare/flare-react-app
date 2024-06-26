@@ -22,13 +22,28 @@ const ModalsProvider = ({ children } : ModalsProviderProp) => {
 
     const close = (Component:any) => {
         setOpenedModals((modals) => {
+            /*
             return modals.filter((modal) => {
                 return modal.Component !== Component;
             });
+            */
+            let lastIndex = -1;
+
+            // // 배열을 순회하면서 일치하는 객체의 인덱스를 찾음
+            modals.forEach((modal, index) => {
+                if (modal.Component === Component) {
+                    lastIndex = index; // 일치하는 객체의 인덱스 저장
+                }
+            });
+
+            // //마지막 모달 삭제
+            lastIndex > -1 && modals.splice(lastIndex, 1);
+            console.log(modals);
+            return modals;
         });
     };
 
-    const dispatch = useMemo(() => ({ open, close }), []);
+const dispatch = useMemo(() => ({ open, close }), []);
 
     return (
         <ModalsStateContext.Provider value={openedModals}>
