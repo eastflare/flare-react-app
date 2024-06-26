@@ -1,6 +1,6 @@
 import './App.css'
-import Modals , {modals} from './components/organisms/Modals'
-import useModals from './hooks/cmn/useModals'
+import Modals , {modals} from 'components/organisms/Modals'
+import useModals from 'hooks/cmn/useModals'
 
 function App() {
 

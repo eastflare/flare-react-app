@@ -1,5 +1,5 @@
 import {useContext} from 'react'
-import {ModalsDispatchContext} from '../../contexts/ModalsContext'
+import {ModalsDispatchContext} from 'contexts/ModalsContext'
 
 export default function useModals() {
 

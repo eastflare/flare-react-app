@@ -1,6 +1,6 @@
 import ReactModal from 'react-modal';
-import useModals from '../../../hooks/cmn/useModals'
-import {modals} from '../../../components/organisms/Modals'
+import useModals from 'hooks/cmn/useModals'
+import {modals} from 'components/organisms/Modals'
 
 interface Props {
     onSubmit : () => void;

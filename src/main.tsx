@@ -1,9 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import ReactModal from 'react-modal'
-import App from './App.tsx'
-import './index.css'
-import ModalsProvider from './contexts/ModalsProvider.tsx'
+import App from 'App.tsx'
+import 'index.css'
+import ModalsProvider from 'contexts/ModalsProvider.tsx'
 
 ReactModal.setAppElement('#root');
 
