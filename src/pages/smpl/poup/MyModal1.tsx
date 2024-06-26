@@ -1,6 +1,6 @@
 import ReactModal from 'react-modal';
-import useModals from '../hooks/useModals'
-import {modals} from '../components/Modals'
+import useModals from '../../../hooks/cmn/useModals'
+import {modals} from '../../../components/organisms/Modals'
 
 interface Props {
     onSubmit : () => void;
@@ -20,24 +20,24 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
     };
 
     const openYoshiki = () => {
-        openModal(modals.myModal1, { onSubmit:()=>{alert('요시키에서 전선배 표시함');}, foo: 'bar' });
+        openModal(modals.myModal2, { onSubmit:()=>{alert('요시키상 어제 송심당에서 저녁먹음');}, foo: 'bar' });
     }
 
     return (
         <ReactModal isOpen>
-            <h1>송XX</h1>
+            <h1>전선배</h1>
             <h2>이력 : </h2>
             <ul>
-                <li>매찾사 회원</li>
+                <li>NPDM 수행</li>
             </ul>
-            <h2>별명 : </h2>
+            <h2>특기사항 : </h2>
             <ul>
-                <li>(구)요시키상</li>
-                <li>(현)송심당 (대전거주)</li>
-                <li>(향후)Sam송(미국출장시)</li>
+                <li>BRSE</li>
+                <li>PLM (WBS, BOM, ECR, ECO) 전문가</li>
+                <li>베트남 전문가</li>
             </ul>
             <div>
-                <button onClick={openYoshiki}>요시키 에서 전선배</button>
+                <button onClick={openYoshiki}>요시키상</button>
                 <button onClick={handleClickSubmit}>확인</button>
                 <button onClick={handleClickCancel}>취소</button>
             </div>

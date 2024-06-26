@@ -1,12 +1,12 @@
 import loadable from '@loadable/component';
 import { useContext } from 'react';
-import { ModalsStateContext, ModalsDispatchContext } from '../context/ModalsContext';
+import { ModalsStateContext, ModalsDispatchContext } from '../../contexts/ModalsContext';
 
 export const modals = {
-    myModal: loadable(() => import('./MyModal')),
-    myModal1: loadable(() => import('./MyModal1')),
-    myModal2: loadable(() => import('./MyModal2')),
-    myModal3: loadable(() => import('./MyModal3')),
+    myModal: loadable(() => import('../../pages/smpl/poup/MyModal')),
+    myModal1: loadable(() => import('../../pages/smpl/poup/MyModal1')),
+    myModal2: loadable(() => import('../../pages/smpl/poup/MyModal2')),
+    myModal3: loadable(() => import('../../pages/smpl/poup/MyModal3')),
 };
 
 const Modals = () => {

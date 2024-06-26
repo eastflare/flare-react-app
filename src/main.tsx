@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import ReactModal from 'react-modal'
 import App from './App.tsx'
 import './index.css'
-import ModalsProvider from './context/ModalsProvider.tsx'
+import ModalsProvider from './contexts/ModalsProvider.tsx'
 
 ReactModal.setAppElement('#root');
 
