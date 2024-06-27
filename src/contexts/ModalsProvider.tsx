@@ -6,6 +6,7 @@ interface ModalsProviderProp {
 }
 
 interface ModalArr {
+    uuid : string;
     Component : ReactNode;
     props : (any)[];
 }
@@ -14,25 +15,19 @@ const ModalsProvider = ({ children } : ModalsProviderProp) => {
 
     const [openedModals, setOpenedModals] = useState<ModalArr[]>([]);
 
-    const open = (Component:any, props:any) => {
+    const open = (uuid:string, Component:ReactNode, props:any) => {
         setOpenedModals((modals) => {
-            return [...modals, { Component, props }];
+            return [...modals, {uuid, Component, props }];
         });
     }
 
-    const close = (Component:any) => {
+    const close = (uuid:string) => {
+
         setOpenedModals((modals) => {
-
-            let lastIndex = -1;
-
             // 배열을 순회하면서 일치하는 객체의 인덱스를 찾음
-            modals.forEach((modal, index) => {
-                if (modal.Component === Component) {
-                    lastIndex = index; // 일치하는 객체의 인덱스 저장
-                }
+            return modals.filter((modal) => {
+                return modal.uuid !== uuid;
             });
-
-            return modals.filter((_, index)=> index != lastIndex);
         });
     };
 

@@ -1,21 +1,17 @@
-import {useContext} from 'react'
-import {ModalsDispatchContext} from 'contexts/ModalsContext'
+import {useContext} from 'react';
+import {ModalsDispatchContext} from 'contexts/ModalsContext';
+import {v4 as uuid} from 'uuid';
 
 export default function useModals() {
 
-    const { open, close } = useContext(ModalsDispatchContext);
+    const { open } = useContext(ModalsDispatchContext);
   
     const openModal = (Component:any, props:any) => {
-        open(Component, props);
-    };
-
-    const closeModal = (Component:any) => {
-        close(Component);
+        open(uuid(), Component, props);
     };
 
     return {
         openModal,
-        closeModal,
     };
 }
   

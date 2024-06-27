@@ -1,8 +1,8 @@
 import { ReactNode, createContext } from 'react';
 
 interface ModalsContextType{
-    open : (Component:ReactNode, props:any) => void;
-    close: (Component:ReactNode) => void;
+    open : (uuid:string, Component:ReactNode, props:any) => void;
+    close: (uuid:string) => void;
 }
 
 export const ModalsDispatchContext = createContext<ModalsContextType>({

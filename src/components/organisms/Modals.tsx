@@ -16,10 +16,10 @@ const Modals = () => {
 
   return openedModals.map((modal:any, index:number) => {
 
-    const { Component, props } = modal;
+    const { uuid, Component, props } = modal;
     const { onSubmit, ...restProps } = props;
     const onClose = () => {
-      close(Component);
+      close(uuid);
     };
 
     const handleSubmit = async () => {

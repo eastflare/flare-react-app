@@ -1,6 +1,7 @@
 import ReactModal from 'react-modal';
 import useModals from 'hooks/cmn/useModals'
 import {modals} from 'components/organisms/Modals'
+import { useState } from 'react';
 
 interface Props {
     onSubmit : () => void;
@@ -10,6 +11,7 @@ interface Props {
 const MyModal = ({ onSubmit, onClose } : Props) => {
 
     const { openModal } = useModals();
+    const [ text, setText] = useState("");
     
     const handleClickSubmit = () => {
         onSubmit();
@@ -19,6 +21,11 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
         onClose();
     };
 
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setText(e.target.value);
+    };
+
     const openYoshiki = () => {
         openModal(modals.myModal1, { onSubmit:()=>{alert('요시키에서 전선배 표시함');}, foo: 'bar' });
     }
@@ -26,6 +33,7 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
     return (
         <ReactModal isOpen>
             <h1>송XX</h1>
+            <input type="text" value={text} onChange={onChange}/>
             <h2>이력 : </h2>
             <ul>
                 <li>매찾사 회원</li>

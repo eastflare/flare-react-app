@@ -1,4 +1,5 @@
 import ReactModal from 'react-modal';
+import {useEffect, useState} from 'react';
 
 interface Props {
     onSubmit : () => void;
@@ -6,6 +7,12 @@ interface Props {
 }
 
 const MyModal = ({ onSubmit, onClose } : Props) => {
+
+    const [ text, setText] = useState("");
+
+    useEffect(() => {
+        
+    },[]);
 
     const handleClickSubmit = () => {
         onSubmit();
@@ -15,9 +22,15 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
         onClose();
     };
 
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setText(e.target.value);
+    };
+
     return (
         <ReactModal isOpen>
             <h1>최XX</h1>
+            <input type="text" value={text} onChange={onChange}/>
             <h2>이력 : </h2>
             <ul>
                 <li>도토리 받고 개발 전문</li>
