@@ -1,7 +1,6 @@
 import loadable from '@loadable/component';
 import { useContext } from 'react';
 import { ModalsStateContext, ModalsDispatchContext } from 'contexts/ModalsContext';
-import { createPortal } from 'react-dom'
 import ModalContainer from './ModalContainer';
 
 export const modals = {
