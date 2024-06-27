@@ -1,6 +1,8 @@
 import loadable from '@loadable/component';
 import { useContext } from 'react';
 import { ModalsStateContext, ModalsDispatchContext } from 'contexts/ModalsContext';
+import { createPortal } from 'react-dom'
+import ModalContainer from './ModalContainer';
 
 export const modals = {
     myModal: loadable(() => import('pages/smpl/poup/MyModal')),
@@ -27,17 +29,19 @@ const Modals = () => {
             await onSubmit();
         }
         onClose();
-    };
+    };    
 
     return (
+      <>
+      <ModalContainer key={id}>
         <Component
           {...restProps}
-          key={id}
           onClose={onClose}
           onSubmit={handleSubmit}
         />
+      </ModalContainer>
+      </>
       );
-
   });
 };
 

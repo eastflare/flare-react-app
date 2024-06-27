@@ -1,4 +1,3 @@
-import ReactModal from 'react-modal';
 import useModals from 'hooks/cmn/useModals'
 import {modals} from 'components/organisms/Modals'
 import { useEffect, useState } from 'react';
@@ -35,7 +34,7 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
     }
 
     return (
-        <ReactModal isOpen>
+        <>
             <h1>송XX</h1>
             <input type="text" value={text} onChange={onChange}/>
             <h2>이력 : </h2>
@@ -53,7 +52,7 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
                 <button onClick={handleClickSubmit}>확인</button>
                 <button onClick={handleClickCancel}>취소</button>
             </div>
-        </ReactModal>
+        </>
     );
 };
 
