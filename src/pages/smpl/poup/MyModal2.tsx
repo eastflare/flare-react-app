@@ -1,7 +1,7 @@
 import ReactModal from 'react-modal';
 import useModals from 'hooks/cmn/useModals'
 import {modals} from 'components/organisms/Modals'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
     onSubmit : () => void;
@@ -12,6 +12,10 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
 
     const { openModal } = useModals();
     const [ text, setText] = useState("");
+
+    useEffect(() => {
+        console.log('요시키 렌더링');
+    },[]);
     
     const handleClickSubmit = () => {
         onSubmit();

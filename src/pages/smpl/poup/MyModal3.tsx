@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactModal from 'react-modal';
 
 interface Props {
@@ -9,6 +9,10 @@ interface Props {
 const MyModal = ({ onSubmit, onClose } : Props) => {
 
     const [ text, setText] = useState("");
+
+    useEffect(() => {
+        console.log('국민사기꾼 렌더링');
+    },[]);
     
     const handleClickSubmit = () => {
         onSubmit();

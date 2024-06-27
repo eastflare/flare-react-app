@@ -14,12 +14,12 @@ const Modals = () => {
   const openedModals = useContext(ModalsStateContext);
   const { close } = useContext(ModalsDispatchContext);
 
-  return openedModals.map((modal:any, index:number) => {
+  return openedModals.map((modal:any) => {
 
-    const { uuid, Component, props } = modal;
+    const { id, Component, props } = modal;
     const { onSubmit, ...restProps } = props;
     const onClose = () => {
-      close(uuid);
+      close(id);
     };
 
     const handleSubmit = async () => {
@@ -32,7 +32,7 @@ const Modals = () => {
     return (
         <Component
           {...restProps}
-          key={index}
+          key={id}
           onClose={onClose}
           onSubmit={handleSubmit}
         />

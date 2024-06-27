@@ -11,7 +11,7 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
     const [ text, setText] = useState("");
 
     useEffect(() => {
-        
+        console.log('최루팡 렌더링');
     },[]);
 
     const handleClickSubmit = () => {
