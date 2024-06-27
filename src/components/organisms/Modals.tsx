@@ -31,15 +31,14 @@ const Modals = () => {
     };    
 
     return (
-      <>
       <ModalContainer key={id}>
         <Component
+          key={id}
           {...restProps}
           onClose={onClose}
           onSubmit={handleSubmit}
         />
       </ModalContainer>
-      </>
       );
   });
 };

@@ -30,7 +30,7 @@ const StyleContent = styled.div`
 const ModalContainer = ({ children } : ModalsProviderProp) => {
     
     return (
-        <StyleRnd default={{x:-700,y:-300,width:600,height:600}}>
+        <StyleRnd default={{x:0,y:0,width:600,height:600}}>
             <StyleContent>
                 {children}
             </StyleContent>

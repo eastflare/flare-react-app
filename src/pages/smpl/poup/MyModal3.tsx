@@ -11,6 +11,9 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
 
     useEffect(() => {
         console.log('국민사기꾼 렌더링');
+        return () => {
+            console.log('국민사기꾼 다이');
+        }
     },[]);
     
     const handleClickSubmit = () => {

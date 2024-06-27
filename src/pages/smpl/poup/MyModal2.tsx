@@ -14,6 +14,9 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
 
     useEffect(() => {
         console.log('요시키 렌더링');
+        return () => {
+            console.log('요시키 다이');
+        }
     },[]);
     
     const handleClickSubmit = () => {

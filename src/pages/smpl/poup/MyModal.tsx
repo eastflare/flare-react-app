@@ -11,6 +11,11 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
 
     useEffect(() => {
         console.log('최루팡 렌더링');
+
+        return () => {
+            console.log('최루팡 다이');
+        }
+        
     },[]);
 
     const handleClickSubmit = () => {
