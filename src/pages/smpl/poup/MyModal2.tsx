@@ -1,28 +1,27 @@
-import useModals from 'hooks/cmn/useModals'
-import {modals} from 'components/organisms/Modals'
-import { useEffect, useState } from 'react';
+import useModals from "hooks/cmn/useModals";
+import { modals } from "components/cmn/Layout/Modals";
+import { useEffect, useState } from "react";
 
 interface Props {
-    onSubmit : () => void;
-    onClose  : () => void;
+    onSubmit: () => void;
+    onClose: () => void;
 }
 
-const MyModal = ({ onSubmit, onClose } : Props) => {
-
+const MyModal = ({ onSubmit, onClose }: Props) => {
     const { openModal } = useModals();
-    const [ text, setText] = useState("");
+    const [text, setText] = useState("");
 
     useEffect(() => {
-        console.log('요시키 렌더링');
+        console.log("요시키 렌더링");
         return () => {
-            console.log('요시키 다이');
-        }
-    },[]);
-    
+            console.log("요시키 다이");
+        };
+    }, []);
+
     const handleClickSubmit = () => {
         onSubmit();
     };
-    
+
     const handleClickCancel = () => {
         onClose();
     };
@@ -33,13 +32,18 @@ const MyModal = ({ onSubmit, onClose } : Props) => {
     };
 
     const openYoshiki = () => {
-        openModal(modals.myModal1, { onSubmit:()=>{alert('요시키에서 전선배 표시함');}, foo: 'bar' });
-    }
+        openModal(modals.myModal1, {
+            onSubmit: () => {
+                alert("요시키에서 전선배 표시함");
+            },
+            foo: "bar",
+        });
+    };
 
     return (
         <>
             <h1>송XX</h1>
-            <input type="text" value={text} onChange={onChange}/>
+            <input type="text" value={text} onChange={onChange} />
             <h2>이력 : </h2>
             <ul>
                 <li>매찾사 회원</li>

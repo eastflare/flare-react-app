@@ -38,10 +38,19 @@ function App() {
       foo: "bar",
     });
   };
+  const handleClickMatthew = () => {
+    openModal(modals.matthew, {
+      onSubmit: () => {
+        alert("디지몬 세상을 구한 Matthew");
+      },
+      foo: "bar",
+    });
+  };
 
   return (
     <>
       <div>
+        <button onClick={handleClickMatthew}>Matthew</button>
         <button onClick={handleClick}>월급루팡</button>
         <button onClick={handleClick1}>전선배</button>
         <button onClick={handleClick2}>요시키상</button>
