@@ -1,6 +1,6 @@
-import toast from "hooks/cmn/useToast";
-import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
+import toast from 'hooks/cmn/useToast';
+import styled from '@emotion/styled';
+import { useEffect, useState } from 'react';
 
 interface Props {
   onSubmit: () => void;
@@ -10,17 +10,17 @@ interface Props {
 const MatthewDiv = styled.div`
   width: 100%;
   height: 100%;
-  background-image: url("Matthew.png");
+  background-image: url('Matthew.png');
 `;
 
 const MyModal = ({ onSubmit, onClose }: Props) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
   useEffect(() => {
-    console.log("매튜 렌더링");
+    console.log('매튜 렌더링');
 
     return () => {
-      console.log("매튜 다이");
+      console.log('매튜 다이');
     };
   }, []);
 
@@ -29,7 +29,7 @@ const MyModal = ({ onSubmit, onClose }: Props) => {
   };
 
   const handleClickCancel = () => {
-    toast("saved");
+    toast('saved');
     onClose();
   };
 
@@ -41,7 +41,7 @@ const MyModal = ({ onSubmit, onClose }: Props) => {
   return (
     <MatthewDiv>
       <h1>매튜</h1>
-      <input type="text" value={text} onChange={onChange} />
+      <input type='text' value={text} onChange={onChange} />
       <h2>이력 : </h2>
       <ul>
         <li>빌드센터 출신</li>

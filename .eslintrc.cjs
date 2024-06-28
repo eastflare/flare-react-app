@@ -4,6 +4,8 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
     'plugin:react-hooks/recommended',
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
@@ -15,5 +17,8 @@ module.exports = {
     '@typescript-eslint/no-unused-vars' : 'off',
     '@typescript-eslint/no-explicit-any' : 'off',
     'react/no-unknown-property':['error',{ignore : ['datatype','css'] }],
+  },
+  settings: {
+    react: { version: 'detect' },
   },
 }

@@ -12,9 +12,7 @@ const MyModal = ({ onSubmit, onClose }: Props) => {
   useEffect(() => {
     console.log("최루팡 렌더링가링가링......");
 
-    return () => {
-      console.log("최루팡 다이");
-    };
+    return () => { console.log("최루팡 다이"); };
   }, []);
 
   const handleClickSubmit = () => {
@@ -22,7 +20,7 @@ const MyModal = ({ onSubmit, onClose }: Props) => {
   };
 
   const handleClickCancel = () => {
-    toast("saved");
+    toast("saved"); 
     onClose();
   };
 
