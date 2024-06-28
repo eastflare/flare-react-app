@@ -1,5 +1,5 @@
 import "./App.css";
-import Modals, { modals } from "components/organisms/Modals";
+import Modals, { modals } from "components/cmn/Layout/Modals";
 import useModals from "hooks/cmn/useModals";
 import { ToastContainer } from "react-toastify";
 
