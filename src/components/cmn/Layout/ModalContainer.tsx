@@ -23,7 +23,6 @@ const StyleContent = styled.div`
     flex-direction: column;
     height: 100%;
     background: white;
-    background-image: url("Matthew.png");
     padding: 20px;
     border-radius: 8px;
     border: 1px solid black;
