@@ -10,7 +10,7 @@ const MyModal = ({ onSubmit, onClose }: Props) => {
   const [text, setText] = useState("");
 
   useEffect(() => {
-    console.log("최루팡 렌더링");
+    console.log("최루팡 렌더링가링가링......");
 
     return () => {
       console.log("최루팡 다이");
