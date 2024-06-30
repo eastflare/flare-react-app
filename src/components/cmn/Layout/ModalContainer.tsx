@@ -32,7 +32,7 @@ const StyleContent = styled.div`
 
 const ModalContainer = ({ modal }: ModalsProviderProp) => {
   const { close } = useContext(PageDispatchContext);
-  const { id, Component, props, callback, options } = modal;
+  const { id, Component, props, callback } = modal;
   const { onSubmit, ...restProps } = props;
   const onClose = () => {
     close(id);
