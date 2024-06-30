@@ -1,11 +1,7 @@
 import toast from 'hooks/cmn/useToast';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-
-interface Props {
-  onSubmit: () => void;
-  onClose: () => void;
-}
+import { PageProps } from 'models/cmn/page';
 
 const MatthewDiv = styled.div`
   width: 100%;
@@ -13,7 +9,7 @@ const MatthewDiv = styled.div`
   background-image: url('Matthew.png');
 `;
 
-const MyModal = ({ onSubmit, onClose }: Props) => {
+const MyModal = ({ onClose, callback }: PageProps) => {
   const [text, setText] = useState('');
 
   useEffect(() => {
@@ -25,7 +21,7 @@ const MyModal = ({ onSubmit, onClose }: Props) => {
   }, []);
 
   const handleClickSubmit = () => {
-    onSubmit();
+    callback();
   };
 
   const handleClickCancel = () => {

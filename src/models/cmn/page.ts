@@ -1,10 +1,13 @@
-export type PageProps = {
-    onClose: () => void; // onClose 함수는 필수로 있어야 함
-    [key: string]: any; // 나머지 속성들은 모두 선택적으로 설정 가능
-};
+export type PageId = string;
+export type PageComponent = () => JSX.Element;
+export type PageProps = any;
+export type PageCallback = any;
+export type PageOptions = any;
 
 export type PageObj = {
-    id : string;
-    Component : () => JSX.Element;
-    props : PageProps;
+  id: PageId;
+  Component: PageComponent;
+  props?: PageProps;
+  callback?: PageCallback;
+  options?: PageOptions;
 };

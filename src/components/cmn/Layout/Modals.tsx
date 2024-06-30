@@ -1,47 +1,22 @@
-import loadable from "@loadable/component";
-import { useContext } from "react";
-import {
-  ModalsStateContext,
-  ModalsDispatchContext,
-} from "contexts/cmn/ModalsContext";
-import ModalContainer from "./ModalContainer";
+import loadable from '@loadable/component';
+import { useContext } from 'react';
+import { PageStateContext } from 'contexts/cmn/PageContext';
+import ModalContainer from './ModalContainer';
+import { PageObj } from 'models/cmn/page';
 
 export const modals = {
-  myModal: loadable(() => import("pages/smpl/poup/MyModal")),
-  myModal1: loadable(() => import("pages/smpl/poup/MyModal1")),
-  myModal2: loadable(() => import("pages/smpl/poup/MyModal2")),
-  myModal3: loadable(() => import("pages/smpl/poup/MyModal3")),
-  matthew: loadable(() => import("pages/smpl/poup/Matthew")),
+  myModal: loadable(() => import('pages/smpl/poup/MyModal')),
+  myModal1: loadable(() => import('pages/smpl/poup/MyModal1')),
+  myModal2: loadable(() => import('pages/smpl/poup/MyModal2')),
+  myModal3: loadable(() => import('pages/smpl/poup/MyModal3')),
+  matthew: loadable(() => import('pages/smpl/poup/Matthew')),
 };
 
 const Modals = () => {
-  const openedModals = useContext(ModalsStateContext);
-  const { close } = useContext(ModalsDispatchContext);
+  const openedModals = useContext(PageStateContext);
 
-  return openedModals.map((modal: any) => {
-    const { id, Component, props } = modal;
-    const { onSubmit, ...restProps } = props;
-    const onClose = () => {
-      close(id);
-    };
-
-    const handleSubmit = async () => {
-      if (typeof onSubmit === "function") {
-        await onSubmit();
-      }
-      onClose();
-    };
-
-    return (
-      <ModalContainer key={id}>
-        <Component
-          key={id}
-          {...restProps}
-          onClose={onClose}
-          onSubmit={handleSubmit}
-        />
-      </ModalContainer>
-    );
+  return openedModals.map((modal: PageObj) => {
+    return <ModalContainer key={modal.id} modal={modal} />;
   });
 };
 

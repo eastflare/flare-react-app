@@ -1,50 +1,65 @@
-import "./App.css";
-import Modals, { modals } from "components/cmn/Layout/Modals";
-import useModals from "hooks/cmn/useModals";
-import { ToastContainer } from "react-toastify";
+import './App.css';
+import Modals, { modals } from 'components/cmn/Layout/Modals';
+import useGoPage from 'hooks/cmn/useGoPage';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
-  const { openModal } = useModals();
+  const { goModal } = useGoPage();
 
   const handleClick = () => {
-    openModal(modals.myModal, {
-      onSubmit: () => {
-        alert("짱");
+    goModal(
+      modals.myModal,
+      {
+        foo: 'bar',
       },
-      foo: "bar",
-    });
+      () => {
+        alert('뭐하는 사람인가요?');
+      }
+    );
   };
+
   const handleClick1 = () => {
-    openModal(modals.myModal1, {
-      onSubmit: () => {
-        alert("짱나");
+    goModal(
+      modals.myModal1,
+      {
+        foo: 'bar',
       },
-      foo: "bar",
-    });
+      null,
+      null
+    );
   };
   const handleClick2 = () => {
-    openModal(modals.myModal2, {
-      onSubmit: () => {
-        alert("짱나짱");
+    goModal(
+      modals.myModal2,
+      {
+        foo: 'bar',
       },
-      foo: "bar",
-    });
+      () => {
+        alert('요시키상');
+      }
+    );
   };
   const handleClick3 = () => {
-    openModal(modals.myModal3, {
-      onSubmit: () => {
-        alert("짱나짱나");
+    goModal(
+      modals.myModal3,
+      {
+        foo: 'bar',
       },
-      foo: "bar",
-    });
+      () => {
+        alert('당신은 뭐하는 사람인가요?');
+      }
+    );
   };
   const handleClickMatthew = () => {
-    openModal(modals.matthew, {
-      onSubmit: () => {
-        alert("디지몬 세상을 구한 Matthew");
+    goModal(
+      modals.matthew,
+      {
+        foo: 'bar',
       },
-      foo: "bar",
-    });
+      () => {
+        alert('디지몬 세상을 구한 Matthew');
+      }
+    );
   };
 
   return (

@@ -1,16 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import ReactModal from "react-modal";
-import App from "App.tsx";
-import "index.css";
-import ModalsProvider from "contexts/cmn/ModalsProvider.tsx";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import ReactModal from 'react-modal';
+import App from 'App.tsx';
+import 'index.css';
+import PageProvider from 'contexts/cmn/PageProvider';
 
-ReactModal.setAppElement("#root");
+ReactModal.setAppElement('#root');
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <ModalsProvider>
+    <PageProvider>
       <App />
-    </ModalsProvider>
-  </React.StrictMode>,
+    </PageProvider>
+  </React.StrictMode>
 );
