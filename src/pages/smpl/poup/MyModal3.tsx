@@ -1,8 +1,10 @@
+import useToast from 'hooks/cmn/useToast';
 import { PageProps } from 'models/cmn/page';
 import { useEffect, useState } from 'react';
 
 const MyModal = ({ onClose, callback }: PageProps) => {
   const [text, setText] = useState('');
+  const {myToast} = useToast();
 
   useEffect(() => {
     console.log('국민사기꾼 렌더링');
@@ -12,7 +14,9 @@ const MyModal = ({ onClose, callback }: PageProps) => {
   }, []);
 
   const handleClickSubmit = () => {
-    callback();
+    callback?.();
+    myToast('saved');
+    onClose();
   };
 
   const handleClickCancel = () => {

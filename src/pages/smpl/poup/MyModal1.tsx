@@ -2,10 +2,12 @@ import { modals } from 'components/cmn/Layout/Modals';
 import { useEffect, useState } from 'react';
 import useGoPage from 'hooks/cmn/useGoPage';
 import { PageProps } from 'models/cmn/page';
+import useToast from 'hooks/cmn/useToast';
 
 const MyModal = ({ onClose, callback }: PageProps) => {
   const { goModal } = useGoPage();
   const [text, setText] = useState('');
+  const {myToast} = useToast();
 
   useEffect(() => {
     console.log('전선배 렌더링');
@@ -17,6 +19,8 @@ const MyModal = ({ onClose, callback }: PageProps) => {
 
   const handleClickSubmit = () => {
     callback?.();
+    myToast('saved');
+    onClose();
   };
 
   const handleClickCancel = () => {

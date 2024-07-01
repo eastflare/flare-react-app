@@ -1,7 +1,7 @@
-import {
-  PageCallback,
+import {  
   PageComponent,
   PageId,
+  PageObj,
   PageOptions,
   PageProps,
 } from 'models/cmn/page';
@@ -12,7 +12,6 @@ interface PageContextType {
     id: PageId,
     Component: PageComponent,
     props: PageProps,
-    callback?: PageCallback,
     options?: PageOptions
   ) => void;
   close: (id: string) => void;
@@ -23,4 +22,4 @@ export const PageDispatchContext = createContext<PageContextType>({
   close: () => {},
 });
 
-export const PageStateContext = createContext<any>([]);
+export const PageStateContext = createContext<PageObj[]>([]);

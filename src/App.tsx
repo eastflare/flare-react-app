@@ -6,15 +6,23 @@ import { ToastContainer } from 'react-toastify';
 function App() {
   const { goModal } = useGoPage();
 
+  const handleClickMatthew = () => {
+    goModal(
+      modals.matthew,
+      {
+        foo: 'bar',
+        callback : () => { alert('매튜 뭐하는 사람인가요?'); }
+      }
+    );
+  };
+
   const handleClick = () => {
     goModal(
       modals.myModal,
       {
         foo: 'bar',
+        callback : () => { alert('루팡 뭐하는 사람인가요?'); }
       },
-      () => {
-        alert('뭐하는 사람인가요?');
-      }
     );
   };
 
@@ -23,9 +31,8 @@ function App() {
       modals.myModal1,
       {
         foo: 'bar',
+        callback : () => { alert('전선배 뭐하는 사람인가요?'); }
       },
-      null,
-      null
     );
   };
   const handleClick2 = () => {
@@ -33,9 +40,7 @@ function App() {
       modals.myModal2,
       {
         foo: 'bar',
-      },
-      () => {
-        alert('요시키상');
+        callback : () => { alert('요시키 뭐하는 사람인가요?'); }
       }
     );
   };
@@ -44,20 +49,7 @@ function App() {
       modals.myModal3,
       {
         foo: 'bar',
-      },
-      () => {
-        alert('당신은 뭐하는 사람인가요?');
-      }
-    );
-  };
-  const handleClickMatthew = () => {
-    goModal(
-      modals.matthew,
-      {
-        foo: 'bar',
-      },
-      () => {
-        alert('디지몬 세상을 구한 Matthew');
+        callback : () => { alert('김주팔 뭐하는 사람인가요?'); }
       }
     );
   };

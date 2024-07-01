@@ -27,7 +27,7 @@ const StyleContent = styled.div`
 
 const ModalContainer = ({ modal }: ModalsProviderProp) => {
   const { close } = useContext(PageDispatchContext);
-  const { id, Component, props, callback } = modal;
+  const { id, Component, props } = modal;
   const { onSubmit, ...restProps } = props;
   const onClose = () => {
     close(id);
@@ -47,7 +47,6 @@ const ModalContainer = ({ modal }: ModalsProviderProp) => {
           {...restProps}
           onClose={onClose}
           onSubmit={handleSubmit}
-          callback={callback}
         />
       </StyleContent>
     </StyleRnd>

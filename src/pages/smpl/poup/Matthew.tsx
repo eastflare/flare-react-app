@@ -1,7 +1,7 @@
-import toast from 'hooks/cmn/useToast';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
 import { PageProps } from 'models/cmn/page';
+import useToast from 'hooks/cmn/useToast';
 
 const MatthewDiv = styled.div`
   width: 100%;
@@ -11,6 +11,7 @@ const MatthewDiv = styled.div`
 
 const MyModal = ({ onClose, callback }: PageProps) => {
   const [text, setText] = useState('');
+  const {myToast} = useToast();
 
   useEffect(() => {
     console.log('매튜 렌더링');
@@ -21,11 +22,12 @@ const MyModal = ({ onClose, callback }: PageProps) => {
   }, []);
 
   const handleClickSubmit = () => {
-    callback();
+    callback?.();
+    myToast('saved');
+    onClose();
   };
 
   const handleClickCancel = () => {
-    toast('saved');
     onClose();
   };
 

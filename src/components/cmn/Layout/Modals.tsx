@@ -13,9 +13,9 @@ export const modals = {
 };
 
 const Modals = () => {
-  const openedModals = useContext(PageStateContext);
+  const arrModals = useContext(PageStateContext);
 
-  return openedModals.map((modal: PageObj) => {
+  return arrModals.map((modal: PageObj) => {
     return <ModalContainer key={modal.id} modal={modal} />;
   });
 };

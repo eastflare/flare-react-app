@@ -2,10 +2,12 @@ import useGoPage from 'hooks/cmn/useGoPage';
 import { modals } from 'components/cmn/Layout/Modals';
 import { useEffect, useState } from 'react';
 import { PageProps } from 'models/cmn/page';
+import useToast from 'hooks/cmn/useToast';
 
-const MyModal = ({ onSubmit, onClose }: PageProps) => {
+const MyModal = ({ onClose, callback }: PageProps) => {
   const { goModal } = useGoPage();
   const [text, setText] = useState('');
+  const {myToast} = useToast();
 
   useEffect(() => {
     console.log('요시키 렌더링');
@@ -15,7 +17,9 @@ const MyModal = ({ onSubmit, onClose }: PageProps) => {
   }, []);
 
   const handleClickSubmit = () => {
-    onSubmit();
+    callback?.();
+    myToast('saved');
+    onClose();
   };
 
   const handleClickCancel = () => {
@@ -29,9 +33,6 @@ const MyModal = ({ onSubmit, onClose }: PageProps) => {
 
   const openYoshiki = () => {
     goModal(modals.myModal1, {
-      onSubmit: () => {
-        alert('요시키에서 전선배 표시함');
-      },
       foo: 'bar',
     });
   };

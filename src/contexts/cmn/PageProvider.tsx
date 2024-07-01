@@ -1,7 +1,6 @@
 import { ReactNode, useState, useMemo } from 'react';
 import { PageDispatchContext, PageStateContext } from './PageContext';
 import {
-  PageCallback,
   PageComponent,
   PageId,
   PageObj,
@@ -9,22 +8,20 @@ import {
   PageProps,
 } from 'models/cmn/page';
 
-interface PageProviderProp {
+const PageProvider = ({ children }: {
   children: ReactNode;
-}
+}) => {
 
-const PageProvider = ({ children }: PageProviderProp) => {
   const [openedModals, setOpenedModals] = useState<PageObj[]>([]);
-
+  
   const open = (
     id: PageId,
     Component: PageComponent,
     props: PageProps,
-    callback?: PageCallback,
     options?: PageOptions
   ) => {
     setOpenedModals((modals) => {
-      return [...modals, { id, Component, props, callback, options }];
+      return [...modals, { id, Component, props, options }];
     });
   };
 
