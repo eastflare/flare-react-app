@@ -23,10 +23,31 @@ export default function useGoPage() {
   };
 
   const closeModal = (id: string) => {
-    //subPages 에서 자식을 찾았으면 재귀로 closeModal 호출
-
+    const removeChildrenRecursively = (parentId: string) => {
+      // parentId를 부모로 가지고 있는 자식 페이지들을 순회하면서 처리
+      Object.keys(subPages).forEach((key) => {
+        if (subPages[key].includes(parentId)) {
+          // 해당 자식 페이지를 재귀적으로 제거
+          removeChildrenRecursively(key);
+          // 자식 페이지 제거
+          removePage(key);
+          // 자식 모달 제거
+          removeModal(key);
+          // subPages에서도 자식 페이지 제거
+          removeSubPage(key);
+        }
+      });
+      // 부모 페이지 제거
+      removePage(parentId);
+      // 부모 모달 제거
+      removeModal(parentId);
+      // subPages에서도 부모 페이지 제거
+      removeSubPage(parentId);
+    };
+    // id를 가진 모달을 제거
     removeModal(id);
-    removePage(id);
+    // 재귀적으로 자식 페이지들을 제거하는 함수 호출
+    removeChildrenRecursively(id);
   };
 
   const goPage = () => {};
