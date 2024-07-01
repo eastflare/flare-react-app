@@ -1,8 +1,6 @@
 import loadable from '@loadable/component';
-import { useContext } from 'react';
-import { PageStateContext } from 'contexts/cmn/PageContext';
 import ModalContainer from './ModalContainer';
-import { PageObj } from 'models/cmn/page';
+import useGoPage from 'hooks/cmn/useGoPage';
 
 export const modals = {
   myModal: loadable(() => import('pages/smpl/poup/MyModal')),
@@ -13,10 +11,10 @@ export const modals = {
 };
 
 const Modals = () => {
-  const arrModals = useContext(PageStateContext);
+  const { pages, modals } = useGoPage();
 
-  return arrModals.map((modal: PageObj) => {
-    return <ModalContainer key={modal.id} modal={modal} />;
+  return modals.map((modalId: string) => {
+    return <ModalContainer key={modalId} id={modalId} modal={pages[modalId]} />;
   });
 };
 

@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { Rnd } from 'react-rnd';
 import { PageObj } from 'models/cmn/page';
-import { PageDispatchContext } from 'contexts/cmn/PageContext';
-import { useContext } from 'react';
+import useGoPage from 'hooks/cmn/useGoPage';
+import { PageContext, PageStateContext } from 'contexts/cmn/PageContext';
 
 interface ModalsProviderProp {
+  id: string;
   modal: PageObj;
 }
 
@@ -25,31 +26,32 @@ const StyleContent = styled.div`
   border: 1px solid black;
 `;
 
-const ModalContainer = ({ modal }: ModalsProviderProp) => {
-  const { close } = useContext(PageDispatchContext);
-  const { id, Component, props } = modal;
-  const { onSubmit, ...restProps } = props;
+const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
+  //const { close } = useContext(PageDispatchContext);
+  const { closeModal } = useGoPage();
+  console.log('modal--->', modal);
+  const { Component, props } = modal;
+
+  //const { onSubmit, ...restProps } = props;
   const onClose = () => {
-    close(id);
+    closeModal(id);
   };
 
-  const handleSubmit = async () => {
-    if (typeof onSubmit === 'function') {
-      await onSubmit();
-    }
-    onClose();
-  };
+  // const handleSubmit = async () => {
+  //   if (typeof onSubmit === 'function') {
+  //     await onSubmit();
+  //   }
+  //   onClose();
+  // };
 
   return (
-    <StyleRnd default={{ x: 0, y: -300, width: 600, height: 600 }}>
-      <StyleContent>
-        <Component
-          {...restProps}
-          onClose={onClose}
-          onSubmit={handleSubmit}
-        />
-      </StyleContent>
-    </StyleRnd>
+    <PageContext.Provider value={id}>
+      <StyleRnd default={{ x: 0, y: -300, width: 600, height: 600 }}>
+        <StyleContent>
+          <Component {...props} onClose={onClose} />
+        </StyleContent>
+      </StyleRnd>
+    </PageContext.Provider>
   );
 };
 

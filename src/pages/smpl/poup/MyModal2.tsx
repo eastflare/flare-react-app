@@ -1,13 +1,15 @@
 import useGoPage from 'hooks/cmn/useGoPage';
 import { modals } from 'components/cmn/Layout/Modals';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { PageProps } from 'models/cmn/page';
 import useToast from 'hooks/cmn/useToast';
+import { PageContext } from 'contexts/cmn/PageContext';
 
 const MyModal = ({ onClose, callback }: PageProps) => {
   const { goModal } = useGoPage();
   const [text, setText] = useState('');
-  const {myToast} = useToast();
+  const { myToast } = useToast();
+  const parentId = useContext(PageContext);
 
   useEffect(() => {
     console.log('요시키 렌더링');
@@ -18,6 +20,7 @@ const MyModal = ({ onClose, callback }: PageProps) => {
 
   const handleClickSubmit = () => {
     callback?.();
+    alert(parentId);
     myToast('saved');
     onClose();
   };
