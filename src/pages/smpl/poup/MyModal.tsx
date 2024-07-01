@@ -1,18 +1,74 @@
 import useToast from 'hooks/cmn/useToast';
 import { PageProps } from 'models/cmn/page';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { CellClickedEvent, ColDef } from 'ag-grid-community';
 
 const MyModal = ({ onClose, callback }: PageProps) => {
   const [text, setText] = useState('');
-  const {myToast} = useToast();
+  const { myToast } = useToast();
+  const [rowData, setRowData] = useState();
+  const gridRef = useRef<AgGridReact>(null);
 
   useEffect(() => {
+    fetch('https://www.ag-grid.com/example-assets/row-data.json')
+      .then((result) => result.json())
+      .then((rowData) => setRowData(rowData));
     console.log('최루팡 렌더링가링가링......');
-
     return () => {
       console.log('최루팡 다이');
     };
   }, []);
+
+  const columns: ColDef[] = [
+    {
+      width: 50,
+      headerCheckboxSelection: true,
+      checkboxSelection: true,
+      cellStyle: { textAlign: 'center' },
+    },
+    {
+      headerName: 'No',
+      width: 80,
+      cellStyle: { textAlign: 'center' },
+      cellRenderer: (params: any) => {
+        return params.node.rowIndex + 1;
+      },
+    },
+    {
+      field: 'make',
+      headerName: '메이커',
+      width: 150,
+      cellStyle: { textAlign: 'left' },
+    },
+    {
+      field: 'model',
+      headerName: '모델명',
+      width: 200,
+      cellStyle: { textAlign: 'left' },
+      flex: 1,
+    },
+    {
+      field: 'price',
+      headerName: '가격',
+      width: 200,
+      cellStyle: { textAlign: 'right' },
+    },
+  ];
+
+  const defaultColDef: ColDef = {
+    sortable: true,
+    filter: true,
+  };
+
+  const cellClickedListener = (e: CellClickedEvent) => {
+    if (e.colDef.field === 'price') {
+      console.log(e.api.getSelectedRows());
+      alert(e.colDef.field + '클릭함!!');
+    }
+  };
 
   const handleClickSubmit = () => {
     callback?.();
@@ -46,6 +102,20 @@ const MyModal = ({ onClose, callback }: PageProps) => {
       <div>
         <button onClick={handleClickSubmit}>확인</button>
         <button onClick={handleClickCancel}>취소</button>
+      </div>
+      <div className='ag-theme-alpine' style={{ width: '100%' }}>
+        <AgGridReact
+          ref={gridRef}
+          rowData={rowData}
+          columnDefs={columns}
+          defaultColDef={defaultColDef}
+          animateRows={true}
+          rowSelection='multiple'
+          onCellClicked={cellClickedListener}
+          domLayout='autoHeight'
+          pagination={true}
+          paginationPageSize={10}
+        ></AgGridReact>
       </div>
     </>
   );
