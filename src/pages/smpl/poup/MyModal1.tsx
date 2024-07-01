@@ -7,7 +7,7 @@ import useToast from 'hooks/cmn/useToast';
 const MyModal = ({ onClose, callback }: PageProps) => {
   const { goModal } = useGoPage();
   const [text, setText] = useState('');
-  const {myToast} = useToast();
+  const { myToast } = useToast();
 
   useEffect(() => {
     console.log('전선배 렌더링');
@@ -56,9 +56,21 @@ const MyModal = ({ onClose, callback }: PageProps) => {
         <li>베트남 전문가</li>
       </ul>
       <div>
-        <button onClick={openYoshiki}>요시키상</button>
-        <button onClick={handleClickSubmit}>확인</button>
-        <button onClick={handleClickCancel}>취소</button>
+        <button onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
+          요시키상
+        </button>
+        <button
+          onClick={handleClickSubmit}
+          onGotPointerCapture={handleClickSubmit}
+        >
+          확인
+        </button>
+        <button
+          onClick={handleClickCancel}
+          onGotPointerCapture={handleClickCancel}
+        >
+          취소
+        </button>
       </div>
     </>
   );

@@ -11,7 +11,7 @@ const MatthewDiv = styled.div`
 
 const MyModal = ({ onClose, callback }: PageProps) => {
   const [text, setText] = useState('');
-  const {myToast} = useToast();
+  const { myToast } = useToast();
 
   useEffect(() => {
     console.log('매튜 렌더링');
@@ -52,8 +52,18 @@ const MyModal = ({ onClose, callback }: PageProps) => {
         <li>선택받은 아이</li>
       </ul>
       <div>
-        <button onClick={handleClickSubmit}>확인</button>
-        <button onClick={handleClickCancel}>취소</button>
+        <button
+          onClick={handleClickSubmit}
+          onGotPointerCapture={handleClickSubmit}
+        >
+          확인
+        </button>
+        <button
+          onClick={handleClickCancel}
+          onGotPointerCapture={handleClickCancel}
+        >
+          취소
+        </button>
       </div>
     </MatthewDiv>
   );

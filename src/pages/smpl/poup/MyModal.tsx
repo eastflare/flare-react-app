@@ -100,8 +100,18 @@ const MyModal = ({ onClose, callback }: PageProps) => {
         <li>월급루팡</li>
       </ul>
       <div>
-        <button onClick={handleClickSubmit}>확인</button>
-        <button onClick={handleClickCancel}>취소</button>
+        <button
+          onClick={handleClickSubmit}
+          onGotPointerCapture={handleClickSubmit}
+        >
+          확인
+        </button>
+        <button
+          onClick={handleClickCancel}
+          onGotPointerCapture={handleClickCancel}
+        >
+          취소
+        </button>
       </div>
       <div className='ag-theme-alpine' style={{ width: '100%' }}>
         <AgGridReact
