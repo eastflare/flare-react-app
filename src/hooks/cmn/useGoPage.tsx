@@ -8,7 +8,7 @@ export default function useGoPage() {
   //const { open } = useContext(PageDispatchContext);
   const { pages, addPage, removePage } = usePageStore();
   const { modals, addModal, removeModal } = useModalStore();
-  const { subPages, addSubPage } = useSubPageStore();
+  const { subPages, addSubPage, removeSubPage } = useSubPageStore();
   const parentId = useContext(PageContext);
 
   const goModal = (Component: any, props: PageProps, options?: PageOptions) => {
