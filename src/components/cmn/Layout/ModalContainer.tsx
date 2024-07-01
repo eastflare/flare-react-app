@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { Rnd } from 'react-rnd';
 import { PageObj } from 'models/cmn/page';
 import useGoPage from 'hooks/cmn/useGoPage';
-import { PageContext, PageStateContext } from 'contexts/cmn/PageContext';
+import { PageContext } from 'contexts/cmn/PageContext';
 
 interface ModalsProviderProp {
   id: string;

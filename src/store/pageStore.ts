@@ -8,7 +8,7 @@ interface PageState {
   removePage: (id: string) => void;
 }
 
-export const usePageStore = create<PageState>((set, get) => ({
+export const usePageStore = create<PageState>((set) => ({
   pages: {},
   addPage: (id, page) =>
     set((state) => {
