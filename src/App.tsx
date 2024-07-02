@@ -63,6 +63,7 @@ function App() {
         <button onClick={handleClick2}>요시키상</button>
         <button onClick={handleClick3}>카공족</button>
         <ToastContainer />
+        <Modals />
       </div>
     </>
   );
