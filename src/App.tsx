@@ -5,53 +5,49 @@ import { ToastContainer } from 'react-toastify';
 
 function App() {
   const { goModal } = useGoPage();
+  console.log('APP의 고모달 입니다.');
 
   const handleClickMatthew = () => {
-    goModal(
-      modals.matthew,
-      {
-        foo: 'bar',
-        callback : () => { alert('매튜 뭐하는 사람인가요?'); }
-      }
-    );
+    goModal(modals.matthew, {
+      foo: 'bar',
+      callback: () => {
+        alert('매튜 뭐하는 사람인가요?');
+      },
+    });
   };
 
   const handleClick = () => {
-    goModal(
-      modals.myModal,
-      {
-        foo: 'bar',
-        callback : () => { alert('루팡 뭐하는 사람인가요?'); }
+    goModal(modals.myModal, {
+      foo: 'bar',
+      callback: () => {
+        alert('루팡 뭐하는 사람인가요?');
       },
-    );
+    });
   };
 
   const handleClick1 = () => {
-    goModal(
-      modals.myModal1,
-      {
-        foo: 'bar',
-        callback : () => { alert('전선배 뭐하는 사람인가요?'); }
+    goModal(modals.myModal1, {
+      foo: 'bar',
+      callback: () => {
+        alert('전선배 뭐하는 사람인가요?');
       },
-    );
+    });
   };
   const handleClick2 = () => {
-    goModal(
-      modals.myModal2,
-      {
-        foo: 'bar',
-        callback : () => { alert('요시키 뭐하는 사람인가요?'); }
-      }
-    );
+    goModal(modals.myModal2, {
+      foo: 'bar',
+      callback: () => {
+        alert('요시키 뭐하는 사람인가요?');
+      },
+    });
   };
   const handleClick3 = () => {
-    goModal(
-      modals.myModal3,
-      {
-        foo: 'bar',
-        callback : () => { alert('김주팔 뭐하는 사람인가요?'); }
-      }
-    );
+    goModal(modals.myModal3, {
+      foo: 'bar',
+      callback: () => {
+        alert('김주팔 뭐하는 사람인가요?');
+      },
+    });
   };
 
   return (
