@@ -1,5 +1,5 @@
 import { PageContextInit, PageContextType } from 'models/cmn/page';
-import { ReactNode, createContext, useEffect, useState } from 'react';
+import { ReactNode, createContext, useState } from 'react';
 
 export const PageContext = createContext<PageContextType>(PageContextInit);
 

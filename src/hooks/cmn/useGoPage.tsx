@@ -6,9 +6,9 @@ import { getUuid } from 'utils/rapUtil';
 
 export default function useGoPage() {
   //const { open } = useContext(PageDispatchContext);
-  const { pages, addPage, removePage } = usePageStore();
+  const { pages, addPage } = usePageStore();
   const { modals, addModal, removeModal } = useModalStore();
-  const { subPages, addSubPage, removeSubPage } = useSubPageStore();
+  const { subPages } = useSubPageStore();
   const { pageId, addChildId, removeChildId } = useContext(PageContext);
 
   const goModal = (Component: any, props: PageProps, options?: PageOptions) => {

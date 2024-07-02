@@ -2,11 +2,7 @@ import styled from '@emotion/styled';
 import { Rnd } from 'react-rnd';
 import { PageObj } from 'models/cmn/page';
 import useGoPage from 'hooks/cmn/useGoPage';
-import {
-  PageContext,
-  PageContextInitialState,
-  PageContextProvider,
-} from 'contexts/cmn/PageContext';
+import { PageContextProvider } from 'contexts/cmn/PageContext';
 import { useEffect } from 'react';
 import { usePageStore } from 'store/pageStore';
 import PageModals from './PageModals';

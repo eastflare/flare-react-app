@@ -1,7 +1,6 @@
 import loadable from '@loadable/component';
 import ModalContainer from './ModalContainer';
 import useGoPage from 'hooks/cmn/useGoPage';
-import React from 'react';
 
 export const modals = {
   myModal: loadable(() => import('pages/smpl/poup/MyModal')),
