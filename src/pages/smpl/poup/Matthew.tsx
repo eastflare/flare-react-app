@@ -7,6 +7,8 @@ const MatthewDiv = styled.div`
   width: 100%;
   height: 100%;
   background-image: url('Matthew.png');
+  background-size: contain;
+  background-repeat: no-repeat;
 `;
 
 const MyModal = ({ onClose, callback }: PageProps) => {

@@ -13,17 +13,14 @@ const StyleRnd = styled(Rnd)`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: white;
+  border: 1px solid black;
   .react-draggable {
     position: relative;
   }
   .react-resizable {
     position: relative;
   }
-`;
-
-const StyleContent = styled.div`
-  background: white;
-  border: 1px solid black;
 `;
 
 const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
@@ -47,9 +44,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
   return (
     <PageContext.Provider value={id}>
       <StyleRnd default={{ x: 0, y: -300, width: 600, height: 600 }}>
-        <StyleContent>
-          <Component {...props} onClose={onClose} />
-        </StyleContent>
+        <Component {...props} onClose={onClose} />
       </StyleRnd>
     </PageContext.Provider>
   );
