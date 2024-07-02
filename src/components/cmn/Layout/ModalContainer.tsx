@@ -45,7 +45,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
   return (
     <PageContextProvider pageId={id}>
       {ReactDOM.createPortal(
-        <StyleRnd default={{ x: -1200, y: -200, width: 600, height: 600 }}>
+        <StyleRnd default={{ x: -600, y: -600, width: 600, height: 600 }}>
           <Component {...props} onClose={onClose} />
         </StyleRnd>,
         modalElement
