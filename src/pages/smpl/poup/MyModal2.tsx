@@ -55,9 +55,21 @@ const MyModal = ({ onClose, callback }: PageProps) => {
         <li>(향후)Sam송(미국출장시)</li>
       </ul>
       <div>
-        <button onClick={openYoshiki}>요시키 에서 전선배</button>
-        <button onClick={handleClickSubmit}>확인</button>
-        <button onClick={handleClickCancel}>취소</button>
+        <button onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
+          요시키 에서 전선배
+        </button>
+        <button
+          onClick={handleClickSubmit}
+          onGotPointerCapture={handleClickSubmit}
+        >
+          확인
+        </button>
+        <button
+          onClick={handleClickCancel}
+          onGotPointerCapture={handleClickCancel}
+        >
+          취소
+        </button>
       </div>
     </>
   );
