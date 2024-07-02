@@ -6,6 +6,7 @@ import { PageContextProvider } from 'contexts/cmn/PageContext';
 import { useEffect } from 'react';
 import { usePageStore } from 'store/pageStore';
 import PageModals from './PageModals';
+import ReactDOM from 'react-dom';
 
 interface ModalsProviderProp {
   id: string;
@@ -52,12 +53,16 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
   //   }
   //   onClose();
   // };
+  const modalElement = document.getElementById('modal')!;
 
   return (
     <PageContextProvider pageId={id}>
-      <StyleRnd default={{ x: 0, y: -300, width: 600, height: 600 }}>
-        <Component {...props} onClose={onClose} />
-      </StyleRnd>
+      {ReactDOM.createPortal(
+        <StyleRnd default={{ x: -1200, y: -200, width: 600, height: 600 }}>
+          <Component {...props} onClose={onClose} />
+        </StyleRnd>,
+        modalElement
+      )}
       <PageModals />
     </PageContextProvider>
   );
