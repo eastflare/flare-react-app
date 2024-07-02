@@ -1,42 +1,60 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.container {
+  display: flex;
+  flex: 1;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.leftmenu {
+  width: 200px;
+  background-color: #f0f0f0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.content {
+  flex: 1;
+  padding: 20px;
 }
 
-.card {
-  padding: 2em;
+.topmenu {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
 }
 
-.read-the-docs {
-  color: #888;
+.topmenu nav ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+}
+
+.topmenu nav ul li {
+  margin-right: 20px;
+}
+
+.topmenu nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.leftmenu ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.leftmenu ul li {
+  padding: 10px;
+}
+
+.leftmenu ul li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+
+.leftmenu ul li a:hover {
+  background-color: #ccc;
 }

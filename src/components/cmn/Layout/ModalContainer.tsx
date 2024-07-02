@@ -4,7 +4,6 @@ import { PageObj } from 'models/cmn/page';
 import useGoPage from 'hooks/cmn/useGoPage';
 import { PageContextProvider } from 'contexts/cmn/PageContext';
 import { useEffect } from 'react';
-import { usePageStore } from 'store/pageStore';
 import PageModals from './PageModals';
 import ReactDOM from 'react-dom';
 
@@ -28,31 +27,19 @@ const StyleRnd = styled(Rnd)`
 `;
 
 const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
-  //const { close } = useContext(PageDispatchContext);
   const { closeModal } = useGoPage();
-  const { removePage } = usePageStore();
-
-  console.log('modal--->', modal);
   const { Component, props } = modal;
 
   useEffect(() => {
     return () => {
-      //removePage(id);
       console.log('나는 죽습니다.' + id);
     };
   }, []);
 
-  //const { onSubmit, ...restProps } = props;
   const onClose = () => {
     closeModal(id);
   };
 
-  // const handleSubmit = async () => {
-  //   if (typeof onSubmit === 'function') {
-  //     await onSubmit();
-  //   }
-  //   onClose();
-  // };
   const modalElement = document.getElementById('modal')!;
 
   return (
