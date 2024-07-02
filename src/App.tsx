@@ -1,11 +1,15 @@
 import './App.css';
 import Modals, { modals } from 'components/cmn/Layout/Modals';
 import useGoPage from 'hooks/cmn/useGoPage';
+import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 
 function App() {
   const { goModal } = useGoPage();
-  console.log('APP의 고모달 입니다.');
+
+  useEffect(() => {
+    console.log('APP의 고모달 입니다.');
+  }, []);
 
   const handleClickMatthew = () => {
     goModal(modals.matthew, {
@@ -58,7 +62,6 @@ function App() {
         <button onClick={handleClick1}>전선배</button>
         <button onClick={handleClick2}>요시키상</button>
         <button onClick={handleClick3}>카공족</button>
-        <Modals />
         <ToastContainer />
       </div>
     </>

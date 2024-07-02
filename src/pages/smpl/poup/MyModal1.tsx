@@ -48,12 +48,14 @@ const MyModal = ({ onClose, callback }: PageProps) => {
       <h2>이력 : </h2>
       <ul>
         <li>NPDM 수행</li>
+        <li>생건PLM 수행예정</li>
       </ul>
       <h2>특기사항 : </h2>
       <ul>
-        <li>BRSE</li>
         <li>PLM (WBS, BOM, ECR, ECO) 전문가</li>
-        <li>베트남 전문가</li>
+        <li>베트남 전문가(BRSE)</li>
+        <li>Copilot 영업사원</li>
+        <li>Endless Effort</li>
       </ul>
       <div>
         <button onClick={openYoshiki} onGotPointerCapture={openYoshiki}>

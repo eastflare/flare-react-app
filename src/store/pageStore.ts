@@ -16,7 +16,7 @@ export const usePageStore = create<PageState>((set) => ({
     }),
   removePage: (id) =>
     set((state) => {
-      const _pages = _.cloneDeep(state.pages);
+      const _pages = { ...state.pages };
       delete _pages[id];
       return { pages: _pages };
     }),

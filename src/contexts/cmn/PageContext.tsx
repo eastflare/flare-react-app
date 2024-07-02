@@ -1,3 +1,4 @@
+import { countBy } from 'lodash';
 import { PageContextInit, PageContextType } from 'models/cmn/page';
 import { ReactNode, createContext, useState } from 'react';
 
@@ -15,8 +16,6 @@ export const PageContextProvider = ({
 
   // 값을 변경하는 함수를 정의합니다.
   const addChildId = (childId: string) => {
-    // setChildId([...childIds, childId]);
-    console.log('addChildId');
     setChildId((prev) => [...prev, childId]);
   };
 
