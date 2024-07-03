@@ -45,7 +45,19 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
   return (
     <PageContextProvider pageId={id}>
       {ReactDOM.createPortal(
-        <StyleRnd default={{ x: -600, y: -600, width: 600, height: 600 }}>
+        <StyleRnd
+          dragHandleClassName={'handle'}
+          default={{ x: -600, y: -300, width: 600, height: 600 }}
+        >
+          <div
+            className='handle'
+            style={{
+              backgroundColor: 'gray',
+              padding: '1rem',
+            }}
+          >
+            Drag
+          </div>
           <Component {...props} onClose={onClose} />
         </StyleRnd>,
         modalElement
