@@ -1,12 +1,13 @@
 import { modals } from 'components/cmn/Layout/Modals';
 import useGoPage from 'hooks/cmn/useGoPage';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const HomePage = () => {
   const { goModal } = useGoPage();
+  const [input, setInput] = useState('');
 
   useEffect(() => {
-    console.log('APP의 고모달 입니다.');
+    console.log('메인페이지 입니다.');
   }, []);
 
   const handleClickMatthew = () => {
@@ -54,6 +55,11 @@ const HomePage = () => {
 
   return (
     <>
+      <input
+        type='text'
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
       <button onClick={handleClickMatthew}>Matthew</button>
       <button onClick={handleClick}>월급루팡</button>
       <button onClick={handleClick1}>전선배</button>

@@ -40,7 +40,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
     closeModal(id);
   };
 
-  const modalElement = document.getElementById('modal')!;
+  const modalElement = document.getElementById('modal-root')!;
 
   return (
     <PageContextProvider pageId={id}>
