@@ -1,7 +1,7 @@
 import TopMenu from './TopMenu';
 import LeftMenu from './LeftMenu';
-import MainContent from './MainContent';
 import { ReactNode } from 'react';
+import TaskUpper from './TaskUpper';
 
 const GloablContainer = (props: { children: ReactNode }) => {
   return (
@@ -9,7 +9,8 @@ const GloablContainer = (props: { children: ReactNode }) => {
       <TopMenu />
       <div className='container'>
         <LeftMenu />
-        <MainContent>{props.children}</MainContent>
+        {/* <MainContent>{props.children}</MainContent> */}
+        <TaskUpper>{props.children}</TaskUpper>
       </div>
     </>
   );
