@@ -52,8 +52,8 @@ const StyledMainBody = styled.div`
 `;
 
 const StyledMainLeft = styled.div<{ isCollapsed: boolean }>`
-  width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "250px")};
-  min-width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "250px")};
+  width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "150px")};
+  min-width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "150px")};
   transition: all 0.2s ease-out;
   border-right: 1px solid #32cd32;
   background-color: #f0f0f0;
@@ -68,14 +68,14 @@ const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
   flex-grow: 1;
   height: 100%;
   /* min-height는 StyleGlobalPage가 가짐 */
-  width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100% -250px)")};
+  width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100% -150px)")};
   overflow-y: auto;
 `;
 
 const StyledMainPage = styled.div<{ showPageTopBar: boolean }>`
   width: 100%;
   height: ${({ showPageTopBar }) =>
-    showPageTopBar ? "calc(100% -250px)" : "100%"}; //PageTopBar 높이 만큼 빼줌
+    showPageTopBar ? "calc(100% -150px)" : "100%"}; //PageTopBar 높이 만큼 빼줌
   padding: 0;
 `;
 
