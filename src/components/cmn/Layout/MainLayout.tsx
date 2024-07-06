@@ -2,7 +2,10 @@ import { ReactNode } from "react";
 import TopMenu from "./TopMenu";
 import LeftMenu from "./LeftMenu";
 
-const UniversalContainer = ({ children }: { children: ReactNode }) => {
+const MainLayout = ({ children }: { children: ReactNode }) => {
+  //메인 화면의 레이아웃 구성
+  //상단메뉴, 좌측메뉴, 화면영역은 children : Routes 객체임
+
   return (
     <>
       <TopMenu />
@@ -14,4 +17,4 @@ const UniversalContainer = ({ children }: { children: ReactNode }) => {
   );
 };
 
-export default UniversalContainer;
+export default MainLayout;

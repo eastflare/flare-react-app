@@ -25,10 +25,13 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     return React.Children.toArray(children);
   }, [children]);
 
-  console.log("이렇게해도 찍히나요??", routes);
-
   const routeItem = useMemo(() => routesMap?.[pathname], [routesMap, pathname]);
   const currentRouteId = useMemo(() => routeItem?.props?.path, [routeItem]);
+
+  console.log("전체 routes -> ", routes);
+  console.log("현재 Path ->", pathname);
+  console.log("현재 선택 id -> ", currentRouteId);
+  console.log("현재 선택 item -> ", routeItem);
 
   const handleInitialRoutes = useCallback(() => {
     if (Object.keys(routesMap)?.length === 0) {
@@ -49,20 +52,16 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     }
   }, [routes]);
 
-  useEffect(() => {
-    console.log("한번만 실행되야함");
-    handleInitialRoutes();
-  }, []);
-
   const handleChangeTaskRoute = useCallback(() => {
     if (routeItem) {
+      //taskRoutes.pathname 에 지금들어온 경로가 없을 경우 페이지를 추가한다.
       if (!taskRoutes?.[pathname]) {
         setTaskRoutes(prev => {
           const [home, ...rest] = Object.keys(prev);
           console.log(home);
 
           if (rest.length > MAX_TASK_SIZE) {
-            //delete prev[rest.at(0) ?? ""];
+            delete prev[rest[0] ?? ""];
           }
           return {
             ...prev,
@@ -71,8 +70,15 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         });
       }
     }
-  }, [pathname]);
+  }, [pathname, routeItem, taskRoutes]);
 
+  useLayoutEffect(() => {
+    console.log("한번만 실행되야함");
+    handleInitialRoutes();
+  }, []);
+
+  //DOM 이 렌더링 되기 전에 동기적으로 처리 할때
+  //(위의 함수가 pathname, routeItem, taskRoutes 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
   useLayoutEffect(handleChangeTaskRoute, [handleChangeTaskRoute]);
 
   return {

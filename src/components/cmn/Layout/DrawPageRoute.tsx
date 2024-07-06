@@ -10,7 +10,7 @@ interface DisplayRouteProps extends PathRouteProps {
 function DrawPageRoute({ element, routesProps, display, ...props }: DisplayRouteProps) {
   return (
     <>
-      <StyledDisplayElement children={element} display={display ? "${display}" : undefined} />
+      <StyledDisplayElement children={element} display={display ? `${display}` : undefined} />
       <Routes {...routesProps}>
         <Route {...props} element={null} />
       </Routes>
