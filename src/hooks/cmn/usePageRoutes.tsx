@@ -59,6 +59,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       if (!taskRoutes?.[pathname]) {
         setTaskRoutes(prev => {
           const [home, ...rest] = Object.keys(prev);
+          console.log(home);
 
           if (rest.length > MAX_TASK_SIZE) {
             //delete prev[rest.at(0) ?? ""];
