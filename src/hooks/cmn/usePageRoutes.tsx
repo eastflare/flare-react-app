@@ -59,7 +59,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   // routes가 추가 될때만 실행됨
   useLayoutEffect(initPageRoutesMap, [initPageRoutesMap]);
 
-  const openPageRoutes = useCallback(() => {
+  const openPageRoute = useCallback(() => {
     //현재 주소와 매핑된 Route가 있을 경우
     if (curRouteItem) {
       //이미열려있는 페이지가 없을 경우 Route를 추가한다.
@@ -84,7 +84,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
 
   //DOM 이 렌더링 되기 전에 동기적으로 처리 할때
   //(위의 함수가 pathname, curRouteItem, openedRoutes 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
-  useLayoutEffect(openPageRoutes, [openPageRoutes]);
+  useLayoutEffect(openPageRoute, [openPageRoute]);
 
   return {
     openedRoutes,
