@@ -1,8 +1,17 @@
-import { ReactNode } from 'react';
-import GlobalContainer from './GlobalContainer';
+import { ReactNode } from "react";
+import TopMenu from "./TopMenu";
+import LeftMenu from "./LeftMenu";
 
-const UniversalContainer = (props: { children: ReactNode }) => {
-  return <GlobalContainer>{props.children}</GlobalContainer>;
+const UniversalContainer = ({ children }: { children: ReactNode }) => {
+  return (
+    <>
+      <TopMenu />
+      <div className='container'>
+        <LeftMenu />
+        {children}
+      </div>
+    </>
+  );
 };
 
 export default UniversalContainer;

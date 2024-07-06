@@ -1,6 +1,6 @@
-import { memo, Suspense } from 'react';
-import DisplayRoute from './DisplayRoute';
-import type { RoutesProps } from 'react-router';
+import { memo, Suspense } from "react";
+import type { RoutesProps } from "react-router";
+import DrawPageRoute from "./DrawPageRoute";
 
 interface TaskRoutesProps {
   routes: Record<PropertyKey, any>;
@@ -8,13 +8,13 @@ interface TaskRoutesProps {
   currentRouteId: string;
 }
 
-function TaskRoutes({ routes, routesProps, currentRouteId }: TaskRoutesProps) {
+function DrawPageRoutes({ routes, routesProps, currentRouteId }: TaskRoutesProps) {
   return (
     <>
       <Suspense fallback=''>
-        {Object.keys(routes).map((key) => {
+        {Object.keys(routes).map(key => {
           return (
-            <DisplayRoute
+            <DrawPageRoute
               key={key}
               {...routes?.[key]?.props}
               routesProps={routesProps}
@@ -27,4 +27,4 @@ function TaskRoutes({ routes, routesProps, currentRouteId }: TaskRoutesProps) {
   );
 }
 
-export default memo(TaskRoutes);
+export default memo(DrawPageRoutes);
