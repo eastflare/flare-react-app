@@ -3,7 +3,7 @@ import { usePageRouterContext } from "contexts/cmn/PageRouterContext";
 import PageTab from "./PageTab";
 
 const PageTopBar = () => {
-  const { task, curTask, onNavigateTask, onDeleteTask } = usePageRouterContext();
+  const { task, curTaskId, onNavigateTask, onDeleteTask } = usePageRouterContext();
 
   return (
     <StyledPageTopBar
@@ -19,11 +19,13 @@ const PageTopBar = () => {
           let taskPath = objTask?.path ?? "";
           let taskLabel = objTask?.label ?? "";
 
+          console.log("PageTopBar 현재 curTaskId ", curTaskId);
+
           return (
             <PageTab
               key={key}
               label={taskLabel}
-              isActive={curTask === taskId}
+              isActive={curTaskId === taskId}
               onClose={onDeleteTask(taskId)}
               onClick={() => onNavigateTask({ id: taskId, path: taskPath })}
               taskItem={task.get(key)!}

@@ -24,7 +24,7 @@ function initTaskMap(): TaskMap {
 const MainRoutes = () => {
   const navigate = useNavigate();
 
-  const [curTask, setCurTask] = useState<string>("");
+  const [curTaskId, setCurTaskId] = useState<string>("");
   const [task, setTask] = useState<TaskMap>(initTaskMap());
   const [deleteTaskId, setDeleteTaskId] = useState<string | undefined>();
   const { key, pathname } = useLocation();
@@ -50,7 +50,8 @@ const MainRoutes = () => {
           return new Map(prevState).set(id, newTask);
         });
       }
-      setCurTask(id);
+      console.log("이건 언제되는 건가요?", id);
+      setCurTaskId(id);
     },
     [setTask, task.size]
   );
@@ -64,8 +65,9 @@ const MainRoutes = () => {
   const handleDeleteTask = useCallback(
     (id: string) => (e: MouseEvent | undefined) => {
       e?.stopPropagation();
-      const isCurTab = curTask === id;
+      const isCurTab = curTaskId === id;
 
+      //열려있는 Tab이면 바로 이전 Tab을 연다
       if (isCurTab) {
         const ids = [...task.keys()];
         const targetIdx = ids.indexOf(id);
@@ -75,20 +77,20 @@ const MainRoutes = () => {
 
         if (prevItem && prevItem.path) {
           navigate?.(prevItem.path);
-
-          setTask(prevState => {
-            const newState = new Map(prevState);
-            newState.delete(id);
-            return newState;
-          });
-
-          setDeleteTaskId(id);
         }
-      } else {
-        alert("안열려있는 탭을 지울려고 하는가?");
       }
+
+      //Tab을 지운다
+      setTask(prevState => {
+        const newState = new Map(prevState);
+        newState.delete(id);
+        return newState;
+      });
+
+      //Body에다가 지원진 아이디를 알려준다 (Body에서는 해당 ID에 해당하는 Body를 삭제한다.)
+      setDeleteTaskId(id);
     },
-    [task, setTask, curTask]
+    [task, setTask, curTaskId]
   );
 
   //페이지를 삭제한 후 동기화를 위해 삭제한 곳에서 호출됨
@@ -99,7 +101,7 @@ const MainRoutes = () => {
   useEffect(() => {
     task.forEach((taskItem, id) => {
       if (taskItem.path === pathname) {
-        setCurTask(String(id));
+        setCurTaskId(String(id));
       }
     });
   }, [key, pathname, task]);
@@ -107,6 +109,7 @@ const MainRoutes = () => {
   const getPageRouterProviderProps = () => ({
     task,
     setTask,
+    curTaskId,
     onOpenTask: handleOpenTask,
     onClearTask: handleClearTask,
     onDeleteTask: handleDeleteTask,

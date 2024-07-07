@@ -6,7 +6,6 @@ import { useLocation } from "react-router-dom";
 const MAX_TASK_SIZE = 10;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
-  //임시 (다른 훅에 들어가있는 state)
   const { deleteTaskId, onDeleteOk, onOpenTask } = usePageRouterContext();
 
   const { pathname } = useLocation();
@@ -24,10 +23,10 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const curRouteItem = useMemo(() => routesMap?.[pathname], [routesMap, pathname]);
   const curRouteId = useMemo(() => curRouteItem?.props?.path, [curRouteItem]);
 
-  console.log("전체 routes -> ", routes);
-  console.log("현재 Path ->", pathname);
-  console.log("현재 선택 id -> ", curRouteId);
-  console.log("현재 선택 item -> ", curRouteItem);
+  // console.log("전체 routes -> ", routes);
+  // console.log("현재 Path ->", pathname);
+  // console.log("현재 선택 id -> ", curRouteId);
+  // console.log("현재 선택 item -> ", curRouteItem);
 
   const initPageRoutesMap = useCallback(() => {
     //전체 Route를 Map<id, element> 형태의 맵으로 재구성한다.
