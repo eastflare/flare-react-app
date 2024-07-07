@@ -1,20 +1,13 @@
+import { usePageRouterContext } from "contexts/cmn/PageRouterContext";
 import React, { startTransition, useCallback, useLayoutEffect } from "react";
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-export type TaskItem = { id: string; path: string; label: string };
-export type TaskMap = Map<string, TaskItem>;
-
-const HomeTaskItem: TaskItem = { id: "/", path: "/", label: "Home" };
 const MAX_TASK_SIZE = 10;
-
-function initTaskMap(): TaskMap {
-  return new Map([[HomeTaskItem.id, HomeTaskItem]]);
-}
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
   //임시 (다른 훅에 들어가있는 state)
-  const [task] = useState<TaskMap>(initTaskMap());
+  const { task } = usePageRouterContext();
 
   const { pathname } = useLocation();
 

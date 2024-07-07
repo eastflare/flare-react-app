@@ -2,7 +2,7 @@ import { createContext, useContext } from "react";
 
 interface PageRouterProviderProps {
   children: React.ReactNode;
-  value?: string;
+  value?: any;
 }
 
 const PageRouterContext = createContext<PageRouterProviderProps["value"]>(undefined);
