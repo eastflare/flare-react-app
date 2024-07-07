@@ -1,5 +1,5 @@
 import { usePageRouterContext } from "contexts/cmn/PageRouterContext";
-import React, { startTransition, useCallback, useLayoutEffect } from "react";
+import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -7,7 +7,7 @@ const MAX_TASK_SIZE = 10;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
   //임시 (다른 훅에 들어가있는 state)
-  const { task } = usePageRouterContext();
+  const { deleteTaskId, onDeleteOk, onOpenTask } = usePageRouterContext();
 
   const { pathname } = useLocation();
 
@@ -72,17 +72,38 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
           };
         });
       }
+
+      //상단 Tab을 구성한다.
+      startTransition(() => {
+        const label = "신규화면";
+        onOpenTask({
+          id: pathname,
+          path: pathname,
+          label: label,
+        });
+      });
     }
-  }, [pathname, curRouteItem, openedRoutes]);
+  }, [onOpenTask, pathname, curRouteItem, openedRoutes]);
 
   //DOM 이 렌더링 되기 전에 동기적으로 처리 할때
   //(위의 함수가 pathname, curRouteItem, openedRoutes 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
   useLayoutEffect(openPageRoute, [openPageRoute]);
 
+  useEffect(() => {
+    if (deleteTaskId === undefined) return;
+    startTransition(() => {
+      setOpenedRoutes(prev => {
+        delete prev[deleteTaskId];
+        return { ...prev };
+      });
+
+      onDeleteOk();
+    });
+  }, [deleteTaskId]);
+
   return {
     openedRoutes,
     curRouteId,
-    task,
   };
 };
 

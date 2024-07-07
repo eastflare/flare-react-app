@@ -6,29 +6,47 @@ const PageTopBar = () => {
   const { task, curTask, onNavigateTask, onDeleteTask } = usePageRouterContext();
 
   return (
-    <StyledMDIContainer>
-      {[...task.keys()].map((key: string) => {
-        let objTask = task.get(key);
-        let taskId = objTask?.id ?? "";
-        let taskPath = objTask?.path ?? "";
-        let taskLabel = objTask?.label ?? "";
+    <StyledPageTopBar
+      onContextMenu={e => {
+        e.preventDefault();
+        return false;
+      }}
+    >
+      <StyledMDIContainer>
+        {[...task.keys()].map((key: string) => {
+          let objTask = task.get(key);
+          let taskId = objTask?.id ?? "";
+          let taskPath = objTask?.path ?? "";
+          let taskLabel = objTask?.label ?? "";
 
-        return (
-          <PageTab
-            key={key}
-            label={taskLabel}
-            isActive={curTask === taskId}
-            onClose={onDeleteTask(taskId)}
-            onClick={() => onNavigateTask({ id: taskId, path: taskPath })}
-            taskItem={task.get(key)!}
-          />
-        );
-      })}
-    </StyledMDIContainer>
+          return (
+            <PageTab
+              key={key}
+              label={taskLabel}
+              isActive={curTask === taskId}
+              onClose={onDeleteTask(taskId)}
+              onClick={() => onNavigateTask({ id: taskId, path: taskPath })}
+              taskItem={task.get(key)!}
+            />
+          );
+        })}
+      </StyledMDIContainer>
+    </StyledPageTopBar>
   );
 };
 
 export default PageTopBar;
+
+const StyledPageTopBar = styled.div`
+  height: 40px;
+  padding: 4px 4px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #000000;
+  box-shadow: #f0f0f0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
 
 const StyledMDIContainer = styled.div`
   flex-grow: 1;

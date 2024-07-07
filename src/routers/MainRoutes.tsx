@@ -15,7 +15,7 @@ export type TaskItem = { id: string; path: string; label: string };
 export type TaskMap = Map<string, TaskItem>;
 
 const HomeTaskItem: TaskItem = { id: "/", path: "/", label: "Home" };
-//const MAX_TASK_SIZE = 10;
+const MAX_TASK_SIZE = 10;
 
 function initTaskMap(): TaskMap {
   return new Map([[HomeTaskItem.id, HomeTaskItem]]);
@@ -26,7 +26,7 @@ const MainRoutes = () => {
 
   const [curTask, setCurTask] = useState<string>("");
   const [task, setTask] = useState<TaskMap>(initTaskMap());
-  const [deletedTaskId, setDeletedTaskId] = useState<string | undefined>();
+  const [deleteTaskId, setDeleteTaskId] = useState<string | undefined>();
   const { key, pathname } = useLocation();
 
   const handleNavigateTask = useCallback(
@@ -34,6 +34,25 @@ const MainRoutes = () => {
       navigate?.(path);
     },
     [navigate]
+  );
+
+  const handleOpenTask = useCallback(
+    ({ id, path, label }: TaskItem) => {
+      if (!task.has(id)) {
+        setTask((prevState: TaskMap) => {
+          const newTask = { id, path, label };
+          const [homeId, ...rest] = [...prevState.keys()];
+
+          if (rest.length > MAX_TASK_SIZE) {
+            prevState.delete(rest[0] ?? "");
+            console.log("Home을 제외한 제일 첫번째 페이지가 삭제됐습니다. homeId ->", homeId);
+          }
+          return new Map(prevState).set(id, newTask);
+        });
+      }
+      setCurTask(id);
+    },
+    [setTask, task.size]
   );
 
   //열려있는 모든 Tab을 초기화 한다.
@@ -63,7 +82,7 @@ const MainRoutes = () => {
             return newState;
           });
 
-          setDeletedTaskId(id);
+          setDeleteTaskId(id);
         }
       } else {
         alert("안열려있는 탭을 지울려고 하는가?");
@@ -71,6 +90,11 @@ const MainRoutes = () => {
     },
     [task, setTask, curTask]
   );
+
+  //페이지를 삭제한 후 동기화를 위해 삭제한 곳에서 호출됨
+  const handleDeleteOk = useCallback(() => {
+    setDeleteTaskId(undefined);
+  }, []);
 
   useEffect(() => {
     task.forEach((taskItem, id) => {
@@ -83,10 +107,12 @@ const MainRoutes = () => {
   const getPageRouterProviderProps = () => ({
     task,
     setTask,
+    onOpenTask: handleOpenTask,
     onClearTask: handleClearTask,
     onDeleteTask: handleDeleteTask,
     onNavigateTask: handleNavigateTask,
-    deletedTaskId: deletedTaskId,
+    deleteTaskId: deleteTaskId,
+    onDeleteOk: handleDeleteOk,
   });
 
   return (
