@@ -47,7 +47,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
       {ReactDOM.createPortal(
         <StyleRnd
           dragHandleClassName={"handle"}
-          default={{ x: -600, y: -300, width: 600, height: 600 }}
+          default={{ x: 600, y: -800, width: 600, height: 600 }}
         >
           <div
             className='handle'
