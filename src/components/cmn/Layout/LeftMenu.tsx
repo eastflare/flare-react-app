@@ -29,27 +29,27 @@ const LeftMenu = () => {
         </li>
         <li>
           <a href='#' onClick={e => handleClick("/sample4/eastflare", e)}>
-            /sample4/:id 이
+            샘플4/:id 이
           </a>
         </li>
         <li>
           <a href='#' onClick={e => handleClick("/sample3/jscho128", e)}>
-            /sample4/:id 조
+            샘플4/:id 조
           </a>
         </li>
         <li>
           <a href='#' onClick={e => handleClick("/sample5/eastflare/이현승", e)}>
-            /sample5/:id/:name 이
+            샘플5/:id/:name 이
           </a>
         </li>
         <li>
           <a href='#' onClick={e => handleClick("/sample5/jscho128/조재성", e)}>
-            /sample5/:id/:name 조
+            샘플5/:id/:name 조
           </a>
         </li>
         <li>
           <a href='#' onClick={e => handleClick("/sample6?message=ABCDEF", e)}>
-            Sample6 메세지
+            샘플6 메세지
           </a>
         </li>
         <li>
