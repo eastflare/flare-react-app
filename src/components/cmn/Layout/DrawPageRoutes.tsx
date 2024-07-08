@@ -5,10 +5,10 @@ import DrawPageRoute from "./DrawPageRoute";
 interface TaskRoutesProps {
   routes: Record<PropertyKey, any>;
   routesProps: RoutesProps;
-  currentRouteId: string;
+  curRouteId: string;
 }
 
-function DrawPageRoutes({ routes, routesProps, currentRouteId }: TaskRoutesProps) {
+function DrawPageRoutes({ routes, routesProps, curRouteId }: TaskRoutesProps) {
   return (
     <>
       <Suspense fallback=''>
@@ -18,7 +18,7 @@ function DrawPageRoutes({ routes, routesProps, currentRouteId }: TaskRoutesProps
               key={key}
               {...routes?.[key]?.props}
               routesProps={routesProps}
-              display={routes?.[key]?.props?.path === currentRouteId}
+              display={routes?.[key]?.props?.path === curRouteId}
             />
           );
         })}

@@ -1,4 +1,4 @@
-import { TaskItem } from "routers/MainRoutes";
+import { PageTabItem } from "routers/MainRoutes";
 import styled from "@emotion/styled";
 
 interface PageTabProps {
@@ -6,11 +6,11 @@ interface PageTabProps {
   onClick: (...args: any[]) => void;
   onClose: (e?: MouseEvent) => void;
   isActive: boolean;
-  taskItem: TaskItem;
+  pageTabItem: PageTabItem;
 }
 
-const PageTab = ({ label, onClick, onClose, isActive, taskItem }: PageTabProps) => {
-  console.log(isActive, taskItem);
+const PageTab = ({ label, onClick, onClose, isActive, pageTabItem }: PageTabProps) => {
+  console.log(isActive, pageTabItem);
 
   const isNotClosable = ["Home"].includes(label);
 
@@ -21,7 +21,7 @@ const PageTab = ({ label, onClick, onClose, isActive, taskItem }: PageTabProps) 
         <StyledIconButton
           onClick={e => {
             e.stopPropagation();
-            alert("팝업을 띄웁니다. " + taskItem.path);
+            alert("팝업을 띄웁니다. " + PageTabItem.path);
           }}
         >
           ※

@@ -4,9 +4,9 @@ import DrawPageRoutes from "./DrawPageRoutes";
 import usePageRoutes from "hooks/cmn/usePageRoutes";
 
 const PageRoutes = ({ children, ...props }: RoutesProps) => {
-  const { curRouteId, openedRoutes } = usePageRoutes({ children });
+  const { curRouteId, openedRoutesMap } = usePageRoutes({ children });
 
-  return <DrawPageRoutes currentRouteId={curRouteId} routes={openedRoutes} routesProps={props} />;
+  return <DrawPageRoutes curRouteId={curRouteId} routes={openedRoutesMap} routesProps={props} />;
 };
 
 export default PageRoutes;

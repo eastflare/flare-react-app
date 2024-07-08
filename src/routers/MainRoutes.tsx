@@ -11,69 +11,69 @@ import PageRoutes from "components/cmn/Layout/PageRoutes";
 import { PageRouterProvider } from "contexts/cmn/PageRouterContext";
 import { useCallback, useEffect, useState } from "react";
 
-export type TaskItem = { id: string; path: string; label: string };
-export type TaskMap = Map<string, TaskItem>;
+export type PageTabItem = { id: string; path: string; label: string };
+export type PageTabMap = Map<string, PageTabItem>;
 
-const HomeTaskItem: TaskItem = { id: "/", path: "/", label: "Home" };
-const MAX_TASK_SIZE = 10;
+const HomePageTabItem: PageTabItem = { id: "/", path: "/", label: "Home" };
+const MAX_PAGE_SIZE = 10;
 
-function initTaskMap(): TaskMap {
-  return new Map([[HomeTaskItem.id, HomeTaskItem]]);
+function initPageTabMap(): PageTabMap {
+  return new Map([[HomePageTabItem.id, HomePageTabItem]]);
 }
 
 const MainRoutes = () => {
   const navigate = useNavigate();
 
-  const [curTaskId, setCurTaskId] = useState<string>("");
-  const [task, setTask] = useState<TaskMap>(initTaskMap());
-  const [deleteTaskId, setDeleteTaskId] = useState<string | undefined>();
+  const [curPageTabId, setCurPageTabId] = useState<string>("");
+  const [pageTab, setPageTab] = useState<PageTabMap>(initPageTabMap());
+  const [deletePageTabId, setDeletePageTabId] = useState<string | undefined>();
   const { key, pathname } = useLocation();
 
-  const handleNavigateTask = useCallback(
-    ({ path }: Pick<TaskItem, "path">) => {
+  const handleNavigatePageTab = useCallback(
+    ({ path }: Pick<PageTabItem, "path">) => {
       navigate?.(path);
     },
     [navigate]
   );
 
-  const handleOpenTask = useCallback(
-    ({ id, path, label }: TaskItem) => {
-      if (!task.has(id)) {
-        setTask((prevState: TaskMap) => {
-          const newTask = { id, path, label };
+  const handleOpenPageTab = useCallback(
+    ({ id, path, label }: PageTabItem) => {
+      if (!pageTab.has(id)) {
+        setPageTab((prevState: PageTabMap) => {
+          const newPageTab = { id, path, label };
           const [homeId, ...rest] = [...prevState.keys()];
 
-          if (rest.length > MAX_TASK_SIZE) {
+          if (rest.length > MAX_PAGE_SIZE) {
             prevState.delete(rest[0] ?? "");
             console.log("Home을 제외한 제일 첫번째 페이지가 삭제됐습니다. homeId ->", homeId);
           }
-          return new Map(prevState).set(id, newTask);
+          return new Map(prevState).set(id, newPageTab);
         });
       }
       console.log("이건 언제되는 건가요?", id);
-      setCurTaskId(id);
+      setCurPageTabId(id);
     },
-    [setTask, task.size]
+    [setPageTab, pageTab.size]
   );
 
   //열려있는 모든 Tab을 초기화 한다.
-  const handleClearTask = useCallback(() => {
-    setTask(initTaskMap());
-  }, [setTask]);
+  const handleClearPageTab = useCallback(() => {
+    setPageTab(initPageTabMap());
+  }, [setPageTab]);
 
   //열려있는 탭을 삭제한다.
-  const handleDeleteTask = useCallback(
+  const handleDeletePageTab = useCallback(
     (id: string) => (e: MouseEvent | undefined) => {
       e?.stopPropagation();
-      const isCurTab = curTaskId === id;
+      const isCurTab = curPageTabId === id;
 
       //열려있는 Tab이면 바로 이전 Tab을 연다
       if (isCurTab) {
-        const ids = [...task.keys()];
+        const ids = [...pageTab.keys()];
         const targetIdx = ids.indexOf(id);
         const prevIdx = Math.max(targetIdx - 1, 0);
         const prevId = ids[prevIdx];
-        const prevItem = task.get(prevId);
+        const prevItem = pageTab.get(prevId);
 
         if (prevItem && prevItem.path) {
           navigate?.(prevItem.path);
@@ -81,41 +81,41 @@ const MainRoutes = () => {
       }
 
       //Tab을 지운다
-      setTask(prevState => {
+      setPageTab(prevState => {
         const newState = new Map(prevState);
         newState.delete(id);
         return newState;
       });
 
       //Body에다가 지원진 아이디를 알려준다 (Body에서는 해당 ID에 해당하는 Body를 삭제한다.)
-      setDeleteTaskId(id);
+      setDeletePageTabId(id);
     },
-    [task, setTask, curTaskId]
+    [pageTab, setPageTab, curPageTabId]
   );
 
   //페이지를 삭제한 후 동기화를 위해 삭제한 곳에서 호출됨
-  const handleDeleteOk = useCallback(() => {
-    setDeleteTaskId(undefined);
+  const handleDeletePageTabOk = useCallback(() => {
+    setDeletePageTabId(undefined);
   }, []);
 
   useEffect(() => {
-    task.forEach((taskItem, id) => {
-      if (taskItem.path === pathname) {
-        setCurTaskId(String(id));
+    pageTab.forEach((pageTabItem, id) => {
+      if (pageTabItem.path === pathname) {
+        setCurPageTabId(String(id));
       }
     });
-  }, [key, pathname, task]);
+  }, [key, pathname, pageTab]);
 
   const getPageRouterProviderProps = () => ({
-    task,
-    setTask,
-    curTaskId,
-    onOpenTask: handleOpenTask,
-    onClearTask: handleClearTask,
-    onDeleteTask: handleDeleteTask,
-    onNavigateTask: handleNavigateTask,
-    deleteTaskId: deleteTaskId,
-    onDeleteOk: handleDeleteOk,
+    pageTab,
+    setPageTab,
+    curPageTabId,
+    onOpenPageTab: handleOpenPageTab,
+    onClearPageTab: handleClearPageTab,
+    onDeletePageTab: handleDeletePageTab,
+    onNavigatePageTab: handleNavigatePageTab,
+    deletePageTabId: deletePageTabId,
+    onDeletePageTabOk: handleDeletePageTabOk,
   });
 
   return (

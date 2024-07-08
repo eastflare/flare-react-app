@@ -3,10 +3,10 @@ import React, { startTransition, useCallback, useEffect, useLayoutEffect } from 
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-const MAX_TASK_SIZE = 10;
+const MAX_PAGE_SIZE = 10;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
-  const { deleteTaskId, onDeleteOk, onOpenTask } = usePageRouterContext();
+  const { deletePageTabId, onDeletePageTabOk, onOpenPageTab } = usePageRouterContext();
 
   const { pathname } = useLocation();
 
@@ -17,7 +17,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const [routesMap, setRoutesMap] = useState<Record<string, ReactElement>>({});
 
   //현재 화면에 열려있는 Route (Max 10개)
-  const [openedRoutes, setOpenedRoutes] = useState<Record<string, ReactElement>>({});
+  const [openedRoutesMap, setOpenedRoutesMap] = useState<Record<string, ReactElement>>({});
 
   //현재 주소에 해당하는 Route ID 및 객체
   const curRouteItem = useMemo(() => routesMap?.[pathname], [routesMap, pathname]);
@@ -55,13 +55,13 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     //현재 주소와 매핑된 Route가 있을 경우
     if (curRouteItem) {
       //이미열려있는 페이지가 없을 경우 Route를 추가한다.
-      if (!openedRoutes?.[pathname]) {
-        setOpenedRoutes(prev => {
+      if (!openedRoutesMap?.[pathname]) {
+        setOpenedRoutesMap(prev => {
           const [home, ...rest] = Object.keys(prev);
           console.log(home);
 
           //열려있는 화면이 10개가 넘어가면 첫번째 것을 지운다.
-          if (rest.length > MAX_TASK_SIZE) {
+          if (rest.length > MAX_PAGE_SIZE) {
             delete prev[rest[0] ?? ""];
           }
 
@@ -77,33 +77,33 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         //임시 페이지명을 path의 마지막 글자로 변경
         const label = pathname.split("/").pop();
 
-        onOpenTask({
+        onOpenPageTab({
           id: pathname,
           path: pathname,
           label: label,
         });
       });
     }
-  }, [onOpenTask, pathname, curRouteItem, openedRoutes]);
+  }, [onOpenPageTab, pathname, curRouteItem, openedRoutesMap]);
 
   //DOM 이 렌더링 되기 전에 동기적으로 처리 할때
-  //(위의 함수가 pathname, curRouteItem, openedRoutes 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
+  //(위의 함수가 pathname, curRouteItem, openedRoutesMap 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
   useLayoutEffect(openPageRoute, [openPageRoute]);
 
   useEffect(() => {
-    if (deleteTaskId === undefined) return;
+    if (deletePageTabId === undefined) return;
     startTransition(() => {
-      setOpenedRoutes(prev => {
-        delete prev[deleteTaskId];
+      setOpenedRoutesMap(prev => {
+        delete prev[deletePageTabId];
         return { ...prev };
       });
 
-      onDeleteOk();
+      onDeletePageTabOk();
     });
-  }, [deleteTaskId]);
+  }, [deletePageTabId]);
 
   return {
-    openedRoutes,
+    openedRoutesMap,
     curRouteId,
   };
 };

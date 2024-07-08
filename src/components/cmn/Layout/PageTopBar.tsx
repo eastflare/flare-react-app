@@ -3,7 +3,7 @@ import { usePageRouterContext } from "contexts/cmn/PageRouterContext";
 import PageTab from "./PageTab";
 
 const PageTopBar = () => {
-  const { task, curTaskId, onNavigateTask, onDeleteTask } = usePageRouterContext();
+  const { pageTab, curPageTabId, onNavigatePageTab, onDeletePageTab } = usePageRouterContext();
 
   return (
     <StyledPageTopBar
@@ -13,22 +13,22 @@ const PageTopBar = () => {
       }}
     >
       <StyledMDIContainer>
-        {[...task.keys()].map((key: string) => {
-          let objTask = task.get(key);
-          let taskId = objTask?.id ?? "";
-          let taskPath = objTask?.path ?? "";
-          let taskLabel = objTask?.label ?? "";
+        {[...pageTab.keys()].map((key: string) => {
+          let objPageTab = pageTab.get(key);
+          let pageTabId = objPageTab?.id ?? "";
+          let pageTabPath = objPageTab?.path ?? "";
+          let pageTabLabel = objPageTab?.label ?? "";
 
-          console.log("PageTopBar 현재 curTaskId ", curTaskId);
+          console.log("PageTopBar 현재 curPageTabId ", curPageTabId);
 
           return (
             <PageTab
               key={key}
-              label={taskLabel}
-              isActive={curTaskId === taskId}
-              onClose={onDeleteTask(taskId)}
-              onClick={() => onNavigateTask({ id: taskId, path: taskPath })}
-              taskItem={task.get(key)!}
+              label={pageTabLabel}
+              isActive={curPageTabId === pageTabId}
+              onClose={onDeletePageTab(pageTabId)}
+              onClick={() => onNavigatePageTab({ id: pageTabId, path: pageTabPath })}
+              pageTabItem={pageTab.get(key)!}
             />
           );
         })}
