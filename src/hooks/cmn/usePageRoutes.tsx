@@ -75,7 +75,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       //상단 Tab을 구성한다.
       startTransition(() => {
         //임시 페이지명을 path의 마지막 글자로 변경
-        const label = pathname.split("/").pop();
+        const label = pathname.split("/").pop()!;
 
         onOpenPageTab({
           id: pathname,

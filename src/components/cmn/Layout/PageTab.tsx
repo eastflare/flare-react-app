@@ -1,5 +1,5 @@
-import { PageTabItem } from "routers/MainRoutes";
 import styled from "@emotion/styled";
+import { PageTabItem } from "hooks/cmn/usePageTab";
 
 interface PageTabProps {
   label: string;

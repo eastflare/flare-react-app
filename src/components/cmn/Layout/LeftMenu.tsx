@@ -1,13 +1,10 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const LeftMenu = () => {
   const navigate = useNavigate();
 
-  const handleClick = (
-    path: string,
-    event: React.MouseEvent<HTMLAnchorElement>
-  ) => {
+  const handleClick = (path: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     navigate(path);
   };
@@ -16,32 +13,57 @@ const LeftMenu = () => {
     <div className='leftmenu'>
       <ul>
         <li>
-          <a href='#' onClick={(e) => handleClick('/sample1', e)}>
+          <a href='#' onClick={e => handleClick("/sample1", e)}>
             Sample1
           </a>
         </li>
         <li>
-          <a href='#' onClick={(e) => handleClick('/sample2', e)}>
+          <a href='#' onClick={e => handleClick("/sample2", e)}>
             Sample2
           </a>
         </li>
         <li>
-          <a href='#' onClick={(e) => handleClick('/sample3', e)}>
+          <a href='#' onClick={e => handleClick("/sample3", e)}>
             Sample3
           </a>
         </li>
         <li>
-          <a href='#' onClick={(e) => handleClick('/about', e)}>
+          <a href='#' onClick={e => handleClick("/sample4/eastflare", e)}>
+            /sample4/:id 이
+          </a>
+        </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/sample3/jscho128", e)}>
+            /sample4/:id 조
+          </a>
+        </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/sample5/eastflare/이현승", e)}>
+            /sample5/:id/:name 이
+          </a>
+        </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/sample5/jscho128/조재성", e)}>
+            /sample5/:id/:name 조
+          </a>
+        </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/sample6?message=ABCDEF", e)}>
+            Sample6 메세지
+          </a>
+        </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/about", e)}>
             about
           </a>
         </li>
         <li>
-          <a href='#' onClick={(e) => handleClick('/services', e)}>
+          <a href='#' onClick={e => handleClick("/services", e)}>
             services
           </a>
         </li>
         <li>
-          <a href='#' onClick={(e) => handleClick('/contact', e)}>
+          <a href='#' onClick={e => handleClick("/contact", e)}>
             contact
           </a>
         </li>

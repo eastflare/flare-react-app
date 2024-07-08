@@ -27,7 +27,7 @@ const PageTopBar = () => {
               label={pageTabLabel}
               isActive={curPageTabId === pageTabId}
               onClose={onDeletePageTab(pageTabId)}
-              onClick={() => onNavigatePageTab({ id: pageTabId, path: pageTabPath })}
+              onClick={() => onNavigatePageTab({ path: pageTabPath })}
               pageTabItem={pageTab.get(key)!}
             />
           );
