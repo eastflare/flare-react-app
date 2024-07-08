@@ -1,8 +1,9 @@
+import { TPageRouterProviderProps } from "hooks/cmn/usePageTab";
 import { createContext, useContext } from "react";
 
 interface PageRouterProviderProps {
   children: React.ReactNode;
-  value?: any;
+  value?: TPageRouterProviderProps;
 }
 
 const PageRouterContext = createContext<PageRouterProviderProps["value"]>(undefined);
