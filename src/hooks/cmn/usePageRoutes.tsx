@@ -31,18 +31,16 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const matchedRoute = route?.path && useMatch(route.path);
 
   useEffect(() => {
-    //if (matchedRoute) {
     console.log("나는route입니다.", matchedRoute);
     console.log("나는파람스~입니다.", matchedRoute ? matchedRoute.params : undefined);
-    //}
   }, [matchedRoute]);
 
   //현재 화면에 열려있는 Route (Max 10개)
-  const [openedRoutesMap, setOpenedRoutesMap] = useState<Record<string, ReactElement>>({});
+  const [openedRoutesMap, setOpenedRoutesMap] = useState<Record<string, RouteObject>>({});
 
   //현재 주소에 해당하는 Route ID 및 객체
   const curRouteItem = useMemo(() => routesMap?.[pathname], [routesMap, pathname]);
-  const curRouteId = useMemo(() => curRouteItem?.path, [curRouteItem]);
+  const curRouteId = useMemo(() => curRouteItem?.path as string, [curRouteItem]);
 
   console.log("curRouteItem입니다.", curRouteItem);
 

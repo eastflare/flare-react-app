@@ -36,7 +36,7 @@ const usePageTab = (props: usePageTabProps) => {
   // PageTab을 클릭했을 경우 주소를 해당페이지의 주소로 넘긴다.
   const handleNavigatePageTab = useCallback(
     ({ path }: Pick<PageTabItem, "path">) => {
-      props.navigate?.(path);
+      props.navigate?.(path, { state: { message: "value1", message2: "value2" } });
     },
     [props.navigate]
   );
@@ -88,7 +88,10 @@ const usePageTab = (props: usePageTabProps) => {
         const prevItem = pageTab.get(prevId);
 
         if (prevItem && prevItem.path) {
-          props.navigate?.(prevItem.path);
+          //props.navigate?.(prevItem.path);
+          //TODO : 이전페이지 주소로 navigate되면서 파라메터는 어떻게 넘길껀지??
+          props.navigate(prevItem.path, { state: { message: "value1", message2: "value2" } });
+          console.log("prevItem.path입니다.", prevItem.path);
         }
       }
 
