@@ -41,10 +41,10 @@ const usePageTab = (props: usePageTabProps) => {
     [props.navigate]
   );
 
-  const DummyCallback = useCallback(() => {
-    alert("aaaa");
-    return;
-  }, []);
+  // const DummyCallback = useCallback(() => {
+  //   alert("aaaa");
+  //   return;
+  // }, []);
 
   // 하단 Page 에서 location에 대한 정보로 페이지를 표시한 후 해당 함수가 호출됨
   const handleOpenPageTab = useCallback(
