@@ -1,7 +1,7 @@
 import { usePageRouterContext } from "contexts/cmn/PageRouterContext";
 import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
 import { ReactElement, ReactNode, useMemo, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { RouteObject, matchRoutes, useLocation, useMatch } from "react-router-dom";
 
 const MAX_PAGE_SIZE = 10;
 
@@ -9,24 +9,42 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const { deletePageTabId, onDeletePageTabOk, onOpenPageTab } = usePageRouterContext();
 
   const { pathname } = useLocation();
+  const [routesMap, setRoutesMap] = useState<Record<string, RouteObject>>({});
 
-  //전체 Page에 대한 Route 배열 및 Map
+  //ReactNode로 받아온 Routes 를 RouteObject로 일괄 변환하여 배열로 가지고 있는다.
   const routes = useMemo(() => {
-    return React.Children.toArray(children);
+    return React.Children.toArray(children).map(childNode => {
+      const element = childNode as ReactElement;
+      return {
+        path: element.props.path,
+        element,
+      } as RouteObject;
+    });
   }, [children]);
-  const [routesMap, setRoutesMap] = useState<Record<string, ReactElement>>({});
+
+  console.log("routes", routes);
+
+  const [{ route }] = useMemo(() => {
+    return matchRoutes(routes, pathname) ?? [];
+  }, [pathname]);
+
+  const matchedRoute = route?.path && useMatch(route.path);
+
+  useEffect(() => {
+    //if (matchedRoute) {
+    console.log("나는route입니다.", matchedRoute);
+    console.log("나는파람스~입니다.", matchedRoute ? matchedRoute.params : undefined);
+    //}
+  }, [matchedRoute]);
 
   //현재 화면에 열려있는 Route (Max 10개)
   const [openedRoutesMap, setOpenedRoutesMap] = useState<Record<string, ReactElement>>({});
 
   //현재 주소에 해당하는 Route ID 및 객체
   const curRouteItem = useMemo(() => routesMap?.[pathname], [routesMap, pathname]);
-  const curRouteId = useMemo(() => curRouteItem?.props?.path, [curRouteItem]);
+  const curRouteId = useMemo(() => curRouteItem?.path, [curRouteItem]);
 
-  // console.log("전체 routes -> ", routes);
-  // console.log("현재 Path ->", pathname);
-  // console.log("현재 선택 id -> ", curRouteId);
-  // console.log("현재 선택 item -> ", curRouteItem);
+  console.log("curRouteItem입니다.", curRouteItem);
 
   const initPageRoutesMap = useCallback(() => {
     //전체 Route를 Map<id, element> 형태의 맵으로 재구성한다.
@@ -35,8 +53,8 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         setRoutesMap(
           Object.assign(
             {},
-            ...(routes as ReactElement[]).map(item => {
-              const key = (item?.props?.path as string) ?? "";
+            ...routes.map(item => {
+              const key = (item?.path as string) ?? "";
               const _key = key.startsWith("/") ? key : "/" + key;
               return {
                 [_key]: item,

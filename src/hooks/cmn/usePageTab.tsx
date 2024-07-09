@@ -19,7 +19,19 @@ const usePageTab = (props: usePageTabProps) => {
   const [curPageTabId, setCurPageTabId] = useState<string>("");
   const [pageTab, setPageTab] = useState<PageTabMap>(initPageTabMap());
   const [deletePageTabId, setDeletePageTabId] = useState<string | undefined>();
+
+  // const [callbackMap, setCallbackMap] = useState({});
+  // const handleCallbacks = useCallback((id: string, callback: () => void) => {
+  //   setCallbackMap(prevState => {
+  //     return { ...prevState, [id]: callback };
+  //   });
+  // }, []);
+
   const { key, pathname } = useLocation();
+
+  // useEffect(() => {
+  //   console.log("callback이 담겨져있습니다.-->", callbackMap);
+  // }, [pathname]);
 
   // PageTab을 클릭했을 경우 주소를 해당페이지의 주소로 넘긴다.
   const handleNavigatePageTab = useCallback(
@@ -28,6 +40,11 @@ const usePageTab = (props: usePageTabProps) => {
     },
     [props.navigate]
   );
+
+  const DummyCallback = useCallback(() => {
+    alert("aaaa");
+    return;
+  }, []);
 
   // 하단 Page 에서 location에 대한 정보로 페이지를 표시한 후 해당 함수가 호출됨
   const handleOpenPageTab = useCallback(
@@ -44,7 +61,8 @@ const usePageTab = (props: usePageTabProps) => {
           return new Map(prevState).set(id, newPageTab);
         });
       }
-      console.log("이건 언제되는 건가요?", id);
+
+      // handleCallbacks(id, DummyCallback);
       setCurPageTabId(id);
     },
     [setPageTab, pageTab.size]
@@ -110,6 +128,8 @@ const usePageTab = (props: usePageTabProps) => {
     onNavigatePageTab: handleNavigatePageTab,
     deletePageTabId: deletePageTabId,
     onDeletePageTabOk: handleDeletePageTabOk,
+    //callbacks: callbacks,
+    //onAddCallbacks: handleCallbacks,
   });
 
   return { getPageRouterProviderProps };

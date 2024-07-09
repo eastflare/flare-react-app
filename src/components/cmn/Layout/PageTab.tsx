@@ -9,9 +9,7 @@ interface PageTabProps {
   pageTabItem: PageTabItem;
 }
 
-const PageTab = ({ label, onClick, onClose, isActive, pageTabItem }: PageTabProps) => {
-  console.log(isActive, pageTabItem);
-
+const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
   const isNotClosable = ["Home"].includes(label);
 
   return (

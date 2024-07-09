@@ -33,7 +33,7 @@ const LeftMenu = () => {
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample3/jscho128", e)}>
+          <a href='#' onClick={e => handleClick("/sample4/jscho128", e)}>
             샘플4/:id 조
           </a>
         </li>

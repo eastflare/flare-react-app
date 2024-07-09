@@ -8,6 +8,7 @@ interface DisplayRouteProps extends PathRouteProps {
   display?: boolean;
 }
 function DrawPageRoute({ element, routesProps, display, ...props }: DisplayRouteProps) {
+  console.log("display확인", display);
   return (
     <>
       <StyledDisplayElement children={element} display={display ? `${display}` : undefined} />

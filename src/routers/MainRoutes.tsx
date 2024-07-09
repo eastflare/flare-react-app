@@ -13,6 +13,7 @@ import usePageTab from "hooks/cmn/usePageTab";
 import Sample4 from "pages/Sample4";
 import Sample5 from "pages/Sample5";
 import Sample6 from "pages/Sample6";
+import NoPage from "pages/NoPage";
 
 const MainRoutes = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const MainRoutes = () => {
           <Route path='/sample4/:id' element={<Sample4 />} />
           <Route path='/sample5/:id/:name' element={<Sample5 />} />
           <Route path='/sample6' element={<Sample6 />} />
+          <Route path='*' element={<NoPage />} />
         </PageRoutes>
       </MainContainer>
     </PageRouterProvider>

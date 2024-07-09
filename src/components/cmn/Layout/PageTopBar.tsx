@@ -19,8 +19,6 @@ const PageTopBar = () => {
           let pageTabPath = objPageTab?.path ?? "";
           let pageTabLabel = objPageTab?.label ?? "";
 
-          console.log("PageTopBar 현재 curPageTabId ", curPageTabId);
-
           return (
             <PageTab
               key={key}

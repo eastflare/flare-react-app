@@ -13,12 +13,13 @@ function DrawPageRoutes({ routes, routesProps, curRouteId }: TaskRoutesProps) {
     <>
       <Suspense fallback=''>
         {Object.keys(routes).map(key => {
+          console.log("display입니다.", routes[key]);
           return (
             <DrawPageRoute
               key={key}
-              {...routes?.[key]?.props}
+              {...routes?.[key]?.element?.props}
               routesProps={routesProps}
-              display={routes?.[key]?.props?.path === curRouteId}
+              display={routes?.[key]?.path === curRouteId}
             />
           );
         })}
