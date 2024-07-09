@@ -1,5 +1,4 @@
 import { ReactElement, cloneElement, memo } from "react";
-import { Routes, Route } from "react-router-dom";
 import type { RoutesProps, PathRouteProps } from "react-router";
 import styled from "@emotion/styled";
 
@@ -8,8 +7,6 @@ interface DisplayRouteProps extends PathRouteProps {
   display?: boolean;
 }
 function DrawPageRoute({ element, routesProps, display, ...props }: DisplayRouteProps) {
-  console.log("display확인", display);
-
   const clonedElement = element && cloneElement(element as ReactElement, props);
   return (
     <>
