@@ -88,7 +88,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       if (!openedRoutesMap?.[pathname]) {
         setOpenedRoutesMap(prev => {
           const [home, ...rest] = Object.keys(prev);
-          //console.log(home);
+          console.log(home);
 
           //열려있는 화면이 10개가 넘어가면 첫번째 것을 지운다.
           if (rest.length > MAX_PAGE_SIZE) {
