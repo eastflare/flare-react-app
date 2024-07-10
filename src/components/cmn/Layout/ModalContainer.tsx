@@ -7,7 +7,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageModals from "./PageModals";
 import ReactDOM from "react-dom";
 import { DraggableEvent } from "react-draggable";
-import React from "react";
 
 interface ModalsProviderProp {
   id: string;
@@ -112,8 +111,8 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
 
   const rndManagerRef = useRef<HTMLElement | null>(null);
 
-  const onDragStart: RndDragCallback = (event: DraggableEvent, data: DraggableData) => {
-    setZIndex(prevZIndex => {
+  const onDragStart: RndDragCallback = (_: DraggableEvent, data: DraggableData) => {
+    setZIndex(__ => {
       const newZIndex = globalMaxZIndex + 1;
       globalMaxZIndex = newZIndex;
       return newZIndex;
@@ -125,7 +124,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
     }
   };
 
-  const onDragStop: RndDragCallback = (event: DraggableEvent, data: DraggableData) => {
+  const onDragStop: RndDragCallback = (_: DraggableEvent, data: DraggableData) => {
     setState(prevState => ({
       ...prevState,
       x: data.x,
@@ -133,7 +132,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
     }));
   };
 
-  const onResize: RndResizeCallback = (event, direction, ref, delta, position) => {
+  const onResize: RndResizeCallback = (_, __, ref, ___, position) => {
     setState(prevState => ({
       ...prevState,
       width: ref.offsetWidth,
@@ -142,7 +141,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
     }));
   };
 
-  const onResizeStop: RndResizeCallback = (event, direction, ref, delta, position) => {
+  const onResizeStop: RndResizeCallback = (_, __, ref, ___, position) => {
     setState(prevState => ({
       ...prevState,
       width: ref.style.width,
@@ -164,7 +163,12 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
       });
     } else {
       // 최대화
-      originalSize.current = { width: state.width, height: state.height, x: state.x, y: state.y };
+      originalSize.current = {
+        width: typeof state.width === "number" ? state.width : parseInt(state.width),
+        height: typeof state.height === "number" ? state.height : parseInt(state.height),
+        x: state.x, // Assuming x and y are always numbers
+        y: state.y,
+      };
       setState({
         width: "100%",
         height: "100%",
@@ -185,8 +189,12 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
       });
     } else {
       // 최소화
-      originalSize.current = { width: state.width, height: state.height, x: state.x, y: state.y };
-      const screenHeight = window.innerHeight;
+      originalSize.current = {
+        width: typeof state.width === "number" ? state.width : parseInt(state.width),
+        height: typeof state.height === "number" ? state.height : parseInt(state.height),
+        x: typeof state.x === "number" ? state.x : parseInt(state.x),
+        y: typeof state.y === "number" ? state.y : parseInt(state.y),
+      };
       setState({
         width: 200,
         height: 50,
