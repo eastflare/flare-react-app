@@ -1,8 +1,8 @@
-import { PageContext } from 'contexts/cmn/PageContext';
-import { PageOptions, PageProps } from 'models/cmn/page';
-import { useCallback, useContext } from 'react';
-import { usePageStore, useModalStore, useSubPageStore } from 'store/pageStore';
-import { getUuid } from 'utils/rapUtil';
+import { PageContext } from "contexts/cmn/PageContext";
+import { PageOptions, PageProps } from "models/cmn/page";
+import { useCallback, useContext } from "react";
+import { usePageStore, useModalStore, useSubPageStore } from "store/pageStore";
+import { getUuid } from "utils/rapUtil";
 
 export default function useGoPage() {
   //const { open } = useContext(PageDispatchContext);
@@ -11,17 +11,14 @@ export default function useGoPage() {
   const { subPages } = useSubPageStore();
   const { pageId, addChildId, removeChildId } = useContext(PageContext);
 
-  const goModal = useCallback(
-    (Component: any, props: PageProps, options?: PageOptions) => {
-      const newId = getUuid();
-      addPage(newId, { Component, props, options });
-      console.log('pageId => ', pageId);
-      pageId ? addChildId(newId) : addModal(newId);
+  const goModal = useCallback((Component: any, props: PageProps, options?: PageOptions) => {
+    const newId = getUuid();
+    addPage(newId, { Component, props, options });
+    console.log("pageId => ", pageId);
+    pageId ? addChildId(newId) : addModal(newId);
 
-      console.log('subPages', subPages);
-    },
-    []
-  );
+    console.log("subPages", subPages);
+  }, []);
 
   const closeModal = (id: string) => {
     removePage(id);

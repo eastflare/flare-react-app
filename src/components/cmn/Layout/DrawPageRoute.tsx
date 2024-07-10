@@ -7,6 +7,10 @@ interface DisplayRouteProps extends PathRouteProps {
   display?: boolean;
 }
 function DrawPageRoute({ element, routesProps, display, ...props }: DisplayRouteProps) {
+  //Page Id
+  //Function 가공
+  //페이지이동하는 함수
+
   const clonedElement = element && cloneElement(element as ReactElement, props);
   return (
     <>
