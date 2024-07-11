@@ -87,7 +87,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       //이미열려있는 페이지가 없을 경우 Route를 추가한다.
       if (!openedRoutesMap?.[pathname]) {
         const pageId = routepath;
-        console.log("값이 추가됩니다.");
+        console.log("값이 추가됩니다.다다다다다다다다다닫", pageId);
 
         //PageMap을 추가함
         addPageItem(pageId, {
