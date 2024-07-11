@@ -1,27 +1,28 @@
 import { memo, Suspense } from "react";
 import type { RoutesProps } from "react-router";
 import DrawPageRoute from "./DrawPageRoute";
+import { PageItem } from "store/pageMapStore";
 
 interface TaskRoutesProps {
-  routes: Record<PropertyKey, any>;
+  openedPageMap: Map<string, PageItem>;
   routesProps: RoutesProps;
-  curRouteId: string;
+  curPageId: string;
 }
 
-function DrawPageRoutes({ routes, routesProps, curRouteId }: TaskRoutesProps) {
+function DrawPageRoutes({ openedPageMap, routesProps, curPageId }: TaskRoutesProps) {
+  console.log("나는pageMap입니다.", openedPageMap);
+  console.log("나는curRouteId입니다.", curPageId);
   return (
     <>
       <Suspense fallback=''>
-        {Object.keys(routes).map(key => {
-          return (
-            <DrawPageRoute
-              key={key}
-              {...routes?.[key]?.element?.props}
-              routesProps={routesProps}
-              display={routes?.[key]?.path === curRouteId}
-            />
-          );
-        })}
+        {Array.from(openedPageMap.entries()).map(([key, value]) => (
+          <DrawPageRoute
+            key={key}
+            {...value?.element?.props}
+            routesProps={routesProps}
+            display={key === curPageId}
+          />
+        ))}
       </Suspense>
     </>
   );

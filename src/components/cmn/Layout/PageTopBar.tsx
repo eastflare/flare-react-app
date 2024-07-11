@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
-import { usePageRouterContext } from "contexts/cmn/PageRouterContext";
+import usePageTab from "hooks/cmn/usePageTab";
 import PageTab from "./PageTab";
 
 const PageTopBar = () => {
-  const { pageTab, curPageTabId, onNavigatePageTab, onDeletePageTab } = usePageRouterContext();
+  //const { openedPageMap, curpageId, onNavigateopenedPageMap, onDeleteopenedPageMap } = usePageRouterContext();
+
+  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose } = usePageTab();
 
   return (
     <StyledPageTopBar
@@ -13,20 +15,17 @@ const PageTopBar = () => {
       }}
     >
       <StyledMDIContainer>
-        {[...pageTab.keys()].map((key: string) => {
-          let objPageTab = pageTab.get(key);
-          let pageTabId = objPageTab?.id ?? "";
-          let pageTabPath = objPageTab?.path ?? "";
-          let pageTabLabel = objPageTab?.label ?? "";
+        {[...openedPageMap.keys()].map((key: string) => {
+          let pageItem = openedPageMap.get(key);
+          let pageLabel = pageItem?.label ?? "";
 
           return (
             <PageTab
               key={key}
-              label={pageTabLabel}
-              isActive={curPageTabId === pageTabId}
-              onClose={onDeletePageTab(pageTabId)}
-              onClick={() => onNavigatePageTab({ path: pageTabPath })}
-              pageTabItem={pageTab.get(key)!}
+              label={pageLabel}
+              isActive={curPageId === key}
+              onClose={onPageTabClose(key)}
+              onClick={() => onPageTabClick(key)}
             />
           );
         })}

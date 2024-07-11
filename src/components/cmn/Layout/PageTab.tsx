@@ -1,12 +1,10 @@
 import styled from "@emotion/styled";
-import { PageTabItem } from "hooks/cmn/usePageTab";
 
 interface PageTabProps {
   label: string;
   onClick: (...args: any[]) => void;
   onClose: (e?: MouseEvent) => void;
   isActive: boolean;
-  pageTabItem: PageTabItem;
 }
 
 const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
