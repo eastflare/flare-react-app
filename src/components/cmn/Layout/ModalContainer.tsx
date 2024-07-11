@@ -243,9 +243,15 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
             >
               <span>Drag</span>
               <div style={{ display: "flex", gap: "0.5rem" }}>
-                <button onClick={onMinimize}>_</button>
-                {!isMinimized && <button onClick={onMaximize}>{isMaximized ? "🗗" : "🗖"}</button>}
-                <button onClick={onClose}>×</button>
+                <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
+                  _
+                </button>
+                {!isMinimized && (
+                  <button onClick={onMaximize} onGotPointerCapture={onMaximize}>
+                    {isMaximized ? "🗗" : "🗖"}
+                  </button>
+                )}
+                <button onClick={onClose} onGotPointerCapture={onClose}>×</button>
               </div>
             </div>
             {!isMinimized && <Component {...props} onClose={onClose} />}
