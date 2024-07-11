@@ -3,14 +3,13 @@ import React, { startTransition, useCallback, useEffect, useLayoutEffect } from 
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch } from "react-router-dom";
 import usePageMapStore, { CallbackFunction } from "store/pageMapStore";
-import { getUuid } from "utils/rapUtil";
 
 const MAX_PAGE_SIZE = 10;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const { deletePageTabId, onDeletePageTabOk, onOpenPageTab } = usePageRouterContext();
   const { pageMap, addPageItem } = usePageMapStore();
-  const { pathname, search, hash, key, state } = useLocation();
+  const { pathname, search } = useLocation();
   const [routesMap, setRoutesMap] = useState<Record<string, RouteObject>>({});
 
   //ReactNode로 받아온 Routes 를 RouteObject로 일괄 변환하여 배열로 가지고 있는다.
@@ -24,33 +23,31 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     });
   }, [children]);
 
-  //console.log("routes", routes);
-
   //경로에 해당하는 Route객체를 조회한다.
   const [{ route }] = useMemo(() => {
     return matchRoutes(routes, pathname) ?? [];
   }, [pathname]);
 
   //useMatch Hook을 통해 Params가 담겨있는 Route 객체로 변환한다.
-  const routepath = route?.path || "";
+  //현재 주소에 해당하는 Route ID 및 객체
+  const routepath = useMemo(() => route?.path || "", [pathname]);
   const matchedRoute = routepath && useMatch(routepath);
+  const curRouteItem = useMemo(() => routesMap?.[routepath], [routepath]);
+  const curRouteId = useMemo(() => routepath, [curRouteItem]);
+
+  //현재 화면에 열려있는 Route (Max 10개)
+  const [openedRoutesMap, setOpenedRoutesMap] = useState<Record<string, RouteObject>>({});
 
   useEffect(() => {
-    console.log("나는location입니다.", search, pathname, hash, key, state);
-    console.log("나는route입니다.", matchedRoute);
-    console.log("나는파람스~입니다.", matchedRoute ? matchedRoute.params : undefined);
+    console.log("routepath -->", routepath);
+    //console.log("나는location입니다.", search, pathname, hash, key, state);
+    //console.log("나는route입니다.", matchedRoute);
+    //console.log("나는파람스~입니다.", matchedRoute ? matchedRoute.params : undefined);
   }, [matchedRoute]);
 
   useEffect(() => {
     console.log("페이지 맵입니다.", pageMap);
   }, [pageMap]);
-
-  //현재 화면에 열려있는 Route (Max 10개)
-  const [openedRoutesMap, setOpenedRoutesMap] = useState<Record<string, RouteObject>>({});
-
-  //현재 주소에 해당하는 Route ID 및 객체
-  const curRouteItem = useMemo(() => routesMap?.[pathname], [routesMap, pathname]);
-  const curRouteId = useMemo(() => curRouteItem?.path as string, [curRouteItem]);
 
   //console.log("curRouteItem입니다.", curRouteItem);
 
@@ -82,10 +79,28 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   };
 
   const openPageRoute = useCallback(() => {
+    //임시 페이지명을 path의 마지막 글자로 변경
+    const label = pathname.split("/").pop()!;
+
     //현재 주소와 매핑된 Route가 있을 경우
     if (curRouteItem) {
       //이미열려있는 페이지가 없을 경우 Route를 추가한다.
       if (!openedRoutesMap?.[pathname]) {
+        const pageId = routepath;
+        console.log("값이 추가됩니다.");
+
+        //PageMap을 추가함
+        addPageItem(pageId, {
+          id: pageId,
+          label: label,
+          pathname: pathname,
+          originPath: pathname + search,
+          routePath: routepath,
+          options: {},
+          params: {},
+          callback: callbackWithParams,
+        });
+
         setOpenedRoutesMap(prev => {
           const [home, ...rest] = Object.keys(prev);
           console.log(home);
@@ -97,30 +112,13 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
 
           return {
             ...prev,
-            [pathname]: routesMap[pathname],
+            [routepath]: routesMap[routepath],
           };
         });
       }
 
       //상단 Tab을 구성한다.
       startTransition(() => {
-        //임시 페이지명을 path의 마지막 글자로 변경
-        const label = pathname.split("/").pop()!;
-        const uuid = getUuid();
-
-        console.log("값이 추가됩니다.");
-        //PageMap을 추가함
-        addPageItem(uuid, {
-          id: uuid,
-          label: label,
-          pathname: pathname,
-          originPath: pathname + search,
-          routePath: routepath,
-          options: {},
-          params: {},
-          callback: callbackWithParams,
-        });
-
         onOpenPageTab({
           id: pathname,
           path: pathname,
@@ -128,7 +126,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         });
       });
     }
-  }, [onOpenPageTab, pathname, search, curRouteItem, openedRoutesMap]);
+  }, [pathname, search, curRouteItem]);
 
   //DOM 이 렌더링 되기 전에 동기적으로 처리 할때
   //(위의 함수가 pathname, curRouteItem, openedRoutesMap 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
