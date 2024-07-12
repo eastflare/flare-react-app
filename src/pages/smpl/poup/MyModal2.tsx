@@ -3,13 +3,13 @@ import { modals } from 'components/cmn/Layout/Modals';
 import { useContext, useEffect, useState } from 'react';
 import { PageProps } from 'models/cmn/page';
 import useToast from 'hooks/cmn/useToast';
-import { PageContext } from 'contexts/cmn/PageContext';
+import { ModalContext } from 'contexts/cmn/ModalContext';
 
 const MyModal = ({ onClose, callback }: PageProps) => {
   const { goModal } = useGoPage();
   const [text, setText] = useState('');
   const { myToast } = useToast();
-  const parentId = useContext(PageContext);
+  const parentId = useContext(ModalContext);
 
   useEffect(() => {
     console.log('요시키 렌더링');

@@ -1,4 +1,4 @@
-import { PageContext } from "contexts/cmn/PageContext";
+import { ModalContext } from "contexts/cmn/ModalContext";
 import { PageOptions, PageProps } from "models/cmn/page";
 import { useCallback, useContext } from "react";
 import { usePageStore, useModalStore, useSubPageStore } from "store/pageStore";
@@ -9,7 +9,7 @@ export default function useGoPage() {
   const { pages, addPage, removePage } = usePageStore();
   const { modals, addModal, removeModal } = useModalStore();
   const { subPages } = useSubPageStore();
-  const { pageId, addChildId, removeChildId } = useContext(PageContext);
+  const { pageId, addChildId, removeChildId } = useContext(ModalContext);
 
   const goModal = useCallback((Component: any, props: PageProps, options?: PageOptions) => {
     const newId = getUuid();

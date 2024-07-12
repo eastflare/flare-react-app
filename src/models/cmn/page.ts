@@ -10,14 +10,14 @@ export type PageObj = {
   options?: PageOptions;
 };
 
-export type PageContextType = {
+export type ModalContextType = {
   pageId: string;
   childIds: string[];
   addChildId: (childId: string) => void;
   removeChildId: (childId: string) => void;
 };
 
-export const PageContextInit: PageContextType = {
+export const ModalContextInit: ModalContextType = {
   pageId: '',
   childIds: [],
   addChildId: () => {},

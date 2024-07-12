@@ -1,6 +1,6 @@
 import { PageObj } from 'models/cmn/page';
 import useGoPage from 'hooks/cmn/useGoPage';
-import { PageContextProvider } from 'contexts/cmn/PageContext';
+import { ModalContextProvider } from 'contexts/cmn/ModalContext';
 import { useEffect } from 'react';
 import PageModals from './PageModals';
 
@@ -24,10 +24,10 @@ const PageContainer = ({ id, modal }: ModalsProviderProp) => {
   };
 
   return (
-    <PageContextProvider pageId={id}>
+    <ModalContextProvider pageId={id}>
       <Component {...props} onClose={onClose} />
       <PageModals />
-    </PageContextProvider>
+    </ModalContextProvider>
   );
 };
 
