@@ -31,25 +31,23 @@ const Overlay = styled.div`
   z-index: 999; // 모달보다는 낮지만 오버레이보다 높게 설정
 `;
 
-const StyleRnd = styled(Rnd)`
+const StyleRnd = styled.div<{ isDragging?: boolean; isTop?: boolean }>`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
+  border-radius: 4px;
   border: ${props => {
-    if (props.isTop) {
+    if (props.isDragging) {
       return `1px solid #17191B`;
-    } else {
+    } else if (props.isTop) {
       return `1px solid #4A4E50`;
+    } else {
+      return "1px solid #B3B7BA";
     }
   }};
-  .react-draggable {
-    position: relative;
-  }
-  .react-resizable {
-    position: relative;
-  }
+  overflow: hidden;
+  ${props => (props.isDragging ? { cursor: "grabbing" } : { cursor: "default" })}
 `;
 
 const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean; isTop?: boolean }>`
@@ -85,7 +83,7 @@ const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 8px;
   border-radius: 4px 4px 0 0;
 `;
 
@@ -99,20 +97,34 @@ const StyleRndButtonGroup = styled.div`
   display: flex;
   column-gap: 4px;
   align-items: center;
+
+  button {
+    padding: 4px 8px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+      background-color: #d0d0d0;
+      border-radius: 3px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
 `;
 
 const StyleRndBody = styled.div`
   flex-grow: 1;
   display: flex;
-  flex-diraction: column;
+  flex-direction: column;
   padding: 2px 8px 4px;
   border-radius: 0 0 4px 4px;
-  background-color: "#ffffff";
+  background: white;
   & > div {
     height: 100%;
-  }
-  & .data-grid {
-    min-height: 164px;
   }
 `;
 
@@ -148,7 +160,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
     const modalWidth = typeof width === "number" ? width : parseInt(width);
     const modalHeight = typeof height === "number" ? height : parseInt(height);
     const posX = (screenWidth - modalWidth) / 2;
-    const posY = -(screenHeight - modalHeight) * 3;
+    const posY = -(screenHeight - modalHeight) * 3.5;
 
     setState(prevState => ({
       ...prevState,
@@ -279,6 +291,11 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
     setIsMinimized(!isMinimized);
   };
 
+  const bringToFront = () => {
+    setZIndex(globalMaxZIndex + 1);
+    globalMaxZIndex += 1;
+  };
+
   const { width, height, x, y } = state;
   const modalElement = document.getElementById("modal-root")!;
   console.log("나는x,y입니다.", x, y);
@@ -287,51 +304,54 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
       {ReactDOM.createPortal(
         <>
           <Overlay onClick={onClose} />
-          <StyleRnd
-            isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
-            isDragging={isDragging}
+          <Rnd
             dragHandleClassName={"handle"}
             size={{ height, width }}
             position={{ x, y }}
             style={{ zIndex }}
+            onClick={bringToFront}
             onDragStart={onDragStart}
             onDragStop={onDragStop}
             onResize={onResize}
             onResizeStop={onResizeStop}
-            enableUserSelectHack
-            minHeight={50} // 최소 높이 설정
-            minWidth={200} // 최소 너비 설정
+            minHeight={50}
+            minWidth={200}
             bounds='window'
           >
-            <StyleRndHeader
-              isDragging={isDragging}
-              isMaximized={isMaximized}
+            <StyleRnd
               isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
-              className='handle'
+              isDragging={isDragging}
             >
-              <StyleRndHeaderTitle>Drag</StyleRndHeaderTitle>
-              <StyleRndButtonGroup>
-                <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
-                  _
-                </button>
-                {!isMinimized && (
-                  <button onClick={onMaximize} onGotPointerCapture={onMaximize}>
-                    {isMaximized ? "🗗" : "🗖"}
+              <StyleRndHeader
+                isDragging={isDragging}
+                isMaximized={isMaximized}
+                isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
+                className='handle'
+              >
+                <StyleRndHeaderTitle>Drag</StyleRndHeaderTitle>
+                <StyleRndButtonGroup>
+                  <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
+                    -
                   </button>
-                )}
-                <button onClick={onClose} onGotPointerCapture={onClose}>
-                  ×
-                </button>
-              </StyleRndButtonGroup>
-            </StyleRndHeader>
-            {!isMinimized && <Component {...props} onClose={onClose} />}
-          </StyleRnd>
+                  {!isMinimized && (
+                    <button onClick={onMaximize} onGotPointerCapture={onMaximize}>
+                      {isMaximized ? "🗗" : "🗖"}
+                    </button>
+                  )}
+                  <button onClick={onClose} onGotPointerCapture={onClose}>
+                    ×
+                  </button>
+                </StyleRndButtonGroup>
+              </StyleRndHeader>
+              <StyleRndBody>
+                {!isMinimized && <Component {...props} onClose={onClose} />}
+              </StyleRndBody>
+            </StyleRnd>
+          </Rnd>
         </>,
         modalElement
       )}
-      <StyleRndBody>
-        <PageModals />
-      </StyleRndBody>
+      <PageModals />
     </ModalContextProvider>
   );
 };
