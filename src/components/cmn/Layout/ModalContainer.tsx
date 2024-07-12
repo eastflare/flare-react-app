@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rnd";
 import { PageObj } from "models/cmn/page";
 import useGoPage from "hooks/cmn/useGoPage";
-import { PageContextProvider } from "contexts/cmn/PageContext";
+import { ModalContextProvider } from "contexts/cmn/ModalContext";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageModals from "./PageModals";
 import ReactDOM from "react-dom";
@@ -283,7 +283,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
   const modalElement = document.getElementById("modal-root")!;
   console.log("나는x,y입니다.", x, y);
   return (
-    <PageContextProvider pageId={id}>
+    <ModalContextProvider pageId={id}>
       {ReactDOM.createPortal(
         <>
           <Overlay onClick={onClose} />
@@ -329,10 +329,15 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
         </>,
         modalElement
       )}
+<<<<<<< HEAD
       <StyleRndBody>
         <PageModals />
       </StyleRndBody>
     </PageContextProvider>
+=======
+      <PageModals />
+    </ModalContextProvider>
+>>>>>>> 0f57018 (PageContext -> ModalContext 일괄 변경)
   );
 };
 
