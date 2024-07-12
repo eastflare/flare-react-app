@@ -329,15 +329,10 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
         </>,
         modalElement
       )}
-<<<<<<< HEAD
       <StyleRndBody>
         <PageModals />
       </StyleRndBody>
-    </PageContextProvider>
-=======
-      <PageModals />
     </ModalContextProvider>
->>>>>>> 0f57018 (PageContext -> ModalContext 일괄 변경)
   );
 };
 
