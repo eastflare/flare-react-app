@@ -13,7 +13,7 @@ function DrawPageRoute({ element, routesProps, display, ...props }: DisplayRoute
   //Function 가공
   //페이지이동하는 함수
 
-  //console.log("페이지에 넘어온 props", props);
+  console.log("페이지에 넘어온 routesProps 와 props", routesProps, props);
   const { getPageProviderProps } = usePage();
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
