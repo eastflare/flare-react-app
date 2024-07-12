@@ -20,6 +20,7 @@ function DrawPageRoutes({ openedPageMap, routesProps, curPageId }: TaskRoutesPro
             key={key}
             {...value?.element?.props}
             routesProps={routesProps}
+            pageItem={value}
             display={key === curPageId}
           />
         ))}

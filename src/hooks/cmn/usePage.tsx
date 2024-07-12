@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { PageItem } from "store/pageMapStore";
 
-const usePage = () => {
-  const [aaa, setAaa] = useState(1);
+const usePage = (props: { pageItem: PageItem }) => {
+  const { params = {}, options = {}, callback = () => {} } = props.pageItem;
 
   const getPageProviderProps = () => ({
-    aaa,
-    setAaa,
+    params,
+    options,
+    callback,
   });
 
   return {

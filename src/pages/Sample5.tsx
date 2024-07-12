@@ -1,14 +1,16 @@
+import { usePageContext } from "contexts/cmn/PageContext";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 const Sample5 = () => {
   const [input, setInput] = useState("");
-  const { id, name } = useParams();
+  const { params, callback } = usePageContext();
   return (
     <div>
       <h2>Sample5 : ID, Name을 pathVariable로 수신함</h2>
-      <p>id: {id} </p>
-      <p>name: {name} </p>
+      <p>id: {params.id} </p>
+      <p>name: {params.name} </p>
+      <p>message: {params.message} </p>
+      <p>message2: {params.message2} </p>
       <input type='text' value={input} onChange={e => setInput(e.target.value)} />
     </div>
   );

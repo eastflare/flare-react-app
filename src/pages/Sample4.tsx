@@ -1,14 +1,29 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { usePageContext } from "contexts/cmn/PageContext";
+import { useEffect, useState } from "react";
+//import { useParams } from "react-router-dom";
 
 const Sample4 = () => {
   const [input, setInput] = useState("");
-  const { id } = useParams();
+  const { params, callback } = usePageContext();
+
+  useEffect(() => {
+    console.log("sample4 파람즈->", params);
+  }, [params]);
+
   return (
     <div>
       <h2>Sample4 : ID를 pathVariable로 수신함</h2>
-      <p>id: {id} </p>
+      <p>id: {params.id} </p>
       <input type='text' value={input} onChange={e => setInput(e.target.value)} />
+      <button
+        type='button'
+        onClick={e => {
+          e.preventDefault;
+          callback(4, "sample4에서 콜백보냄");
+        }}
+      >
+        콜백
+      </button>
     </div>
   );
 };

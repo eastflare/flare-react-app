@@ -1,6 +1,6 @@
 import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
 import { ReactElement, ReactNode, useMemo, useState } from "react";
-import { RouteObject, matchRoutes, useLocation } from "react-router-dom";
+import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
 import usePageMapStore, { CallbackFunction } from "store/pageMapStore";
 
 //const MAX_PAGE_SIZE = 10;
@@ -9,6 +9,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const { pageMap, curPageId, setPageItem, setCurPageId } = usePageMapStore();
   const { pathname, search } = useLocation();
   const [routesMap, setRoutesMap] = useState<Record<string, RouteObject>>({});
+  const [searchParams] = useSearchParams();
 
   //ReactNode로 받아온 Routes 를 RouteObject로 일괄 변환하여 배열로 가지고 있는다.
   const routes = useMemo(
@@ -26,8 +27,8 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   //useMatch Hook을 통해 Params가 담겨있는 Route 객체로 변환한다.
   //현재 주소에 해당하는 Route ID 및 객체
   const routepath = route?.path || "";
-  //const matchedRoute = routepath && useMatch(routepath);
   const curRouteItem = useMemo(() => routesMap[routepath], [routesMap, routepath]);
+  const matchedRoute = routepath && useMatch(routepath);
 
   //현재 화면에 열려있는 Route (Max 10개)
   useEffect(() => {
@@ -66,7 +67,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   useLayoutEffect(initPageRoutesMap, [initPageRoutesMap]);
 
   const callbackWithParams: CallbackFunction<[number, string], void> = (num, str) => {
-    alert(num + " " + str);
+    alert("이거슨 콜백을 받으면 실행되는 부분 " + num + " " + str);
   };
 
   const openPageRoute = useCallback(() => {
@@ -75,6 +76,11 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     if (!label) {
       label = "Home";
     }
+
+    //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬
+    const pathParams = matchedRoute ? matchedRoute.params : {};
+    const searchParamsObj = Object.fromEntries(searchParams);
+    const params = { ...pathParams, ...searchParamsObj };
 
     const pageId = routepath;
     //현재 주소와 매핑된 Route가 있을 경우
@@ -102,8 +108,8 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         pathname: pathname,
         search: search,
         routePath: routepath,
-        options: {},
-        params: {},
+        //options: {},
+        params: params,
         element: curRouteItem.element as ReactElement,
         callback: callbackWithParams,
       });
