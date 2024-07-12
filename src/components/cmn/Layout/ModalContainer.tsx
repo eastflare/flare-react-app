@@ -21,21 +21,6 @@ interface State {
   maxZIndex: number;
 }
 
-const StyleRnd = styled(Rnd)`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border: 1px solid black;
-  .react-draggable {
-    position: relative;
-  }
-  .react-resizable {
-    position: relative;
-  }
-`;
-
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -44,6 +29,91 @@ const Overlay = styled.div`
   bottom: 0;
   background: rgba(0, 0, 0, 0.7);
   z-index: 999; // 모달보다는 낮지만 오버레이보다 높게 설정
+`;
+
+const StyleRnd = styled(Rnd)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: ${props => {
+    if (props.isTop) {
+      return `1px solid #17191B`;
+    } else {
+      return `1px solid #4A4E50`;
+    }
+  }};
+  .react-draggable {
+    position: relative;
+  }
+  .react-resizable {
+    position: relative;
+  }
+`;
+
+const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean; isTop?: boolean }>`
+  height: 35px;
+  min-height: 35px;
+  background-color: ${props => {
+    if (props.isDragging) {
+      return "#DDE0E2";
+    } else if (props.isTop) {
+      return "#CFD2D4";
+    } else {
+      return "#EBEFF0";
+    }
+  }};
+  ${props =>
+    props.isMaximized
+      ? { cursor: "nor-allowed" }
+      : props.isDragging
+        ? { cursor: "grabbing" }
+        : { cursor: "grab" }}&:hover {
+    ${props => (props.isMaximized ? {} : { backgroundColor: "#DDE0E2" })}
+  }
+  &:active {
+    & {
+      props= > props.isMaximized? {
+      }
+      : {
+        backgroundcolor: "#CFD2D4";
+      }
+    }
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 4px 4px 0 0;
+`;
+
+const StyleRndHeaderTitle = styled.span`
+  font-size: 15px;
+  font-weight: 600;
+  color: "#2a2c2d";
+`;
+
+const StyleRndButtonGroup = styled.div`
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
+`;
+
+const StyleRndBody = styled.div`
+  flex-grow: 1;
+  display: flex;
+  flex-diraction: column;
+  padding: 2px 8px 4px;
+  border-radius: 0 0 4px 4px;
+  background-color: "#ffffff";
+  & > div {
+    height: 100%;
+  }
+  & .data-grid {
+    min-height: 164px;
+  }
 `;
 
 let globalMaxZIndex = 1000;
@@ -63,6 +133,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
   const [zIndex, setZIndex] = useState(globalMaxZIndex);
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
   const originalSize = useRef({ width: 800, height: 720, x: 0, y: 0 });
 
   useLayoutEffect(() => {
@@ -117,6 +188,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
       globalMaxZIndex = newZIndex;
       return newZIndex;
     });
+    setIsDragging(true);
 
     if (data.node) {
       rndManagerRef.current = data.node;
@@ -130,6 +202,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
       x: data.x,
       y: data.y,
     }));
+    setIsDragging(false);
   };
 
   const onResize: RndResizeCallback = (_, __, ref, ___, position) => {
@@ -215,6 +288,8 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
         <>
           <Overlay onClick={onClose} />
           <StyleRnd
+            isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
+            isDragging={isDragging}
             dragHandleClassName={"handle"}
             size={{ height, width }}
             position={{ x, y }}
@@ -228,21 +303,14 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
             minWidth={200} // 최소 너비 설정
             bounds='window'
           >
-            <div
+            <StyleRndHeader
+              isDragging={isDragging}
+              isMaximized={isMaximized}
+              isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
               className='handle'
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                width: "100%",
-                backgroundColor: "gray",
-                padding: "0.5rem 1rem",
-                boxSizing: "border-box",
-                cursor: "move",
-              }}
             >
-              <span>Drag</span>
-              <div style={{ display: "flex", gap: "0.5rem" }}>
+              <StyleRndHeaderTitle>Drag</StyleRndHeaderTitle>
+              <StyleRndButtonGroup>
                 <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
                   _
                 </button>
@@ -251,15 +319,19 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
                     {isMaximized ? "🗗" : "🗖"}
                   </button>
                 )}
-                <button onClick={onClose} onGotPointerCapture={onClose}>×</button>
-              </div>
-            </div>
+                <button onClick={onClose} onGotPointerCapture={onClose}>
+                  ×
+                </button>
+              </StyleRndButtonGroup>
+            </StyleRndHeader>
             {!isMinimized && <Component {...props} onClose={onClose} />}
           </StyleRnd>
         </>,
         modalElement
       )}
-      <PageModals />
+      <StyleRndBody>
+        <PageModals />
+      </StyleRndBody>
     </PageContextProvider>
   );
 };
