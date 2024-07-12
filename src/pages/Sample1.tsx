@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 
 const Sample1 = () => {
   const [input, setInput] = useState("");
-  const { aaa } = usePageContext();
+  const { params, callback } = usePageContext();
 
   useEffect(() => {
-    console.log("Sample1-->" + aaa);
+    console.log("Sample1-->" + params);
   }, []);
 
   return (
@@ -14,6 +14,15 @@ const Sample1 = () => {
       <h2>Sample1</h2>
       <p>Sample1</p>
       <input type='text' value={input} onChange={e => setInput(e.target.value)} />
+      <button
+        type='button'
+        onClick={e => {
+          e.preventDefault;
+          callback(1, "sample1에서 콜백보냄");
+        }}
+      >
+        콜백
+      </button>
     </div>
   );
 };

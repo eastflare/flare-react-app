@@ -12,6 +12,15 @@ const Sample5 = () => {
       <p>message: {params.message} </p>
       <p>message2: {params.message2} </p>
       <input type='text' value={input} onChange={e => setInput(e.target.value)} />
+      <button
+        type='button'
+        onClick={e => {
+          e.preventDefault;
+          callback(5, "sample5에서 콜백보냄");
+        }}
+      >
+        콜백
+      </button>
     </div>
   );
 };
