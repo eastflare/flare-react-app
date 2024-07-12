@@ -66,9 +66,9 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   // routes가 추가 될때만 실행됨
   useLayoutEffect(initPageRoutesMap, [initPageRoutesMap]);
 
-  const callbackWithParams: CallbackFunction<[number, string], void> = (num, str) => {
+  const callbackWithParams = useCallback((num: number, str: string) => {
     alert("이거슨 콜백을 받으면 실행되는 부분 " + num + " " + str);
-  };
+  }, []);
 
   const openPageRoute = useCallback(() => {
     //임시 페이지명을 path의 마지막 글자로 변경
