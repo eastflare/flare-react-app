@@ -1,7 +1,7 @@
 import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
-import usePageMapStore, { CallbackFunction } from "store/pageMapStore";
+import usePageMapStore from "store/pageMapStore";
 
 //const MAX_PAGE_SIZE = 10;
 
