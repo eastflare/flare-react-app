@@ -6,7 +6,7 @@ import usePageMapStore, { CallbackFunction } from "store/pageMapStore";
 //const MAX_PAGE_SIZE = 10;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
-  const { pageMap, curPageId, addPageItem, setCurPageId } = usePageMapStore();
+  const { pageMap, curPageId, setPageItem, setCurPageId } = usePageMapStore();
   const { pathname, search } = useLocation();
   const [routesMap, setRoutesMap] = useState<Record<string, RouteObject>>({});
 
@@ -30,9 +30,8 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const curRouteItem = useMemo(() => routesMap[routepath], [routesMap, routepath]);
 
   //현재 화면에 열려있는 Route (Max 10개)
-  //const [openedRoutesMap, setOpenedRoutesMap] = useState<Record<string, RouteObject>>({});
   useEffect(() => {
-    console.log("routesMap --->", routesMap);
+    //console.log("routesMap --->", routesMap);
   }, [curRouteItem]);
 
   useEffect(() => {
@@ -41,10 +40,6 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     //console.log("나는route입니다.", matchedRoute);
     //console.log("나는파람스~입니다.", matchedRoute ? matchedRoute.params : undefined);
     console.log("실험중 페이지맵이 변경이 됐을까요?", pageMap);
-  }, [pageMap]);
-
-  useEffect(() => {
-    console.log("페이지 맵입니다.", pageMap);
   }, [pageMap]);
 
   const initPageRoutesMap = useCallback(() => {
@@ -84,28 +79,41 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     const pageId = routepath;
     //현재 주소와 매핑된 Route가 있을 경우
     if (curRouteItem) {
-      console.log("이미열려있는 페이지가 없을 경우 Route를 추가한다.");
       //이미열려있는 페이지가 없을 경우 Route를 추가한다.
-      if (!pageMap.has(pageId)) {
-        //PageMap을 추가함
-        addPageItem(pageId, {
-          id: pageId,
-          label: label,
-          pathname: pathname,
-          originPath: pathname + search,
-          routePath: routepath,
-          options: {},
-          params: {},
-          element: curRouteItem.element as ReactElement,
-          callback: callbackWithParams,
-        });
-      }
+      // if (!pageMap.has(pageId)) {
+      //   console.log("이미열려있는 페이지가 없을 경우 Route를 추가한다.");
+      //   //PageMap을 추가함
+      //   setPageItem(pageId, {
+      //     id: pageId,
+      //     label: label,
+      //     pathname: pathname,
+      //     search: search,
+      //     routePath: routepath,
+      //     options: {},
+      //     params: {},
+      //     element: curRouteItem.element as ReactElement,
+      //     callback: callbackWithParams,
+      //   });
+      // }
+
+      setPageItem(pageId, {
+        id: pageId,
+        label: label,
+        pathname: pathname,
+        search: search,
+        routePath: routepath,
+        options: {},
+        params: {},
+        element: curRouteItem.element as ReactElement,
+        callback: callbackWithParams,
+      });
+
       setCurPageId(pageId);
     }
   }, [pathname, search, curRouteItem]);
 
   //DOM 이 렌더링 되기 전에 동기적으로 처리 할때
-  //(위의 함수가 pathname, curRouteItem, openedRoutesMap 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
+  //(위의 함수가 pathname, search, curRouteItem 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
   useLayoutEffect(openPageRoute, [openPageRoute]);
 
   return {

@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import { NavigateFunction } from "react-router-dom";
 import usePageMapStore from "store/pageMapStore";
 
 export type PageTabItem = { id: string; path: string; label: string };
@@ -11,8 +12,8 @@ export type PageTabMap = Map<string, PageTabItem>;
 //   return new Map([[HomePageTabItem.id, HomePageTabItem]]);
 // }
 
-const usePageTab = () => {
-  const { pageMap, curPageId, setCurPageId, deletePageItem, resetPageMap } = usePageMapStore();
+const usePageTab = (props: { navigate: NavigateFunction }) => {
+  const { pageMap, curPageId, deletePageItem, resetPageMap } = usePageMapStore();
 
   //const [pageTab, setPageTab] = useState<PageTabMap>(initPageTabMap());
   //const [deletePageTabId, setDeletePageTabId] = useState<string | undefined>();
@@ -65,6 +66,24 @@ const usePageTab = () => {
   //   [setPageTab, pageTab.size]
   // );
 
+  const getOriginPath = (id: string) => {
+    let originPath = "/";
+    const prevPageMap = pageMap.get(id);
+    if (prevPageMap) {
+      const { pathname, search } = prevPageMap;
+      originPath = `${pathname}${search || ""}`;
+    }
+    return originPath;
+  };
+
+  const handleNavigatePageTab = useCallback(
+    (id: string) => {
+      const originPath = getOriginPath(id);
+      props.navigate(originPath);
+    },
+    [pageMap]
+  );
+
   //열려있는 탭을 삭제한다.
   const handleDeletePageTab = useCallback(
     (id: string) => (e: MouseEvent | undefined) => {
@@ -80,13 +99,14 @@ const usePageTab = () => {
         const prevItem = pageMap.get(prevId);
 
         if (prevItem && prevItem.id) {
-          setCurPageId(prevItem.id);
+          const originPath = getOriginPath(prevItem.id);
+          props.navigate(originPath);
         }
       }
 
       deletePageItem(id);
     },
-    [curPageId, pageMap]
+    [pageMap]
   );
 
   // useEffect(() => {
@@ -114,7 +134,7 @@ const usePageTab = () => {
   return {
     openedPageMap: pageMap,
     curPageId,
-    onPageTabClick: setCurPageId,
+    onPageTabClick: handleNavigatePageTab,
     onPageTabClose: handleDeletePageTab,
     onPageTabClear: resetPageMap,
   };

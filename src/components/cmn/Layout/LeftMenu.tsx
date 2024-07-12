@@ -53,6 +53,11 @@ const LeftMenu = () => {
           </a>
         </li>
         <li>
+          <a href='#' onClick={e => handleClick("/sample6?message=bbb", e)}>
+            샘플6 다른메세지
+          </a>
+        </li>
+        <li>
           <a href='#' onClick={e => handleClick("/about", e)}>
             about
           </a>

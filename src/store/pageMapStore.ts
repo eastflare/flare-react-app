@@ -11,7 +11,7 @@ export interface PageItem {
   id: string;
   label: string;
   pathname: string;
-  originPath: string;
+  search: string;
   routePath: string;
   params?: Object;
   options?: Object;
@@ -23,7 +23,7 @@ interface PageMapStore {
   pageMap: Map<string, PageItem>;
   curPageId: string;
   setCurPageId: (id: string) => void;
-  addPageItem: (id: string, obj: PageItem) => void;
+  setPageItem: (id: string, obj: PageItem) => void;
   deletePageItem: (id: string) => void;
   resetPageMap: () => void;
 }
@@ -33,7 +33,7 @@ const usePageMapStore = create<PageMapStore>(set => ({
   curPageId: "/",
   setCurPageId: id => set({ curPageId: id }),
 
-  addPageItem: (id, obj) =>
+  setPageItem: (id, obj) =>
     set(state => {
       //신규 페이지를 추가함
       const newMap = new Map(state.pageMap);

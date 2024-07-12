@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 import usePageTab from "hooks/cmn/usePageTab";
 import PageTab from "./PageTab";
+import { useNavigate } from "react-router-dom";
 
 const PageTopBar = () => {
   //const { openedPageMap, curpageId, onNavigateopenedPageMap, onDeleteopenedPageMap } = usePageRouterContext();
 
-  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose } = usePageTab();
+  const navigate = useNavigate();
+  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose } = usePageTab({ navigate });
 
   return (
     <StyledPageTopBar
