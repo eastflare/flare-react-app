@@ -6,7 +6,7 @@ export type PageTabItem = { id: string; path: string; label: string };
 export type PageTabMap = Map<string, PageTabItem>;
 
 //const HomePageTabItem: PageTabItem = { id: "/", path: "/", label: "Home" };
-const MAX_PAGE_SIZE = 10;
+//const MAX_PAGE_SIZE = 10;
 
 // function initPageTabMap(): PageTabMap {
 //   return new Map([[HomePageTabItem.id, HomePageTabItem]]);
