@@ -4,10 +4,19 @@ pipeline {
         nodejs 'Jenkins-NodeJS'
     }
     stages {
-        stage('build') {
+        stage('install') {
             steps {
                 sh "npm install"
-                sh "npm run build"
+            }
+        }
+        stage('build') {
+            steps {
+                script {
+                    // 빌드 단계에서 CI=true 환경 변수 설정
+                    withEnv(['CI=true']) {
+                        sh 'npm run build'
+                    }
+                }
             }
         }
         stage('deploy') {
