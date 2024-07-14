@@ -12,7 +12,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh "rm -r /web/*"
+                sh "rm -r /web/* || true"
                 sh "mv ./dist/* /web"
             }
         }
