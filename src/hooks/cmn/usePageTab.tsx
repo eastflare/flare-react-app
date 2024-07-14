@@ -15,35 +15,6 @@ export type PageTabMap = Map<string, PageTabItem>;
 const usePageTab = (props: { navigate: NavigateFunction }) => {
   const { pageMap, curPageId, deletePageItem, resetPageMap } = usePageMapStore();
 
-  //const [pageTab, setPageTab] = useState<PageTabMap>(initPageTabMap());
-  //const [deletePageTabId, setDeletePageTabId] = useState<string | undefined>();
-
-  // const [callbackMap, setCallbackMap] = useState({});
-  // const handleCallbacks = useCallback((id: string, callback: () => void) => {
-  //   setCallbackMap(prevState => {
-  //     return { ...prevState, [id]: callback };
-  //   });
-  // }, []);
-
-  //const { key, pathname } = useLocation();
-
-  // useEffect(() => {
-  //   console.log("callback이 담겨져있습니다.-->", callbackMap);
-  // }, [pathname]);
-
-  // PageTab을 클릭했을 경우 주소를 해당페이지의 주소로 넘긴다.
-  // const handleNavigatePageTab = useCallback(
-  //   ({ path }: Pick<PageTabItem, "path">) => {
-  //     props.navigate?.(path, { state: { message: "value1", message2: "value2" } });
-  //   },
-  //   [props.navigate]
-  // );
-
-  // const DummyCallback = useCallback(() => {
-  //   alert("aaaa");
-  //   return;
-  // }, []);
-
   // 하단 Page 에서 location에 대한 정보로 페이지를 표시한 후 해당 함수가 호출됨
   // const handleOpenPageTab = useCallback(
   //   ({ id, path, label }: PageTabItem) => {
@@ -109,28 +80,6 @@ const usePageTab = (props: { navigate: NavigateFunction }) => {
     [pageMap]
   );
 
-  // useEffect(() => {
-  //   pageTab.forEach((pageTabItem, id) => {
-  //     if (pageTabItem.path === pathname) {
-  //       setcurPageId(String(id));
-  //     }
-  //   });
-  // }, [key, pathname, pageTab]);
-
-  // const getPageRouterProviderProps = () => ({
-  //   pageTab,
-  //   setPageTab,
-  //   curPageId,
-  //   onOpenPageTab: handleOpenPageTab,
-  //   onClearPageTab: handleClearPageTab,
-  //   onDeletePageTab: handleDeletePageTab,
-  //   onNavigatePageTab: handleNavigatePageTab,
-  //   deletePageTabId: deletePageTabId,
-  //   onDeletePageTabOk: handleDeletePageTabOk,
-  //   //callbacks: callbacks,
-  //   //onAddCallbacks: handleCallbacks,
-  // });
-
   return {
     openedPageMap: pageMap,
     curPageId,
@@ -141,8 +90,3 @@ const usePageTab = (props: { navigate: NavigateFunction }) => {
 };
 
 export default usePageTab;
-
-//Context 에서 사용하기 위한 Type을 ReturnType의 함수를 통해 정의함.
-// export type TPageRouterProviderProps = ReturnType<
-//   ReturnType<typeof usePageTab>["getPageRouterProviderProps"]
-// >;
