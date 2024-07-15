@@ -160,7 +160,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
     const modalWidth = typeof width === "number" ? width : parseInt(width);
     const modalHeight = typeof height === "number" ? height : parseInt(height);
     const posX = (screenWidth - modalWidth) / 2;
-    const posY = -(screenHeight - modalHeight) * 3.5;
+    const posY = (screenHeight - modalHeight) / 2 - screenHeight;
 
     setState(prevState => ({
       ...prevState,
@@ -258,7 +258,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
         width: "100%",
         height: "100%",
         x: 0,
-        y: -970,
+        y: -window.innerHeight,
         maxZIndex: state.maxZIndex,
       });
     }
