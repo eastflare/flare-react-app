@@ -1,12 +1,39 @@
+import { useState } from "react";
 import { PageItem } from "store/pageMapStore";
 
 const usePage = (props: { pageItem: PageItem }) => {
   const { params = {}, options = {}, callback = () => {} } = props.pageItem;
 
+  const [modals, setModals] = useState<PageItem[]>([]); // Destructure the tuple correctly
+  const setModal = (modalProps: PageItem) => {
+    setModals(prev => [...prev, modalProps]);
+  };
+
+  const closeModal = (id: string) => {
+    const filteredItems = modals.filter(item => item.id !== id);
+    setModals(filteredItems);
+  };
+
+  // setPageItem(pageId, {
+  //   openTypeCode : OpenTypeCode.PAGE,
+  //   id: pageId,
+  //   label: label,
+  //   pathname: pathname,
+  //   search: search,
+  //   routePath: routepath,
+  //   //options: {},
+  //   params: params,
+  //   element: curRouteItem.element as ReactElement,
+  //   callback: callbackWithParams,
+  // });
+
   const getPageProviderProps = () => ({
     params,
     options,
     callback,
+    modals,
+    setModal,
+    closeModal,
   });
 
   return {

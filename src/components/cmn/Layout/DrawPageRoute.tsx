@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import usePage from "hooks/cmn/usePage";
 import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "store/pageMapStore";
+import PageModals from "./PageModals";
 
 interface DisplayRouteProps extends PathRouteProps {
   routesProps: RoutesProps;
@@ -20,7 +21,10 @@ function DrawPageRoute({ element, pageItem, display, routesProps, ...props }: Di
   const { getPageProviderProps } = usePage({ pageItem });
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
-      <PageProvider value={{ ...getPageProviderProps() }}>{element}</PageProvider>
+      <PageProvider value={{ ...getPageProviderProps() }}>
+        {element}
+        <PageModals />
+      </PageProvider>
     </StyledDisplayElement>
   );
 }

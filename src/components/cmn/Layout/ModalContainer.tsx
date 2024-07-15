@@ -1,17 +1,20 @@
 import styled from "@emotion/styled";
 import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rnd";
-import { PageObj } from "models/cmn/page";
-import useGoPage from "hooks/cmn/useGoPage";
-import { ModalContextProvider } from "contexts/cmn/ModalContext";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import {
+  ComponentClass,
+  FunctionComponent,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import PageModals from "./PageModals";
 import ReactDOM from "react-dom";
 import { DraggableEvent } from "react-draggable";
-
-interface ModalsProviderProp {
-  id: string;
-  modal: PageObj;
-}
+import { PageProvider } from "contexts/cmn/PageContext";
+import usePage from "hooks/cmn/usePage";
+import { PageItem } from "store/pageMapStore";
+import React from "react";
 
 interface State {
   width: number | string;
@@ -130,9 +133,12 @@ const StyleRndBody = styled.div`
 
 let globalMaxZIndex = 1000;
 
-const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
-  const { closeModal } = useGoPage();
-  const { Component, props } = modal;
+const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
+  //const { closeModal } = useGoPage();
+
+  //const Component = pageItem.element;
+  //const props = pageItem.params;
+  const element = pageItem.element as unknown as FunctionComponent | ComponentClass;
 
   const [state, setState] = useState<State>({
     width: 800,
@@ -186,11 +192,11 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
     };
   }, []);
 
-  useEffect(() => {
-    return () => {
-      console.log("나는 죽습니다." + id);
-    };
-  }, [id]);
+  // useEffect(() => {
+  //   return () => {
+  //     console.log("나는 죽습니다." + id);
+  //   };
+  // }, [id]);
 
   const rndManagerRef = useRef<HTMLElement | null>(null);
 
@@ -236,7 +242,9 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
   };
 
   const onClose = () => {
-    closeModal(id);
+    if (pageItem) {
+      pageItem.close?.();
+    }
   };
 
   const onMaximize = () => {
@@ -299,8 +307,11 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
   const { width, height, x, y } = state;
   const modalElement = document.getElementById("modal-root")!;
   console.log("나는x,y입니다.", x, y);
+
+  const { getPageProviderProps } = usePage({ pageItem });
+
   return (
-    <ModalContextProvider pageId={id}>
+    <PageProvider value={{ ...getPageProviderProps() }}>
       {ReactDOM.createPortal(
         <>
           <Overlay onClick={onClose} />
@@ -344,7 +355,8 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
                 </StyleRndButtonGroup>
               </StyleRndHeader>
               <StyleRndBody>
-                {!isMinimized && <Component {...props} onClose={onClose} />}
+                {/* {!isMinimized && <element {...props} onClose={onClose} />} */}
+                {!isMinimized && element && <div>{React.createElement(element)}</div>}
               </StyleRndBody>
             </StyleRnd>
           </Rnd>
@@ -352,7 +364,7 @@ const ModalContainer = ({ id, modal }: ModalsProviderProp) => {
         modalElement
       )}
       <PageModals />
-    </ModalContextProvider>
+    </PageProvider>
   );
 };
 

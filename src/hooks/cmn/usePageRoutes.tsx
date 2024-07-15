@@ -1,7 +1,7 @@
 import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
-import usePageMapStore from "store/pageMapStore";
+import usePageMapStore, { OpenTypeCode } from "store/pageMapStore";
 
 //const MAX_PAGE_SIZE = 10;
 
@@ -107,6 +107,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       // }
 
       setPageItem(pageId, {
+        openTypeCode : OpenTypeCode.PAGE,
         id: pageId,
         label: label,
         pathname: pathname,

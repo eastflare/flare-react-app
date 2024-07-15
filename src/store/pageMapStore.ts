@@ -5,9 +5,18 @@ type Object = {
   [key: string]: any;
 };
 
+export enum OpenTypeCode {
+  PAGE = "PAGE",
+  MODAL = "MODAL",
+  MODELESS = "MODELESS",
+  WINDOW = "WINDOW",
+}
+
 export type CallbackFunction<T = any, R = any> = (...args: T[]) => R;
+export type CloseFunction = () => void;
 
 export interface PageItem {
+  openTypeCode: OpenTypeCode;
   id: string;
   label: string;
   pathname: string;
@@ -16,6 +25,7 @@ export interface PageItem {
   params?: Object;
   options?: Object;
   callback?: CallbackFunction;
+  close?: CloseFunction;
   element: ReactElement;
 }
 
