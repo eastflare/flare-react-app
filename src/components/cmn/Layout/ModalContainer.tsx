@@ -9,7 +9,6 @@ import {
   useState,
 } from "react";
 import PageModals from "./PageModals";
-import ReactDOM from "react-dom";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
 import usePage from "hooks/cmn/usePage";
@@ -24,14 +23,14 @@ interface State {
   maxZIndex: number;
 }
 
-const Overlay = styled.div`
+const Overlay = styled.div<{ topHeight?: number; leftWidth?: number; globalMaxZIndex?: number }>`
   position: fixed;
-  top: 0;
-  left: 0;
+  top: ${props => props.topHeight || 0}px;
+  left: ${props => props.leftWidth || 0}px;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 999; // 모달보다는 낮지만 오버레이보다 높게 설정
+  background: rgba(0, 0, 0, 0.3);
+  z-index: ${props => (props.globalMaxZIndex ? props.globalMaxZIndex - 1 : 0)};
 `;
 
 const StyleRnd = styled.div<{ isDragging?: boolean; isTop?: boolean }>`
@@ -139,10 +138,13 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   //const Component = pageItem.element;
   //const props = pageItem.params;
   const element = pageItem.element as unknown as FunctionComponent | ComponentClass;
+  const topHeight = 99; //임시로 지정함 어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영
+  const leftWidth = 150; //임시로 지정함
+  const isModal = pageItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
-    width: 800,
-    height: 720,
+    width: pageItem.options?.width ?? 800,
+    height: pageItem.options?.height ?? 600,
     x: 0,
     y: 0,
     maxZIndex: 0,
@@ -152,7 +154,12 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const originalSize = useRef({ width: 800, height: 720, x: 0, y: 0 });
+  const originalSize = useRef({
+    width: pageItem.options?.width ?? 800,
+    height: pageItem.options?.height ?? 600,
+    x: 0,
+    y: 0,
+  });
 
   useLayoutEffect(() => {
     globalMaxZIndex += 1;
@@ -166,7 +173,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     const modalWidth = typeof width === "number" ? width : parseInt(width);
     const modalHeight = typeof height === "number" ? height : parseInt(height);
     const posX = (screenWidth - modalWidth) / 2;
-    const posY = (screenHeight - modalHeight) / 2 - screenHeight;
+    const posY = (screenHeight - modalHeight) / 2;
 
     setState(prevState => ({
       ...prevState,
@@ -265,8 +272,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
       setState({
         width: "100%",
         height: "100%",
-        x: 0,
-        y: -window.innerHeight,
+        x: -leftWidth,
+        y: -topHeight,
         maxZIndex: state.maxZIndex,
       });
     }
@@ -292,7 +299,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
         width: 200,
         height: 50,
         x: 0,
-        y: -100,
+        y: window.innerHeight - 200,
         maxZIndex: state.maxZIndex,
       });
     }
@@ -305,64 +312,65 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   };
 
   const { width, height, x, y } = state;
-  const modalElement = document.getElementById("modal-root")!;
   console.log("나는x,y입니다.", x, y);
 
   const { getPageProviderProps } = usePage({ pageItem });
 
   return (
     <PageProvider value={{ ...getPageProviderProps() }}>
-      {ReactDOM.createPortal(
-        <>
-          <Overlay onClick={onClose} />
-          <Rnd
-            dragHandleClassName={"handle"}
-            size={{ height, width }}
-            position={{ x, y }}
-            style={{ zIndex }}
-            onClick={bringToFront}
-            onDragStart={onDragStart}
-            onDragStop={onDragStop}
-            onResize={onResize}
-            onResizeStop={onResizeStop}
-            minHeight={50}
-            minWidth={200}
-            bounds='window'
-          >
-            <StyleRnd
-              isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
-              isDragging={isDragging}
-            >
-              <StyleRndHeader
-                isDragging={isDragging}
-                isMaximized={isMaximized}
-                isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
-                className='handle'
-              >
-                <StyleRndHeaderTitle>Drag</StyleRndHeaderTitle>
-                <StyleRndButtonGroup>
-                  <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
-                    -
-                  </button>
-                  {!isMinimized && (
-                    <button onClick={onMaximize} onGotPointerCapture={onMaximize}>
-                      {isMaximized ? "🗗" : "🗖"}
-                    </button>
-                  )}
-                  <button onClick={onClose} onGotPointerCapture={onClose}>
-                    ×
-                  </button>
-                </StyleRndButtonGroup>
-              </StyleRndHeader>
-              <StyleRndBody>
-                {/* {!isMinimized && <element {...props} onClose={onClose} />} */}
-                {!isMinimized && element && <div>{React.createElement(element)}</div>}
-              </StyleRndBody>
-            </StyleRnd>
-          </Rnd>
-        </>,
-        modalElement
+      {isModal && (
+        <Overlay
+          topHeight={topHeight}
+          leftWidth={leftWidth}
+          globalMaxZIndex={globalMaxZIndex}
+          onClick={onClose}
+        />
       )}
+      <Rnd
+        dragHandleClassName={"handle"}
+        size={{ height, width }}
+        position={{ x, y }}
+        style={{ zIndex }}
+        onClick={bringToFront}
+        onDragStart={onDragStart}
+        onDragStop={onDragStop}
+        onResize={onResize}
+        onResizeStop={onResizeStop}
+        minHeight={50}
+        minWidth={200}
+        bounds='window'
+      >
+        <StyleRnd
+          isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
+          isDragging={isDragging}
+        >
+          <StyleRndHeader
+            isDragging={isDragging}
+            isMaximized={isMaximized}
+            isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
+            className='handle'
+          >
+            <StyleRndHeaderTitle>{pageItem?.label ?? "Drag"}</StyleRndHeaderTitle>
+            <StyleRndButtonGroup>
+              <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
+                -
+              </button>
+              {!isMinimized && (
+                <button onClick={onMaximize} onGotPointerCapture={onMaximize}>
+                  {isMaximized ? "🗗" : "🗖"}
+                </button>
+              )}
+              <button onClick={onClose} onGotPointerCapture={onClose}>
+                ×
+              </button>
+            </StyleRndButtonGroup>
+          </StyleRndHeader>
+          <StyleRndBody>
+            {/* {!isMinimized && <element {...props} onClose={onClose} />} */}
+            {!isMinimized && element && <div>{React.createElement(element)}</div>}
+          </StyleRndBody>
+        </StyleRnd>
+      </Rnd>
       <PageModals />
     </PageProvider>
   );

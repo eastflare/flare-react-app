@@ -1,6 +1,4 @@
 import { ReactNode } from "react";
-import TopMenu from "./TopMenu";
-import LeftMenu from "./LeftMenu";
 import styled from "@emotion/styled";
 import PageTopBar from "./PageTopBar";
 
@@ -10,17 +8,11 @@ const MainContainer = (props: { children: ReactNode }) => {
 
   const { children } = props;
   const isLeftCollapsed = false;
-  const showPageTopBar = true;
+  const showPageTopBar = false;
 
   return (
     <StyledMainContainer>
-      <StyledMainHeader>
-        <TopMenu />
-      </StyledMainHeader>
       <StyledMainBody>
-        <StyledMainLeft isCollapsed={isLeftCollapsed}>
-          <LeftMenu />
-        </StyledMainLeft>
         <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
           {showPageTopBar ? <PageTopBar /> : null}
           <StyledMainPage showPageTopBar={showPageTopBar}>{children}</StyledMainPage>
@@ -30,18 +22,11 @@ const MainContainer = (props: { children: ReactNode }) => {
   );
 };
 
-const StyledMainHeader = styled.div``;
-
-// border-left: 1px solid ${props => props.theme.palette.color.divider + "04"}; --> #32cd32
-// border-right: 1px solid ${props => props.theme.palette.color.divider}; --> #800000
-
 const StyledMainContainer = styled.div`
   /* width: 100%; */
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #32cd32;
-  border-right: 1px solid #800000;
 `;
 
 const StyledMainBody = styled.div`
@@ -49,19 +34,6 @@ const StyledMainBody = styled.div`
   flex-direction: row;
   flex-grow: 1;
   height: calc(100%-50px);
-`;
-
-const StyledMainLeft = styled.div<{ isCollapsed: boolean }>`
-  width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "150px")};
-  min-width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "150px")};
-  transition: all 0.2s ease-out;
-  border-right: 1px solid #32cd32;
-  background-color: #f0f0f0;
-  box-shadow: 0 8px 8px #00000026;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: auto;
 `;
 
 const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`

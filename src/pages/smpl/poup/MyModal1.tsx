@@ -1,11 +1,11 @@
 import { modals } from "components/cmn/Layout/Modals";
 import { useEffect, useState } from "react";
-import useGoPage from "hooks/cmn/useGoPage";
 import { PageProps } from "models/cmn/page";
 import useToast from "hooks/cmn/useToast";
+import usePageNavigate from "hooks/cmn/usePageNavigate";
 
 const MyModal = ({ onClose, callback }: PageProps) => {
-  const { goModal } = useGoPage();
+  const { openModal } = usePageNavigate();
   const [text, setText] = useState("");
   const { myToast } = useToast();
 
@@ -33,12 +33,16 @@ const MyModal = ({ onClose, callback }: PageProps) => {
   };
 
   const openYoshiki = () => {
-    goModal(modals.myModal2, {
-      onSubmit: () => {
-        alert("요시키상 어제 송심당에서 저녁먹음");
+    openModal(
+      modals.myModal2,
+      {
+        foo: "bar",
+        callback: () => {
+          alert("매튜 뭐하는 사람인가요?");
+        },
       },
-      foo: "bar",
-    });
+      { width: 800, height: 600 }
+    );
   };
 
   return (
