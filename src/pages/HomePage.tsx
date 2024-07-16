@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const HomePage = () => {
   //const { goModal } = useGoPage();
-  const { openModal } = usePageNavigate();
+  const { openModal, openModeless, openWindow } = usePageNavigate();
   const [input, setInput] = useState("");
 
   useEffect(() => {
@@ -12,46 +12,69 @@ const HomePage = () => {
   }, []);
 
   const handleClickMatthew = () => {
-    openModal(modals.matthew, {
-      foo: "bar",
-      callback: () => {
-        alert("매튜 뭐하는 사람인가요?");
+    console.log("모달빨간줄.....", modals.matthew);
+    openModeless(
+      modals.matthew,
+      {
+        foo: "bar",
+        callback: () => {
+          alert("매튜 뭐하는 사람인가요?");
+        },
       },
-    });
+      { width: 800, height: 600 }
+    );
   };
 
   const handleClick = () => {
-    openModal(modals.myModal, {
-      foo: "bar",
-      callback: () => {
-        alert("루팡 뭐하는 사람인가요?");
+    openModal(
+      modals.myModal,
+      {
+        foo: "bar",
+        callback: () => {
+          alert("매튜 뭐하는 사람인가요?");
+        },
       },
-    });
+      { width: 800, height: 600 }
+    );
   };
 
   const handleClick1 = () => {
-    openModal(modals.myModal1, {
-      foo: "bar",
-      callback: () => {
-        alert("전선배 뭐하는 사람인가요?");
+    openModal(
+      modals.myModal1,
+      {
+        foo: "bar",
+        callback: () => {
+          alert("매튜 뭐하는 사람인가요?");
+        },
       },
-    });
+      { width: 800, height: 600 }
+    );
   };
   const handleClick2 = () => {
-    openModal(modals.myModal2, {
-      foo: "bar",
-      callback: () => {
-        alert("요시키 뭐하는 사람인가요?");
+    openModal(
+      modals.myModal2,
+      {
+        foo: "bar",
+        callback: () => {
+          alert("매튜 뭐하는 사람인가요?");
+        },
       },
-    });
+      { width: 800, height: 600 }
+    );
   };
   const handleClick3 = () => {
-    openModal(modals.myModal3, {
-      foo: "bar",
-      callback: () => {
-        alert("김주팔 뭐하는 사람인가요?");
+    console.log(modals.myModal3);
+    openWindow(
+      "/Sample1",
+      modals.myModal3,
+      {
+        foo: "bar",
+        callback: () => {
+          alert("매튜 뭐하는 사람인가요?");
+        },
       },
-    });
+      { width: 800, height: 600 }
+    );
   };
 
   return (

@@ -37,7 +37,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     //console.log("routepath -->", routepath);
-    //console.log("나는location입니다.", search, pathname, hash, key, state);
+    //console.log("나는location입니다.", search, pathname);
     //console.log("나는route입니다.", matchedRoute);
     //console.log("나는파람스~입니다.", matchedRoute ? matchedRoute.params : undefined);
     console.log("실험중 페이지맵이 변경이 됐을까요?", pageMap);
@@ -107,7 +107,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       // }
 
       setPageItem(pageId, {
-        openTypeCode : OpenTypeCode.PAGE,
+        openTypeCode: OpenTypeCode.PAGE,
         id: pageId,
         label: label,
         pathname: pathname,

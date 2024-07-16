@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { PageItem } from "store/pageMapStore";
+import { openWindow } from "utils/windowUtil";
 
 const usePage = (props: { pageItem: PageItem }) => {
   const { params = {}, options = {}, callback = () => {} } = props.pageItem;
@@ -12,6 +13,10 @@ const usePage = (props: { pageItem: PageItem }) => {
   const closeModal = (id: string) => {
     const filteredItems = modals.filter(item => item.id !== id);
     setModals(filteredItems);
+  };
+
+  const addWindow = (windowProps: PageItem) => {
+    openWindow(windowProps);
   };
 
   // setPageItem(pageId, {
@@ -34,6 +39,7 @@ const usePage = (props: { pageItem: PageItem }) => {
     modals,
     setModal,
     closeModal,
+    addWindow,
   });
 
   return {

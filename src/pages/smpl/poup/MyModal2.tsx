@@ -1,27 +1,27 @@
-import useGoPage from 'hooks/cmn/useGoPage';
-import { modals } from 'components/cmn/Layout/Modals';
-import { useContext, useEffect, useState } from 'react';
-import { PageProps } from 'models/cmn/page';
-import useToast from 'hooks/cmn/useToast';
-import { ModalContext } from 'contexts/cmn/ModalContext';
+import { modals } from "components/cmn/Layout/Modals";
+import { useContext, useEffect, useState } from "react";
+import { PageProps } from "models/cmn/page";
+import useToast from "hooks/cmn/useToast";
+import { ModalContext } from "contexts/cmn/ModalContext";
+import usePageNavigate from "hooks/cmn/usePageNavigate";
 
 const MyModal = ({ onClose, callback }: PageProps) => {
-  const { goModal } = useGoPage();
-  const [text, setText] = useState('');
+  const { openModal } = usePageNavigate();
+  const [text, setText] = useState("");
   const { myToast } = useToast();
   const parentId = useContext(ModalContext);
 
   useEffect(() => {
-    console.log('요시키 렌더링');
+    console.log("요시키 렌더링");
     return () => {
-      console.log('요시키 다이');
+      console.log("요시키 다이");
     };
   }, []);
 
   const handleClickSubmit = () => {
     callback?.();
     alert(parentId);
-    myToast('saved');
+    myToast("saved");
     onClose();
   };
 
@@ -35,9 +35,16 @@ const MyModal = ({ onClose, callback }: PageProps) => {
   };
 
   const openYoshiki = () => {
-    goModal(modals.myModal1, {
-      foo: 'bar',
-    });
+    openModal(
+      modals.myModal1,
+      {
+        foo: "bar",
+        callback: () => {
+          alert("매튜 뭐하는 사람인가요?");
+        },
+      },
+      { width: 800, height: 600 }
+    );
   };
 
   return (
@@ -58,16 +65,10 @@ const MyModal = ({ onClose, callback }: PageProps) => {
         <button onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
           요시키 에서 전선배
         </button>
-        <button
-          onClick={handleClickSubmit}
-          onGotPointerCapture={handleClickSubmit}
-        >
+        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
         </button>
-        <button
-          onClick={handleClickCancel}
-          onGotPointerCapture={handleClickCancel}
-        >
+        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
         </button>
       </div>
