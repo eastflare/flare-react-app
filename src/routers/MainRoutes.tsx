@@ -27,39 +27,31 @@ const MainRoutes = () => {
     }
   }, [location.pathname, extractor.getQueryParameterValue("type")]);
 
+  const CommonRoutes = () => (
+    <PageRoutes>
+      <Route path='/' element={<Home />} />
+      <Route path='/about' element={<About />} />
+      <Route path='/services' element={<Services />} />
+      <Route path='/contact' element={<Contact />} />
+      <Route path='/sample1' element={<Sample1 />} />
+      <Route path='/sample2' element={<Sample2 />} />
+      <Route path='/sample3' element={<Sample3 />} />
+      <Route path='/sample4/:id' element={<Sample4 />} />
+      <Route path='/sample5/:id/:name' element={<Sample5 />} />
+      <Route path='/sample6' element={<Sample6 />} />
+      <Route path='*' element={<NoPage />} />
+    </PageRoutes>
+  );
+
   return (
     <>
       {globalContainerType !== "Independent" ? (
         <MainContainer>
-          <PageRoutes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/services' element={<Services />} />
-            <Route path='/contact' element={<Contact />} />
-            <Route path='/sample1' element={<Sample1 />} />
-            <Route path='/sample2' element={<Sample2 />} />
-            <Route path='/sample3' element={<Sample3 />} />
-            <Route path='/sample4/:id' element={<Sample4 />} />
-            <Route path='/sample5/:id/:name' element={<Sample5 />} />
-            <Route path='/sample6' element={<Sample6 />} />
-            <Route path='*' element={<NoPage />} />
-          </PageRoutes>
+          <CommonRoutes />
         </MainContainer>
       ) : (
         <IndependentContainer>
-          <PageRoutes>
-            <Route path='/' element={<Home />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/services' element={<Services />} />
-            <Route path='/contact' element={<Contact />} />
-            <Route path='/sample1' element={<Sample1 />} />
-            <Route path='/sample2' element={<Sample2 />} />
-            <Route path='/sample3' element={<Sample3 />} />
-            <Route path='/sample4/:id' element={<Sample4 />} />
-            <Route path='/sample5/:id/:name' element={<Sample5 />} />
-            <Route path='/sample6' element={<Sample6 />} />
-            <Route path='*' element={<NoPage />} />
-          </PageRoutes>
+          <CommonRoutes />
         </IndependentContainer>
       )}
     </>

@@ -29,7 +29,7 @@ const Overlay = styled.div<{ topHeight?: number; leftWidth?: number; globalMaxZI
   left: ${props => props.leftWidth || 0}px;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.3);
   z-index: ${props => (props.globalMaxZIndex ? props.globalMaxZIndex - 1 : 0)};
 `;
 

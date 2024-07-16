@@ -27,8 +27,6 @@ const StyledMainContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #32cd32;
-  border-right: 1px solid #800000;
 `;
 
 const StyledMainBody = styled.div`
