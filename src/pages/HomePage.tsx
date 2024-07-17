@@ -1,4 +1,5 @@
 import { modals } from "components/cmn/Layout/Modals";
+import { Env } from "config/env";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { useEffect, useState } from "react";
 
@@ -8,11 +9,12 @@ const HomePage = () => {
   const [input, setInput] = useState("");
 
   useEffect(() => {
+    const env = Env.getInstance();
     console.log("메인페이지 입니다.");
+    console.log("환경변수는...?", env?.isCurrentNodeEnv("prd"));
   }, []);
 
   const handleClickMatthew = () => {
-    console.log("모달빨간줄.....", modals.matthew);
     openModeless(
       modals.matthew,
       {
@@ -63,7 +65,6 @@ const HomePage = () => {
     );
   };
   const handleClick3 = () => {
-    console.log(modals.myModal3);
     openWindow(
       "/Sample1",
       modals.myModal3,

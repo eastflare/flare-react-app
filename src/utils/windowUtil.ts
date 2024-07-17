@@ -47,14 +47,14 @@ export function openWindow(pageItem: PageItem) {
   features.push("height=" + pageItem.options?.height);
   features.push("top=" + posTop);
   features.push("left=" + posleft);
-  features.push("scrollbars=" + pageItem.options?.scrollbars ?? "no");
-  features.push("resizable=" + pageItem.options?.resizable ?? "yes");
-  features.push("menubar=" + pageItem.options?.menubar ?? "no");
-  features.push("toolbar=" + pageItem.options?.toolbar ?? "no");
-  features.push("location=" + pageItem.options?.location ?? "no");
-  features.push("directories=" + pageItem.options?.directories ?? "no");
-  features.push("status=" + pageItem.options?.status ?? "no");
-  features.push("fullscreen=" + pageItem.options?.fullscreen ?? "no");
+  features.push("scrollbars=" + pageItem.options?.scrollbars || "no");
+  features.push("resizable=" + pageItem.options?.resizable || "yes");
+  features.push("menubar=" + pageItem.options?.menubar || "no");
+  features.push("toolbar=" + pageItem.options?.toolbar || "no");
+  features.push("location=" + pageItem.options?.location || "no");
+  features.push("directories=" + pageItem.options?.directories || "no");
+  features.push("status=" + pageItem.options?.status || "no");
+  features.push("fullscreen=" + pageItem.options?.fullscreen || "no");
 
   const objPopup = window.open(url, "_blank", features.join(","));
 
