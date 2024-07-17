@@ -86,7 +86,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     const searchParamsObj = Object.fromEntries(searchParams);
     const params = { ...pathParams, ...searchParamsObj };
 
-    const pageId = routepath;
+    const pageId = pathname;
     //현재 주소와 매핑된 Route가 있을 경우
     if (curRouteItem) {
       //이미열려있는 페이지가 없을 경우 Route를 추가한다.
