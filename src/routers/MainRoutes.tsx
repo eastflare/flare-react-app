@@ -20,39 +20,38 @@ const MainRoutes = () => {
   const location = useLocation();
 
   const globalContainerType = useMemo<"RAP" | "Independent">(() => {
-    if (extractor.getQueryParameterValue("type") == "independent") {
+    if (extractor.getQueryParameterValue("type") === "independent") {
       return "Independent";
     } else {
       return "RAP";
     }
   }, [location.pathname, extractor.getQueryParameterValue("type")]);
 
-  const CommonRoutes = () => (
-    <PageRoutes>
-      <Route path='/' element={<Home />} />
-      <Route path='/about' element={<About />} />
-      <Route path='/services' element={<Services />} />
-      <Route path='/contact' element={<Contact />} />
-      <Route path='/sample1' element={<Sample1 />} />
-      <Route path='/sample2' element={<Sample2 />} />
-      <Route path='/sample3' element={<Sample3 />} />
-      <Route path='/sample4/:id' element={<Sample4 />} />
-      <Route path='/sample5/:id/:name' element={<Sample5 />} />
-      <Route path='/sample6' element={<Sample6 />} />
-      <Route path='*' element={<NoPage />} />
-    </PageRoutes>
+  const CommonRoutes = useMemo(
+    () => (
+      <PageRoutes>
+        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/services' element={<Services />} />
+        <Route path='/contact' element={<Contact />} />
+        <Route path='/sample1' element={<Sample1 />} />
+        <Route path='/sample2' element={<Sample2 />} />
+        <Route path='/sample3' element={<Sample3 />} />
+        <Route path='/sample4/:id' element={<Sample4 />} />
+        <Route path='/sample5/:id/:name' element={<Sample5 />} />
+        <Route path='/sample6' element={<Sample6 />} />
+        <Route path='*' element={<NoPage />} />
+      </PageRoutes>
+    ),
+    []
   );
 
   return (
     <>
       {globalContainerType !== "Independent" ? (
-        <MainContainer>
-          <CommonRoutes />
-        </MainContainer>
+        <MainContainer>{CommonRoutes}</MainContainer>
       ) : (
-        <IndependentContainer>
-          <CommonRoutes />
-        </IndependentContainer>
+        <IndependentContainer>{CommonRoutes}</IndependentContainer>
       )}
     </>
   );

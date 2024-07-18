@@ -2,6 +2,7 @@ import { RoutesProps } from "react-router-dom";
 
 import DrawPageRoutes from "./DrawPageRoutes";
 import usePageRoutes from "hooks/cmn/usePageRoutes";
+import { memo } from "react";
 
 const PageRoutes = ({ children, ...props }: RoutesProps) => {
   const { curPageId, openedPageMap } = usePageRoutes({ children });
@@ -9,4 +10,4 @@ const PageRoutes = ({ children, ...props }: RoutesProps) => {
   return <DrawPageRoutes curPageId={curPageId} openedPageMap={openedPageMap} routesProps={props} />;
 };
 
-export default PageRoutes;
+export default memo(PageRoutes);
