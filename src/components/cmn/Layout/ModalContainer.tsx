@@ -138,7 +138,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   //const Component = pageItem.element;
   //const props = pageItem.params;
   const element = pageItem.element as unknown as FunctionComponent | ComponentClass;
-  const topHeight = 99; //임시로 지정함 어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영
+  //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영
+  const topHeight = 99; //임시로 지정함
   const leftWidth = 150; //임시로 지정함
   const isModal = pageItem.openTypeCode === "MODAL";
 
@@ -252,6 +253,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     if (pageItem) {
       pageItem.close?.();
     }
+    setZIndex(globalMaxZIndex - 10);
+    globalMaxZIndex -= 10;
   };
 
   const onMaximize = () => {
@@ -338,7 +341,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
         onResizeStop={onResizeStop}
         minHeight={50}
         minWidth={200}
-        bounds='window'
+        bounds='.mainBody'
       >
         <StyleRnd
           isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
