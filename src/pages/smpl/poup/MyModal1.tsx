@@ -5,7 +5,7 @@ import useToast from "hooks/cmn/useToast";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 
 const MyModal = ({ onClose, callback }: PageProps) => {
-  const { openModal } = usePageNavigate();
+  const { openModeless } = usePageNavigate();
   const [text, setText] = useState("");
   const { myToast } = useToast();
 
@@ -33,7 +33,7 @@ const MyModal = ({ onClose, callback }: PageProps) => {
   };
 
   const openYoshiki = () => {
-    openModal(
+    openModeless(
       modals.myModal2,
       {
         foo: "bar",

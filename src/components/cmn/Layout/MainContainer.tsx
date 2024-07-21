@@ -76,7 +76,7 @@ const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
 
 const StyledMainPage = styled.div<{ showPageTopBar: boolean }>`
   width: 100%;
-  height: 100%; //PageTopBar 높이 만큼 빼줌
+  //PageTopBar 높이 만큼 빼줌
   padding: 0;
 `;
 
