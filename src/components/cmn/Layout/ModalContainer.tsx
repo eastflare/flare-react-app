@@ -23,14 +23,14 @@ interface State {
   maxZIndex: number;
 }
 
-const Overlay = styled.div<{ topHeight?: number; leftWidth?: number; globalMaxZIndex?: number }>`
+const Overlay = styled.div<{ topHeight?: number; leftWidth?: number; overlayZIndex?: number }>`
   position: fixed;
   top: ${props => props.topHeight || 0}px;
   left: ${props => props.leftWidth || 0}px;
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
-  z-index: ${props => (props.globalMaxZIndex ? props.globalMaxZIndex - 1 : 0)};
+  z-index: ${props => props.overlayZIndex || 999};
 `;
 
 const StyleRnd = styled.div<{ isDragging?: boolean; isTop?: boolean }>`
@@ -152,6 +152,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   });
 
   const [zIndex, setZIndex] = useState(globalMaxZIndex);
+  const [overlayZIndex, setOverlayZIndex] = useState(globalMaxZIndex - 1);
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -165,6 +166,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   useLayoutEffect(() => {
     globalMaxZIndex += 1;
     setZIndex(globalMaxZIndex);
+    setOverlayZIndex(globalMaxZIndex - 1);
 
     const width = typeof state.width === "number" ? state.width : parseInt(state.width);
     const height = typeof state.height === "number" ? state.height : parseInt(state.height);
@@ -186,6 +188,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   useEffect(() => {
     globalMaxZIndex += 1;
     setZIndex(globalMaxZIndex);
+    setOverlayZIndex(globalMaxZIndex - 1);
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -200,26 +203,21 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   return () => {
-  //     console.log("나는 죽습니다." + id);
-  //   };
-  // }, [id]);
-
   const rndManagerRef = useRef<HTMLElement | null>(null);
 
   const onDragStart: RndDragCallback = (_: DraggableEvent, data: DraggableData) => {
-    setZIndex(__ => {
-      const newZIndex = globalMaxZIndex + 1;
-      globalMaxZIndex = newZIndex;
-      return newZIndex;
-    });
-    setIsDragging(true);
-
     if (data.node) {
       rndManagerRef.current = data.node;
-      rndManagerRef.current.style.zIndex = globalMaxZIndex.toString();
+      if (rndManagerRef.current.style.zIndex !== globalMaxZIndex.toString()) {
+        setZIndex(__ => {
+          const newZIndex = globalMaxZIndex + 1;
+          globalMaxZIndex = newZIndex;
+          return newZIndex;
+        });
+        rndManagerRef.current.style.zIndex = globalMaxZIndex.toString();
+      }
     }
+    setIsDragging(true);
   };
 
   const onDragStop: RndDragCallback = (_: DraggableEvent, data: DraggableData) => {
@@ -253,8 +251,6 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     if (pageItem) {
       pageItem.close?.();
     }
-    setZIndex(globalMaxZIndex - 10);
-    globalMaxZIndex -= 10;
   };
 
   const onMaximize = () => {
@@ -309,10 +305,16 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     setIsMinimized(!isMinimized);
   };
 
-  const bringToFront = () => {
-    setZIndex(globalMaxZIndex + 1);
-    globalMaxZIndex += 1;
-  };
+  // const bringToFront = () => {
+  //   if (rndManagerRef.current) {
+  //     const data = {
+  //       node: rndManagerRef.current,
+  //       x: state.x,
+  //       y: state.y,
+  //     } as DraggableData;
+  //     onDragStart({} as DraggableEvent, data);
+  //   }
+  // };
 
   const { width, height, x, y } = state;
   console.log("나는x,y입니다.", x, y);
@@ -322,26 +324,20 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   return (
     <PageProvider value={{ ...getPageProviderProps() }}>
       {isModal && (
-        <Overlay
-          topHeight={topHeight}
-          leftWidth={leftWidth}
-          globalMaxZIndex={globalMaxZIndex}
-          onClick={onClose}
-        />
+        <Overlay topHeight={0} leftWidth={0} overlayZIndex={overlayZIndex} onClick={onClose} />
       )}
       <Rnd
         dragHandleClassName={"handle"}
         size={{ height, width }}
         position={{ x, y }}
         style={{ zIndex }}
-        onClick={bringToFront}
         onDragStart={onDragStart}
         onDragStop={onDragStop}
         onResize={onResize}
         onResizeStop={onResizeStop}
         minHeight={50}
         minWidth={200}
-        bounds='.mainBody'
+        bounds='window'
       >
         <StyleRnd
           isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}

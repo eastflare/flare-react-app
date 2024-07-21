@@ -28,7 +28,7 @@ const HomePage = () => {
   };
 
   const handleClick = () => {
-    openModal(
+    openModeless(
       modals.myModal,
       {
         foo: "bar",
