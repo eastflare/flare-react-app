@@ -1,4 +1,5 @@
 import { usePageContext } from "contexts/cmn/PageContext";
+import { useCallback } from "react";
 import { OpenTypeCode, PageItem } from "store/pageMapStore";
 import { getUuid } from "utils/rapUtil";
 
@@ -6,8 +7,21 @@ interface ObjAny {
   [key: string]: any; // You can replace `any` with a more specific type if needed
 }
 
-export default function useGoPage() {
-  const { setModal, closeModal, addWindow } = usePageContext();
+export default function usePageNavigate() {
+  const { addModal, delModal, addWindow } = usePageContext();
+
+  // const closeModal = (id: string) => {
+  //   console.log("나는 지워집니다. ", id);
+  //   delModal(id);
+  // };
+
+  const closeModal = useCallback(
+    (id: string) => {
+      console.log("나는 지워집니다. ", id);
+      delModal(id);
+    },
+    [delModal]
+  );
 
   const openPage = () => {};
   //element any말고는 openModal호출시 계속 빨간줄 에러 발생....일단 any
@@ -23,15 +37,13 @@ export default function useGoPage() {
       routePath: "/popup",
       params: params,
       options: options,
-      callback: () => {
-        alert("aaaa");
-      },
+      callback: params.callback,
       element: element,
-      close: () => {
+      closeModal: () => {
         closeModal(newId);
       },
     };
-    setModal(pageItem);
+    addModal(pageItem);
   };
   const openModeless = (element: any, params: ObjAny, options: ObjAny) => {
     const newId = getUuid();
@@ -45,15 +57,13 @@ export default function useGoPage() {
       routePath: "/popup",
       params: params,
       options: options,
-      callback: () => {
-        alert("aaaa");
-      },
+      callback: params.callback,
       element: element,
-      close: () => {
+      closeModal: () => {
         closeModal(newId);
       },
     };
-    setModal(pageItem);
+    addModal(pageItem);
   };
   const openWindow = (url: string, element: any, params: ObjAny, options: ObjAny) => {
     const newId = getUuid();
@@ -67,9 +77,7 @@ export default function useGoPage() {
       routePath: "/popup",
       params: params,
       options: options,
-      callback: () => {
-        alert("aaaa");
-      },
+      callback: params.callback,
       element: element,
     };
     addWindow(pageItem);

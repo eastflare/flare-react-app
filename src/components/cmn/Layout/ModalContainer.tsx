@@ -3,6 +3,7 @@ import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rn
 import {
   ComponentClass,
   FunctionComponent,
+  memo,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -14,6 +15,8 @@ import { PageProvider } from "contexts/cmn/PageContext";
 import usePage from "hooks/cmn/usePage";
 import { PageItem } from "store/pageMapStore";
 import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { history } from "utils/historyUtil";
 
 interface State {
   width: number | string;
@@ -133,12 +136,13 @@ const StyleRndBody = styled.div`
 let globalMaxZIndex = 1000;
 
 const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
-  //const { closeModal } = useGoPage();
-
   //const Component = pageItem.element;
   //const props = pageItem.params;
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+
   const element = pageItem.element as unknown as FunctionComponent | ComponentClass;
-  //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영
+  //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영은 보류겐
   const topHeight = 99; //임시로 지정함
   const leftWidth = 150; //임시로 지정함
   const isModal = pageItem.openTypeCode === "MODAL";
@@ -195,12 +199,18 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
         onClose();
       }
     };
-
     document.addEventListener("keydown", handleKeyDown);
 
-    return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-    };
+    return document.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  useEffect(() => {
+    const unListenHistoryEvent = history.listen(({ action }) => {
+      if (action !== "POP") return;
+      onClose();
+      navigate(pathname, { replace: true });
+    });
+    return unListenHistoryEvent;
   }, []);
 
   const rndManagerRef = useRef<HTMLElement | null>(null);
@@ -249,7 +259,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
 
   const onClose = () => {
     if (pageItem) {
-      pageItem.close?.();
+      pageItem.closeModal?.();
     }
   };
 
@@ -375,4 +385,4 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   );
 };
 
-export default ModalContainer;
+export default memo(ModalContainer);

@@ -1,24 +1,25 @@
-import useToast from 'hooks/cmn/useToast';
-import { PageProps } from 'models/cmn/page';
-import { useEffect, useRef, useState } from 'react';
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { CellClickedEvent, ColDef } from 'ag-grid-community';
+import useToast from "hooks/cmn/useToast";
+import { useEffect, useRef, useState } from "react";
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
+import { CellClickedEvent, ColDef } from "ag-grid-community";
+import { usePageContext } from "contexts/cmn/PageContext";
 
-const MyModal = ({ onClose, callback }: PageProps) => {
-  const [text, setText] = useState('');
+const MyModal = () => {
+  const [text, setText] = useState("");
   const { myToast } = useToast();
+  const { callback, close } = usePageContext();
   const [rowData, setRowData] = useState();
   const gridRef = useRef<AgGridReact>(null);
 
   useEffect(() => {
-    fetch('https://www.ag-grid.com/example-assets/row-data.json')
-      .then((result) => result.json())
-      .then((rowData) => setRowData(rowData));
-    console.log('최루팡 렌더링가링가링......');
+    fetch("https://www.ag-grid.com/example-assets/row-data.json")
+      .then(result => result.json())
+      .then(rowData => setRowData(rowData));
+    console.log("최루팡 렌더링가링가링......");
     return () => {
-      console.log('최루팡 다이');
+      console.log("최루팡 다이");
     };
   }, []);
 
@@ -27,34 +28,34 @@ const MyModal = ({ onClose, callback }: PageProps) => {
       width: 50,
       headerCheckboxSelection: true,
       checkboxSelection: true,
-      cellStyle: { textAlign: 'center' },
+      cellStyle: { textAlign: "center" },
     },
     {
-      headerName: 'No',
+      headerName: "No",
       width: 80,
-      cellStyle: { textAlign: 'center' },
+      cellStyle: { textAlign: "center" },
       cellRenderer: (params: any) => {
         return params.node.rowIndex + 1;
       },
     },
     {
-      field: 'make',
-      headerName: '메이커',
+      field: "make",
+      headerName: "메이커",
       width: 150,
-      cellStyle: { textAlign: 'left' },
+      cellStyle: { textAlign: "left" },
     },
     {
-      field: 'model',
-      headerName: '모델명',
+      field: "model",
+      headerName: "모델명",
       width: 200,
-      cellStyle: { textAlign: 'left' },
+      cellStyle: { textAlign: "left" },
       flex: 1,
     },
     {
-      field: 'price',
-      headerName: '가격',
+      field: "price",
+      headerName: "가격",
       width: 200,
-      cellStyle: { textAlign: 'right' },
+      cellStyle: { textAlign: "right" },
     },
   ];
 
@@ -64,20 +65,20 @@ const MyModal = ({ onClose, callback }: PageProps) => {
   };
 
   const cellClickedListener = (e: CellClickedEvent) => {
-    if (e.colDef.field === 'price') {
+    if (e.colDef.field === "price") {
       console.log(e.api.getSelectedRows());
-      alert(e.colDef.field + '클릭함!!');
+      alert(e.colDef.field + "클릭함!!");
     }
   };
 
   const handleClickSubmit = () => {
-    callback?.();
-    myToast('saved');
-    onClose();
+    callback();
+    myToast("saved");
+    close();
   };
 
   const handleClickCancel = () => {
-    onClose();
+    close();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,20 +101,14 @@ const MyModal = ({ onClose, callback }: PageProps) => {
         <li>월급루팡</li>
       </ul>
       <div>
-        <button
-          onClick={handleClickSubmit}
-          onGotPointerCapture={handleClickSubmit}
-        >
+        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
         </button>
-        <button
-          onClick={handleClickCancel}
-          onGotPointerCapture={handleClickCancel}
-        >
+        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
         </button>
       </div>
-      <div className='ag-theme-alpine' style={{ width: '100%' }}>
+      <div className='ag-theme-alpine' style={{ width: "100%" }}>
         <AgGridReact
           ref={gridRef}
           rowData={rowData}

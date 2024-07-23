@@ -1,36 +1,37 @@
-import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
-import { PageProps } from 'models/cmn/page';
-import useToast from 'hooks/cmn/useToast';
+import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import useToast from "hooks/cmn/useToast";
+import { usePageContext } from "contexts/cmn/PageContext";
 
 const MatthewDiv = styled.div`
   width: 100%;
   height: 100%;
-  background-image: url('Matthew.png');
+  background-image: url("Matthew.png");
   background-size: contain;
   background-repeat: no-repeat;
 `;
 
-const MyModal = ({ onClose, callback }: PageProps) => {
-  const [text, setText] = useState('');
+const MyModal = () => {
+  const [text, setText] = useState("");
   const { myToast } = useToast();
+  const { callback, close } = usePageContext();
 
   useEffect(() => {
-    console.log('매튜 렌더링');
+    console.log("매튜 렌더링");
 
     return () => {
-      console.log('매튜 다이');
+      console.log("매튜 다이");
     };
   }, []);
 
   const handleClickSubmit = () => {
     callback?.();
-    myToast('saved');
-    onClose();
+    myToast("saved");
+    close();
   };
 
   const handleClickCancel = () => {
-    onClose();
+    close();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,16 +55,10 @@ const MyModal = ({ onClose, callback }: PageProps) => {
         <li>선택받은 아이</li>
       </ul>
       <div>
-        <button
-          onClick={handleClickSubmit}
-          onGotPointerCapture={handleClickSubmit}
-        >
+        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
         </button>
-        <button
-          onClick={handleClickCancel}
-          onGotPointerCapture={handleClickCancel}
-        >
+        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
         </button>
       </div>

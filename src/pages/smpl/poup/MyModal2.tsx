@@ -1,15 +1,14 @@
 import { modals } from "components/cmn/Layout/Modals";
-import { useContext, useEffect, useState } from "react";
-import { PageProps } from "models/cmn/page";
+import { useEffect, useState } from "react";
 import useToast from "hooks/cmn/useToast";
-import { ModalContext } from "contexts/cmn/ModalContext";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
+import { usePageContext } from "contexts/cmn/PageContext";
 
-const MyModal = ({ onClose, callback }: PageProps) => {
+const MyModal = () => {
   const { openModal } = usePageNavigate();
+  const { callback, close } = usePageContext();
   const [text, setText] = useState("");
   const { myToast } = useToast();
-  const parentId = useContext(ModalContext);
 
   useEffect(() => {
     console.log("요시키 렌더링");
@@ -19,14 +18,13 @@ const MyModal = ({ onClose, callback }: PageProps) => {
   }, []);
 
   const handleClickSubmit = () => {
-    callback?.();
-    alert(parentId);
+    callback();
     myToast("saved");
-    onClose();
+    close();
   };
 
   const handleClickCancel = () => {
-    onClose();
+    close();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
