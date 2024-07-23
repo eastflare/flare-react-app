@@ -1,26 +1,27 @@
-import useToast from 'hooks/cmn/useToast';
-import { PageProps } from 'models/cmn/page';
-import { useEffect, useState } from 'react';
+import { usePageContext } from "contexts/cmn/PageContext";
+import useToast from "hooks/cmn/useToast";
+import { useEffect, useState } from "react";
 
-const MyModal = ({ onClose, callback }: PageProps) => {
-  const [text, setText] = useState('');
+const MyModal = () => {
+  const { callback, close } = usePageContext();
+  const [text, setText] = useState("");
   const { myToast } = useToast();
 
   useEffect(() => {
-    console.log('국민사기꾼 렌더링');
+    console.log("국민사기꾼 렌더링");
     return () => {
-      console.log('국민사기꾼 다이');
+      console.log("국민사기꾼 다이");
     };
   }, []);
 
   const handleClickSubmit = () => {
-    callback?.();
-    myToast('saved');
-    onClose();
+    callback();
+    myToast("saved");
+    close();
   };
 
   const handleClickCancel = () => {
-    onClose();
+    close();
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,16 +48,10 @@ const MyModal = ({ onClose, callback }: PageProps) => {
         <li>컵8개 이상</li>
       </ul>
       <div>
-        <button
-          onClick={handleClickSubmit}
-          onGotPointerCapture={handleClickSubmit}
-        >
+        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
         </button>
-        <button
-          onClick={handleClickCancel}
-          onGotPointerCapture={handleClickCancel}
-        >
+        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
         </button>
       </div>

@@ -3,6 +3,7 @@ import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rn
 import {
   ComponentClass,
   FunctionComponent,
+  memo,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -135,8 +136,6 @@ const StyleRndBody = styled.div`
 let globalMaxZIndex = 1000;
 
 const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
-  //const { closeModal } = useGoPage();
-
   //const Component = pageItem.element;
   //const props = pageItem.params;
   const { pathname } = useLocation();
@@ -260,7 +259,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
 
   const onClose = () => {
     if (pageItem) {
-      pageItem.close?.();
+      pageItem.closeModal?.();
     }
   };
 
@@ -386,4 +385,4 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   );
 };
 
-export default ModalContainer;
+export default memo(ModalContainer);

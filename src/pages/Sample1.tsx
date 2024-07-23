@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 const Sample1 = () => {
   const [input, setInput] = useState("");
-  const { params, callback } = usePageContext();
+  const { params, callback, close } = usePageContext();
   const { openModal } = usePageNavigate();
 
   useEffect(() => {
@@ -38,6 +38,15 @@ const Sample1 = () => {
         }}
       >
         콜백
+      </button>
+      <button
+        type='button'
+        onClick={e => {
+          e.preventDefault;
+          close();
+        }}
+      >
+        닫기
       </button>
       <button onClick={handleClick1}>전선배</button>
     </div>

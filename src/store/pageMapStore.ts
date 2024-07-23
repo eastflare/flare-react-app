@@ -25,7 +25,7 @@ export interface PageItem {
   params?: Object;
   options?: Object;
   callback?: CallbackFunction;
-  close?: CloseFunction;
+  closeModal?: CloseFunction;
   element: ReactElement;
 }
 
