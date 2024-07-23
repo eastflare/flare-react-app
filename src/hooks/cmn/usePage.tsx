@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PageItem } from "store/pageMapStore";
+import { OpenTypeCode, PageItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
 
 const usePage = (props: { pageItem: PageItem }) => {
@@ -10,9 +10,20 @@ const usePage = (props: { pageItem: PageItem }) => {
     setModals(prev => [...prev, modalProps]);
   };
 
-  const closeModal = (id: string) => {
-    const filteredItems = modals.filter(item => item.id !== id);
-    setModals(filteredItems);
+  const closePage = (id: string) => {
+    switch (props.pageItem.openTypeCode) {
+      case OpenTypeCode.MODAL:
+      case OpenTypeCode.MODELESS:
+        const filteredItems = modals.filter(item => item.id !== id);
+        setModals(filteredItems);
+        break;
+      case OpenTypeCode.WINDOW:
+      case OpenTypeCode.PAGE:
+        console.log("모달페이지가 아님");
+        break;
+      default:
+        break;
+    }
   };
 
   const addWindow = (windowProps: PageItem) => {
@@ -38,7 +49,7 @@ const usePage = (props: { pageItem: PageItem }) => {
     callback,
     modals,
     setModal,
-    closeModal,
+    close: closePage,
     addWindow,
   });
 

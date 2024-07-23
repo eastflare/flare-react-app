@@ -7,7 +7,7 @@ interface ObjAny {
 }
 
 export default function useGoPage() {
-  const { setModal, closeModal, addWindow } = usePageContext();
+  const { setModal, close, addWindow } = usePageContext();
 
   const openPage = () => {};
   //element any말고는 openModal호출시 계속 빨간줄 에러 발생....일단 any
@@ -28,7 +28,7 @@ export default function useGoPage() {
       },
       element: element,
       close: () => {
-        closeModal(newId);
+        close(newId);
       },
     };
     setModal(pageItem);
@@ -50,7 +50,7 @@ export default function useGoPage() {
       },
       element: element,
       close: () => {
-        closeModal(newId);
+        close(newId);
       },
     };
     setModal(pageItem);
