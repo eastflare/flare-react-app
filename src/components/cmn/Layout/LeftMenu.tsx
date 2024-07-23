@@ -80,6 +80,11 @@ const LeftMenu = () => {
             contact
           </a>
         </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/grid", e)}>
+            AG-GRID
+          </a>
+        </li>
       </ul>
     </div>
   );
