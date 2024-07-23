@@ -7,7 +7,11 @@ interface ObjAny {
 }
 
 export default function useGoPage() {
-  const { setModal, close, addWindow } = usePageContext();
+  const { addModal, delModal, addWindow } = usePageContext();
+
+  const closeModal = (id: string) => {
+    delModal(id);
+  };
 
   const openPage = () => {};
   //element any말고는 openModal호출시 계속 빨간줄 에러 발생....일단 any
@@ -23,15 +27,13 @@ export default function useGoPage() {
       routePath: "/popup",
       params: params,
       options: options,
-      callback: () => {
-        alert("aaaa");
-      },
+      callback: params.callback,
       element: element,
-      close: () => {
-        close(newId);
+      closeModal: () => {
+        closeModal(newId);
       },
     };
-    setModal(pageItem);
+    addModal(pageItem);
   };
   const openModeless = (element: any, params: ObjAny, options: ObjAny) => {
     const newId = getUuid();
@@ -45,15 +47,13 @@ export default function useGoPage() {
       routePath: "/popup",
       params: params,
       options: options,
-      callback: () => {
-        alert("aaaa");
-      },
+      callback: params.callback,
       element: element,
-      close: () => {
-        close(newId);
+      closeModal: () => {
+        closeModal(newId);
       },
     };
-    setModal(pageItem);
+    addModal(pageItem);
   };
   const openWindow = (url: string, element: any, params: ObjAny, options: ObjAny) => {
     const newId = getUuid();
@@ -67,9 +67,7 @@ export default function useGoPage() {
       routePath: "/popup",
       params: params,
       options: options,
-      callback: () => {
-        alert("aaaa");
-      },
+      callback: params.callback,
       element: element,
     };
     addWindow(pageItem);

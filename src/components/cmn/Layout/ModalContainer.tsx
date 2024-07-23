@@ -135,8 +135,6 @@ const StyleRndBody = styled.div`
 let globalMaxZIndex = 1000;
 
 const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
-  //const { closeModal } = useGoPage();
-
   //const Component = pageItem.element;
   //const props = pageItem.params;
   const { pathname } = useLocation();
@@ -260,7 +258,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
 
   const onClose = () => {
     if (pageItem) {
-      pageItem.close?.();
+      pageItem.closeModal?.();
     }
   };
 

@@ -1,25 +1,33 @@
 import { useState } from "react";
-import { OpenTypeCode, PageItem } from "store/pageMapStore";
+import usePageMapStore, { OpenTypeCode, PageItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
 
 const usePage = (props: { pageItem: PageItem }) => {
   const { params = {}, options = {}, callback = () => {} } = props.pageItem;
+  const { deletePageItem } = usePageMapStore();
 
   const [modals, setModals] = useState<PageItem[]>([]); // Destructure the tuple correctly
-  const setModal = (modalProps: PageItem) => {
+  const addModal = (modalProps: PageItem) => {
     setModals(prev => [...prev, modalProps]);
   };
 
-  const closePage = (id: string) => {
+  const delModal = (id: string) => {
+    const filteredItems = modals.filter(item => item.id !== id);
+    setModals(filteredItems);
+  };
+
+  const close = () => {
     switch (props.pageItem.openTypeCode) {
       case OpenTypeCode.MODAL:
       case OpenTypeCode.MODELESS:
-        const filteredItems = modals.filter(item => item.id !== id);
-        setModals(filteredItems);
+        props.pageItem.closeModal?.();
         break;
       case OpenTypeCode.WINDOW:
+        window.close();
+        break;
       case OpenTypeCode.PAGE:
         console.log("모달페이지가 아님");
+        deletePageItem(props.pageItem.id);
         break;
       default:
         break;
@@ -48,8 +56,9 @@ const usePage = (props: { pageItem: PageItem }) => {
     options,
     callback,
     modals,
-    setModal,
-    close: closePage,
+    addModal,
+    delModal,
+    close,
     addWindow,
   });
 
