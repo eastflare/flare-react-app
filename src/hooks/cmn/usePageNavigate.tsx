@@ -1,4 +1,5 @@
 import { usePageContext } from "contexts/cmn/PageContext";
+import { useCallback } from "react";
 import { OpenTypeCode, PageItem } from "store/pageMapStore";
 import { getUuid } from "utils/rapUtil";
 
@@ -6,12 +7,21 @@ interface ObjAny {
   [key: string]: any; // You can replace `any` with a more specific type if needed
 }
 
-export default function useGoPage() {
+export default function usePageNavigate() {
   const { addModal, delModal, addWindow } = usePageContext();
 
-  const closeModal = (id: string) => {
-    delModal(id);
-  };
+  // const closeModal = (id: string) => {
+  //   console.log("나는 지워집니다. ", id);
+  //   delModal(id);
+  // };
+
+  const closeModal = useCallback(
+    (id: string) => {
+      console.log("나는 지워집니다. ", id);
+      delModal(id);
+    },
+    [delModal]
+  );
 
   const openPage = () => {};
   //element any말고는 openModal호출시 계속 빨간줄 에러 발생....일단 any

@@ -10,11 +10,6 @@ export const modals = {
 
 const Modals = () => {
   return <></>;
-  // const { pages, modals } = useGoPage();
-  // console.log("나는 모달즈입니다.", modals);
-  // return modals.map((modalId: string) => {
-  //   return <ModalContainer key={modalId} id={modalId} modal={pages[modalId]} />;
-  // });
 };
 
 export default Modals;

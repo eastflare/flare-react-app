@@ -4,7 +4,6 @@ import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { useEffect, useState } from "react";
 
 const HomePage = () => {
-  //const { goModal } = useGoPage();
   const { openModal, openModeless, openWindow } = usePageNavigate();
   const [input, setInput] = useState("");
 

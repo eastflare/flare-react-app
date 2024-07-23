@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import usePageMapStore, { OpenTypeCode, PageItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
 
@@ -11,9 +11,13 @@ const usePage = (props: { pageItem: PageItem }) => {
     setModals(prev => [...prev, modalProps]);
   };
 
+  useEffect(() => {
+    console.log("모달 키 리스트", modals);
+  }, [modals]);
+
   const delModal = (id: string) => {
-    const filteredItems = modals.filter(item => item.id !== id);
-    setModals(filteredItems);
+    //카운트를 기억해라.... 기본도 안된 사람아
+    setModals(prev => prev.filter(item => item.id !== id));
   };
 
   const close = () => {

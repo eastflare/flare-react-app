@@ -3,6 +3,7 @@ import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rn
 import {
   ComponentClass,
   FunctionComponent,
+  memo,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -384,4 +385,4 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   );
 };
 
-export default ModalContainer;
+export default memo(ModalContainer);
