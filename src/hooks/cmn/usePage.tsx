@@ -3,7 +3,12 @@ import usePageMapStore, { OpenTypeCode, PageItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
 
 const usePage = (props: { pageItem: PageItem }) => {
-  const { params = {}, options = {}, callback = () => {} } = props.pageItem;
+  const {
+    openTypeCode = OpenTypeCode.PAGE,
+    params = {},
+    options = {},
+    callback = () => {},
+  } = props.pageItem;
   const { deletePageItem } = usePageMapStore();
 
   const [modals, setModals] = useState<PageItem[]>([]); // Destructure the tuple correctly
@@ -56,6 +61,7 @@ const usePage = (props: { pageItem: PageItem }) => {
   // });
 
   const getPageProviderProps = () => ({
+    openTypeCode,
     params,
     options,
     callback,
