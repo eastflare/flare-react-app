@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { OpenPopupTypeCode } from "store/pageMapStore";
 
 const HomePage = () => {
-  const { openModal, openModeless, openWindow } = usePageNavigate();
+  const { openPage, openModal, openModeless, openWindow } = usePageNavigate();
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
 
@@ -68,12 +68,9 @@ const HomePage = () => {
   const handleClick3 = () => {
     openWindow(
       "/MyModal3",
-      modals.myModal3,
       {
         foo: "bar",
         callback: (a: string, b: string, c: string) => {
-          alert("카공족 뭐하는 사람인가요?");
-          console.log("파라메터다.....", a, b, c);
           setInput1(a + b + c);
         },
       },
@@ -83,17 +80,32 @@ const HomePage = () => {
   const handleClick4 = () => {
     openWindow(
       "/MyModal3",
-      modals.myModal3,
       {
         foo: "bar",
         callback: (c: string) => {
-          alert("카공족 뭐하는 사람인가요?222");
-          console.log("파라메터다.....", c);
           setInput2(c);
         },
       },
       { width: 800, height: 600, popupType: OpenPopupTypeCode.TAB }
     );
+  };
+  const handleClick5 = () => {
+    openPage("/MyModal3", {
+      foo: "bar",
+      callback: (a: string, b: string) => {
+        alert("Facker 뭐하는 사람인가요?");
+        setInput1(a + b);
+      },
+    });
+  };
+  const handleClick6 = () => {
+    openPage("/MyModal3", {
+      foo: "bar",
+      callback: (c: string) => {
+        alert("국민사기꾼 뭐하는 사람인가요?");
+        setInput2(c);
+      },
+    });
   };
 
   return (
@@ -110,6 +122,8 @@ const HomePage = () => {
       <button onClick={handleClick2}>요시키상</button>
       <button onClick={handleClick3}>카공족1</button>
       <button onClick={handleClick4}>카공족2</button>
+      <button onClick={handleClick5}>카공족상세1</button>
+      <button onClick={handleClick6}>카공족상세2</button>
     </>
   );
 };

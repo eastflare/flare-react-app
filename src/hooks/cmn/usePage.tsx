@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import usePageMapStore, { OpenTypeCode, PageItem } from "store/pageMapStore";
+import usePageMapStore, { ModalItem, OpenTypeCode, PageItem, WindowItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
 
 const usePage = (props: { pageItem: PageItem }) => {
@@ -11,8 +11,8 @@ const usePage = (props: { pageItem: PageItem }) => {
   } = props.pageItem;
   const { deletePageItem } = usePageMapStore();
 
-  const [modals, setModals] = useState<PageItem[]>([]); // Destructure the tuple correctly
-  const addModal = (modalProps: PageItem) => {
+  const [modals, setModals] = useState<ModalItem[]>([]); // Destructure the tuple correctly
+  const addModal = (modalProps: ModalItem) => {
     setModals(prev => [...prev, modalProps]);
   };
 
@@ -42,7 +42,7 @@ const usePage = (props: { pageItem: PageItem }) => {
     }
   };
 
-  const addWindow = (windowProps: PageItem) => {
+  const addWindow = (windowProps: WindowItem) => {
     openWindow(windowProps);
   };
 
