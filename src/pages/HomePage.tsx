@@ -107,6 +107,24 @@ const HomePage = () => {
       },
     });
   };
+  const handleClick7 = () => {
+    openPage("/MyModal2", {
+      foo: "bar",
+      callback: (c: string) => {
+        alert("요시키 뭐하는 사람인가요?");
+        setInput2(c);
+      },
+    });
+  };
+  const handleClick8 = () => {
+    openPage("/MyModal1", {
+      foo: "bar",
+      callback: (c: string) => {
+        alert("전선배 뭐하는 사람인가요?");
+        setInput1(c);
+      },
+    });
+  };
 
   return (
     <>
@@ -119,7 +137,9 @@ const HomePage = () => {
       <button onClick={handleClickMatthew}>Matthew</button>
       <button onClick={handleClick}>월급루팡</button>
       <button onClick={handleClick1}>전선배</button>
+      <button onClick={handleClick8}>전선배상세1</button>
       <button onClick={handleClick2}>요시키상</button>
+      <button onClick={handleClick7}>요시키상세1</button>
       <button onClick={handleClick3}>카공족1</button>
       <button onClick={handleClick4}>카공족2</button>
       <button onClick={handleClick5}>카공족상세1</button>

@@ -17,6 +17,8 @@ import extractor from "utils/extractorUtil";
 import WindowContainer from "components/cmn/Layout/WindowContainer";
 import MyModal3 from "pages/smpl/poup/MyModal3";
 import GridPage from "pages/GridPage";
+import MyModal1 from "pages/smpl/poup/MyModal1";
+import MyModal2 from "pages/smpl/poup/MyModal2";
 
 const MainRoutes = () => {
   const location = useLocation();
@@ -42,6 +44,8 @@ const MainRoutes = () => {
         <Route path='/sample4/:id' element={<Sample4 />} />
         <Route path='/sample5/:id/:name' element={<Sample5 />} />
         <Route path='/sample6' element={<Sample6 />} />
+        <Route path='/MyModal1' element={<MyModal1 />} />
+        <Route path='/MyModal2' element={<MyModal2 />} />
         <Route path='/MyModal3' element={<MyModal3 />} />
         <Route path='/grid' element={<GridPage />} />
         <Route path='*' element={<NoPage />} />

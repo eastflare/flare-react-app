@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import usePageMapStore, { ModalItem, OpenTypeCode, PageItem, WindowItem } from "store/pageMapStore";
+import { ModalItem, OpenTypeCode, PageItem, WindowItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
+import usePageTab from "./usePageTab";
 
 const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
   const {
@@ -9,7 +10,7 @@ const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
     options = {},
     callback = () => {},
   } = props.pageItem;
-  const { deletePageItem } = usePageMapStore();
+  const { onPageTabClose } = usePageTab();
 
   const [modals, setModals] = useState<ModalItem[]>([]); // Destructure the tuple correctly
   const addModal = (modalProps: ModalItem) => {
@@ -35,7 +36,9 @@ const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
         window.close();
         break;
       case OpenTypeCode.PAGE:
-        deletePageItem(props.pageItem.id);
+        console.log("일반페이지 지우기1", props.pageItem.id);
+        onPageTabClose(props.pageItem.id);
+        console.log("일반페이지 지우기2", props.pageItem.id);
         break;
       default:
         break;
