@@ -43,13 +43,13 @@ const GridPage = () => {
   }
 
   return (
-    <div id="page">
+    <>
       <div>
         <h2>Grid page</h2>
         <p>The list of cars</p>
       </div>
       <Grid data={{columns, rows}} option={option} />
-    </div>
+    </>
   );
 };
 

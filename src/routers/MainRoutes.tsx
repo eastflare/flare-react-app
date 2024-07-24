@@ -17,6 +17,7 @@ import extractor from "utils/extractorUtil";
 import IndependentContainer from "components/cmn/Layout/IndependentContainer";
 import MyModal3 from "pages/smpl/poup/MyModal3";
 import GridPage from "pages/GridPage";
+import FormPage from "pages/FormPage";
 
 const MainRoutes = () => {
   const location = useLocation();
@@ -44,6 +45,7 @@ const MainRoutes = () => {
         <Route path='/sample6' element={<Sample6 />} />
         <Route path='/MyModal3' element={<MyModal3 />} />
         <Route path='/grid' element={<GridPage />} />
+        <Route path='/form' element={<FormPage />} />
         <Route path='*' element={<NoPage />} />
       </PageRoutes>
     ),
