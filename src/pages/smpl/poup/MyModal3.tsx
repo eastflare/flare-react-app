@@ -24,8 +24,9 @@ const MyModal = () => {
     close();
   };
 
-  const handleClickAlert = () => {
-    alert("김주팔김주팔김주팔");
+  const handleClickAlert = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    alert("을사코딩초특급개발자국민사기꾼김주팔KJH(거절한다)");
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
