@@ -14,16 +14,16 @@ import Sample6 from "pages/Sample6";
 import NoPage from "pages/NoPage";
 import { useMemo } from "react";
 import extractor from "utils/extractorUtil";
-import IndependentContainer from "components/cmn/Layout/IndependentContainer";
+import WindowContainer from "components/cmn/Layout/WindowContainer";
 import MyModal3 from "pages/smpl/poup/MyModal3";
 import GridPage from "pages/GridPage";
 
 const MainRoutes = () => {
   const location = useLocation();
 
-  const globalContainerType = useMemo<"RAP" | "Independent">(() => {
-    if (extractor.getQueryParameterValue("type") === "independent") {
-      return "Independent";
+  const globalContainerType = useMemo<"RAP" | "WINDOW">(() => {
+    if (extractor.getQueryParameterValue("openTypeCode") === "WINDOW") {
+      return "WINDOW";
     } else {
       return "RAP";
     }
@@ -52,10 +52,10 @@ const MainRoutes = () => {
 
   return (
     <>
-      {globalContainerType !== "Independent" ? (
+      {globalContainerType !== "WINDOW" ? (
         <MainContainer>{CommonRoutes}</MainContainer>
       ) : (
-        <IndependentContainer>{CommonRoutes}</IndependentContainer>
+        <WindowContainer>{CommonRoutes}</WindowContainer>
       )}
     </>
   );

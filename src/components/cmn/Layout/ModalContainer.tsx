@@ -143,8 +143,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
 
   const element = pageItem.element as unknown as FunctionComponent | ComponentClass;
   //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영은 보류겐
-  const topHeight = 99; //임시로 지정함
-  const leftWidth = 150; //임시로 지정함
+  const topHeight = 110; //임시로 지정함
+  const leftWidth = 151; //임시로 지정함
   const isModal = pageItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
@@ -201,7 +201,9 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     };
     document.addEventListener("keydown", handleKeyDown);
 
-    return document.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   useEffect(() => {
@@ -327,7 +329,6 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   // };
 
   const { width, height, x, y } = state;
-  console.log("나는x,y입니다.", x, y);
 
   const { getPageProviderProps } = usePage({ pageItem });
 
@@ -347,7 +348,6 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
         onResizeStop={onResizeStop}
         minHeight={50}
         minWidth={200}
-        bounds='window'
       >
         <StyleRnd
           isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
