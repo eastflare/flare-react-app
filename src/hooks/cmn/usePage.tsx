@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import usePageMapStore, { ModalItem, OpenTypeCode, PageItem, WindowItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
 
-const usePage = (props: { pageItem: PageItem }) => {
+const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
   const {
     openTypeCode = OpenTypeCode.PAGE,
     params = {},

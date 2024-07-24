@@ -13,7 +13,7 @@ import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
 import usePage from "hooks/cmn/usePage";
-import { PageItem } from "store/pageMapStore";
+import { ModalItem, PageItem } from "store/pageMapStore";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { history } from "utils/historyUtil";
@@ -135,21 +135,21 @@ const StyleRndBody = styled.div`
 
 let globalMaxZIndex = 1000;
 
-const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
-  //const Component = pageItem.element;
-  //const props = pageItem.params;
+const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
+  //const Component = modalItem.element;
+  //const props = modalItem.params;
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const element = pageItem.element as unknown as FunctionComponent | ComponentClass;
+  const element = modalItem.element as unknown as FunctionComponent | ComponentClass;
   //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영은 보류겐
   const topHeight = 110; //임시로 지정함
   const leftWidth = 151; //임시로 지정함
-  const isModal = pageItem.openTypeCode === "MODAL";
+  const isModal = modalItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
-    width: pageItem.options?.width ?? 800,
-    height: pageItem.options?.height ?? 600,
+    width: modalItem.options?.width ?? 800,
+    height: modalItem.options?.height ?? 600,
     x: 0,
     y: 0,
     maxZIndex: 0,
@@ -161,8 +161,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const originalSize = useRef({
-    width: pageItem.options?.width ?? 800,
-    height: pageItem.options?.height ?? 600,
+    width: modalItem.options?.width ?? 800,
+    height: modalItem.options?.height ?? 600,
     x: 0,
     y: 0,
   });
@@ -179,8 +179,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     const screenHeight = window.innerHeight;
     const modalWidth = typeof width === "number" ? width : parseInt(width);
     const modalHeight = typeof height === "number" ? height : parseInt(height);
-    const posX = (screenWidth - modalWidth) / 2;
-    const posY = (screenHeight - modalHeight) / 2;
+    const posX = (screenWidth - modalWidth) / 2 - leftWidth;
+    const posY = (screenHeight - modalHeight) / 2 - topHeight;
 
     setState(prevState => ({
       ...prevState,
@@ -260,8 +260,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   };
 
   const onClose = () => {
-    if (pageItem) {
-      pageItem.closeModal?.();
+    if (modalItem) {
+      modalItem.closeModal?.();
     }
   };
 
@@ -330,7 +330,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
 
   const { width, height, x, y } = state;
 
-  const { getPageProviderProps } = usePage({ pageItem });
+  const { getPageProviderProps } = usePage({ pageItem: modalItem });
 
   return (
     <PageProvider value={{ ...getPageProviderProps() }}>
@@ -359,7 +359,7 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
             isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
             className='handle'
           >
-            <StyleRndHeaderTitle>{pageItem?.label ?? "Drag"}</StyleRndHeaderTitle>
+            <StyleRndHeaderTitle>{modalItem?.label ?? "Drag"}</StyleRndHeaderTitle>
             <StyleRndButtonGroup>
               <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
                 -

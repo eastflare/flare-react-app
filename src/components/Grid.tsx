@@ -1,21 +1,23 @@
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { AgGridReact } from "ag-grid-react";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
-const Grid = ({data, option}) => {
-
-  const gridOption = Object.assign({
-    style: "ag-theme-alpine",
-    pagination: false,
-    paginationPageSize: 10,
-    paginationPageSizeSelector: false,
-    domLayout: 'autoHeight',
-    onGridReady: () => {},
-  }, option);
+const Grid = ({ data, options }: { data: any; options: any }) => {
+  const gridOption = Object.assign(
+    {
+      style: "ag-theme-alpine",
+      pagination: false,
+      paginationPageSize: 10,
+      paginationPageSizeSelector: false,
+      domLayout: "autoHeight",
+      onGridReady: () => {},
+    },
+    options
+  );
 
   return (
     <div>
-      <AgGridReact 
+      <AgGridReact
         className={gridOption.style}
         columnDefs={data.columns}
         rowData={data.rows}
