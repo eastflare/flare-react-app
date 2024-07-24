@@ -35,7 +35,6 @@ const usePage = (props: { pageItem: PageItem }) => {
         window.close();
         break;
       case OpenTypeCode.PAGE:
-        console.log("모달페이지가 아님");
         deletePageItem(props.pageItem.id);
         break;
       default:

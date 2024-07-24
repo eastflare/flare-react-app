@@ -9,7 +9,7 @@ export function openWindow(pageItem: PageItem) {
     });
   }
 
-  arrParams.push("type=independent");
+  arrParams.push("openTypeCode=WINDOW");
 
   const url = pageItem.pathname + "?" + arrParams.join("&");
 

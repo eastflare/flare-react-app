@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styled from "@emotion/styled";
 import PageTopBar from "./PageTopBar";
 
-const MainContainer = (props: { children: ReactNode }) => {
+const WindowContainer = (props: { children: ReactNode }) => {
   //메인 화면의 레이아웃 구성
   //상단메뉴, 좌측메뉴, 화면영역은 children : Routes 객체임
 
@@ -51,4 +51,4 @@ const StyledMainPage = styled.div<{ showPageTopBar: boolean }>`
   padding: 0;
 `;
 
-export default MainContainer;
+export default WindowContainer;
