@@ -18,7 +18,7 @@ const usePage = (props: { pageItem: PageItem }) => {
 
   useEffect(() => {
     console.log("모달 키 리스트", modals);
-  }, [modals]);
+  }, []);
 
   const delModal = (id: string) => {
     //카운트를 기억해라.... 기본도 안된 사람아

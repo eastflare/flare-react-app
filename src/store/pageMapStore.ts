@@ -12,6 +12,11 @@ export enum OpenTypeCode {
   WINDOW = "WINDOW",
 }
 
+export enum OpenPopupTypeCode {
+  NORMAL = "NORMAL",
+  TAB = "TAB",
+}
+
 export type CallbackFunction<T = any, R = any> = (...args: T[]) => R;
 export type CloseFunction = () => void;
 

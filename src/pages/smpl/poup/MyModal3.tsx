@@ -15,7 +15,7 @@ const MyModal = () => {
   }, []);
 
   const handleClickSubmit = () => {
-    callback();
+    callback("Faker는", "역삼 GS타워로", "8월달에 투입됩니다.");
     myToast("saved");
     close();
   };

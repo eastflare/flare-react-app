@@ -2,6 +2,7 @@ import React, { startTransition, useCallback, useEffect, useLayoutEffect } from 
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
 import usePageMapStore, { OpenTypeCode } from "store/pageMapStore";
+import extractor from "utils/extractorUtil";
 
 //const MAX_PAGE_SIZE = 10;
 
@@ -106,8 +107,23 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       //   });
       // }
 
+      //파라메터의 openTypeCode=WINDOW 파라메터로 오면 pageItem의 openTypeCode 를 WINDOW 로 변경한다.
+      let openTypeCode = OpenTypeCode.PAGE;
+      let callback = callbackWithParams;
+
+      if (extractor.getQueryParameterValue("openTypeCode") === "WINDOW") {
+        openTypeCode = OpenTypeCode.WINDOW;
+
+        console.log("나는나느나는 윈도우 팝업입니다.", window.opener, window.opener.parentCallback);
+        //윈도우 팝업일 경우 Callback 처리
+        const windowCallback = (...args: any[]) => {
+          window.parentCallback(...args);
+        };
+        callback = windowCallback;
+      }
+
       setPageItem(pageId, {
-        openTypeCode: OpenTypeCode.PAGE,
+        openTypeCode: openTypeCode,
         id: pageId,
         label: label,
         pathname: pathname,
@@ -116,7 +132,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         //options: {},
         params: params,
         element: curRouteItem.element as ReactElement,
-        callback: callbackWithParams,
+        callback: callback,
       });
 
       setCurPageId(pageId);

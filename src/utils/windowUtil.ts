@@ -1,14 +1,23 @@
-import { PageItem } from "store/pageMapStore";
+import { OpenPopupTypeCode, PageItem } from "store/pageMapStore";
 
 export function openWindow(pageItem: PageItem) {
-  const arrParams: string[] = [];
+  const arrParams = new Array();
+
+  const parentCallback = pageItem.params?.callback;
+  const popupTypeCode = pageItem.options?.popupType;
+  let objPopup;
+  console.log("파람스의 callback", parentCallback);
 
   if (pageItem.params) {
-    Array.from(Object.entries(pageItem.params)).forEach((key: any) => {
-      arrParams.push(key + "=" + pageItem.params?.[key]);
+    Object.entries(pageItem.params).forEach(([key, value]) => {
+      // key가 "callback"인 경우 현재 반복을 건너뛰고 다음 반복으로 넘어감
+      if (key === "callback") {
+        return; // forEach에서의 return은 현재 반복을 건너뜀
+      }
+      //arrParams에 "key=value" 형식으로 추가
+      arrParams.push(key + "=" + value);
     });
   }
-
   arrParams.push("openTypeCode=WINDOW");
 
   const url = pageItem.pathname + "?" + arrParams.join("&");
@@ -56,7 +65,22 @@ export function openWindow(pageItem: PageItem) {
   features.push("status=" + pageItem.options?.status || "no");
   features.push("fullscreen=" + pageItem.options?.fullscreen || "no");
 
-  const objPopup = window.open(url, "_blank", features.join(","));
+  switch (popupTypeCode) {
+    case OpenPopupTypeCode.TAB:
+      objPopup = window.open(url);
+      break;
+    case OpenPopupTypeCode.NORMAL:
+      objPopup = window.open(url, "_blank", features.join(","));
+      break;
+    default:
+      objPopup = window.open(url, "_blank", features.join(","));
+      break;
+  }
+
+  if (objPopup) {
+    console.log("페어런트 콜팩이 추가가 됐나요?", parentCallback);
+    objPopup.parentCallback = parentCallback;
+  }
 
   return objPopup;
 }
