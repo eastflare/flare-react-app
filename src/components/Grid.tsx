@@ -22,6 +22,7 @@ const Grid = ({data, option}) => {
         pagination={gridOption.pagination}
         paginationPageSize={gridOption.paginationPageSize}
         paginationPageSizeSelector={gridOption.paginationPageSelector}
+        paginationAutoPageSize={true}
         domLayout={gridOption.domLayout}
         onGridReady={gridOption.onGridReady}
       />

@@ -85,6 +85,11 @@ const LeftMenu = () => {
             AG-GRID
           </a>
         </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/form", e)}>
+            React-hook-form
+          </a>
+        </li>
       </ul>
     </div>
   );
