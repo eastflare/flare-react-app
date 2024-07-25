@@ -14,11 +14,11 @@ const MainContainer = (props: { children: ReactNode }) => {
 
   return (
     <StyledMainContainer>
-      <StyledMainHeader>
+      <StyledMainHeader id='topMenu'>
         <TopMenu />
       </StyledMainHeader>
       <StyledMainBody>
-        <StyledMainLeft isCollapsed={isLeftCollapsed}>
+        <StyledMainLeft id='leftMenu' isCollapsed={isLeftCollapsed}>
           <LeftMenu />
         </StyledMainLeft>
         <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
