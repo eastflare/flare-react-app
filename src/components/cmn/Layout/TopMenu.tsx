@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 
-const TopMenu = () => {
+const TopMenu = ({ onToggleLeftMenu }: { onToggleLeftMenu: () => void }) => {
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
 
@@ -12,7 +12,7 @@ const TopMenu = () => {
 
   return (
     <StyledHeader>
-      <button>좌측접기펴기</button>
+      <ToggleButton onClick={onToggleLeftMenu}>☰</ToggleButton>
       <div className='topmenu'>
         <nav>
           <ul>
@@ -42,6 +42,29 @@ const StyledHeader = styled.div`
   background-color: white;
   border-bottom: 1px solid black;
   transition: all 0.2s ease-out;
+`;
+
+const ToggleButton = styled.button`
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #45a049;
+  }
+
+  &:active {
+    background-color: #3e8e41;
+  }
 `;
 
 export default TopMenu;

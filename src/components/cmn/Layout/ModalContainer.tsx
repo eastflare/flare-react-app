@@ -142,9 +142,6 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영은 보류겐
   //const topHeight = 110; //임시로 지정함
   //const leftWidth = 151; //임시로 지정함
-  const leftMenu = document.getElementById("leftMenu")?.offsetWidth ?? 0;
-  const topMenu = document.getElementById("topMenu")?.offsetHeight ?? 0;
-  const topBar = document.getElementById("topBar")?.offsetHeight ?? 0;
   const isModal = modalItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
@@ -167,6 +164,10 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     y: 0,
   });
 
+  const [leftMenuWidth, setLeftMenuWidth] = useState(0);
+  const [topMenuHeight, setTopMenuHeight] = useState(0);
+  const [topBarHeight, setTopBarHeight] = useState(0);
+
   useLayoutEffect(() => {
     globalMaxZIndex += 1;
     setZIndex(globalMaxZIndex);
@@ -180,15 +181,15 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     const modalWidth = typeof width === "number" ? width : parseInt(width);
     const modalHeight = typeof height === "number" ? height : parseInt(height);
 
-    const posX = (screenWidth - modalWidth) / 2 - leftMenu;
-    const posY = (screenHeight - modalHeight) / 2 - (topMenu + topBar);
+    const posX = (screenWidth - modalWidth) / 2 - leftMenuWidth;
+    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + topBarHeight);
 
     setState(prevState => ({
       ...prevState,
       x: posX,
       y: posY,
     }));
-  }, []);
+  }, [leftMenuWidth, topMenuHeight, topBarHeight]);
 
   useEffect(() => {
     globalMaxZIndex += 1;
@@ -214,6 +215,24 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       navigate(pathname, { replace: true });
     });
     return unListenHistoryEvent;
+  }, []);
+
+  useEffect(() => {
+    const leftMenu = document.getElementById("leftMenu")?.offsetWidth ?? 0;
+    const topMenu = document.getElementById("topMenu")?.offsetHeight ?? 0;
+    const topBar = document.getElementById("topBar")?.offsetHeight ?? 0;
+
+    if (leftMenu) {
+      setLeftMenuWidth(leftMenu);
+    }
+
+    if (topMenu) {
+      setTopMenuHeight(topMenu);
+    }
+
+    if (topBar) {
+      setTopBarHeight(topBar);
+    }
   }, []);
 
   const rndManagerRef = useRef<HTMLElement | null>(null);
@@ -284,8 +303,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       setState({
         width: "100%",
         height: "100%",
-        x: -leftMenu,
-        y: -(topMenu + topBar),
+        x: -leftMenuWidth,
+        y: -(topMenuHeight + topBarHeight),
         maxZIndex: state.maxZIndex,
       });
     }
