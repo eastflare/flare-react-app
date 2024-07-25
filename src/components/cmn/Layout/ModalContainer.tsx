@@ -43,7 +43,12 @@ const StyleRnd = styled.div<{ isDragging?: boolean }>`
   flex-direction: column;
   border-radius: 4px;
   margin: 0px;
-  border: 1px solid #17191B;
+  border: ${props => {
+    if (props.isDragging) {
+      return `1px solid #17191B`;
+    } else {
+      return "1px solid #B3B7BA";
+    }
   }};
   overflow: hidden;
   ${props => (props.isDragging ? { cursor: "grabbing" } : { cursor: "default" })}
