@@ -1,14 +1,6 @@
 import styled from "@emotion/styled";
 import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rnd";
-import {
-  ComponentClass,
-  FunctionComponent,
-  memo,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { ComponentClass, FunctionComponent, memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
@@ -64,12 +56,7 @@ const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean 
       return "#EBEFF0";
     }
   }};
-  ${props =>
-    props.isMaximized
-      ? { cursor: "nor-allowed" }
-      : props.isDragging
-        ? { cursor: "grabbing" }
-        : { cursor: "grab" }}&:hover {
+  ${props => (props.isMaximized ? { cursor: "nor-allowed" } : props.isDragging ? { cursor: "grabbing" } : { cursor: "grab" })}&:hover {
     ${props => (props.isMaximized ? {} : { backgroundColor: "#DDE0E2" })}
   }
   &:active {
@@ -124,6 +111,7 @@ const StyleRndBody = styled.div`
   flex-direction: column;
   padding: 2px 8px 4px;
   border-radius: 0 0 4px 4px;
+  overflow: auto;
   background: white;
   & > div {
     height: 100%;
@@ -139,9 +127,6 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const navigate = useNavigate();
 
   const element = modalItem.element as unknown as FunctionComponent | ComponentClass;
-  //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영은 보류겐
-  //const topHeight = 110; //임시로 지정함
-  //const leftWidth = 151; //임시로 지정함
   const isModal = modalItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
@@ -157,6 +142,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+
   const originalSize = useRef({
     width: modalItem.options?.width ?? 800,
     height: modalItem.options?.height ?? 600,
@@ -172,6 +158,14 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     globalMaxZIndex += 1;
     setZIndex(globalMaxZIndex);
     setOverlayZIndex(globalMaxZIndex - 1);
+
+    const leftMenu = document.getElementById("leftMenu")?.offsetWidth ?? 0;
+    const topMenu = document.getElementById("topMenu")?.offsetHeight ?? 0;
+    const topBar = document.getElementById("topBar")?.offsetHeight ?? 0;
+
+    setLeftMenuWidth(leftMenu);
+    setTopMenuHeight(topMenu);
+    setTopBarHeight(topBar);
 
     const width = typeof state.width === "number" ? state.width : parseInt(state.width);
     const height = typeof state.height === "number" ? state.height : parseInt(state.height);
@@ -215,24 +209,6 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       navigate(pathname, { replace: true });
     });
     return unListenHistoryEvent;
-  }, []);
-
-  useEffect(() => {
-    const leftMenu = document.getElementById("leftMenu")?.offsetWidth ?? 0;
-    const topMenu = document.getElementById("topMenu")?.offsetHeight ?? 0;
-    const topBar = document.getElementById("topBar")?.offsetHeight ?? 0;
-
-    if (leftMenu) {
-      setLeftMenuWidth(leftMenu);
-    }
-
-    if (topMenu) {
-      setTopMenuHeight(topMenu);
-    }
-
-    if (topBar) {
-      setTopBarHeight(topBar);
-    }
   }, []);
 
   const rndManagerRef = useRef<HTMLElement | null>(null);
@@ -297,7 +273,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       originalSize.current = {
         width: typeof state.width === "number" ? state.width : parseInt(state.width),
         height: typeof state.height === "number" ? state.height : parseInt(state.height),
-        x: state.x, // Assuming x and y are always numbers
+        x: state.x,
         y: state.y,
       };
       setState({
@@ -337,38 +313,14 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     setIsMinimized(!isMinimized);
   };
 
-  // const bringToFront = () => {
-  //   if (rndManagerRef.current) {
-  //     const data = {
-  //       node: rndManagerRef.current,
-  //       x: state.x,
-  //       y: state.y,
-  //     } as DraggableData;
-  //     onDragStart({} as DraggableEvent, data);
-  //   }
-  // };
-
   const { width, height, x, y } = state;
 
   const { getPageProviderProps } = usePage({ pageItem: modalItem });
 
   return (
     <PageProvider value={{ ...getPageProviderProps() }}>
-      {isModal && (
-        <Overlay topHeight={0} leftWidth={0} overlayZIndex={overlayZIndex} onClick={onClose} />
-      )}
-      <Rnd
-        dragHandleClassName={"handle"}
-        size={{ height, width }}
-        position={{ x, y }}
-        style={{ zIndex }}
-        onDragStart={onDragStart}
-        onDragStop={onDragStop}
-        onResize={onResize}
-        onResizeStop={onResizeStop}
-        minHeight={50}
-        minWidth={200}
-      >
+      {isModal && <Overlay topHeight={0} leftWidth={0} overlayZIndex={overlayZIndex} onClick={onClose} />}
+      <Rnd dragHandleClassName={"handle"} size={{ height, width }} position={{ x, y }} style={{ zIndex }} onDragStart={onDragStart} onDragStop={onDragStop} onResize={onResize} onResizeStop={onResizeStop} minHeight={50} minWidth={200}>
         <StyleRnd isDragging={isDragging}>
           <StyleRndHeader isDragging={isDragging} isMaximized={isMaximized} className='handle'>
             <StyleRndHeaderTitle>{modalItem?.label ?? "Drag"}</StyleRndHeaderTitle>
