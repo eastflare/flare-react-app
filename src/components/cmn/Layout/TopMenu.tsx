@@ -17,7 +17,7 @@ const TopMenu = () => {
         <nav>
           <ul>
             <li>
-              <a href='/new-page' onClick={handleLinkClick}>
+              <a href='/' onClick={handleLinkClick}>
                 Home
               </a>
             </li>
