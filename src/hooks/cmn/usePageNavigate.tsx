@@ -11,8 +11,8 @@ interface ObjAny {
 
 export default function usePageNavigate() {
   const { addModal, delModal, addWindow } = usePageContext();
-  const navigator = useNavigate();
   const { addPageCallback } = usePageCallbackStore();
+  const navigator = useNavigate();
 
   const closeModal = useCallback(
     (id: string) => {

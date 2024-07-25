@@ -69,21 +69,19 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   // routes가 추가 될때만 실행됨
   useEffect(initPageRoutesMap, [initPageRoutesMap]);
 
-  // const callbackWithParams = useCallback((num: number, str: string) => {
-  //   alert("이거슨 콜백을 받으면 실행되는 부분 " + num + " " + str);
-  // }, []);
-
   const openPageRoute = useCallback(() => {
-    //임시 페이지명을 path의 마지막 글자로 변경
-    let label = pathname.split("/").pop();
-    if (!label) {
-      label = "Home";
-    }
-
     //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬
-    const pathParams = matchedRoute ? matchedRoute.params : {};
+    const pathParamsObj = matchedRoute ? matchedRoute.params : {};
     const searchParamsObj = Object.fromEntries(searchParams);
-    const params = { ...pathParams, ...searchParamsObj };
+    const mergedParamsObj = { ...pathParamsObj, ...searchParamsObj };
+    const params = Object.fromEntries(
+      Object.entries(mergedParamsObj)
+        .filter(([key]) => key !== "title" && key !== "pageId" && key !== "openTypeCode")
+        .map(([key, value]) => [key, decodeURIComponent(value ?? "")])
+    );
+
+    //임시 페이지명을 path의 마지막 글자로 변경
+    const label = decodeURIComponent(pathname.split("/").pop() || "Home");
 
     const pageId = pathname;
     //현재 주소와 매핑된 Route가 있을 경우

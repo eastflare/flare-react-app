@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import usePageMapStore from "store/pageMapStore";
 
 export type PageTabItem = { id: string; path: string; label: string };
