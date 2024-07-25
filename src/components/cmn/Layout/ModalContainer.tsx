@@ -13,7 +13,7 @@ import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
 import usePage from "hooks/cmn/usePage";
-import { ModalItem, PageItem } from "store/pageMapStore";
+import { ModalItem } from "store/pageMapStore";
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { history } from "utils/historyUtil";
@@ -36,33 +36,25 @@ const Overlay = styled.div<{ topHeight?: number; leftWidth?: number; overlayZInd
   z-index: ${props => props.overlayZIndex || 999};
 `;
 
-const StyleRnd = styled.div<{ isDragging?: boolean; isTop?: boolean }>`
+const StyleRnd = styled.div<{ isDragging?: boolean }>`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
-  border: ${props => {
-    if (props.isDragging) {
-      return `1px solid #17191B`;
-    } else if (props.isTop) {
-      return `1px solid #4A4E50`;
-    } else {
-      return "1px solid #B3B7BA";
-    }
+  margin: 0px;
+  border: 1px solid #17191B;
   }};
   overflow: hidden;
   ${props => (props.isDragging ? { cursor: "grabbing" } : { cursor: "default" })}
 `;
 
-const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean; isTop?: boolean }>`
+const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean }>`
   height: 35px;
   min-height: 35px;
   background-color: ${props => {
     if (props.isDragging) {
       return "#DDE0E2";
-    } else if (props.isTop) {
-      return "#CFD2D4";
     } else {
       return "#EBEFF0";
     }
@@ -143,8 +135,11 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
   const element = modalItem.element as unknown as FunctionComponent | ComponentClass;
   //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영은 보류겐
-  const topHeight = 110; //임시로 지정함
-  const leftWidth = 151; //임시로 지정함
+  //const topHeight = 110; //임시로 지정함
+  //const leftWidth = 151; //임시로 지정함
+  const leftMenu = document.getElementById("leftMenu")?.offsetWidth ?? 0;
+  const topMenu = document.getElementById("topMenu")?.offsetHeight ?? 0;
+  const topBar = document.getElementById("topBar")?.offsetHeight ?? 0;
   const isModal = modalItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
@@ -179,8 +174,9 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     const screenHeight = window.innerHeight;
     const modalWidth = typeof width === "number" ? width : parseInt(width);
     const modalHeight = typeof height === "number" ? height : parseInt(height);
-    const posX = (screenWidth - modalWidth) / 2 - leftWidth;
-    const posY = (screenHeight - modalHeight) / 2 - topHeight;
+
+    const posX = (screenWidth - modalWidth) / 2 - leftMenu;
+    const posY = (screenHeight - modalHeight) / 2 - (topMenu + topBar);
 
     setState(prevState => ({
       ...prevState,
@@ -283,8 +279,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       setState({
         width: "100%",
         height: "100%",
-        x: -leftWidth,
-        y: -topHeight,
+        x: -leftMenu,
+        y: -(topMenu + topBar),
         maxZIndex: state.maxZIndex,
       });
     }
@@ -349,16 +345,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
         minHeight={50}
         minWidth={200}
       >
-        <StyleRnd
-          isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
-          isDragging={isDragging}
-        >
-          <StyleRndHeader
-            isDragging={isDragging}
-            isMaximized={isMaximized}
-            isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
-            className='handle'
-          >
+        <StyleRnd isDragging={isDragging}>
+          <StyleRndHeader isDragging={isDragging} isMaximized={isMaximized} className='handle'>
             <StyleRndHeaderTitle>{modalItem?.label ?? "Drag"}</StyleRndHeaderTitle>
             <StyleRndButtonGroup>
               <button onClick={onMinimize} onGotPointerCapture={onMinimize}>

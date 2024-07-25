@@ -7,6 +7,7 @@ const PageTopBar = () => {
 
   return (
     <StyledPageTopBar
+      id='topBar'
       onContextMenu={e => {
         e.preventDefault();
         return false;
