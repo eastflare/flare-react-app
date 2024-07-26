@@ -1,16 +1,13 @@
 import styled from "@emotion/styled";
 import usePageTab from "hooks/cmn/usePageTab";
 import PageTab from "./PageTab";
-import { useNavigate } from "react-router-dom";
 
 const PageTopBar = () => {
-  //const { openedPageMap, curpageId, onNavigateopenedPageMap, onDeleteopenedPageMap } = usePageRouterContext();
-
-  const navigate = useNavigate();
-  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose } = usePageTab({ navigate });
+  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose } = usePageTab();
 
   return (
     <StyledPageTopBar
+      id='topBar'
       onContextMenu={e => {
         e.preventDefault();
         return false;
@@ -21,12 +18,14 @@ const PageTopBar = () => {
           let pageItem = openedPageMap.get(key);
           let pageLabel = pageItem?.label ?? "";
 
+          console.log("key 가 어떻게 생겼나요?", key);
+
           return (
             <PageTab
               key={key}
               label={pageLabel}
               isActive={curPageId === key}
-              onClose={onPageTabClose(key)}
+              onClose={() => onPageTabClose(key)}
               onClick={() => onPageTabClick(key)}
             />
           );

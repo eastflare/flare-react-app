@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import TopMenu from "./TopMenu";
 import LeftMenu from "./LeftMenu";
 import styled from "@emotion/styled";
@@ -9,21 +9,25 @@ const MainContainer = (props: { children: ReactNode }) => {
   //상단메뉴, 좌측메뉴, 화면영역은 children : Routes 객체임
 
   const { children } = props;
-  const isLeftCollapsed = false;
+  const [isLeftCollapsed, setIsLeftCollapsed] = useState(false);
   const showPageTopBar = true;
+
+  const handleToggleLeftMenu = () => {
+    setIsLeftCollapsed(prevState => !prevState);
+  };
 
   return (
     <StyledMainContainer>
       <StyledMainHeader>
-        <TopMenu />
+        <TopMenu onToggleLeftMenu={handleToggleLeftMenu} />
       </StyledMainHeader>
       <StyledMainBody>
-        <StyledMainLeft isCollapsed={isLeftCollapsed}>
+        <StyledMainLeft id='leftMenu' isCollapsed={isLeftCollapsed}>
           <LeftMenu />
         </StyledMainLeft>
         <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
           {showPageTopBar ? <PageTopBar /> : null}
-          <StyledMainPage className='mainBody' showPageTopBar={showPageTopBar}>
+          <StyledMainPage id='mainBody' showPageTopBar={showPageTopBar}>
             {children}
           </StyledMainPage>
         </StyledMainRight>
@@ -42,8 +46,8 @@ const StyledMainContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid #32cd32;
-  border-right: 1px solid #800000;
+  /* border-left: 1px solid #32cd32;
+  border-right: 1px solid #800000; */
 `;
 
 const StyledMainBody = styled.div`

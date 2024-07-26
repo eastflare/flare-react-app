@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import usePageMapStore, { OpenTypeCode, PageItem } from "store/pageMapStore";
+import { ModalItem, OpenTypeCode, PageItem, WindowItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
+import usePageTab from "./usePageTab";
 
-const usePage = (props: { pageItem: PageItem }) => {
+const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
   const {
     openTypeCode = OpenTypeCode.PAGE,
     params = {},
     options = {},
     callback = () => {},
   } = props.pageItem;
-  const { deletePageItem } = usePageMapStore();
+  const { onPageTabClose } = usePageTab();
 
-  const [modals, setModals] = useState<PageItem[]>([]); // Destructure the tuple correctly
-  const addModal = (modalProps: PageItem) => {
+  const [modals, setModals] = useState<ModalItem[]>([]); // Destructure the tuple correctly
+  const addModal = (modalProps: ModalItem) => {
     setModals(prev => [...prev, modalProps]);
   };
 
@@ -35,14 +36,16 @@ const usePage = (props: { pageItem: PageItem }) => {
         window.close();
         break;
       case OpenTypeCode.PAGE:
-        deletePageItem(props.pageItem.id);
+        console.log("일반페이지 지우기1", props.pageItem.id);
+        onPageTabClose(props.pageItem.id);
+        console.log("일반페이지 지우기2", props.pageItem.id);
         break;
       default:
         break;
     }
   };
 
-  const addWindow = (windowProps: PageItem) => {
+  const addWindow = (windowProps: WindowItem) => {
     openWindow(windowProps);
   };
 

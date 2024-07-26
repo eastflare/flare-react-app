@@ -94,11 +94,13 @@ const MyModal = () => {
       <ul>
         <li>도토리 받고 개발 전문</li>
         <li>알고리즘 전문가</li>
+        <li>기본이 된사람</li>
       </ul>
       <h2>별명 : </h2>
       <ul>
         <li>개NullNull</li>
         <li>월급루팡</li>
+        <li>걸어다니는 리액트 백과사전</li>
       </ul>
       <div>
         <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>

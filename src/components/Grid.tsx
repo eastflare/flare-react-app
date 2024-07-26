@@ -3,19 +3,18 @@ import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import { GridOptions } from 'ag-grid-community';
 
-const Grid = ({data, option}) => {
-
+const Grid = ({ data, options }: { data: any; options: any }) => {
   const gridOption: GridOptions = Object.assign({
     onGridReady: () => {},
     pagination: true,
     paginationPageSize: 5,
     paginationPageSizeSelector: false,
     paginationAutoPageSize: false,
-  }, option);
+  }, options);
 
   return (
     <div>
-      <AgGridReact 
+      <AgGridReact
         columnDefs={data.columns}
         rowData={data.rows}
         className={"ag-theme-alpine"}

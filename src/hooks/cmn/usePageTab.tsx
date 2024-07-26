@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { NavigateFunction } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import usePageMapStore from "store/pageMapStore";
 
 export type PageTabItem = { id: string; path: string; label: string };
@@ -12,7 +12,8 @@ export type PageTabMap = Map<string, PageTabItem>;
 //   return new Map([[HomePageTabItem.id, HomePageTabItem]]);
 // }
 
-const usePageTab = (props: { navigate: NavigateFunction }) => {
+const usePageTab = () => {
+  const navigate = useNavigate();
   const { pageMap, curPageId, deletePageItem, resetPageMap } = usePageMapStore();
 
   // 하단 Page 에서 location에 대한 정보로 페이지를 표시한 후 해당 함수가 호출됨
@@ -50,15 +51,14 @@ const usePageTab = (props: { navigate: NavigateFunction }) => {
   const handleNavigatePageTab = useCallback(
     (id: string) => {
       const originPath = getOriginPath(id);
-      props.navigate(originPath);
+      navigate(originPath);
     },
     [pageMap]
   );
 
   //열려있는 탭을 삭제한다.
   const handleDeletePageTab = useCallback(
-    (id: string) => (e: MouseEvent | undefined) => {
-      e?.stopPropagation();
+    (id: string) => {
       const isCurTab = curPageId === id;
 
       //열려있는 Tab이면 바로 이전 Tab을 연다
@@ -71,7 +71,7 @@ const usePageTab = (props: { navigate: NavigateFunction }) => {
 
         if (prevItem && prevItem.id) {
           const originPath = getOriginPath(prevItem.id);
-          props.navigate(originPath);
+          navigate(originPath);
         }
       }
 

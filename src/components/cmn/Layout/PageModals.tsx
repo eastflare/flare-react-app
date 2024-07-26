@@ -3,8 +3,9 @@ import ModalContainer from "./ModalContainer";
 
 const PageModals = () => {
   const { modals } = usePageContext();
-  return modals.map(pageItem => {
-    return <ModalContainer key={pageItem.id} pageItem={pageItem} />;
+  return modals.map(modalItem => {
+    console.log("modalItem", modalItem);
+    return <ModalContainer key={modalItem.id} modalItem={modalItem} />;
   });
 };
 

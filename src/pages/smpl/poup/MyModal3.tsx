@@ -24,6 +24,11 @@ const MyModal = () => {
     close();
   };
 
+  const handleClickAlert = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    alert("을사코딩초특급개발자국민사기꾼김주팔KJH(거절한다)");
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setText(e.target.value);
@@ -53,6 +58,9 @@ const MyModal = () => {
         </button>
         <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
+        </button>
+        <button onClick={handleClickAlert} onGotPointerCapture={handleClickAlert}>
+          얼럿창
         </button>
       </div>
     </>

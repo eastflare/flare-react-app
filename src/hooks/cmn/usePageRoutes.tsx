@@ -1,15 +1,18 @@
 import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
 import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
+import usePageCallbackStore from "store/pageCallbackStore";
 import usePageMapStore, { OpenTypeCode } from "store/pageMapStore";
+import usePageRouteStore from "store/pageRouteStore";
 import extractor from "utils/extractorUtil";
 
 //const MAX_PAGE_SIZE = 10;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
+  const { pageRoutes, setPageRoutes } = usePageRouteStore();
   const { pageMap, curPageId, setPageItem, setCurPageId } = usePageMapStore();
+  const { getPageCallback } = usePageCallbackStore();
   const { pathname, search } = useLocation();
-  const [routesMap, setRoutesMap] = useState<Record<string, RouteObject>>({});
   const [searchParams] = useSearchParams();
 
   //ReactNode로 받아온 Routes 를 RouteObject로 일괄 변환하여 배열로 가지고 있는다.
@@ -28,12 +31,12 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   //useMatch Hook을 통해 Params가 담겨있는 Route 객체로 변환한다.
   //현재 주소에 해당하는 Route ID 및 객체
   const routepath = route?.path || "";
-  const curRouteItem = useMemo(() => routesMap[routepath], [routesMap, routepath]);
+  const curRouteItem = useMemo(() => pageRoutes[routepath], [pageRoutes, routepath]);
   const matchedRoute = routepath && useMatch(routepath);
 
   //현재 화면에 열려있는 Route (Max 10개)
   useEffect(() => {
-    //console.log("routesMap --->", routesMap);
+    //console.log("pageRoutes --->", pageRoutes);
   }, [curRouteItem]);
 
   useEffect(() => {
@@ -44,11 +47,11 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     console.log("실험중 페이지맵이 변경이 됐을까요?", pageMap);
   }, [pageMap]);
 
-  const initPageRoutesMap = useCallback(() => {
-    //전체 Route를 Map<id, element> 형태의 맵으로 재구성한다.
-    if (Object.keys(routesMap)?.length === 0) {
+  const initRoutesObj = useCallback(() => {
+    //전체 Route를 Object<id, element> 형태의 맵으로 재구성한다.
+    if (Object.keys(pageRoutes)?.length === 0) {
       startTransition(() => {
-        setRoutesMap(
+        setPageRoutes(
           Object.assign(
             {},
             ...routes.map(item => {
@@ -62,66 +65,54 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         );
       });
     }
-  }, [routes, routesMap]);
+  }, [routes, pageRoutes]);
 
   // routes가 추가 될때만 실행됨
-  useLayoutEffect(initPageRoutesMap, [initPageRoutesMap]);
-
-  const callbackWithParams = useCallback((num: number, str: string) => {
-    alert("이거슨 콜백을 받으면 실행되는 부분 " + num + " " + str);
-  }, []);
-
-  // const callbackWithParams = (num: number, str: string) => {
-  //   alert("이거슨 콜백을 받으면 실행되는 부분 " + num + " " + str);
-  // };
+  useEffect(initRoutesObj, [initRoutesObj]);
 
   const openPageRoute = useCallback(() => {
-    //임시 페이지명을 path의 마지막 글자로 변경
-    let label = pathname.split("/").pop();
-    if (!label) {
-      label = "Home";
-    }
-
     //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬
-    const pathParams = matchedRoute ? matchedRoute.params : {};
+    const pathParamsObj = matchedRoute ? matchedRoute.params : {};
     const searchParamsObj = Object.fromEntries(searchParams);
-    const params = { ...pathParams, ...searchParamsObj };
+    const mergedParamsObj = { ...pathParamsObj, ...searchParamsObj };
+    const params = Object.fromEntries(
+      Object.entries(mergedParamsObj)
+        .filter(([key]) => key !== "title" && key !== "pageId" && key !== "openTypeCode")
+        .map(([key, value]) => [key, decodeURIComponent(value ?? "")])
+    );
+
+    //임시 페이지명을 path의 마지막 글자로 변경
+    const label = decodeURIComponent(pathname.split("/").pop() || "Home");
 
     const pageId = pathname;
     //현재 주소와 매핑된 Route가 있을 경우
     if (curRouteItem) {
-      //이미열려있는 페이지가 없을 경우 Route를 추가한다.
-      // if (!pageMap.has(pageId)) {
-      //   console.log("이미열려있는 페이지가 없을 경우 Route를 추가한다.");
-      //   //PageMap을 추가함
-      //   setPageItem(pageId, {
-      //     id: pageId,
-      //     label: label,
-      //     pathname: pathname,
-      //     search: search,
-      //     routePath: routepath,
-      //     options: {},
-      //     params: {},
-      //     element: curRouteItem.element as ReactElement,
-      //     callback: callbackWithParams,
-      //   });
-      // }
-
-      //파라메터의 openTypeCode=WINDOW 파라메터로 오면 pageItem의 openTypeCode 를 WINDOW 로 변경한다.
+      //Window 팝업일 경우 OpenTypeCode 와 Callback을 상황에 맞게 변경한다.
       let openTypeCode = OpenTypeCode.PAGE;
-      let callback = callbackWithParams;
+      let callback = () => {};
 
       if (extractor.getQueryParameterValue("openTypeCode") === "WINDOW") {
+        //파라메터의 openTypeCode=WINDOW 파라메터로 오면 pageItem의 openTypeCode 를 WINDOW 로 변경한다.
         openTypeCode = OpenTypeCode.WINDOW;
 
-        console.log("나는나느나는 윈도우 팝업입니다.", window.opener, window.opener.parentCallback);
         //윈도우 팝업일 경우 Callback 처리
         const windowCallback = (...args: any[]) => {
-          window.parentCallback(...args);
+          return window.parentCallback(...args);
         };
         callback = windowCallback;
+      } else {
+        //페이지일 경우 Callback 처리
+        const pageCallback = (...args: any[]) => {
+          const tmpCallback = getPageCallback(searchParamsObj.pageId);
+          console.log("페이지 Callback 입니다.", tmpCallback);
+          if (typeof tmpCallback === "function") {
+            return tmpCallback(...args);
+          }
+        };
+        callback = pageCallback;
       }
 
+      //메뉴를 클릭하거나 Windows Popup 화면일 경우 Zustand에다 Page정보를 입력한다.
       setPageItem(pageId, {
         openTypeCode: openTypeCode,
         id: pageId,
@@ -129,7 +120,6 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         pathname: pathname,
         search: search,
         routePath: routepath,
-        //options: {},
         params: params,
         element: curRouteItem.element as ReactElement,
         callback: callback,

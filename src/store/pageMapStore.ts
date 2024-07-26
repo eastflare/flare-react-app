@@ -34,6 +34,28 @@ export interface PageItem {
   element: ReactElement;
 }
 
+export interface ModalItem {
+  openTypeCode: OpenTypeCode;
+  id: string;
+  label: string;
+  params?: Object;
+  options?: Object;
+  callback?: CallbackFunction;
+  closeModal?: CloseFunction;
+  element: ReactElement;
+}
+
+export interface WindowItem {
+  openTypeCode: OpenTypeCode;
+  id: string;
+  url: string;
+  label: string;
+  params?: Object;
+  options?: Object;
+  callback?: CallbackFunction;
+  closeModal?: CloseFunction;
+}
+
 interface PageMapStore {
   pageMap: Map<string, PageItem>;
   curPageId: string;

@@ -1,20 +1,11 @@
 import styled from "@emotion/styled";
 import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rnd";
-import {
-  ComponentClass,
-  FunctionComponent,
-  memo,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
+import { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
 import usePage from "hooks/cmn/usePage";
-import { PageItem } from "store/pageMapStore";
-import React from "react";
+import { ModalItem } from "store/pageMapStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { history } from "utils/historyUtil";
 
@@ -36,17 +27,16 @@ const Overlay = styled.div<{ topHeight?: number; leftWidth?: number; overlayZInd
   z-index: ${props => props.overlayZIndex || 999};
 `;
 
-const StyleRnd = styled.div<{ isDragging?: boolean; isTop?: boolean }>`
+const StyleRnd = styled.div<{ isDragging?: boolean }>`
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   border-radius: 4px;
+  margin: 0px;
   border: ${props => {
     if (props.isDragging) {
       return `1px solid #17191B`;
-    } else if (props.isTop) {
-      return `1px solid #4A4E50`;
     } else {
       return "1px solid #B3B7BA";
     }
@@ -55,24 +45,17 @@ const StyleRnd = styled.div<{ isDragging?: boolean; isTop?: boolean }>`
   ${props => (props.isDragging ? { cursor: "grabbing" } : { cursor: "default" })}
 `;
 
-const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean; isTop?: boolean }>`
+const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean }>`
   height: 35px;
   min-height: 35px;
   background-color: ${props => {
     if (props.isDragging) {
       return "#DDE0E2";
-    } else if (props.isTop) {
-      return "#CFD2D4";
     } else {
       return "#EBEFF0";
     }
   }};
-  ${props =>
-    props.isMaximized
-      ? { cursor: "nor-allowed" }
-      : props.isDragging
-        ? { cursor: "grabbing" }
-        : { cursor: "grab" }}&:hover {
+  ${props => (props.isMaximized ? { cursor: "nor-allowed" } : props.isDragging ? { cursor: "grabbing" } : { cursor: "grab" })}&:hover {
     ${props => (props.isMaximized ? {} : { backgroundColor: "#DDE0E2" })}
   }
   &:active {
@@ -127,6 +110,7 @@ const StyleRndBody = styled.div`
   flex-direction: column;
   padding: 2px 8px 4px;
   border-radius: 0 0 4px 4px;
+  overflow: auto;
   background: white;
   & > div {
     height: 100%;
@@ -135,21 +119,18 @@ const StyleRndBody = styled.div`
 
 let globalMaxZIndex = 1000;
 
-const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
-  //const Component = pageItem.element;
-  //const props = pageItem.params;
+const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
+  //const Component = modalItem.element;
+  //const props = modalItem.params;
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const element = pageItem.element as unknown as FunctionComponent | ComponentClass;
-  //어차피 뒤로가기가 가능함으로 overlay를 메뉴는 제외하라는 워니님의 의견 반영은 보류겐
-  const topHeight = 110; //임시로 지정함
-  const leftWidth = 151; //임시로 지정함
-  const isModal = pageItem.openTypeCode === "MODAL";
+  const element = modalItem.element.props.element;
+  const isModal = modalItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
-    width: pageItem.options?.width ?? 800,
-    height: pageItem.options?.height ?? 600,
+    width: modalItem.options?.width ?? 800,
+    height: modalItem.options?.height ?? 600,
     x: 0,
     y: 0,
     maxZIndex: 0,
@@ -160,17 +141,54 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   const [isMaximized, setIsMaximized] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+
   const originalSize = useRef({
-    width: pageItem.options?.width ?? 800,
-    height: pageItem.options?.height ?? 600,
+    width: modalItem.options?.width ?? 800,
+    height: modalItem.options?.height ?? 600,
     x: 0,
     y: 0,
   });
+
+  const [leftMenuWidth, setLeftMenuWidth] = useState(0);
+  const [topMenuHeight, setTopMenuHeight] = useState(0);
+  const [topBarHeight, setTopBarHeight] = useState(0);
+  const [distanceHeight, setDistanceHeight] = useState(0);
+  const [distanceWidth, setDistanceWidth] = useState(0);
 
   useLayoutEffect(() => {
     globalMaxZIndex += 1;
     setZIndex(globalMaxZIndex);
     setOverlayZIndex(globalMaxZIndex - 1);
+    const leftMenuL = document.getElementById("leftMenu")?.offsetWidth ?? 0;
+    const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
+    const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
+    const leftMenu = document.getElementById("leftMenu") ?? null;
+    const topBar = document.getElementById("topBar") ?? null;
+    const mainBody = document.getElementById("mainBody") ?? null;
+
+    let topBarBottom, mainBodyTop, leftMenuRight, mainBodyLeft;
+
+    if (leftMenu) {
+      leftMenuRight = leftMenu.getBoundingClientRect().right;
+    }
+
+    if (topBar) {
+      topBarBottom = topBar.getBoundingClientRect().bottom;
+    }
+
+    if (mainBody) {
+      mainBodyTop = mainBody.getBoundingClientRect().top;
+      mainBodyLeft = mainBody.getBoundingClientRect().left;
+    }
+
+    const distanceH = Math.abs(topBarBottom! - mainBodyTop!);
+    const distanceW = Math.abs(leftMenuRight! - mainBodyLeft!);
+
+    setLeftMenuWidth(leftMenuL);
+    setTopMenuHeight(topMenuL);
+    setTopBarHeight(topBarL);
+    setDistanceHeight(distanceH);
+    setDistanceWidth(distanceW);
 
     const width = typeof state.width === "number" ? state.width : parseInt(state.width);
     const height = typeof state.height === "number" ? state.height : parseInt(state.height);
@@ -179,15 +197,16 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     const screenHeight = window.innerHeight;
     const modalWidth = typeof width === "number" ? width : parseInt(width);
     const modalHeight = typeof height === "number" ? height : parseInt(height);
-    const posX = (screenWidth - modalWidth) / 2;
-    const posY = (screenHeight - modalHeight) / 2;
+
+    const posX = (screenWidth - modalWidth) / 2 - (leftMenuWidth + distanceWidth);
+    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + topBarHeight + distanceHeight);
 
     setState(prevState => ({
       ...prevState,
       x: posX,
       y: posY,
     }));
-  }, []);
+  }, [leftMenuWidth, topMenuHeight, topBarHeight, distanceHeight, distanceWidth]);
 
   useEffect(() => {
     globalMaxZIndex += 1;
@@ -260,8 +279,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
   };
 
   const onClose = () => {
-    if (pageItem) {
-      pageItem.closeModal?.();
+    if (modalItem) {
+      modalItem.closeModal?.();
     }
   };
 
@@ -277,14 +296,14 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
       originalSize.current = {
         width: typeof state.width === "number" ? state.width : parseInt(state.width),
         height: typeof state.height === "number" ? state.height : parseInt(state.height),
-        x: state.x, // Assuming x and y are always numbers
+        x: state.x,
         y: state.y,
       };
       setState({
         width: "100%",
         height: "100%",
-        x: -leftWidth,
-        y: -topHeight,
+        x: -(leftMenuWidth + distanceWidth),
+        y: -(topMenuHeight + topBarHeight + distanceHeight),
         maxZIndex: state.maxZIndex,
       });
     }
@@ -317,49 +336,17 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
     setIsMinimized(!isMinimized);
   };
 
-  // const bringToFront = () => {
-  //   if (rndManagerRef.current) {
-  //     const data = {
-  //       node: rndManagerRef.current,
-  //       x: state.x,
-  //       y: state.y,
-  //     } as DraggableData;
-  //     onDragStart({} as DraggableEvent, data);
-  //   }
-  // };
-
   const { width, height, x, y } = state;
 
-  const { getPageProviderProps } = usePage({ pageItem });
+  const { getPageProviderProps } = usePage({ pageItem: modalItem });
 
   return (
     <PageProvider value={{ ...getPageProviderProps() }}>
-      {isModal && (
-        <Overlay topHeight={0} leftWidth={0} overlayZIndex={overlayZIndex} onClick={onClose} />
-      )}
-      <Rnd
-        dragHandleClassName={"handle"}
-        size={{ height, width }}
-        position={{ x, y }}
-        style={{ zIndex }}
-        onDragStart={onDragStart}
-        onDragStop={onDragStop}
-        onResize={onResize}
-        onResizeStop={onResizeStop}
-        minHeight={50}
-        minWidth={200}
-      >
-        <StyleRnd
-          isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
-          isDragging={isDragging}
-        >
-          <StyleRndHeader
-            isDragging={isDragging}
-            isMaximized={isMaximized}
-            isTop={rndManagerRef?.current?.style.zIndex === globalMaxZIndex.toString()}
-            className='handle'
-          >
-            <StyleRndHeaderTitle>{pageItem?.label ?? "Drag"}</StyleRndHeaderTitle>
+      {isModal && <Overlay topHeight={0} leftWidth={0} overlayZIndex={overlayZIndex} onClick={onClose} />}
+      <Rnd dragHandleClassName={"handle"} size={{ height, width }} position={{ x, y }} style={{ zIndex }} onDragStart={onDragStart} onDragStop={onDragStop} onResize={onResize} onResizeStop={onResizeStop} minHeight={50} minWidth={200}>
+        <StyleRnd isDragging={isDragging}>
+          <StyleRndHeader isDragging={isDragging} isMaximized={isMaximized} className='handle'>
+            <StyleRndHeaderTitle>{modalItem?.label ?? "Drag"}</StyleRndHeaderTitle>
             <StyleRndButtonGroup>
               <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
                 -
@@ -375,8 +362,8 @@ const ModalContainer = ({ pageItem }: { pageItem: PageItem }) => {
             </StyleRndButtonGroup>
           </StyleRndHeader>
           <StyleRndBody>
-            {/* {!isMinimized && <element {...props} onClose={onClose} />} */}
-            {!isMinimized && element && <div>{React.createElement(element)}</div>}
+            {!isMinimized && element}
+            {/* {!isMinimized && element && <div>{element}</div>} */}
           </StyleRndBody>
         </StyleRnd>
       </Rnd>

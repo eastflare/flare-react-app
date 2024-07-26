@@ -18,6 +18,10 @@ import WindowContainer from "components/cmn/Layout/WindowContainer";
 import MyModal3 from "pages/smpl/poup/MyModal3";
 import GridPage from "pages/GridPage";
 import FormPage from "pages/FormPage";
+import MyModal1 from "pages/smpl/poup/MyModal1";
+import MyModal2 from "pages/smpl/poup/MyModal2";
+import Matthew from "pages/smpl/poup/Matthew";
+import MyModal from "pages/smpl/poup/MyModal";
 
 const MainRoutes = () => {
   const location = useLocation();
@@ -43,6 +47,10 @@ const MainRoutes = () => {
         <Route path='/sample4/:id' element={<Sample4 />} />
         <Route path='/sample5/:id/:name' element={<Sample5 />} />
         <Route path='/sample6' element={<Sample6 />} />
+        <Route path='/Matthew' element={<Matthew />} />
+        <Route path='/MyModal' element={<MyModal />} />
+        <Route path='/MyModal1' element={<MyModal1 />} />
+        <Route path='/MyModal2' element={<MyModal2 />} />
         <Route path='/MyModal3' element={<MyModal3 />} />
         <Route path='/grid' element={<GridPage />} />
         <Route path='/form' element={<FormPage />} />
@@ -52,15 +60,7 @@ const MainRoutes = () => {
     []
   );
 
-  return (
-    <>
-      {globalContainerType !== "WINDOW" ? (
-        <MainContainer>{CommonRoutes}</MainContainer>
-      ) : (
-        <WindowContainer>{CommonRoutes}</WindowContainer>
-      )}
-    </>
-  );
+  return <>{globalContainerType !== "WINDOW" ? <MainContainer>{CommonRoutes}</MainContainer> : <WindowContainer>{CommonRoutes}</WindowContainer>}</>;
 };
 
 export default MainRoutes;
