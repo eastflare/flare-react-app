@@ -3,11 +3,11 @@ import usePageTab from "hooks/cmn/usePageTab";
 import PageTab from "./PageTab";
 
 const PageTopBar = () => {
-  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose } = usePageTab();
+  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset } = usePageTab();
 
   const handleClickClose = (e: MouseEvent) => {
     e.stopPropagation();
-    window.location.replace("/");
+    onPageTabReset();
   };
 
   return (

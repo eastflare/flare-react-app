@@ -86,7 +86,15 @@ const usePageMapStore = create<PageMapStore>(set => ({
       return { pageMap: newMap };
     }),
 
-  resetPageMap: () => set({ pageMap: new Map() }),
+  resetPageMap: () =>
+    set(state => {
+      // Keep only the entry with id '/'
+      const newMap = new Map();
+      if (state.pageMap.has("/")) {
+        newMap.set("/", state.pageMap.get("/"));
+      }
+      return { pageMap: newMap, curPageId: "/" };
+    }),
 }));
 
 export default usePageMapStore;

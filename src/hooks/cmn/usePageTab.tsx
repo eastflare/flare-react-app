@@ -85,7 +85,7 @@ const usePageTab = () => {
     curPageId,
     onPageTabClick: handleNavigatePageTab,
     onPageTabClose: handleDeletePageTab,
-    onPageTabClear: resetPageMap,
+    onPageTabReset: resetPageMap,
   };
 };
 

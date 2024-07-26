@@ -10,6 +10,18 @@ interface ObjAny {
   [key: string]: any;
 }
 
+interface PageOptions {
+  key?: string;
+  title?: string;
+}
+
+interface PopupOptions {
+  key?: string;
+  width?: number;
+  height?: number;
+  title?: string;
+}
+
 export default function usePageNavigate() {
   const { pageRoutes, getElementByRoutePath } = usePageRouteStore();
   const { addModal, delModal, addWindow } = usePageContext();
@@ -24,7 +36,7 @@ export default function usePageNavigate() {
     [delModal]
   );
 
-  const openPage = (url: string, params: ObjAny, options?: ObjAny) => {
+  const openPage = (url: string, params: ObjAny, options?: PageOptions) => {
     let arrParams = new Array();
     const pageId = options?.key ?? getUuid();
 
@@ -50,7 +62,7 @@ export default function usePageNavigate() {
     navigator(searchUrl);
   };
   //element any말고는 openModal호출시 계속 빨간줄 에러 발생....일단 any
-  const openModal = (url: string, params: ObjAny, options?: ObjAny) => {
+  const openModal = (url: string, params: ObjAny, options?: PopupOptions) => {
     const newId = getUuid();
     //URL을 통해 routePath를 찾는다.
     const matchRoute = getMatchedRouteByUrl(url);
@@ -95,7 +107,7 @@ export default function usePageNavigate() {
     [pageRoutes]
   );
 
-  const openModeless = (url: string, params: ObjAny, options?: ObjAny) => {
+  const openModeless = (url: string, params: ObjAny, options?: PopupOptions) => {
     const newId = getUuid();
 
     //URL을 통해 routePath를 찾는다.
@@ -127,7 +139,7 @@ export default function usePageNavigate() {
     //PageContext에 팝업정보를 추가한다.
     addModal(modelessItem);
   };
-  const openWindow = (routePath: string, params: ObjAny, options?: ObjAny) => {
+  const openWindow = (url: string, params: ObjAny, options?: ObjAny) => {
     const newId = getUuid();
 
     //TODO : id는 url에 해당하는 프로그램 Code 와 같은 값이 필요함
@@ -137,7 +149,7 @@ export default function usePageNavigate() {
       openTypeCode: OpenTypeCode.WINDOW,
       id: options?.key ?? newId,
       label: options?.title ?? "팝업(윈도우)",
-      url: routePath,
+      url: url,
       params: params,
       options: options,
       callback: params?.callback,

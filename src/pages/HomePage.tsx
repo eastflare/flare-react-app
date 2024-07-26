@@ -46,7 +46,7 @@ const HomePage = () => {
       {
         foo: "bar",
         callback: () => {
-          alert("매튜 뭐하는 사람인가요?");
+          alert("전선배 뭐하는 사람인가요?");
         },
       },
       { width: 800, height: 600 }
@@ -59,7 +59,7 @@ const HomePage = () => {
       {
         foo: "bar",
         callback: () => {
-          alert("매튜 뭐하는 사람인가요?");
+          alert("월급루팡 뭐하는 사람인가요?");
         },
       },
       { width: 800, height: 600 }

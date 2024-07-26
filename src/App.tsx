@@ -1,13 +1,12 @@
-import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import Modals from 'components/cmn/Layout/Modals';
-import { Suspense } from 'react';
-import Loading from 'components/elements/Loading';
-import SSOLoginRouter from 'routers/SSOLoginRouter';
-import LoginRouter from 'routers/LoginRouter';
-import FailRouter from 'routers/FailRouter';
-import MainRouter from 'routers/MainRouter';
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { Suspense } from "react";
+import Loading from "components/elements/Loading";
+import SSOLoginRouter from "routers/SSOLoginRouter";
+import LoginRouter from "routers/LoginRouter";
+import FailRouter from "routers/FailRouter";
+import MainRouter from "routers/MainRouter";
 
 const App = () => {
   return (
@@ -25,7 +24,6 @@ const App = () => {
         </BrowserRouter>
       </div>
       <ToastContainer />
-      <Modals />
     </>
   );
 };
