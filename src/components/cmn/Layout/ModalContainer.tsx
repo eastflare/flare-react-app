@@ -153,19 +153,43 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const [leftMenuWidth, setLeftMenuWidth] = useState(0);
   const [topMenuHeight, setTopMenuHeight] = useState(0);
   const [topBarHeight, setTopBarHeight] = useState(0);
+  const [distanceHeight, setDistanceHeight] = useState(0);
+  const [distanceWidth, setDistanceWidth] = useState(0);
 
   useLayoutEffect(() => {
     globalMaxZIndex += 1;
     setZIndex(globalMaxZIndex);
     setOverlayZIndex(globalMaxZIndex - 1);
+    const leftMenuL = document.getElementById("leftMenu")?.offsetWidth ?? 0;
+    const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
+    const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
+    const leftMenu = document.getElementById("leftMenu") ?? null;
+    const topBar = document.getElementById("topBar") ?? null;
+    const mainBody = document.getElementById("mainBody") ?? null;
 
-    const leftMenu = document.getElementById("leftMenu")?.offsetWidth ?? 0;
-    const topMenu = document.getElementById("topMenu")?.offsetHeight ?? 0;
-    const topBar = document.getElementById("topBar")?.offsetHeight ?? 0;
+    let topBarBottom, mainBodyTop, leftMenuRight, mainBodyLeft;
 
-    setLeftMenuWidth(leftMenu);
-    setTopMenuHeight(topMenu);
-    setTopBarHeight(topBar);
+    if (leftMenu) {
+      leftMenuRight = leftMenu.getBoundingClientRect().right;
+    }
+
+    if (topBar) {
+      topBarBottom = topBar.getBoundingClientRect().bottom;
+    }
+
+    if (mainBody) {
+      mainBodyTop = mainBody.getBoundingClientRect().top;
+      mainBodyLeft = mainBody.getBoundingClientRect().left;
+    }
+
+    const distanceH = Math.abs(topBarBottom! - mainBodyTop!);
+    const distanceW = Math.abs(leftMenuRight! - mainBodyLeft!);
+
+    setLeftMenuWidth(leftMenuL);
+    setTopMenuHeight(topMenuL);
+    setTopBarHeight(topBarL);
+    setDistanceHeight(distanceH);
+    setDistanceWidth(distanceW);
 
     const width = typeof state.width === "number" ? state.width : parseInt(state.width);
     const height = typeof state.height === "number" ? state.height : parseInt(state.height);
@@ -175,15 +199,15 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     const modalWidth = typeof width === "number" ? width : parseInt(width);
     const modalHeight = typeof height === "number" ? height : parseInt(height);
 
-    const posX = (screenWidth - modalWidth) / 2 - leftMenuWidth;
-    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + topBarHeight);
+    const posX = (screenWidth - modalWidth) / 2 - (leftMenuWidth + distanceWidth);
+    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + topBarHeight + distanceHeight);
 
     setState(prevState => ({
       ...prevState,
       x: posX,
       y: posY,
     }));
-  }, [leftMenuWidth, topMenuHeight, topBarHeight]);
+  }, [leftMenuWidth, topMenuHeight, topBarHeight, distanceHeight, distanceWidth]);
 
   useEffect(() => {
     globalMaxZIndex += 1;
@@ -279,8 +303,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       setState({
         width: "100%",
         height: "100%",
-        x: -leftMenuWidth,
-        y: -(topMenuHeight + topBarHeight),
+        x: -(leftMenuWidth + distanceWidth),
+        y: -(topMenuHeight + topBarHeight + distanceHeight),
         maxZIndex: state.maxZIndex,
       });
     }

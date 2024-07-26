@@ -11,7 +11,7 @@ const TopMenu = ({ onToggleLeftMenu }: { onToggleLeftMenu: () => void }) => {
   };
 
   return (
-    <StyledHeader>
+    <StyledHeader id='topMenu'>
       <LeftContainer>
         <ToggleButton onClick={onToggleLeftMenu}>☰</ToggleButton>
         <LogoContainer href='/' onClick={handleLinkClick}>

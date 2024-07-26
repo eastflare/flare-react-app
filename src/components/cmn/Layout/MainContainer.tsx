@@ -18,7 +18,7 @@ const MainContainer = (props: { children: ReactNode }) => {
 
   return (
     <StyledMainContainer>
-      <StyledMainHeader id='topMenu'>
+      <StyledMainHeader>
         <TopMenu onToggleLeftMenu={handleToggleLeftMenu} />
       </StyledMainHeader>
       <StyledMainBody>
@@ -27,7 +27,7 @@ const MainContainer = (props: { children: ReactNode }) => {
         </StyledMainLeft>
         <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
           {showPageTopBar ? <PageTopBar /> : null}
-          <StyledMainPage className='mainBody' showPageTopBar={showPageTopBar}>
+          <StyledMainPage id='mainBody' showPageTopBar={showPageTopBar}>
             {children}
           </StyledMainPage>
         </StyledMainRight>
