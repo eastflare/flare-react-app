@@ -32,7 +32,6 @@ const StyleRnd = styled.div<{ isDragging?: boolean }>`
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
   margin: 0px;
   border: ${props => {
     if (props.isDragging) {
@@ -72,7 +71,6 @@ const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean 
   justify-content: space-between;
   align-items: center;
   padding: 0 8px;
-  border-radius: 4px 4px 0 0;
 `;
 
 const StyleRndHeaderTitle = styled.span`
@@ -109,7 +107,6 @@ const StyleRndBody = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2px 8px 4px;
-  border-radius: 0 0 4px 4px;
   overflow: auto;
   background: white;
   & > div {
