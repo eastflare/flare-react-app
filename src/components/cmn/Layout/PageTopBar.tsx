@@ -5,7 +5,7 @@ import PageTab from "./PageTab";
 const PageTopBar = () => {
   const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset } = usePageTab();
 
-  const handleClickClose = (e: MouseEvent) => {
+  const handleClickClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     onPageTabReset();
   };
@@ -32,7 +32,7 @@ const PageTopBar = () => {
         <button>{"<"}</button>
         <button>{">"}</button>
         <button>{"🗖"}</button>
-        <button onClick={handleClickClose}>{"X"}</button>
+        <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClickClose(e)}>{"X"}</button>
       </StyledPageTopButtons>
     </StyledPageTopBar>
   );
