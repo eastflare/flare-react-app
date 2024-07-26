@@ -1,13 +1,21 @@
 const FormElement = ({id, name, type, option, register, errors}) => {
+  const formElementStyle = {
+    display: 'flex',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  };
+
   const errorMessageStyle = {
     color: 'red',
-  }
+  };
 
   return (
-    <div>
-      <label htmlFor={id}> {name} </label>
+    <div style={formElementStyle}>
+      <label htmlFor={id}>{name}</label>
       <input id={id} type={type} {...register(id, option)} />
-      <div style={errorMessageStyle}> {errors[id] && <p>{ errors[id].message }</p>} </div>
+      {
+        errors[id] && <div style={errorMessageStyle}>{errors[id].message}</div>
+      }
     </div>
   )
 }

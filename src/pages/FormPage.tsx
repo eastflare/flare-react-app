@@ -1,7 +1,9 @@
 import Form from 'components/Form';
 import { FormElement } from 'models/form'
+import { useState } from 'react';
 
 const FormPage = () => {
+  const [formMode, setFormMode] = useState('modify');
 
   const elements: FormElement[] = [
     {
@@ -51,7 +53,13 @@ const FormPage = () => {
   return (
     <>
       <h2>동적 폼 테스트 페이지</h2>
-      <Form elements={elements} onSubmit={onSubmit} />
+      <button onClick={() => {
+        setFormMode((previousMode) => {
+          if(previousMode == 'modify') return 'readonly';
+          else return 'modify';
+        })
+      }}>{formMode} 변경</button>
+      <Form mode={formMode} elements={elements} onSubmit={onSubmit} />
     </>
   );
 };

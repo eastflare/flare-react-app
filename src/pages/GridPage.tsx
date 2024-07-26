@@ -1,7 +1,7 @@
 import Grid from 'components/Grid';
-import { GridOption } from 'models/grid'
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { GridOptions } from 'ag-grid-community';
 
 const GridPage = () => {
   const columns = [
@@ -36,7 +36,7 @@ const GridPage = () => {
     { make: 'Audi', model: 'A6', price: 44983 },
   ];
 
-  const option: GridOption = {
+  const option: GridOptions = {
     pagination: true,
     paginationPageSize: 5,
     onGridReady: () => console.log("READY!")
