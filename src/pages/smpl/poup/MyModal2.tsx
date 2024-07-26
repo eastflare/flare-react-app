@@ -38,7 +38,7 @@ const MyModal = () => {
 
   const openYoshiki = () => {
     openModal(
-      modals.myModal1,
+      "/MyModal1",
       {
         foo: "bar",
         callback: () => {

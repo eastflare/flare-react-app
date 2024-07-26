@@ -3,16 +3,17 @@ import { ReactElement, ReactNode, useMemo, useState } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
 import usePageCallbackStore from "store/pageCallbackStore";
 import usePageMapStore, { OpenTypeCode } from "store/pageMapStore";
+import usePageRouteStore from "store/pageRouteStore";
 import extractor from "utils/extractorUtil";
 
 //const MAX_PAGE_SIZE = 10;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
+  const { pageRoutes, setPageRoutes } = usePageRouteStore();
   const { pageMap, curPageId, setPageItem, setCurPageId } = usePageMapStore();
-  const { pathname, search } = useLocation();
-  const [routesMap, setRoutesMap] = useState<Record<string, RouteObject>>({});
-  const [searchParams] = useSearchParams();
   const { getPageCallback } = usePageCallbackStore();
+  const { pathname, search } = useLocation();
+  const [searchParams] = useSearchParams();
 
   //ReactNode로 받아온 Routes 를 RouteObject로 일괄 변환하여 배열로 가지고 있는다.
   const routes = useMemo(
@@ -30,12 +31,12 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   //useMatch Hook을 통해 Params가 담겨있는 Route 객체로 변환한다.
   //현재 주소에 해당하는 Route ID 및 객체
   const routepath = route?.path || "";
-  const curRouteItem = useMemo(() => routesMap[routepath], [routesMap, routepath]);
+  const curRouteItem = useMemo(() => pageRoutes[routepath], [pageRoutes, routepath]);
   const matchedRoute = routepath && useMatch(routepath);
 
   //현재 화면에 열려있는 Route (Max 10개)
   useEffect(() => {
-    //console.log("routesMap --->", routesMap);
+    //console.log("pageRoutes --->", pageRoutes);
   }, [curRouteItem]);
 
   useEffect(() => {
@@ -46,11 +47,11 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     console.log("실험중 페이지맵이 변경이 됐을까요?", pageMap);
   }, [pageMap]);
 
-  const initPageRoutesMap = useCallback(() => {
-    //전체 Route를 Map<id, element> 형태의 맵으로 재구성한다.
-    if (Object.keys(routesMap)?.length === 0) {
+  const initRoutesObj = useCallback(() => {
+    //전체 Route를 Object<id, element> 형태의 맵으로 재구성한다.
+    if (Object.keys(pageRoutes)?.length === 0) {
       startTransition(() => {
-        setRoutesMap(
+        setPageRoutes(
           Object.assign(
             {},
             ...routes.map(item => {
@@ -64,10 +65,10 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         );
       });
     }
-  }, [routes, routesMap]);
+  }, [routes, pageRoutes]);
 
   // routes가 추가 될때만 실행됨
-  useEffect(initPageRoutesMap, [initPageRoutesMap]);
+  useEffect(initRoutesObj, [initRoutesObj]);
 
   const openPageRoute = useCallback(() => {
     //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬

@@ -1,4 +1,3 @@
-import { modals } from "components/cmn/Layout/Modals";
 import { Env } from "config/env";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { useEffect, useState } from "react";
@@ -17,7 +16,7 @@ const HomePage = () => {
 
   const handleClickMatthew = () => {
     openModeless(
-      modals.matthew,
+      "/Matthew",
       {
         foo: "bar",
         callback: () => {
@@ -28,9 +27,22 @@ const HomePage = () => {
     );
   };
 
+  const handleClickJscho128 = () => {
+    openModal(
+      "/sample5/jscho128/조XX",
+      {
+        foo: "bar",
+        callback: () => {
+          alert("조XX 뭐하는 사람인가요?");
+        },
+      },
+      { width: 800, height: 600 }
+    );
+  };
+
   const handleClick = () => {
     openModeless(
-      modals.myModal,
+      "/MyModal",
       {
         foo: "bar",
         callback: () => {
@@ -43,7 +55,7 @@ const HomePage = () => {
 
   const handleClick1 = () => {
     openModal(
-      modals.myModal1,
+      "/MyModal1",
       {
         foo: "bar",
         callback: () => {
@@ -55,11 +67,11 @@ const HomePage = () => {
   };
   const handleClick2 = () => {
     openModal(
-      modals.myModal2,
+      "/MyModal2",
       {
         foo: "bar",
         callback: () => {
-          alert("매튜 뭐하는 사람인가요?");
+          alert("요시키 뭐하는 사람인가요?");
         },
       },
       { width: 800, height: 600 }
@@ -77,6 +89,7 @@ const HomePage = () => {
       { width: 800, height: 600 }
     );
   };
+
   const handleClick4 = () => {
     openWindow(
       "/MyModal3",
@@ -135,6 +148,7 @@ const HomePage = () => {
       <input type='text' value={input2} onChange={e => setInput2(e.target.value)} />
       <br />
       <button onClick={handleClickMatthew}>Matthew</button>
+      <button onClick={handleClickJscho128}>조XX</button>
       <button onClick={handleClick}>월급루팡</button>
       <button onClick={handleClick1}>전선배</button>
       <button onClick={handleClick8}>전선배상세1</button>

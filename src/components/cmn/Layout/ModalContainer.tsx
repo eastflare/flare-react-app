@@ -126,7 +126,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const element = modalItem.element as unknown as FunctionComponent | ComponentClass;
+  const element = modalItem.element.props.element;
   const isModal = modalItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
@@ -363,8 +363,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
             </StyleRndButtonGroup>
           </StyleRndHeader>
           <StyleRndBody>
-            {/* {!isMinimized && <element {...props} onClose={onClose} />} */}
-            {!isMinimized && element && <div>{React.createElement(element)}</div>}
+            {!isMinimized && element}
+            {/* {!isMinimized && element && <div>{element}</div>} */}
           </StyleRndBody>
         </StyleRnd>
       </Rnd>
