@@ -4,6 +4,7 @@ interface PageTabProps {
   label: string;
   onClick: (...args: any[]) => void;
   onClose: (e?: MouseEvent) => void;
+  onPopup: () => void;
   isActive: boolean;
 }
 
@@ -13,16 +14,6 @@ const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
   return (
     <StyledPageTab onClick={onClick} isOpenTab={isActive}>
       <StyledPageTabLabel>{label}</StyledPageTabLabel>
-      {/* {!isNotClosable && (
-        <StyledIconButton
-          onClick={e => {
-            e.stopPropagation();
-            alert("팝업을 띄웁니다. " + PageTabItem.path);
-          }}
-        >
-          ※
-        </StyledIconButton>
-      )} */}
       {!isNotClosable && (
         <StyledIconButton
           onClick={e => {

@@ -19,6 +19,7 @@ export enum OpenPopupTypeCode {
 
 export type CallbackFunction<T = any, R = any> = (...args: T[]) => R;
 export type CloseFunction = () => void;
+export type PopupFunction = () => void;
 
 export interface PageItem {
   openTypeCode: OpenTypeCode;
@@ -32,6 +33,7 @@ export interface PageItem {
   callback?: CallbackFunction;
   closeModal?: CloseFunction;
   element: ReactElement;
+  transform: PopupFunction;
 }
 
 export interface ModalItem {
@@ -74,6 +76,10 @@ const usePageMapStore = create<PageMapStore>(set => ({
     set(state => {
       //신규 페이지를 추가함
       const newMap = new Map(state.pageMap);
+      obj.transform = () => {
+        alert("aaaa" + id);
+      };
+
       newMap.set(id, obj);
       console.log("나는 추가됨", newMap);
       return { pageMap: newMap };
@@ -86,7 +92,15 @@ const usePageMapStore = create<PageMapStore>(set => ({
       return { pageMap: newMap };
     }),
 
-  resetPageMap: () => set({ pageMap: new Map() }),
+  resetPageMap: () =>
+    set(state => {
+      // Keep only the entry with id '/'
+      const newMap = new Map();
+      if (state.pageMap.has("/")) {
+        newMap.set("/", state.pageMap.get("/"));
+      }
+      return { pageMap: newMap, curPageId: "/" };
+    }),
 }));
 
 export default usePageMapStore;

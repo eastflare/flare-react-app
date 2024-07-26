@@ -1,6 +1,9 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import usePageMapStore from "store/pageMapStore";
+import usePageMapStore, { CallbackFunction, OpenTypeCode, WindowItem } from "store/pageMapStore";
+import { getUuid } from "utils/rapUtil";
+import { openWindow } from "utils/windowUtil";
+import usePageCallbackStore from "store/pageCallbackStore";
 
 export type PageTabItem = { id: string; path: string; label: string };
 export type PageTabMap = Map<string, PageTabItem>;
@@ -15,6 +18,7 @@ export type PageTabMap = Map<string, PageTabItem>;
 const usePageTab = () => {
   const navigate = useNavigate();
   const { pageMap, curPageId, deletePageItem, resetPageMap } = usePageMapStore();
+  const { getPageCallback } = usePageCallbackStore();
 
   // 하단 Page 에서 location에 대한 정보로 페이지를 표시한 후 해당 함수가 호출됨
   // const handleOpenPageTab = useCallback(
@@ -56,6 +60,38 @@ const usePageTab = () => {
     [pageMap]
   );
 
+  const handlePagePopup = useCallback(() => {
+    //현재 열려있는 페이지를 callback 은 유지한채 닫고 페이지를 오픈한다.
+    //alert("현재 열려있는 페이지를 callback 은 유지한채 닫고 페이지를 오픈한다.");
+    if (curPageId !== "/") {
+      const curPageItem = pageMap.get(curPageId);
+      const curPathName = curPageItem?.pathname || "/";
+
+      const curOptions = curPageItem?.options || {};
+      const curCallback = getPageCallback(curPageId) || (() => {});
+
+      let curParams = curPageItem?.params || {};
+      curParams.callback = curCallback;
+
+      //const newId = getUuid();
+
+      console.log("컬콜백입니다.", curCallback);
+
+      const windowItem: WindowItem = {
+        openTypeCode: OpenTypeCode.WINDOW,
+        id: curPageId,
+        label: "팝업(윈도우)",
+        url: curPathName,
+        params: curParams,
+        options: curOptions,
+        callback: curCallback as CallbackFunction<any, any>,
+      };
+      openWindow(windowItem);
+
+      handleDeletePageTab(curPageId);
+    }
+  }, [pageMap]);
+
   //열려있는 탭을 삭제한다.
   const handleDeletePageTab = useCallback(
     (id: string) => {
@@ -85,7 +121,8 @@ const usePageTab = () => {
     curPageId,
     onPageTabClick: handleNavigatePageTab,
     onPageTabClose: handleDeletePageTab,
-    onPageTabClear: resetPageMap,
+    onPageTabReset: resetPageMap,
+    onPageTabPopup: handlePagePopup,
   };
 };
 
