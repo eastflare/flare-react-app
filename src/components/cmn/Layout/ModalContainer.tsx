@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rnd";
-import { ComponentClass, FunctionComponent, memo, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
 import usePage from "hooks/cmn/usePage";
 import { ModalItem } from "store/pageMapStore";
-import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { history } from "utils/historyUtil";
 

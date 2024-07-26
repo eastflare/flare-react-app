@@ -14,7 +14,7 @@ const Sample1 = () => {
 
   const handleClick1 = () => {
     openModal(
-      modals.myModal1,
+      "/MyModal1",
       {
         foo: "bar",
         callback: () => {
