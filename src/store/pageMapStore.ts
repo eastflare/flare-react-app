@@ -33,7 +33,6 @@ export interface PageItem {
   callback?: CallbackFunction;
   closeModal?: CloseFunction;
   element: ReactElement;
-  transform: PopupFunction;
 }
 
 export interface ModalItem {
@@ -76,10 +75,6 @@ const usePageMapStore = create<PageMapStore>(set => ({
     set(state => {
       //신규 페이지를 추가함
       const newMap = new Map(state.pageMap);
-      obj.transform = () => {
-        alert("aaaa" + id);
-      };
-
       newMap.set(id, obj);
       console.log("나는 추가됨", newMap);
       return { pageMap: newMap };
