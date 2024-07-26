@@ -79,11 +79,7 @@ const ToggleButton = styled.button`
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #2588a0;
-  }
-
-  &:active {
-    background-color: #1e7380;
+    background-color: #3ab3bf;
   }
 `;
 
