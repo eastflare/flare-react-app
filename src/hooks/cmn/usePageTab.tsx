@@ -56,6 +56,11 @@ const usePageTab = () => {
     [pageMap]
   );
 
+  const handlePageToPopup = useCallback(() => {
+    //현재 열려있는 페이지를 callback 은 유지한채 닫고 페이지를 오픈한다.
+    alert("현재 열려있는 페이지를 callback 은 유지한채 닫고 페이지를 오픈한다.");
+  }, [pageMap]);
+
   //열려있는 탭을 삭제한다.
   const handleDeletePageTab = useCallback(
     (id: string) => {
@@ -86,6 +91,7 @@ const usePageTab = () => {
     onPageTabClick: handleNavigatePageTab,
     onPageTabClose: handleDeletePageTab,
     onPageTabReset: resetPageMap,
+    onPageToPopup: handlePageToPopup,
   };
 };
 

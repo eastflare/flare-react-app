@@ -3,11 +3,16 @@ import usePageTab from "hooks/cmn/usePageTab";
 import PageTab from "./PageTab";
 
 const PageTopBar = () => {
-  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset } = usePageTab();
+  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset, onPageToPopup } = usePageTab();
 
   const handleClickClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     onPageTabReset();
+  };
+
+  const handleClickPopup = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onPageToPopup();
   };
 
   return (
@@ -31,7 +36,7 @@ const PageTopBar = () => {
       <StyledPageTopButtons>
         <button>{"<"}</button>
         <button>{">"}</button>
-        <button>{"🗖"}</button>
+        <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClickPopup(e)}>{"🗖"}</button>
         <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClickClose(e)}>{"X"}</button>
       </StyledPageTopButtons>
     </StyledPageTopBar>
