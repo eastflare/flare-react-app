@@ -6,26 +6,25 @@ import { GridOptions } from 'ag-grid-community';
 const Grid = ({data, option}) => {
 
   const gridOption: GridOptions = Object.assign({
+    onGridReady: () => {},
     pagination: true,
     paginationPageSize: 5,
     paginationPageSizeSelector: false,
     paginationAutoPageSize: false,
-    domLayout: 'normal',
-    onGridReady: () => {},
   }, option);
 
   return (
     <div>
       <AgGridReact 
-        className={"ag-theme-alpine"}
         columnDefs={data.columns}
         rowData={data.rows}
+        className={"ag-theme-alpine"}
+        domLayout={'autoHeight'}
+        onGridReady={gridOption.onGridReady}
         pagination={gridOption.pagination}
         paginationPageSize={gridOption.paginationPageSize}
         paginationPageSizeSelector={gridOption.paginationPageSizeSelector}
         paginationAutoPageSize={gridOption.paginationAutoPageSize}
-        domLayout={gridOption.domLayout}
-        onGridReady={gridOption.onGridReady}
       />
     </div>
   );

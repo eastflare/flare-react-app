@@ -53,13 +53,7 @@ const FormPage = () => {
   return (
     <>
       <h2>동적 폼 테스트 페이지</h2>
-      <button onClick={() => {
-        setFormMode((previousMode) => {
-          if(previousMode == 'modify') return 'readonly';
-          else return 'modify';
-        })
-      }}>{formMode} 변경</button>
-      <Form mode={formMode} elements={elements} onSubmit={onSubmit} />
+      <Form elements={elements} onSubmit={onSubmit} />
     </>
   );
 };
