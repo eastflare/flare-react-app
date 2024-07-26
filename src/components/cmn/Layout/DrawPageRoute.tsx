@@ -17,12 +17,12 @@ function DrawPageRoute({ element, pageItem, display, routesProps, ...props }: Di
   //Page Id
   //Function 가공
   //페이지이동하는 함수
-  const { delPageCallback } = usePageCallbackStore();
+  //const { delPageCallback } = usePageCallbackStore();
 
   useEffect(() => {
     //해당 페이지가 죽을때 callback 이 있으면 제거해 줘야함
     return () => {
-      delPageCallback(pageItem.id);
+      //delPageCallback(pageItem.id);
     };
   }, []);
 

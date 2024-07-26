@@ -3,7 +3,7 @@ import usePageTab from "hooks/cmn/usePageTab";
 import PageTab from "./PageTab";
 
 const PageTopBar = () => {
-  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset, onPageToPopup } = usePageTab();
+  const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset, onPageTabPopup } = usePageTab();
 
   const handleClickClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -12,7 +12,7 @@ const PageTopBar = () => {
 
   const handleClickPopup = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    onPageToPopup();
+    onPageTabPopup();
   };
 
   return (
@@ -30,7 +30,7 @@ const PageTopBar = () => {
 
           console.log("key 가 어떻게 생겼나요?", key);
 
-          return <PageTab key={key} label={pageLabel} isActive={curPageId === key} onClose={() => onPageTabClose(key)} onClick={() => onPageTabClick(key)} />;
+          return <PageTab key={key} label={pageLabel} isActive={curPageId === key} onClose={() => onPageTabClose(key)} onClick={() => onPageTabClick(key)} onPopup={() => onPageTabPopup()} />;
         })}
       </StyledMDIContainer>
       <StyledPageTopButtons>

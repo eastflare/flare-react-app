@@ -38,7 +38,7 @@ export default function usePageNavigate() {
 
   const openPage = (url: string, params: ObjAny, options?: PageOptions) => {
     let arrParams = new Array();
-    const pageId = options?.key ?? getUuid();
+    const pageId = options?.key ?? url;
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {

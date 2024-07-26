@@ -4,6 +4,7 @@ interface PageTabProps {
   label: string;
   onClick: (...args: any[]) => void;
   onClose: (e?: MouseEvent) => void;
+  onPopup: () => void;
   isActive: boolean;
 }
 
