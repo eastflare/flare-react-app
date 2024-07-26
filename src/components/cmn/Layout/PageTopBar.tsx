@@ -5,6 +5,11 @@ import PageTab from "./PageTab";
 const PageTopBar = () => {
   const { openedPageMap, curPageId, onPageTabClick, onPageTabClose } = usePageTab();
 
+  const handleClickClose = (e: MouseEvent) => {
+    e.stopPropagation();
+    window.location.replace("/");
+  };
+
   return (
     <StyledPageTopBar
       id='topBar'
@@ -20,17 +25,15 @@ const PageTopBar = () => {
 
           console.log("key 가 어떻게 생겼나요?", key);
 
-          return (
-            <PageTab
-              key={key}
-              label={pageLabel}
-              isActive={curPageId === key}
-              onClose={() => onPageTabClose(key)}
-              onClick={() => onPageTabClick(key)}
-            />
-          );
+          return <PageTab key={key} label={pageLabel} isActive={curPageId === key} onClose={() => onPageTabClose(key)} onClick={() => onPageTabClick(key)} />;
         })}
       </StyledMDIContainer>
+      <StyledPageTopButtons>
+        <button>{"<"}</button>
+        <button>{">"}</button>
+        <button>{"🗖"}</button>
+        <button onClick={handleClickClose}>{"X"}</button>
+      </StyledPageTopButtons>
     </StyledPageTopBar>
   );
 };
@@ -54,4 +57,27 @@ const StyledMDIContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   column-gap: 4px;
+`;
+
+const StyledPageTopButtons = styled.div`
+  display: flex;
+  flex-direction: row;
+  column-gap: 4px;
+  align-items: center;
+
+  button {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    padding: 4px 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    &:active {
+      background-color: #e0e0e0;
+    }
+  }
 `;
