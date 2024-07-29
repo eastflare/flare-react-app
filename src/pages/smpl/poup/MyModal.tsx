@@ -5,6 +5,7 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { CellClickedEvent, ColDef } from "ag-grid-community";
 import { usePageContext } from "contexts/cmn/PageContext";
+import { BlueButton } from "components/buttons/CustomButton";
 
 const MyModal = () => {
   const [text, setText] = useState("");
@@ -103,12 +104,12 @@ const MyModal = () => {
         <li>걸어다니는 리액트 백과사전</li>
       </ul>
       <div>
-        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
+        <BlueButton onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
-        </button>
-        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
+        </BlueButton>
+        <BlueButton onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
-        </button>
+        </BlueButton>
       </div>
       <div className='ag-theme-alpine' style={{ width: "100%" }}>
         <AgGridReact

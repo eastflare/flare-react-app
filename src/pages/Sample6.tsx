@@ -1,3 +1,4 @@
+import { BlueButton } from "components/buttons/CustomButton";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { useEffect, useState } from "react";
 
@@ -19,15 +20,15 @@ const Sample6 = () => {
       <h2>Sample6 : useSearchParams 로 message 파라메터를 받음 </h2>
       <p>메세지 : {params.message} </p>
       <input type='text' value={input} onChange={e => setInput(e.target.value)} />
-      <button
+      <BlueButton
         type='button'
-        onClick={e => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault;
           callback("스트링", "sample6에서 콜백보냄");
         }}
       >
         콜백
-      </button>
+      </BlueButton>
     </div>
   );
 };

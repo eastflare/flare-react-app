@@ -1,3 +1,4 @@
+import { BlueButton, BlueIconLineButton, BlueLineButton, GreyButton, GreyLineButton, IconButton, IconLineButton, UnfilledButton } from "components/buttons/CustomButton";
 import { Env } from "config/env";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { useEffect, useState } from "react";
@@ -147,17 +148,17 @@ const HomePage = () => {
       카공족2 Callback :
       <input type='text' value={input2} onChange={e => setInput2(e.target.value)} />
       <br />
-      <button onClick={handleClickMatthew}>Matthew</button>
-      <button onClick={handleClickJscho128}>조XX</button>
-      <button onClick={handleClick}>월급루팡</button>
-      <button onClick={handleClick1}>전선배</button>
-      <button onClick={handleClick8}>전선배상세1</button>
-      <button onClick={handleClick2}>요시키상</button>
-      <button onClick={handleClick7}>요시키상세1</button>
-      <button onClick={handleClick3}>카공족1</button>
-      <button onClick={handleClick4}>카공족2</button>
-      <button onClick={handleClick5}>카공족상세1</button>
-      <button onClick={handleClick6}>카공족상세2</button>
+      <BlueButton onClick={handleClickMatthew}>Matthew</BlueButton>
+      <GreyButton onClick={handleClickJscho128}>조XX</GreyButton>
+      <BlueLineButton onClick={handleClick}>월급루팡</BlueLineButton>
+      <GreyLineButton onClick={handleClick1}>전선배</GreyLineButton>
+      <BlueButton onClick={handleClick8}>전선배상세1</BlueButton>
+      <GreyButton onClick={handleClick2}>요시키상</GreyButton>
+      <BlueLineButton onClick={handleClick7}>요시키상세1</BlueLineButton>
+      <GreyLineButton onClick={handleClick3}>카공족1</GreyLineButton>
+      <BlueButton onClick={handleClick4}>카공족2</BlueButton>
+      <GreyButton onClick={handleClick5}>카공족상세1</GreyButton>
+      <BlueLineButton onClick={handleClick6}>카공족상세2</BlueLineButton>
     </>
   );
 };
