@@ -57,7 +57,7 @@ const MyModal = () => {
       </ul>
       <h2>특기사항 : </h2>
       <ul>
-        <li>매찾사 회원의로 의심됨</li>
+        <li>매찾사 회원으로 의심됨</li>
         <li>전선배는 부업도 열심히 합니다.</li>
         <li>전선배는 재택만 합니다.</li>
         <li>PLM (WBS, BOM, ECR, ECO) 전문가</li>

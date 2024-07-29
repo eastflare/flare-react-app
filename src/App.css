@@ -18,17 +18,17 @@
   padding: 20px;
 }
 
-.topmenu nav ul {
+#topMenu nav ul {
   list-style-type: none;
   padding: 0;
   display: flex;
 }
 
-.topmenu nav ul li {
+#topMenu nav ul li {
   margin-right: 20px;
 }
 
-.topmenu nav ul li a {
+#topMenu nav ul li a {
   color: #000;
   text-decoration: none;
 }
