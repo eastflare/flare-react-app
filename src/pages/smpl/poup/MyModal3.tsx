@@ -1,4 +1,5 @@
 import { BlueButton } from "components/buttons/CustomButton";
+import { Env } from "config/env";
 import { usePageContext } from "contexts/cmn/PageContext";
 import useToast from "hooks/cmn/useToast";
 import { useEffect, useState } from "react";
@@ -10,6 +11,8 @@ const MyModal = () => {
 
   useEffect(() => {
     console.log("국민사기꾼 렌더링");
+    const env = Env.getInstance();
+    console.log("iswindow...?", env.isWindow);
     return () => {
       console.log("국민사기꾼 다이");
     };

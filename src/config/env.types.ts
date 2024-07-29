@@ -5,6 +5,7 @@ export interface IEnv {
   isMdi: boolean;
   loginPageAccessKey: string;
   maxPageTabSize: number;
+  isWindow: boolean;
 }
 
 export const NodeEnvKey = ["loc", "dev", "prd"] as const;

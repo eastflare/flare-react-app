@@ -15,6 +15,7 @@ const HomePage = () => {
     console.log("환경변수는...?", env.isCurrentNodeEnv("prd"));
     console.log("MDI...?", env.isMdi);
     console.log("TAB_SIZE...?", env.maxPageTabSize);
+    console.log("iswindow...?", env.isWindow);
   }, []);
 
   const handleClickMatthew = () => {
