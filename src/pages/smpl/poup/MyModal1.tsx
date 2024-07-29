@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useToast from "hooks/cmn/useToast";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { usePageContext } from "contexts/cmn/PageContext";
+import { BlueButton } from "components/buttons/CustomButton";
 
 const MyModal = () => {
   const { openModeless } = usePageNavigate();
@@ -56,6 +57,7 @@ const MyModal = () => {
       </ul>
       <h2>특기사항 : </h2>
       <ul>
+        <li>매찾사 회원으로 의심됨</li>
         <li>전선배는 부업도 열심히 합니다.</li>
         <li>전선배는 재택만 합니다.</li>
         <li>PLM (WBS, BOM, ECR, ECO) 전문가</li>
@@ -64,15 +66,15 @@ const MyModal = () => {
         <li>Endless Effort</li>
       </ul>
       <div>
-        <button onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
+        <BlueButton onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
           요시키상
-        </button>
-        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
+        </BlueButton>
+        <BlueButton onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
-        </button>
-        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
+        </BlueButton>
+        <BlueButton onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
-        </button>
+        </BlueButton>
       </div>
     </>
   );

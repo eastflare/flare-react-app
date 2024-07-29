@@ -1,3 +1,4 @@
+import { BlueButton } from "components/buttons/CustomButton";
 import { usePageContext } from "contexts/cmn/PageContext";
 import useToast from "hooks/cmn/useToast";
 import { useEffect, useState } from "react";
@@ -53,15 +54,15 @@ const MyModal = () => {
         <li>컵8개 이상</li>
       </ul>
       <div>
-        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
+        <BlueButton onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
-        </button>
-        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
+        </BlueButton>
+        <BlueButton onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
-        </button>
-        <button onClick={handleClickAlert} onGotPointerCapture={handleClickAlert}>
+        </BlueButton>
+        <BlueButton onClick={handleClickAlert} onGotPointerCapture={handleClickAlert}>
           얼럿창
-        </button>
+        </BlueButton>
       </div>
     </>
   );

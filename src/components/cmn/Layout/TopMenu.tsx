@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
+import { BgColor } from "ui/theme/Color";
 
 const TopMenu = ({ onToggleLeftMenu }: { onToggleLeftMenu: () => void }) => {
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -39,8 +40,8 @@ const StyledHeader = styled.div`
   align-items: center;
   height: 50px;
   padding: 0px;
-  background-color: white;
-  border-bottom: 1px solid black;
+  background-color: ${BgColor.Gray50};
+  border-bottom: 1px solid #ddd;
   transition: all 0.2s ease-out;
 `;
 
@@ -75,7 +76,7 @@ const ToggleButton = styled.button`
   width: 50px;
   height: 50px;
   cursor: pointer;
-  border-radius: 4px;
+  border-radius: 0px;
   transition: background-color 0.3s ease;
 
   &:hover {
