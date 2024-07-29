@@ -15,7 +15,6 @@ export class Env {
 
   private constructor(env: IEnv) {
     const { nodeEnv, isMdi, loginPageAccessKey, maxPageTabSize, isWindow } = env;
-
     this.nodeEnv = nodeEnv;
     this.isMdi = isMdi;
     this.loginPageAccessKey = loginPageAccessKey;
@@ -48,7 +47,6 @@ export class Env {
     );
 
     const isWindow = await Env.getIsWindow();
-
     const env = new Env({
       nodeEnv,
       isMdi,
@@ -73,7 +71,7 @@ export class Env {
       return false;
     }
   }
-
+  
   static getInstance() {
     if (!Env.instance) {
       throw new Error("Env class is not configured!!");
