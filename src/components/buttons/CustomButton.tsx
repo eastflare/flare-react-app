@@ -42,7 +42,7 @@ export const BlueButton = <C extends React.ElementType>(props: ButtonProps<C, { 
       onClick={e => {
         const currentTarget = e.currentTarget;
         currentTarget.setAttribute(`disabled`, `true`);
-        props.onClick?.();
+        props.onClick?.(e);
         setTimeout(() => currentTarget.removeAttribute(`disabled`), 1000);
       }}
     >
@@ -75,7 +75,7 @@ export const GreyButton = <C extends React.ElementType>(props: ButtonProps<C, { 
       onClick={e => {
         const currentTarget = e.currentTarget;
         currentTarget.setAttribute(`disabled`, `true`);
-        props.onClick?.();
+        props.onClick?.(e);
         setTimeout(() => currentTarget.removeAttribute(`disabled`), 1000);
       }}
     >
@@ -112,7 +112,7 @@ export const BlueLineButton = <C extends React.ElementType>(props: ButtonProps<C
       onClick={e => {
         const currentTarget = e.currentTarget;
         currentTarget.setAttribute(`disabled`, `true`);
-        props.onClick();
+        props.onClick(e);
         setTimeout(() => currentTarget.removeAttribute(`disabled`), 1000);
       }}
     >
@@ -175,7 +175,7 @@ export const GreyLineButton = <C extends React.ElementType>(props: ButtonProps<C
       onClick={e => {
         const currentTarget = e.currentTarget;
         currentTarget.setAttribute(`disabled`, `true`);
-        props.onClick();
+        props.onClick(e);
         setTimeout(() => currentTarget.removeAttribute(`disabled`), 1000);
       }}
     >
@@ -213,7 +213,7 @@ export const IconButton = <C extends React.ElementType>(props: ButtonProps<C, { 
       onClick={e => {
         const currentTarget = e.currentTarget;
         currentTarget.setAttribute(`disabled`, `true`);
-        props.onClick();
+        props.onClick(e);
         setTimeout(() => currentTarget.removeAttribute(`disabled`), 1000);
       }}
     >
@@ -258,7 +258,7 @@ export const IconLineButton = <C extends React.ElementType>(props: ButtonProps<C
       onClick={e => {
         const currentTarget = e.currentTarget;
         currentTarget.setAttribute(`disabled`, `true`);
-        props.onClick();
+        props.onClick(e);
         setTimeout(() => currentTarget.removeAttribute(`disabled`), 1000);
       }}
     >
@@ -291,7 +291,7 @@ export const BlueIconLineButton = <C extends React.ElementType>(props: ButtonPro
       onClick={e => {
         const currentTarget = e.currentTarget;
         currentTarget.setAttribute(`disabled`, `true`);
-        props.onClick();
+        props.onClick(e);
         setTimeout(() => currentTarget.removeAttribute(`disabled`), 1000);
       }}
     >
