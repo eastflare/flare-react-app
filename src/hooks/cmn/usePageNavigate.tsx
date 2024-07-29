@@ -30,7 +30,6 @@ export default function usePageNavigate() {
 
   const closeModal = useCallback(
     (id: string) => {
-      console.log("나는 지워집니다. ", id);
       delModal(id);
     },
     [delModal]
@@ -56,36 +55,22 @@ export default function usePageNavigate() {
     //Zustand에다가 Callback Function 을 등록하고 Url에는 pageId를 callbackId로 등록한다.
     arrParams.push("pageId=" + pageId);
     addPageCallback(pageId, params.callback);
-
     const searchUrl = url + "?" + arrParams.join("&");
-
     navigator(searchUrl);
   };
-  //element any말고는 openModal호출시 계속 빨간줄 에러 발생....일단 any
+
   const openModal = (url: string, params: ObjAny, options?: PopupOptions) => {
     const newId = getUuid();
-    //URL을 통해 routePath를 찾는다.
-    const matchRoute = getMatchedRouteByUrl(url);
-
-    let routePath = "";
-    let routeParams = {};
-
-    if (matchRoute) {
-      routePath = matchRoute.pattern.path;
-      routeParams = matchRoute.params;
-    }
-
-    const element = getElementByRoutePath(routePath);
-    const mergedParams = { ...routeParams, ...params };
+    const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
 
     const modalItem: ModalItem = {
       openTypeCode: OpenTypeCode.MODAL,
       id: newId,
       label: options?.title ?? "모달팝업",
-      params: mergedParams,
+      params: pageParams,
       options: options,
-      callback: params?.callback,
-      element: element,
+      callback: pageCallback,
+      element: pageElement,
       closeModal: () => {
         closeModal(newId);
       },
@@ -107,9 +92,7 @@ export default function usePageNavigate() {
     [pageRoutes]
   );
 
-  const openModeless = (url: string, params: ObjAny, options?: PopupOptions) => {
-    const newId = getUuid();
-
+  const getPageObj = (url: string, params: ObjAny) => {
     //URL을 통해 routePath를 찾는다.
     const matchRoute = getMatchedRouteByUrl(url);
 
@@ -122,16 +105,30 @@ export default function usePageNavigate() {
     }
 
     const element = getElementByRoutePath(routePath);
-    const mergedParams = { ...routeParams, ...params };
+    const { callback, ...restParams } = params;
+    const pageParams = { ...routeParams, ...restParams };
+
+    const pageObj = {
+      pageElement: element.props.element,
+      pageParams,
+      pageCallback: callback || (() => {}),
+    };
+
+    return pageObj;
+  };
+
+  const openModeless = (url: string, params: ObjAny, options?: PopupOptions) => {
+    const newId = getUuid();
+    const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
 
     const modelessItem: ModalItem = {
       openTypeCode: OpenTypeCode.MODELESS,
       id: newId,
       label: options?.title ?? "모델리스팝업",
-      params: mergedParams,
+      params: pageParams,
       options: options,
-      callback: params?.callback,
-      element: element,
+      callback: pageCallback,
+      element: pageElement,
       closeModal: () => {
         closeModal(newId);
       },
@@ -141,6 +138,7 @@ export default function usePageNavigate() {
   };
   const openWindow = (url: string, params: ObjAny, options?: ObjAny) => {
     const newId = getUuid();
+    const { pageParams, pageCallback } = getPageObj(url, params);
 
     //TODO : id는 url에 해당하는 프로그램 Code 와 같은 값이 필요함
     //서버마다 같은창을 안쓰게 개발_id 형태로 변경 필요 예) env_팝업ID
@@ -150,9 +148,9 @@ export default function usePageNavigate() {
       id: options?.key ?? newId,
       label: options?.title ?? "팝업(윈도우)",
       url: url,
-      params: params,
+      params: pageParams,
       options: options,
-      callback: params?.callback,
+      callback: pageCallback,
     };
     addWindow(windowItem);
   };
