@@ -12,7 +12,9 @@ const HomePage = () => {
   useEffect(() => {
     const env = Env.getInstance();
     console.log("메인페이지 입니다.");
-    console.log("환경변수는...?", env?.isCurrentNodeEnv("prd"));
+    console.log("환경변수는...?", env.isCurrentNodeEnv("prd"));
+    console.log("MDI...?", env.isMdi);
+    console.log("TAB_SIZE...?", env.maxPageTabSize);
   }, []);
 
   const handleClickMatthew = () => {
