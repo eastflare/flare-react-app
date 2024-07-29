@@ -122,7 +122,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const element = modalItem.element.props.element;
+  const element = modalItem.element;
   const isModal = modalItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({

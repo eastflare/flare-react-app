@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { RouteObject, matchPath } from "react-router-dom";
+import { RouteObject } from "react-router-dom";
 import { create } from "zustand";
 
 interface PageRouteStore {
