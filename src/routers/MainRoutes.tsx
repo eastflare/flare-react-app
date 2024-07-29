@@ -6,7 +6,7 @@ import { Route } from "react-router-dom";
 import Sample1 from "pages/Sample1";
 import Sample2 from "pages/Sample2";
 import Sample3 from "pages/Sample3";
-import PageMdiRoutes from "components/cmn/Layout/PageMdiRoutes";
+import PageRoutes from "components/cmn/Layout/PageRoutes";
 import Sample4 from "pages/Sample4";
 import Sample5 from "pages/Sample5";
 import Sample6 from "pages/Sample6";
@@ -17,7 +17,6 @@ import MyModal1 from "pages/smpl/poup/MyModal1";
 import MyModal2 from "pages/smpl/poup/MyModal2";
 import Matthew from "pages/smpl/poup/Matthew";
 import MyModal from "pages/smpl/poup/MyModal";
-import AdminRoutes from "./AdminRoutes";
 
 interface MainRoutesProps {
   isMdi: boolean;
@@ -25,10 +24,12 @@ interface MainRoutesProps {
 
 const MainRoutes = (props: MainRoutesProps) => {
   const { isMdi } = props;
-  const RoutesComponent = isMdi ? PageMdiRoutes : PageSdiRoutes;
+  const RoutesComponent = isMdi ? PageRoutes : PageRoutes;
   return (
     <RoutesComponent>
       <Route path='/' element={<Home />} />
+      <Route path='/about' element={<About />} />
+      <Route path='/services' element={<Services />} />
       <Route path='/contact' element={<Contact />} />
       <Route path='/sample1' element={<Sample1 />} />
       <Route path='/sample2' element={<Sample2 />} />
@@ -43,7 +44,6 @@ const MainRoutes = (props: MainRoutesProps) => {
       <Route path='/MyModal3' element={<MyModal3 />} />
       <Route path='/grid' element={<GridPage />} />
       <Route path='*' element={<NoPage />} />
-      {AdminRoutes()}
     </RoutesComponent>
   );
 };
