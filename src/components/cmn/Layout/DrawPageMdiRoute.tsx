@@ -5,7 +5,6 @@ import usePage from "hooks/cmn/usePage";
 import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "store/pageMapStore";
 import PageModals from "./PageModals";
-import usePageCallbackStore from "store/pageCallbackStore";
 
 interface DisplayRouteProps extends PathRouteProps {
   routesProps: RoutesProps;
@@ -13,7 +12,7 @@ interface DisplayRouteProps extends PathRouteProps {
   display?: boolean;
 }
 
-function DrawPageRoute({ element, pageItem, display, routesProps, ...props }: DisplayRouteProps) {
+function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }: DisplayRouteProps) {
   //Page Id
   //Function 가공
   //페이지이동하는 함수
@@ -44,4 +43,4 @@ const StyledDisplayElement = styled.div<{
   display: ${props => (props.display ? "unset" : "none")};
 `;
 
-export default memo(DrawPageRoute);
+export default memo(DrawPageMdiRoute);
