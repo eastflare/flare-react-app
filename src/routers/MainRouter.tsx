@@ -10,7 +10,6 @@ import MainContainer from "components/cmn/Layout/MainContainer";
 const MainRouter = () => {
   const env = Env.getInstance();
   const location = useLocation();
-
   const globalContainerType = useMemo<"MAIN" | "WINDOW">(() => {
     if (extractor.getQueryParameterValue("openTypeCode") === "WINDOW") {
       return "WINDOW";
