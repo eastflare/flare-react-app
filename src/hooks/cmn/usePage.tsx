@@ -8,6 +8,7 @@ const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
 
   const { onPageTabClose } = usePageTab();
   const [modals, setModals] = useState<ModalItem[]>([]); // Destructure the tuple correctly
+  const [refreshCount, setRefreshCount] = useState(0);
   const addModal = (modalProps: ModalItem) => {
     setModals(prev => [...prev, modalProps]);
   };
@@ -58,6 +59,8 @@ const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
 
   const getPageProviderProps = () => ({
     openTypeCode,
+    refreshCount,
+    setRefreshCount,
     params: decodedParams,
     options,
     callback,
