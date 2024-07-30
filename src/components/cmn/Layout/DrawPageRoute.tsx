@@ -5,6 +5,7 @@ import usePage from "hooks/cmn/usePage";
 import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "store/pageMapStore";
 import PageModals from "./PageModals";
+import PageHeaderLayout from "./PageHeaderLayout";
 
 interface DisplayRouteProps extends PathRouteProps {
   routesProps: RoutesProps;
@@ -30,6 +31,7 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
       <PageProvider value={{ ...getPageProviderProps() }}>
+        <PageHeaderLayout />
         {element}
         <PageModals />
       </PageProvider>
