@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { OpenPopupTypeCode } from "store/pageMapStore";
 
 const HomePage = () => {
-  const { openPage, openModal, openModeless, openWindow } = usePageNavigate();
+  const { openPage, openDetail, openModal, openModeless, openWindow } = usePageNavigate();
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
 
@@ -134,7 +134,7 @@ const HomePage = () => {
     });
   };
   const handleClick8 = () => {
-    openPage("/MyModal1", {
+    openDetail("/MyModal1", {
       foo: "bar",
       callback: (c: string) => {
         alert("전선배 뭐하는 사람인가요?");
