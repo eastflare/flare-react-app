@@ -2,20 +2,32 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { BgColor, FontColor } from "ui/theme/Color";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import RefreshIcon from "@mui/icons-material/Refresh";
+import { usePageContext } from "contexts/cmn/PageContext";
+import { IconButton } from "components/buttons/CustomButton";
 
 const pageHeaderLayout = () => {
+  const { setRefreshCount } = usePageContext();
+
+  const handleRefresh = () => {
+    setRefreshCount(prev => prev + 1);
+  };
+
   return (
     <>
       <HeaderSection>
         <h1>메뉴명</h1>
-        <div className='breadcrumb'>
-          <>
+        <div className='right-section'>
+          <div className='breadcrumb'>
             <Link to='/'>Home</Link>
             <KeyboardArrowRightIcon />
             <Link to='/'>메뉴명1</Link>
             <KeyboardArrowRightIcon />
             <Link to='/'>메뉴명2</Link>
-          </>
+          </div>
+          <IconButton onClick={handleRefresh} className='refresh-button'>
+            <RefreshIcon />
+          </IconButton>
         </div>
       </HeaderSection>
     </>
@@ -38,6 +50,11 @@ export const HeaderSection = styled.div`
     font-weight: bold;
   }
 
+  .right-section {
+    display: flex;
+    align-items: center;
+  }
+
   .breadcrumb {
     font-size: 12px;
     font-weight: 400;
@@ -51,5 +68,9 @@ export const HeaderSection = styled.div`
     span {
       font-weight: 500;
     }
+  }
+
+  .refresh-button {
+    color: ${FontColor.Default};
   }
 `;
