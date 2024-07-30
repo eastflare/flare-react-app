@@ -31,8 +31,10 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
       <PageProvider value={{ ...getPageProviderProps() }}>
-        <PageHeaderLayout />
-        {element}
+        <StyledBodyElement>
+          <PageHeaderLayout />
+          {element}
+        </StyledBodyElement>
         <PageModals />
       </PageProvider>
     </StyledDisplayElement>
@@ -43,6 +45,12 @@ const StyledDisplayElement = styled.div<{
   display?: string;
 }>`
   display: ${props => (props.display ? "unset" : "none")};
+`;
+
+const StyledBodyElement = styled.div<{ topHeight?: number }>`
+  top: ${props => props.topHeight || 0}px;
+  overflow-y: auto;
+  overflow-x: hidden;
 `;
 
 export default memo(DrawPageMdiRoute);
