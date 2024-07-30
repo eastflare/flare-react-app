@@ -1,3 +1,4 @@
+import { Env } from "config/env";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { useCallback } from "react";
 import { matchPath, useNavigate } from "react-router-dom";
@@ -22,6 +23,9 @@ interface PopupOptions {
   title?: string;
 }
 
+const env = Env.getInstance();
+
+
 export default function usePageNavigate() {
   const { pageRoutes, getElementByRoutePath } = usePageRouteStore();
   const { addModal, delModal, addWindow } = usePageContext();
@@ -34,6 +38,21 @@ export default function usePageNavigate() {
     },
     [delModal]
   );
+
+  /*
+  function createURLFromTemplate(template:string, data:Record<string,string>) {
+    return template.replace(/:([a-zA-Z]+)/g, (_, key) => {
+      return encodeURIComponent(data[key]);
+    });
+  }
+
+  // 사용 예시
+  const template = "/sample/:id/:name";
+  const data = { id: "jscho128", name: "조재성", pw: "aaa" };
+
+  const result = createURLFromTemplate(template, data);
+  console.log(result); // "/sample/jscho128/%EC%A1%B0%EC%9E%AC%EC%84%B1"
+  */
 
   const openPage = (url: string, params: ObjAny, options?: PageOptions) => {
     let arrParams = new Array();
