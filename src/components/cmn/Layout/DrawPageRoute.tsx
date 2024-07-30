@@ -6,11 +6,8 @@ import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "store/pageMapStore";
 import PageModals from "./PageModals";
 import PageHeaderLayout from "./PageHeaderLayout";
-<<<<<<< HEAD
 import useWindowDimensions from "hooks/cmn/useWindowDimensions";
 import { Env } from "config/env";
-=======
->>>>>>> 63609065bb8b18b20e64fe36d472516b40cd129f
 
 interface DisplayRouteProps extends PathRouteProps {
   routesProps: RoutesProps;
@@ -51,15 +48,11 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
       <PageProvider value={{ ...getPageProviderProps() }}>
-<<<<<<< HEAD
         <StyledBodyElement windowHeight={height - minusHeight}>
           <PageHeaderLayout />
           {element}
         </StyledBodyElement>
-=======
         <PageHeaderLayout />
-        {element}
->>>>>>> 63609065bb8b18b20e64fe36d472516b40cd129f
         <PageModals />
       </PageProvider>
     </StyledDisplayElement>

@@ -2,16 +2,10 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { BgColor, FontColor } from "ui/theme/Color";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-<<<<<<< HEAD
 import { usePageContext } from "contexts/cmn/PageContext";
 import { IconButton } from "components/buttons/CustomButton";
 import refreshIcon from "assets/img/refresh.svg";
 import { ReactSVG } from "react-svg";
-=======
-import RefreshIcon from "@mui/icons-material/Refresh";
-import { usePageContext } from "contexts/cmn/PageContext";
-import { IconButton } from "components/buttons/CustomButton";
->>>>>>> 63609065bb8b18b20e64fe36d472516b40cd129f
 
 const pageHeaderLayout = () => {
   const { setRefreshCount } = usePageContext();
@@ -33,11 +27,7 @@ const pageHeaderLayout = () => {
             <Link to='/'>메뉴명2</Link>
           </div>
           <IconButton onClick={handleRefresh} className='refresh-button'>
-<<<<<<< HEAD
             <ReactSVG src={refreshIcon} />
-=======
-            <RefreshIcon />
->>>>>>> 63609065bb8b18b20e64fe36d472516b40cd129f
           </IconButton>
         </div>
       </HeaderSection>
