@@ -4,10 +4,8 @@ import styled from "@emotion/styled";
 import WindowContainer from "components/cmn/Layout/WindowContainer";
 import MainContainer from "components/cmn/Layout/MainContainer";
 
-console.log("최상원이 찍으라고해서 찍음 MainRouter");
 const env = Env.getInstance();
 const isWindow = env.isWindow;
-console.log("이즈윈도우", isWindow);
 const PageContainer = isWindow ? WindowContainer : MainContainer;
 
 const MainRouter = () => {

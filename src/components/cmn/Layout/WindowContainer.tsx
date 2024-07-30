@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import styled from "@emotion/styled";
-import PageTopBar from "./PageTopBar";
 
 const WindowContainer = (props: { children: ReactNode }) => {
   //메인 화면의 레이아웃 구성

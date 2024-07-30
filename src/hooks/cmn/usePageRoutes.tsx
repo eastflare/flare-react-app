@@ -13,7 +13,7 @@ const maxPageTabSize = isMdi ? env.maxPageTabSize : 2;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const { pageRoutes, setPageRoutes } = usePageRouteStore();
-  const { pageMap, curPageId, setPageItem, setCurPageId } = usePageMapStore();
+  const { pageMap, curPageId, setPageItem, setMasterPageItem, setDetailPageItem } = usePageMapStore();
   const { getPageCallback } = usePageCallbackStore();
   const { pathname, search } = useLocation();
   const [searchParams] = useSearchParams();
@@ -77,10 +77,9 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
 
   const openPageRoute = useCallback(() => {
     //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬 (callback function 은 없음)
-    const pathParamsObj = matchedRoute ? matchedRoute.params : {};
-    const searchParamsObj = Object.fromEntries(searchParams);
-    const mergedParamsObj = { ...pathParamsObj, ...searchParamsObj };
-    const params = Object.fromEntries(Object.entries(mergedParamsObj).filter(([key]) => key !== "title" && key !== "pageId" && key !== "openTypeCode"));
+    const pathParams = matchedRoute ? matchedRoute.params : {};
+    const { title, detailYn, openTypeCode, ...restSearchParams } = Object.fromEntries(searchParams);
+    const params = { ...pathParams, ...restSearchParams };
 
     //임시 페이지명을 path의 마지막 글자로 변경
     const label = decodeURIComponent(pathname.split("/").pop() || "Home");
@@ -104,7 +103,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       } else {
         //페이지일 경우 Callback 처리
         const pageCallback = (...args: any[]) => {
-          const tmpCallback = getPageCallback(searchParamsObj.pageId);
+          const tmpCallback = getPageCallback(pageId);
           console.log("페이지 Callback 입니다.", tmpCallback);
           if (typeof tmpCallback === "function") {
             return tmpCallback(...args);
@@ -113,8 +112,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         callback = pageCallback;
       }
 
-      //메뉴를 클릭하거나 Windows Popup 화면일 경우 Zustand에다 Page정보를 입력한다.
-      setPageItem(pageId, {
+      const pageItem = {
         openTypeCode: openTypeCode,
         id: pageId,
         label: label,
@@ -124,9 +122,18 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         params: params,
         element: curRouteItem.element as ReactElement,
         callback: callback,
-      });
+      };
 
-      setCurPageId(pageId);
+      if (isMdi) {
+        //메뉴를 클릭하거나 Windows Popup 화면일 경우 Zustand에다 Page정보를 입력한다.
+        setPageItem(pageId, pageItem);
+      } else {
+        if (detailYn === "Y") {
+          setDetailPageItem(pageId, pageItem);
+        } else {
+          setMasterPageItem(pageId, pageItem);
+        }
+      }
     }
   }, [pathname, search, curRouteItem]);
 

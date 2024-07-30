@@ -14,6 +14,7 @@ interface ObjAny {
 interface PageOptions {
   key?: string;
   title?: string;
+  isDetail?: boolean;
 }
 
 interface PopupOptions {
@@ -24,7 +25,7 @@ interface PopupOptions {
 }
 
 const env = Env.getInstance();
-
+const isMdi = env.isWindow ? false : env.isMdi;
 
 export default function usePageNavigate() {
   const { pageRoutes, getElementByRoutePath } = usePageRouteStore();
@@ -71,11 +72,23 @@ export default function usePageNavigate() {
       arrParams.push("title=" + options?.title);
     }
 
+    if (options?.isDetail) {
+      arrParams.push("detailYn=Y");
+    }
+
     //Zustand에다가 Callback Function 을 등록하고 Url에는 pageId를 callbackId로 등록한다.
     arrParams.push("pageId=" + pageId);
     addPageCallback(pageId, params.callback);
     const searchUrl = url + "?" + arrParams.join("&");
     navigator(searchUrl);
+  };
+
+  const openDetail = (url: string, params: ObjAny, options?: PageOptions) => {
+    if (!options) {
+      options = {};
+    }
+    options.isDetail = true;
+    openPage(url, params, options);
   };
 
   const openModal = (url: string, params: ObjAny, options?: PopupOptions) => {
@@ -176,6 +189,7 @@ export default function usePageNavigate() {
 
   return {
     openPage,
+    openDetail,
     openModal,
     openModeless,
     openWindow,

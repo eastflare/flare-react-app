@@ -21,9 +21,6 @@ const MyModal2 = lazy(() => import("pages/smpl/poup/MyModal2"));
 const Matthew = lazy(() => import("pages/smpl/poup/Matthew"));
 const MyModal = lazy(() => import("pages/smpl/poup/MyModal"));
 
-const env = Env.getInstance();
-const isMdi = env.isWindow ? false : env.isMdi;
-
 const MainRoutes = () => {
   return (
     <PageRoutes>
