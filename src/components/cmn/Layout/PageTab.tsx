@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import usePageMapStore, { PageItem } from "store/pageMapStore";
 
 interface PageTabProps {
+  pageId: string;
   label: string;
   onClick: (...args: any[]) => void;
   onClose: (e?: MouseEvent) => void;
@@ -11,7 +12,7 @@ interface PageTabProps {
   isActive: boolean;
 }
 
-const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
+const PageTab = ({ pageId, label, onClick, onClose, isActive }: PageTabProps) => {
   const { curPageId, getPageItem } = usePageMapStore();
   const { onPageTabPopup } = usePageTab();
   const isNotClosable = ["Home"].includes(label);
@@ -29,7 +30,10 @@ const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
 
   useEffect(() => {
     const handleDragStart = (e: DragEvent) => {
-      const pageItem = getPageItem(curPageId);
+      //const value = e.target?.getAttribute("data-value");
+      const value = tabRef.current?.getAttribute("data-value") ?? "";
+      console.log("aaaaaaaaaaaaaa", value);
+      const pageItem = getPageItem(value);
       if (pageItem) {
         e.dataTransfer?.setData("text/plain", buildUrl(pageItem));
       }
@@ -57,13 +61,14 @@ const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
         tabElement.removeEventListener("dragend", handleDragEnd);
       }
     };
-  }, [curPageId]);
+  }, []);
 
   return (
     <StyledPageTab
       ref={tabRef}
       onClick={onClick}
       isOpenTab={isActive}
+      data-value={pageId}
       draggable // Add draggable attribute here
     >
       <StyledPageTabLabel>{label}</StyledPageTabLabel>

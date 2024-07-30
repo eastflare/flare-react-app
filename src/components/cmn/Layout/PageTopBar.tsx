@@ -30,7 +30,7 @@ const PageTopBar = () => {
 
           console.log("key 가 어떻게 생겼나요?", key);
 
-          return <PageTab key={key} label={pageLabel} isActive={curPageId === key} onClose={() => onPageTabClose(key)} onClick={() => onPageTabClick(key)} onPopup={() => onPageTabPopup()} />;
+          return <PageTab key={key} pageId={key} label={pageLabel} isActive={curPageId === key} onClose={() => onPageTabClose(key)} onClick={() => onPageTabClick(key)} onPopup={() => onPageTabPopup()} />;
         })}
       </StyledMDIContainer>
       <StyledPageTopButtons>
