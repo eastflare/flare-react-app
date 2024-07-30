@@ -7,7 +7,6 @@ const TopMenu = ({ onToggleLeftMenu }: { onToggleLeftMenu: () => void }) => {
     e.preventDefault();
 
     // TODO: 페이지 전체가 지원진다는 Confirm 창을 통해 실행 필요함
-
     window.location.replace("/");
   };
 
