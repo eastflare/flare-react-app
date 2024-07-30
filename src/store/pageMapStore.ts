@@ -63,13 +63,14 @@ interface PageMapStore {
   curPageId: string;
   setCurPageId: (id: string) => void;
   setPageItem: (id: string, obj: PageItem) => void;
+  getPageItem: (id: string) => PageItem | undefined;
   deletePageItem: (id: string) => void;
   resetPageMap: () => void;
   setMasterPageItem: (id: string, obj: PageItem) => void;
   setDetailPageItem: (id: string, obj: PageItem) => void;
 }
 
-const usePageMapStore = create<PageMapStore>(set => ({
+const usePageMapStore = create<PageMapStore>((set, get) => ({
   pageMap: new Map(),
   curPageId: "",
   setCurPageId: id => set({ curPageId: id }),
@@ -82,6 +83,8 @@ const usePageMapStore = create<PageMapStore>(set => ({
       console.log("나는 추가됨", newMap);
       return { pageMap: newMap, curPageId: id };
     }),
+
+  getPageItem: id => get().pageMap.get(id),
 
   deletePageItem: id =>
     set(state => {

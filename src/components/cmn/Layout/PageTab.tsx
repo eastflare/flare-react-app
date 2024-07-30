@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
+import usePageTab from "hooks/cmn/usePageTab";
 import { useEffect, useRef } from "react";
+import usePageMapStore, { PageItem } from "store/pageMapStore";
 
 interface PageTabProps {
   label: string;
@@ -10,24 +12,37 @@ interface PageTabProps {
 }
 
 const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
+  const { curPageId, getPageItem } = usePageMapStore();
+  const { onPageTabPopup } = usePageTab();
   const isNotClosable = ["Home"].includes(label);
-
   // Inside the PageTab component
   const tabRef = useRef<HTMLDivElement>(null);
 
+  const buildUrl = (pageItem: PageItem): string => {
+    const baseUrl = "http://eastflare.iptime.org";
+    const { pathname, search } = pageItem;
+
+    // If search parameter exists, prepend '&' else prepend '?'
+    const separator = search ? "&" : "?";
+    const url = `${baseUrl}${pathname}${search}${separator}openTypeCode=WINDOW`;
+
+    return url;
+  };
+
   useEffect(() => {
     const handleDragStart = (e: DragEvent) => {
-      e.dataTransfer?.setData("text/plain", "http://www.naver.com");
+      const pageItem = getPageItem(curPageId);
+      if (pageItem) {
+        e.dataTransfer?.setData("text/plain", buildUrl(pageItem));
+      }
     };
 
     const handleDragEnd = (e: DragEvent) => {
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
-
       if (clientX < 0 || clientY < 0 || clientX > innerWidth || clientY > innerHeight) {
-        //기존탭 삭제
-        //새팝업 띄우기
-        alert("Tab dragged outside the browser window!");
+        //alert("Tab dragged outside the browser window!");
+        onPageTabPopup();
       }
     };
 
@@ -44,7 +59,7 @@ const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
         tabElement.removeEventListener("dragend", handleDragEnd);
       }
     };
-  }, []);
+  }, [curPageId]);
 
   return (
     <StyledPageTab
