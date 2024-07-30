@@ -6,12 +6,19 @@ import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "store/pageMapStore";
 import PageModals from "./PageModals";
 import PageHeaderLayout from "./PageHeaderLayout";
+import useWindowDimensions from "hooks/cmn/useWindowDimensions";
+import { Env } from "config/env";
 
 interface DisplayRouteProps extends PathRouteProps {
   routesProps: RoutesProps;
   pageItem: PageItem;
   display?: boolean;
 }
+
+const env = Env.getInstance();
+const isMdi = env.isMdi;
+const isWindow = env.isWindow;
+let minusHeight = 0;
 
 function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }: DisplayRouteProps) {
   //Page Id
@@ -21,17 +28,27 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
 
   useEffect(() => {
     //해당 페이지가 죽을때 callback 이 있으면 제거해 줘야함
+    const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
+    const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
+    if (isMdi) {
+      minusHeight = topMenuL + topBarL;
+    } else if (!isMdi && !isWindow) {
+      minusHeight = topMenuL + topBarL;
+    }
+    console.log("minusHeight", minusHeight);
     return () => {
       //delPageCallback(pageItem.id);
     };
   }, []);
+
+  const { height } = useWindowDimensions();
 
   console.log("페이지에 넘어온 routesProps 와 props", routesProps, props);
   const { getPageProviderProps } = usePage({ pageItem });
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
       <PageProvider value={{ ...getPageProviderProps() }}>
-        <StyledBodyElement>
+        <StyledBodyElement windowHeight={height - minusHeight}>
           <PageHeaderLayout />
           {element}
         </StyledBodyElement>
@@ -47,8 +64,8 @@ const StyledDisplayElement = styled.div<{
   display: ${props => (props.display ? "unset" : "none")};
 `;
 
-const StyledBodyElement = styled.div<{ topHeight?: number }>`
-  top: ${props => props.topHeight || 0}px;
+const StyledBodyElement = styled.div<{ windowHeight?: number }>`
+  height: ${props => props.windowHeight || 0}px;
   overflow-y: auto;
   overflow-x: hidden;
 `;
