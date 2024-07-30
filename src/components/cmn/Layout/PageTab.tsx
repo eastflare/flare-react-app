@@ -19,10 +19,8 @@ const PageTab = ({ label, onClick, onClose, isActive }: PageTabProps) => {
   const tabRef = useRef<HTMLDivElement>(null);
 
   const buildUrl = (pageItem: PageItem): string => {
-    const baseUrl = "http://eastflare.iptime.org";
+    const baseUrl = window.location.protocol + window.location.host;
     const { pathname, search } = pageItem;
-
-    // If search parameter exists, prepend '&' else prepend '?'
     const separator = search ? "&" : "?";
     const url = `${baseUrl}${pathname}${search}${separator}openTypeCode=WINDOW`;
 
