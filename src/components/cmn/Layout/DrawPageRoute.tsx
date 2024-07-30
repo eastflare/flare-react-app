@@ -5,9 +5,9 @@ import usePage from "hooks/cmn/usePage";
 import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "store/pageMapStore";
 import PageModals from "./PageModals";
-import PageHeaderLayout from "./PageHeaderLayout";
 import useWindowDimensions from "hooks/cmn/useWindowDimensions";
 import { Env } from "config/env";
+import PageHeaderLayout from "./PageHeaderLayout";
 
 interface DisplayRouteProps extends PathRouteProps {
   routesProps: RoutesProps;
@@ -35,7 +35,6 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
     } else if (!isMdi && !isWindow) {
       minusHeight = topMenuL + topBarL;
     }
-    console.log("minusHeight", minusHeight);
     return () => {
       //delPageCallback(pageItem.id);
     };
@@ -52,7 +51,6 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
           <PageHeaderLayout />
           {element}
         </StyledBodyElement>
-        <PageHeaderLayout />
         <PageModals />
       </PageProvider>
     </StyledDisplayElement>

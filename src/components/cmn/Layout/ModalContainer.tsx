@@ -163,7 +163,10 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     const topBar = document.getElementById("topBar") ?? null;
     const mainBody = document.getElementById("mainBody") ?? null;
 
-    let topBarBottom, mainBodyTop, leftMenuRight, mainBodyLeft;
+    let topBarBottom = 0,
+      mainBodyTop = 0,
+      leftMenuRight = 0,
+      mainBodyLeft = 0;
 
     if (leftMenu) {
       leftMenuRight = leftMenu.getBoundingClientRect().right;

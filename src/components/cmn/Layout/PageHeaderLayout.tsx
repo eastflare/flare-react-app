@@ -73,5 +73,6 @@ export const HeaderSection = styled.div`
 
   .refresh-button {
     color: ${FontColor.Default};
+    margin-top: 10px;
   }
 `;
