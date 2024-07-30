@@ -2,8 +2,8 @@ import { Route } from "react-router-dom";
 import { Env } from "config/env";
 import { lazy } from "react";
 import PageRoutes from "components/cmn/Layout/PageRoutes";
-
-const Home = lazy(() => import("pages/HomePage"));
+import Home from "pages/HomePage";
+//const Home = lazy(() => import("pages/HomePage"));
 const About = lazy(() => import("pages/About"));
 const Services = lazy(() => import("pages/Services"));
 const Contact = lazy(() => import("pages/Contact"));
