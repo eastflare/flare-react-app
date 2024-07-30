@@ -3,12 +3,13 @@ import App from "App.tsx";
 import "index.css";
 import { Env } from "config/env";
 import { PrintDebug } from "config/removeConsole";
+import React from "react";
 
 function main() {
   ReactDOM.createRoot(document.getElementById("root")!).render(
-    // <React.StrictMode>
-    <App />
-    // </React.StrictMode>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   );
 }
 

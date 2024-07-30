@@ -71,12 +71,11 @@ export class Env {
       return false;
     }
   }
-  
+
   static getInstance() {
     if (!Env.instance) {
       throw new Error("Env class is not configured!!");
     }
-
     return Env.instance;
   }
 

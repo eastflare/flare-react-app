@@ -1,12 +1,13 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import Loading from "components/elements/Loading";
-import SSOLoginRouter from "routers/SSOLoginRouter";
-import LoginRouter from "routers/LoginRouter";
-import FailRouter from "routers/FailRouter";
-import MainRouter from "routers/MainRouter";
+
+const SSOLoginRouter = lazy(() => import("routers/SSOLoginRouter"));
+const LoginRouter = lazy(() => import("routers/LoginRouter"));
+const FailRouter = lazy(() => import("routers/FailRouter"));
+const MainRouter = lazy(() => import("routers/MainRouter"));
 
 const App = () => {
   return (

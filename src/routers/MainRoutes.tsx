@@ -1,32 +1,32 @@
-import Home from "pages/HomePage";
-import About from "pages/About";
-import Services from "pages/Services";
-import Contact from "pages/Contact";
 import { Route } from "react-router-dom";
-import Sample1 from "pages/Sample1";
-import Sample2 from "pages/Sample2";
-import Sample3 from "pages/Sample3";
-import PageMdiRoutes from "components/cmn/Layout/PageMdiRoutes";
-import Sample4 from "pages/Sample4";
-import Sample5 from "pages/Sample5";
-import Sample6 from "pages/Sample6";
-import NoPage from "pages/NoPage";
-import MyModal3 from "pages/smpl/poup/MyModal3";
-import GridPage from "pages/GridPage";
-import MyModal1 from "pages/smpl/poup/MyModal1";
-import MyModal2 from "pages/smpl/poup/MyModal2";
-import Matthew from "pages/smpl/poup/Matthew";
-import MyModal from "pages/smpl/poup/MyModal";
+import { Env } from "config/env";
+import { lazy } from "react";
+import PageRoutes from "components/cmn/Layout/PageRoutes";
 
-interface MainRoutesProps {
-  isMdi: boolean;
-}
+const Home = lazy(() => import("pages/HomePage"));
+const About = lazy(() => import("pages/About"));
+const Services = lazy(() => import("pages/Services"));
+const Contact = lazy(() => import("pages/Contact"));
+const Sample1 = lazy(() => import("pages/Sample1"));
+const Sample2 = lazy(() => import("pages/Sample2"));
+const Sample3 = lazy(() => import("pages/Sample3"));
+const Sample4 = lazy(() => import("pages/Sample4"));
+const Sample5 = lazy(() => import("pages/Sample5"));
+const Sample6 = lazy(() => import("pages/Sample6"));
+const NoPage = lazy(() => import("pages/NoPage"));
+const MyModal3 = lazy(() => import("pages/smpl/poup/MyModal3"));
+const GridPage = lazy(() => import("pages/GridPage"));
+const MyModal1 = lazy(() => import("pages/smpl/poup/MyModal1"));
+const MyModal2 = lazy(() => import("pages/smpl/poup/MyModal2"));
+const Matthew = lazy(() => import("pages/smpl/poup/Matthew"));
+const MyModal = lazy(() => import("pages/smpl/poup/MyModal"));
 
-const MainRoutes = (props: MainRoutesProps) => {
-  const { isMdi } = props;
-  const RoutesComponent = isMdi ? PageMdiRoutes : PageMdiRoutes;
+const env = Env.getInstance();
+const isMdi = env.isWindow ? false : env.isMdi;
+
+const MainRoutes = () => {
   return (
-    <RoutesComponent>
+    <PageRoutes>
       <Route path='/' element={<Home />} />
       <Route path='/about' element={<About />} />
       <Route path='/services' element={<Services />} />
@@ -44,7 +44,7 @@ const MainRoutes = (props: MainRoutesProps) => {
       <Route path='/MyModal3' element={<MyModal3 />} />
       <Route path='/grid' element={<GridPage />} />
       <Route path='*' element={<NoPage />} />
-    </RoutesComponent>
+    </PageRoutes>
   );
 };
 

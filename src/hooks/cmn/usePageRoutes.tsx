@@ -1,12 +1,15 @@
+import { Env } from "config/env";
 import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
-import { ReactElement, ReactNode, useMemo, useState } from "react";
+import { ReactElement, ReactNode, useMemo } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
 import usePageCallbackStore from "store/pageCallbackStore";
 import usePageMapStore, { OpenTypeCode } from "store/pageMapStore";
 import usePageRouteStore from "store/pageRouteStore";
-import extractor from "utils/extractorUtil";
 
-//const MAX_PAGE_SIZE = 10;
+const env = Env.getInstance();
+const isWindow = env.isWindow;
+const isMdi = env.isWindow ? false : env.isMdi;
+const maxPageTabSize = isMdi ? env.maxPageTabSize : 2;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const { pageRoutes, setPageRoutes } = usePageRouteStore();
@@ -50,6 +53,8 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const initRoutesObj = useCallback(() => {
     //전체 Route를 Object<id, element> 형태의 맵으로 재구성한다.
     if (Object.keys(pageRoutes)?.length === 0) {
+      console.log("실행샐행 --->", ...routes);
+
       startTransition(() => {
         setPageRoutes(
           Object.assign(
@@ -87,7 +92,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       let openTypeCode = OpenTypeCode.PAGE;
       let callback = () => {};
 
-      if (extractor.getQueryParameterValue("openTypeCode") === "WINDOW") {
+      if (isWindow) {
         //파라메터의 openTypeCode=WINDOW 파라메터로 오면 pageItem의 openTypeCode 를 WINDOW 로 변경한다.
         openTypeCode = OpenTypeCode.WINDOW;
 

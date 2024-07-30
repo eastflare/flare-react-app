@@ -4,6 +4,7 @@ import usePageMapStore, { CallbackFunction, OpenTypeCode, WindowItem } from "sto
 import { getUuid } from "utils/rapUtil";
 import { openWindow } from "utils/windowUtil";
 import usePageCallbackStore from "store/pageCallbackStore";
+import { Env } from "config/env";
 
 export type PageTabItem = { id: string; path: string; label: string };
 export type PageTabMap = Map<string, PageTabItem>;
@@ -14,6 +15,10 @@ export type PageTabMap = Map<string, PageTabItem>;
 // function initPageTabMap(): PageTabMap {
 //   return new Map([[HomePageTabItem.id, HomePageTabItem]]);
 // }
+
+const env = Env.getInstance();
+const isMdi = env.isWindow ? false : env.isMdi;
+const maxPageTabSize = isMdi ? env.maxPageTabSize : 2;
 
 const usePageTab = () => {
   const navigate = useNavigate();

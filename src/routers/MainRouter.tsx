@@ -1,28 +1,21 @@
 import { Env } from "config/env";
 import MainRoutes from "./MainRoutes";
 import styled from "@emotion/styled";
-import { useMemo } from "react";
-import { useLocation } from "react-router-dom";
-import extractor from "utils/extractorUtil";
 import WindowContainer from "components/cmn/Layout/WindowContainer";
 import MainContainer from "components/cmn/Layout/MainContainer";
 
-const MainRouter = () => {
-  const env = Env.getInstance();
-  const isWindow = env.isWindow;
-  const isMdi = isWindow ? false : env.isMdi;
+console.log("최상원이 찍으라고해서 찍음 MainRouter");
+const env = Env.getInstance();
+const isWindow = env.isWindow;
+console.log("이즈윈도우", isWindow);
+const PageContainer = isWindow ? WindowContainer : MainContainer;
 
+const MainRouter = () => {
   return (
     <StyledMainContainer>
-      {isWindow ? (
-        <WindowContainer>
-          <MainRoutes isMdi={isMdi} />
-        </WindowContainer>
-      ) : (
-        <MainContainer>
-          <MainRoutes isMdi={isMdi} />
-        </MainContainer>
-      )}
+      <PageContainer>
+        <MainRoutes />
+      </PageContainer>
     </StyledMainContainer>
   );
 };
