@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
 import FormElement from 'components/FormElement';
+import { FormProps } from 'models/form';
 
-const Form = ({elements, onSubmit}) => {
+const Form = ({elements, onSubmit}: FormProps) => {
   
   const {
     register,
