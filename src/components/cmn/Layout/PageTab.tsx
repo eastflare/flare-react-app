@@ -75,7 +75,12 @@ const PageTab = ({ pageId, label, onClick, onClose, isActive }: PageTabProps) =>
   return (
     <StyledPageTab
       ref={tabRef}
-      onClick={onClick}
+      onClick={() => {
+        onClick();
+        if (dataValue !== null) {
+          setCurPageId(dataValue);
+        }
+      }}
       isOpenTab={isActive}
       data-value={pageId}
       draggable
