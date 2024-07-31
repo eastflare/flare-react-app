@@ -1,13 +1,13 @@
 import { FormElementProps } from "models/form";
 
-const FormElement = ({id, name, type, option, register, errors}: FormElementProps) => {
+const FormElement = ({ id, name, type, option, register, errors }: FormElementProps) => {
   const thStyle = {
-    width: '100px',
+    width: "100px",
   };
 
   const errorMessageStyle = {
-    color: 'red',
-    marginLeft: '3px',
+    color: "red",
+    marginLeft: "3px",
   };
 
   return (
@@ -24,7 +24,7 @@ const FormElement = ({id, name, type, option, register, errors}: FormElementProp
         </tr>
       </tbody>
     </table>
-  )
-}
+  );
+};
 
 export default FormElement;
