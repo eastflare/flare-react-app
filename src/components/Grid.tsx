@@ -1,31 +1,29 @@
-import { AgGridReact } from "ag-grid-react";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { GridOptions } from 'ag-grid-community';
 
 const Grid = ({ data, options }: { data: any; options: any }) => {
-  const gridOption = Object.assign(
-    {
-      style: "ag-theme-alpine",
-      pagination: false,
-      paginationPageSize: 10,
-      paginationPageSizeSelector: false,
-      domLayout: "autoHeight",
-      onGridReady: () => {},
-    },
-    options
-  );
+  const gridOption: GridOptions = Object.assign({
+    onGridReady: () => {},
+    pagination: true,
+    paginationPageSize: 5,
+    paginationPageSizeSelector: false,
+    paginationAutoPageSize: false,
+  }, options);
 
   return (
     <div>
       <AgGridReact
-        className={gridOption.style}
         columnDefs={data.columns}
         rowData={data.rows}
+        className={"ag-theme-alpine"}
+        domLayout={'autoHeight'}
+        onGridReady={gridOption.onGridReady}
         pagination={gridOption.pagination}
         paginationPageSize={gridOption.paginationPageSize}
-        paginationPageSizeSelector={gridOption.paginationPageSelector}
-        domLayout={gridOption.domLayout}
-        onGridReady={gridOption.onGridReady}
+        paginationPageSizeSelector={gridOption.paginationPageSizeSelector}
+        paginationAutoPageSize={gridOption.paginationAutoPageSize}
       />
     </div>
   );

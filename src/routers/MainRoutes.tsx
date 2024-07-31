@@ -3,6 +3,7 @@ import { Env } from "config/env";
 import { lazy } from "react";
 import PageRoutes from "components/cmn/Layout/PageRoutes";
 import Home from "pages/HomePage";
+import FormPage from "pages/FormPage";
 //const Home = lazy(() => import("pages/HomePage"));
 const About = lazy(() => import("pages/About"));
 const Services = lazy(() => import("pages/Services"));
@@ -40,6 +41,7 @@ const MainRoutes = () => {
       <Route path='/MyModal2' element={<MyModal2 />} />
       <Route path='/MyModal3' element={<MyModal3 />} />
       <Route path='/grid' element={<GridPage />} />
+      <Route path='/form' element={<FormPage />} />
       <Route path='*' element={<NoPage />} />
     </PageRoutes>
   );
