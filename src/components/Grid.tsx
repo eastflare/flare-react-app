@@ -1,9 +1,9 @@
-import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import { AgGridReact } from 'ag-grid-react';
 import { GridOptions } from 'ag-grid-community';
 
-const Grid = ({ data, options }: { data: any; options: any }) => {
+const Grid = ({ data, options }: { data: any; options: GridOptions }) => {
   const gridOption: GridOptions = Object.assign({
     onGridReady: () => {},
     pagination: true,
