@@ -1,6 +1,12 @@
 import styled from "@emotion/styled";
 import usePageTab from "hooks/cmn/usePageTab";
 import PageTab from "./PageTab";
+import { IconButton } from "components/buttons/CustomButton";
+import { ReactSVG } from "react-svg";
+import leftArrowIcon from "assets/img/leftArrow.svg";
+import rightArrowIcon from "assets/img/rightArrow.svg";
+import popupIcon from "assets/img/popup.svg";
+import closeIcon from "assets/img/close.svg";
 
 const PageTopBar = () => {
   const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset, onPageTabPopup } = usePageTab();
@@ -34,10 +40,18 @@ const PageTopBar = () => {
         })}
       </StyledMDIContainer>
       <StyledPageTopButtons>
-        <button>{"<"}</button>
-        <button>{">"}</button>
-        <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClickPopup(e)}>{"🗖"}</button>
-        <button onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClickClose(e)}>{"X"}</button>
+        <IconButton className='leftArrow-button'>
+          <ReactSVG src={leftArrowIcon} />
+        </IconButton>
+        <IconButton>
+          <ReactSVG src={rightArrowIcon} />
+        </IconButton>
+        <IconButton className='popup-button' onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClickPopup(e)}>
+          <ReactSVG src={popupIcon} />
+        </IconButton>
+        <IconButton className='close-button' onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleClickClose(e)}>
+          <ReactSVG src={closeIcon} />
+        </IconButton>
       </StyledPageTopButtons>
     </StyledPageTopBar>
   );
@@ -47,9 +61,8 @@ export default PageTopBar;
 
 const StyledPageTopBar = styled.div`
   height: 40px;
-  padding: 4px 4px;
-  background-color: #ffffff;
-  border-bottom: 1px solid #000000;
+  background-color: #f7f9f8;
+  border-bottom: 1px solid #ebeeed;
   box-shadow: #f0f0f0;
   display: flex;
   flex-direction: row;
@@ -61,21 +74,24 @@ const StyledMDIContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  column-gap: 4px;
 `;
 
 const StyledPageTopButtons = styled.div`
   display: flex;
   flex-direction: row;
-  column-gap: 4px;
+  justify-content: flex-end;
   align-items: center;
+  padding: 0;
+  margin: 0;
 
   button {
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
+    background-color: #f7f9f8;
     padding: 4px 8px;
     cursor: pointer;
+
+    &:first-of-type {
+      margin-left: 0;
+    }
 
     &:hover {
       background-color: #f0f0f0;
@@ -84,5 +100,17 @@ const StyledPageTopButtons = styled.div`
     &:active {
       background-color: #e0e0e0;
     }
+  }
+
+  .leftArrow-button {
+    padding-top: 6px;
+  }
+
+  .popup-button {
+    padding-top: 10px;
+  }
+
+  .close-button {
+    padding-top: 8px;
   }
 `;

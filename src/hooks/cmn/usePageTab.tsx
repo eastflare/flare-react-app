@@ -65,37 +65,41 @@ const usePageTab = () => {
     [pageMap]
   );
 
-  const handlePagePopup = useCallback(() => {
-    //현재 열려있는 페이지를 callback 은 유지한채 닫고 페이지를 오픈한다.
-    //alert("현재 열려있는 페이지를 callback 은 유지한채 닫고 페이지를 오픈한다.");
-    if (curPageId !== "/") {
-      const curPageItem = pageMap.get(curPageId);
-      const curPathName = curPageItem?.pathname || "/";
+  const handlePagePopup = useCallback(
+    (pageId?: string) => {
+      //현재 열려있는 페이지를 callback 은 유지한채 닫고 페이지를 오픈한다.
+      //alert("현재 열려있는 페이지를 callback 은 유지한채 닫고 페이지를 오픈한다.");
+      if (curPageId !== "/") {
+        const myPageId = pageId || curPageId;
+        const curPageItem = pageMap.get(myPageId);
+        const curPathName = curPageItem?.pathname || "/";
 
-      const curOptions = curPageItem?.options || {};
-      const curCallback = getPageCallback(curPageId) || (() => {});
+        const curOptions = curPageItem?.options || {};
+        const curCallback = getPageCallback(myPageId) || (() => {});
 
-      let curParams = curPageItem?.params || {};
-      curParams.callback = curCallback;
+        let curParams = curPageItem?.params || {};
+        curParams.callback = curCallback;
 
-      //const newId = getUuid();
+        //const newId = getUuid();
 
-      console.log("컬콜백입니다.", curCallback);
+        console.log("컬콜백입니다.", curCallback);
 
-      const windowItem: WindowItem = {
-        openTypeCode: OpenTypeCode.WINDOW,
-        id: curPageId,
-        label: "팝업(윈도우)",
-        url: curPathName,
-        params: curParams,
-        options: curOptions,
-        callback: curCallback as CallbackFunction<any, any>,
-      };
-      openWindow(windowItem);
+        const windowItem: WindowItem = {
+          openTypeCode: OpenTypeCode.WINDOW,
+          id: myPageId,
+          label: "팝업(윈도우)",
+          url: curPathName,
+          params: curParams,
+          options: curOptions,
+          callback: curCallback as CallbackFunction<any, any>,
+        };
+        openWindow(windowItem);
 
-      handleDeletePageTab(curPageId);
-    }
-  }, [pageMap]);
+        handleDeletePageTab(myPageId);
+      }
+    },
+    [pageMap]
+  );
 
   //열려있는 탭을 삭제한다.
   const handleDeletePageTab = useCallback(

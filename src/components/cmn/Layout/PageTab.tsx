@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import usePageTab from "hooks/cmn/usePageTab";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import usePageMapStore, { PageItem } from "store/pageMapStore";
 
 interface PageTabProps {
@@ -13,11 +13,11 @@ interface PageTabProps {
 }
 
 const PageTab = ({ pageId, label, onClick, onClose, isActive }: PageTabProps) => {
-  const { curPageId, getPageItem } = usePageMapStore();
+  const { setTabsOrder, getPageItem, pageMap, setCurPageId } = usePageMapStore();
   const { onPageTabPopup } = usePageTab();
   const isNotClosable = ["Home"].includes(label);
-  // Inside the PageTab component
   const tabRef = useRef<HTMLDivElement>(null);
+  const [dataValue, setDataValue] = useState<string | null>(null);
 
   const buildUrl = (pageItem: PageItem): string => {
     const baseUrl = window.location.protocol + window.location.host;
@@ -32,10 +32,17 @@ const PageTab = ({ pageId, label, onClick, onClose, isActive }: PageTabProps) =>
     const handleDragStart = (e: DragEvent) => {
       //const value = e.target?.getAttribute("data-value");
       const value = tabRef.current?.getAttribute("data-value") ?? "";
-      console.log("aaaaaaaaaaaaaa", value);
+      if (value === "/") {
+        return;
+      }
+      setDataValue(value);
       const pageItem = getPageItem(value);
       if (pageItem) {
         e.dataTransfer?.setData("text/plain", buildUrl(pageItem));
+      }
+      if (e.dataTransfer) {
+        e.dataTransfer?.setData("application/tab-id", value);
+        e.dataTransfer.effectAllowed = "move";
       }
     };
 
@@ -44,7 +51,9 @@ const PageTab = ({ pageId, label, onClick, onClose, isActive }: PageTabProps) =>
       const { innerWidth, innerHeight } = window;
       if (clientX < 0 || clientY < 0 || clientX > innerWidth || clientY > innerHeight) {
         //alert("Tab dragged outside the browser window!");
-        onPageTabPopup();
+        if (dataValue !== null) {
+          onPageTabPopup(dataValue);
+        }
       }
     };
 
@@ -61,19 +70,51 @@ const PageTab = ({ pageId, label, onClick, onClose, isActive }: PageTabProps) =>
         tabElement.removeEventListener("dragend", handleDragEnd);
       }
     };
-  }, []);
+  }, [dataValue]);
 
   return (
     <StyledPageTab
       ref={tabRef}
-      onClick={onClick}
+      onClick={() => {
+        onClick();
+        if (dataValue !== null) {
+          setCurPageId(dataValue);
+        }
+      }}
       isOpenTab={isActive}
       data-value={pageId}
-      draggable // Add draggable attribute here
+      draggable
+      onDrop={e => {
+        e.preventDefault();
+        const sourceTabId = e.dataTransfer?.getData("application/tab-id");
+        if (sourceTabId && sourceTabId !== pageId) {
+          const newOrder = Array.from(pageMap.keys());
+          const sourceIndex = newOrder.indexOf(sourceTabId);
+          const targetIndex = newOrder.indexOf(pageId);
+          newOrder.splice(sourceIndex, 1);
+          newOrder.splice(targetIndex, 0, sourceTabId);
+          const homeIndex = newOrder.indexOf("/");
+          if (targetIndex <= homeIndex) {
+            return;
+          }
+          setTabsOrder(newOrder);
+          setCurPageId(sourceTabId);
+        }
+      }}
+      onDragOver={e => {
+        e.preventDefault();
+        const targetTabId = e.currentTarget.getAttribute("data-value");
+        if (targetTabId === "/") {
+          e.dataTransfer.dropEffect = "none";
+        } else {
+          e.dataTransfer.dropEffect = "move";
+        }
+      }}
     >
-      <StyledPageTabLabel>{label}</StyledPageTabLabel>
+      <StyledPageTabLabel isOpenTab={isActive}>{label}</StyledPageTabLabel>
       {!isNotClosable && (
         <StyledIconButton
+          isOpenTab={isActive}
           onClick={e => {
             e.stopPropagation();
             onClose();
@@ -90,22 +131,24 @@ const StyledPageTab = styled.div<{ isOpenTab: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  column-gap: 0;
-  padding: 0 6px;
-  border-radius: 4px;
-  border: 1px solid #000000;
-  color: ${({ isOpenTab }) => (isOpenTab ? "red" : "#000000")};
+  border-right: 1px solid #f1f4f3;
+  color: ${({ isOpenTab }) => (isOpenTab ? "#1F1F1F" : "#979998")};
   box-sizing: border-box;
-  font-weight: 500;
+  background-color: ${({ isOpenTab }) => (isOpenTab ? "#FFFFFF" : "#f1f4f3")};
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  height: 40px;
+  padding: 0px 8px 0px 8px;
 `;
 
-const StyledPageTabLabel = styled.span`
+const StyledPageTabLabel = styled.span<{ isOpenTab: boolean }>`
+  font-weight: ${({ isOpenTab }) => (isOpenTab ? "700" : "400")};
   cursor: pointer;
-  font-size: 13px;
+  font-size: 12px;
   overflow: hidden;
   letter-spacing: -0.2px;
   max-width: 155px;
-  margin-right: 2px;
 
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -114,9 +157,10 @@ const StyledPageTabLabel = styled.span`
   line-break: auto;
 `;
 
-const StyledIconButton = styled.button`
+const StyledIconButton = styled.button<{ isOpenTab: boolean }>`
+  color: ${({ isOpenTab }) => (isOpenTab ? "#1F1F1F" : "#979998")};
   background-color: unset;
-  padding: unset;
+  padding: 0px 0px 0px 7px;
   border: unset;
   display: flex;
   align-items: center;
