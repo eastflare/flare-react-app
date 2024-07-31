@@ -1,4 +1,5 @@
 import { FormElementProps } from "models/form";
+import { FieldError } from "react-hook-form";
 
 const FormElement = ({ id, name, type, option, register, errors }: FormElementProps) => {
   const thStyle = {
@@ -10,6 +11,8 @@ const FormElement = ({ id, name, type, option, register, errors }: FormElementPr
     marginLeft: "3px",
   };
 
+  const error = errors[id] as FieldError;
+
   return (
     <table>
       <tbody>
@@ -19,7 +22,7 @@ const FormElement = ({ id, name, type, option, register, errors }: FormElementPr
           </th>
           <td>
             <input id={id} type={type} {...register(id, option)} />
-            {errors[id] && <a style={errorMessageStyle}>{errors[id].message}</a>}
+            {error?.message && <a style={errorMessageStyle}>{error.message}</a>}
           </td>
         </tr>
       </tbody>

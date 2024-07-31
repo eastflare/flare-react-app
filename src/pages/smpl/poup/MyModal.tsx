@@ -11,8 +11,9 @@ const MyModal = () => {
   const [text, setText] = useState("");
   const { myToast } = useToast();
   const { callback, close } = usePageContext();
-  const [rowData, setRowData] = useState();
+  const [rowData, setRowData] = useState<any[]>([]);
   const gridRef = useRef<AgGridReact>(null);
+  const [gridApi, setGridApi] = useState<any>(null);
 
   useEffect(() => {
     fetch("https://www.ag-grid.com/example-assets/row-data.json")
@@ -23,6 +24,16 @@ const MyModal = () => {
       console.log("최루팡 다이");
     };
   }, []);
+
+  const onGridReady = (params: any) => {
+    setGridApi(params.api);
+  };
+
+  useEffect(() => {
+    if (gridApi) {
+      gridApi.setGridOption("rowData", rowData);
+    }
+  }, [rowData, gridApi]);
 
   const columns: ColDef[] = [
     {
@@ -63,6 +74,7 @@ const MyModal = () => {
   const defaultColDef: ColDef = {
     sortable: true,
     filter: true,
+    editable: true,
   };
 
   const cellClickedListener = (e: CellClickedEvent) => {
@@ -122,7 +134,8 @@ const MyModal = () => {
           onCellClicked={cellClickedListener}
           domLayout='autoHeight'
           pagination={true}
-          paginationPageSize={10}
+          paginationPageSize={20}
+          onGridReady={onGridReady}
         ></AgGridReact>
       </div>
     </>
