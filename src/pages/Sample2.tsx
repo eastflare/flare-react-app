@@ -1,8 +1,9 @@
-import { usePageContext } from 'contexts/cmn/PageContext';
-import { useEffect, useState } from 'react';
+import { BlueButton } from "components/buttons/CustomButton";
+import { usePageContext } from "contexts/cmn/PageContext";
+import { useEffect, useState } from "react";
 
 const Sample2 = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const { params, callback } = usePageContext();
 
   useEffect(() => {
@@ -13,20 +14,16 @@ const Sample2 = () => {
     <div>
       <h2>Sample2</h2>
       <p>Sample2</p>
-      <input
-        type='text'
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <button
+      <input type='text' value={input} onChange={e => setInput(e.target.value)} />
+      <BlueButton
         type='button'
-        onClick={e => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault;
           callback(2, "sample2에서 콜백보냄");
         }}
       >
         콜백
-      </button>
+      </BlueButton>
     </div>
   );
 };

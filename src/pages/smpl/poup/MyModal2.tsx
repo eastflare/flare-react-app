@@ -1,8 +1,8 @@
-import { modals } from "components/cmn/Layout/Modals";
 import { useEffect, useState } from "react";
 import useToast from "hooks/cmn/useToast";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { usePageContext } from "contexts/cmn/PageContext";
+import { BlueButton } from "components/buttons/CustomButton";
 
 const MyModal = () => {
   const { openModal } = usePageNavigate();
@@ -64,18 +64,18 @@ const MyModal = () => {
         <li>(향후)Sam송(미국출장시)</li>
       </ul>
       <div>
-        <button onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
+        <BlueButton onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
           요시키 에서 전선배
-        </button>
-        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
+        </BlueButton>
+        <BlueButton onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
-        </button>
-        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
+        </BlueButton>
+        <BlueButton onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
-        </button>
-        <button onClick={handleClickAlert} onGotPointerCapture={handleClickAlert}>
+        </BlueButton>
+        <BlueButton onClick={handleClickAlert} onGotPointerCapture={handleClickAlert}>
           얼럿창
-        </button>
+        </BlueButton>
       </div>
     </>
   );

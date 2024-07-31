@@ -10,19 +10,12 @@ interface TaskRoutesProps {
 }
 
 function DrawPageRoutes({ openedPageMap, routesProps, curPageId }: TaskRoutesProps) {
-  //console.log("나는pageMap입니다.", openedPageMap);
   //console.log("나는curRouteId입니다.", curPageId);
   return (
     <>
       <Suspense fallback=''>
         {Array.from(openedPageMap.entries()).map(([key, value]) => (
-          <DrawPageRoute
-            key={key}
-            {...value?.element?.props}
-            routesProps={routesProps}
-            pageItem={value}
-            display={key === curPageId}
-          />
+          <DrawPageRoute key={key} {...value?.element?.props} routesProps={routesProps} pageItem={value} display={key === curPageId} />
         ))}
       </Suspense>
     </>

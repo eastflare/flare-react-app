@@ -1,16 +1,19 @@
+import { Env } from "config/env";
 import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
-import { ReactElement, ReactNode, useMemo, useState } from "react";
+import { ReactElement, ReactNode, useMemo } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
 import usePageCallbackStore from "store/pageCallbackStore";
 import usePageMapStore, { OpenTypeCode } from "store/pageMapStore";
 import usePageRouteStore from "store/pageRouteStore";
-import extractor from "utils/extractorUtil";
 
-//const MAX_PAGE_SIZE = 10;
+const env = Env.getInstance();
+const isWindow = env.isWindow;
+const isMdi = env.isWindow ? false : env.isMdi;
+const maxPageTabSize = isMdi ? env.maxPageTabSize : 2;
 
 const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const { pageRoutes, setPageRoutes } = usePageRouteStore();
-  const { pageMap, curPageId, setPageItem, setCurPageId } = usePageMapStore();
+  const { pageMap, curPageId, setPageItem, setMasterPageItem, setDetailPageItem } = usePageMapStore();
   const { getPageCallback } = usePageCallbackStore();
   const { pathname, search } = useLocation();
   const [searchParams] = useSearchParams();
@@ -50,6 +53,8 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const initRoutesObj = useCallback(() => {
     //전체 Route를 Object<id, element> 형태의 맵으로 재구성한다.
     if (Object.keys(pageRoutes)?.length === 0) {
+      console.log("실행샐행 --->", ...routes);
+
       startTransition(() => {
         setPageRoutes(
           Object.assign(
@@ -71,15 +76,10 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   useEffect(initRoutesObj, [initRoutesObj]);
 
   const openPageRoute = useCallback(() => {
-    //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬
-    const pathParamsObj = matchedRoute ? matchedRoute.params : {};
-    const searchParamsObj = Object.fromEntries(searchParams);
-    const mergedParamsObj = { ...pathParamsObj, ...searchParamsObj };
-    const params = Object.fromEntries(
-      Object.entries(mergedParamsObj)
-        .filter(([key]) => key !== "title" && key !== "pageId" && key !== "openTypeCode")
-        .map(([key, value]) => [key, decodeURIComponent(value ?? "")])
-    );
+    //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬 (callback function 은 없음)
+    const pathParams = matchedRoute ? matchedRoute.params : {};
+    const { title, detailYn, openTypeCode, ...restSearchParams } = Object.fromEntries(searchParams);
+    const params = { ...pathParams, ...restSearchParams };
 
     //임시 페이지명을 path의 마지막 글자로 변경
     const label = decodeURIComponent(pathname.split("/").pop() || "Home");
@@ -91,7 +91,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       let openTypeCode = OpenTypeCode.PAGE;
       let callback = () => {};
 
-      if (extractor.getQueryParameterValue("openTypeCode") === "WINDOW") {
+      if (isWindow) {
         //파라메터의 openTypeCode=WINDOW 파라메터로 오면 pageItem의 openTypeCode 를 WINDOW 로 변경한다.
         openTypeCode = OpenTypeCode.WINDOW;
 
@@ -103,7 +103,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       } else {
         //페이지일 경우 Callback 처리
         const pageCallback = (...args: any[]) => {
-          const tmpCallback = getPageCallback(searchParamsObj.pageId);
+          const tmpCallback = getPageCallback(pageId);
           console.log("페이지 Callback 입니다.", tmpCallback);
           if (typeof tmpCallback === "function") {
             return tmpCallback(...args);
@@ -112,8 +112,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         callback = pageCallback;
       }
 
-      //메뉴를 클릭하거나 Windows Popup 화면일 경우 Zustand에다 Page정보를 입력한다.
-      setPageItem(pageId, {
+      const pageItem = {
         openTypeCode: openTypeCode,
         id: pageId,
         label: label,
@@ -123,9 +122,18 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         params: params,
         element: curRouteItem.element as ReactElement,
         callback: callback,
-      });
+      };
 
-      setCurPageId(pageId);
+      if (isMdi) {
+        //메뉴를 클릭하거나 Windows Popup 화면일 경우 Zustand에다 Page정보를 입력한다.
+        setPageItem(pageId, pageItem);
+      } else {
+        if (detailYn === "Y") {
+          setDetailPageItem(pageId, pageItem);
+        } else {
+          setMasterPageItem(pageId, pageItem);
+        }
+      }
     }
   }, [pathname, search, curRouteItem]);
 

@@ -1,4 +1,4 @@
-import { modals } from "components/cmn/Layout/Modals";
+import { BlueButton } from "components/buttons/CustomButton";
 import { usePageContext } from "contexts/cmn/PageContext";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { useEffect, useState } from "react";
@@ -30,25 +30,25 @@ const Sample1 = () => {
       <h2>Sample1</h2>
       <p>Sample1</p>
       <input type='text' value={input} onChange={e => setInput(e.target.value)} />
-      <button
+      <BlueButton
         type='button'
-        onClick={e => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault;
           callback(1, "sample1에서 콜백보냄");
         }}
       >
         콜백
-      </button>
-      <button
+      </BlueButton>
+      <BlueButton
         type='button'
-        onClick={e => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault;
           close();
         }}
       >
         닫기
-      </button>
-      <button onClick={handleClick1}>전선배</button>
+      </BlueButton>
+      <BlueButton onClick={handleClick1}>전선배</BlueButton>
     </div>
   );
 };

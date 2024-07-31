@@ -3,14 +3,19 @@ import TopMenu from "./TopMenu";
 import LeftMenu from "./LeftMenu";
 import styled from "@emotion/styled";
 import PageTopBar from "./PageTopBar";
+import { BgColor } from "ui/theme/Color";
+import { Env } from "config/env";
+
+const env = Env.getInstance();
+const isMdi = env.isMdi;
 
 const MainContainer = (props: { children: ReactNode }) => {
   //메인 화면의 레이아웃 구성
   //상단메뉴, 좌측메뉴, 화면영역은 children : Routes 객체임
+  console.log("이즈엡디아이", isMdi);
 
   const { children } = props;
   const [isLeftCollapsed, setIsLeftCollapsed] = useState(false);
-  const showPageTopBar = true;
 
   const handleToggleLeftMenu = () => {
     setIsLeftCollapsed(prevState => !prevState);
@@ -26,8 +31,8 @@ const MainContainer = (props: { children: ReactNode }) => {
           <LeftMenu />
         </StyledMainLeft>
         <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
-          {showPageTopBar ? <PageTopBar /> : null}
-          <StyledMainPage id='mainBody' showPageTopBar={showPageTopBar}>
+          {isMdi ? <PageTopBar /> : null}
+          <StyledMainPage id='mainBody' showPageTopBar={isMdi}>
             {children}
           </StyledMainPage>
         </StyledMainRight>
@@ -60,12 +65,10 @@ const StyledMainBody = styled.div`
 const StyledMainLeft = styled.div<{ isCollapsed: boolean }>`
   width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "150px")};
   min-width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "150px")};
-  transition: all 0.2s ease-out;
-  border-right: 1px solid #32cd32;
-  background-color: #f0f0f0;
-  box-shadow: 0 8px 8px #00000026;
-  display: flex;
-  flex-direction: column;
+  transition: 0.3s;
+  border-right: 1px solid #ddd;
+  background-color: ${BgColor.Gray50};
+  position: relative;
   overflow-x: hidden;
   overflow-y: auto;
 `;

@@ -1,10 +1,19 @@
+import { Env } from "config/env";
 import MainRoutes from "./MainRoutes";
 import styled from "@emotion/styled";
+import WindowContainer from "components/cmn/Layout/WindowContainer";
+import MainContainer from "components/cmn/Layout/MainContainer";
+
+const env = Env.getInstance();
+const isWindow = env.isWindow;
+const PageContainer = isWindow ? WindowContainer : MainContainer;
 
 const MainRouter = () => {
   return (
     <StyledMainContainer>
-      <MainRoutes />
+      <PageContainer>
+        <MainRoutes />
+      </PageContainer>
     </StyledMainContainer>
   );
 };

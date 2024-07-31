@@ -1,14 +1,20 @@
+import { BlueButton } from "components/buttons/CustomButton";
+import { Env } from "config/env";
 import { usePageContext } from "contexts/cmn/PageContext";
+import usePageNavigate from "hooks/cmn/usePageNavigate";
 import useToast from "hooks/cmn/useToast";
 import { useEffect, useState } from "react";
 
 const MyModal = () => {
   const { callback, close } = usePageContext();
+  const { openModal } = usePageNavigate();
   const [text, setText] = useState("");
   const { myToast } = useToast();
 
   useEffect(() => {
     console.log("국민사기꾼 렌더링");
+    const env = Env.getInstance();
+    console.log("iswindow...?", env.isWindow);
     return () => {
       console.log("국민사기꾼 다이");
     };
@@ -18,6 +24,19 @@ const MyModal = () => {
     callback("Faker는", "역삼 GS타워로", "8월달에 투입됩니다.");
     myToast("saved");
     close();
+  };
+
+  const openYoshiki = () => {
+    openModal(
+      "/MyModal1",
+      {
+        foo: "bar",
+        callback: () => {
+          alert("매튜 뭐하는 사람인가요?");
+        },
+      },
+      { width: 800, height: 600 }
+    );
   };
 
   const handleClickCancel = () => {
@@ -53,15 +72,18 @@ const MyModal = () => {
         <li>컵8개 이상</li>
       </ul>
       <div>
-        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
+        <BlueButton onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
-        </button>
-        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
+        </BlueButton>
+        <BlueButton onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
-        </button>
-        <button onClick={handleClickAlert} onGotPointerCapture={handleClickAlert}>
+        </BlueButton>
+        <BlueButton onClick={handleClickAlert} onGotPointerCapture={handleClickAlert}>
           얼럿창
-        </button>
+        </BlueButton>
+        <BlueButton onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
+          요시키 에서 전선배
+        </BlueButton>
       </div>
     </>
   );

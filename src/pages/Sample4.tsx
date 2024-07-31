@@ -1,3 +1,4 @@
+import { BlueButton } from "components/buttons/CustomButton";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { useEffect, useState } from "react";
 //import { useParams } from "react-router-dom";
@@ -15,15 +16,15 @@ const Sample4 = () => {
       <h2>Sample4 : ID를 pathVariable로 수신함</h2>
       <p>id: {params.id} </p>
       <input type='text' value={input} onChange={e => setInput(e.target.value)} />
-      <button
+      <BlueButton
         type='button'
-        onClick={e => {
+        onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault;
           callback(4, "sample4에서 콜백보냄");
         }}
       >
         콜백
-      </button>
+      </BlueButton>
     </div>
   );
 };

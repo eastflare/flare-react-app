@@ -1,21 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ModalItem, OpenTypeCode, PageItem, WindowItem } from "store/pageMapStore";
 import { openWindow } from "utils/windowUtil";
 import usePageTab from "./usePageTab";
 
 const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
-  const {
-    openTypeCode = OpenTypeCode.PAGE,
-    params = {},
-    options = {},
-    callback = () => {},
-  } = props.pageItem;
-  const { onPageTabClose } = usePageTab();
+  const { openTypeCode = OpenTypeCode.PAGE, params = {}, options = {}, callback = () => {} } = props.pageItem;
 
+  const { onPageTabClose } = usePageTab();
   const [modals, setModals] = useState<ModalItem[]>([]); // Destructure the tuple correctly
+  const [refreshCount, setRefreshCount] = useState(0);
   const addModal = (modalProps: ModalItem) => {
     setModals(prev => [...prev, modalProps]);
   };
+
+  // Function to decode all values in the params object
+  const decodeParams = (params: { [key: string]: string }) => {
+    const decodedParams: { [key: string]: string } = {};
+    for (const [key, value] of Object.entries(params)) {
+      decodedParams[key] = decodeURIComponent(value);
+    }
+    return decodedParams;
+  };
+
+  // Decoding the params
+  const decodedParams = useMemo(() => decodeParams(params), [params]);
 
   useEffect(() => {
     console.log("모달 키 리스트", modals);
@@ -49,22 +57,11 @@ const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
     openWindow(windowProps);
   };
 
-  // setPageItem(pageId, {
-  //   openTypeCode : OpenTypeCode.PAGE,
-  //   id: pageId,
-  //   label: label,
-  //   pathname: pathname,
-  //   search: search,
-  //   routePath: routepath,
-  //   //options: {},
-  //   params: params,
-  //   element: curRouteItem.element as ReactElement,
-  //   callback: callbackWithParams,
-  // });
-
   const getPageProviderProps = () => ({
     openTypeCode,
-    params,
+    refreshCount,
+    setRefreshCount,
+    params: decodedParams,
     options,
     callback,
     modals,

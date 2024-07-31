@@ -7,6 +7,7 @@ type Object = {
 
 export enum OpenTypeCode {
   PAGE = "PAGE",
+  DETAIL = "DETAIL",
   MODAL = "MODAL",
   MODELESS = "MODELESS",
   WINDOW = "WINDOW",
@@ -19,6 +20,7 @@ export enum OpenPopupTypeCode {
 
 export type CallbackFunction<T = any, R = any> = (...args: T[]) => R;
 export type CloseFunction = () => void;
+export type PopupFunction = () => void;
 
 export interface PageItem {
   openTypeCode: OpenTypeCode;
@@ -61,13 +63,16 @@ interface PageMapStore {
   curPageId: string;
   setCurPageId: (id: string) => void;
   setPageItem: (id: string, obj: PageItem) => void;
+  getPageItem: (id: string) => PageItem | undefined;
   deletePageItem: (id: string) => void;
   resetPageMap: () => void;
+  setMasterPageItem: (id: string, obj: PageItem) => void;
+  setDetailPageItem: (id: string, obj: PageItem) => void;
 }
 
-const usePageMapStore = create<PageMapStore>(set => ({
+const usePageMapStore = create<PageMapStore>((set, get) => ({
   pageMap: new Map(),
-  curPageId: "/",
+  curPageId: "",
   setCurPageId: id => set({ curPageId: id }),
 
   setPageItem: (id, obj) =>
@@ -76,8 +81,10 @@ const usePageMapStore = create<PageMapStore>(set => ({
       const newMap = new Map(state.pageMap);
       newMap.set(id, obj);
       console.log("나는 추가됨", newMap);
-      return { pageMap: newMap };
+      return { pageMap: newMap, curPageId: id };
     }),
+
+  getPageItem: id => get().pageMap.get(id),
 
   deletePageItem: id =>
     set(state => {
@@ -86,7 +93,42 @@ const usePageMapStore = create<PageMapStore>(set => ({
       return { pageMap: newMap };
     }),
 
-  resetPageMap: () => set({ pageMap: new Map() }),
+  resetPageMap: () =>
+    set(state => {
+      // Keep only the entry with id '/'
+      const newMap = new Map();
+      if (state.pageMap.has("/")) {
+        newMap.set("/", state.pageMap.get("/"));
+      }
+      return { pageMap: newMap, curPageId: "/" };
+    }),
+
+  setMasterPageItem: (id: string, obj: PageItem) =>
+    set(() => {
+      const newMap = new Map();
+      newMap.set(id, obj);
+      return { pageMap: newMap, curPageId: id };
+    }),
+
+  setDetailPageItem: (id, obj) =>
+    set(state => {
+      const newMap = new Map(state.pageMap);
+      const entries = Array.from(newMap.entries());
+
+      if (entries.length <= 1) {
+        // If there are no items, add the new item as the first item
+        newMap.set(id, obj);
+      } else {
+        // If there are already two items, replace the second item
+        const firstItem = entries[0];
+        newMap.clear();
+        newMap.set(firstItem[0], firstItem[1]);
+        newMap.set(id, obj);
+      }
+
+      console.log("나는 두 번째 항목으로 추가됨", newMap);
+      return { pageMap: newMap, curPageId: id };
+    }),
 }));
 
 export default usePageMapStore;

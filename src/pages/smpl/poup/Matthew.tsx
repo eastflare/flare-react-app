@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import useToast from "hooks/cmn/useToast";
 import { usePageContext } from "contexts/cmn/PageContext";
+import { BlueButton } from "components/buttons/CustomButton";
 
 const MatthewDiv = styled.div`
   width: 100%;
@@ -55,12 +56,12 @@ const MyModal = () => {
         <li>선택받은 아이</li>
       </ul>
       <div>
-        <button onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
+        <BlueButton onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>
           확인
-        </button>
-        <button onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
+        </BlueButton>
+        <BlueButton onClick={handleClickCancel} onGotPointerCapture={handleClickCancel}>
           취소
-        </button>
+        </BlueButton>
       </div>
     </MatthewDiv>
   );

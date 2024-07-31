@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import styled from "@emotion/styled";
-import PageTopBar from "./PageTopBar";
 
 const WindowContainer = (props: { children: ReactNode }) => {
   //메인 화면의 레이아웃 구성
@@ -14,7 +13,6 @@ const WindowContainer = (props: { children: ReactNode }) => {
     <StyledMainContainer>
       <StyledMainBody>
         <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
-          {showPageTopBar ? <PageTopBar /> : null}
           <StyledMainPage showPageTopBar={showPageTopBar}>{children}</StyledMainPage>
         </StyledMainRight>
       </StyledMainBody>
@@ -46,8 +44,7 @@ const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
 
 const StyledMainPage = styled.div<{ showPageTopBar: boolean }>`
   width: 100%;
-  height: ${({ showPageTopBar }) =>
-    showPageTopBar ? "calc(100% -150px)" : "100%"}; //PageTopBar 높이 만큼 빼줌
+  height: ${({ showPageTopBar }) => (showPageTopBar ? "calc(100% -150px)" : "100%")}; //PageTopBar 높이 만큼 빼줌
   padding: 0;
 `;
 

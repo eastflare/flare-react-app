@@ -32,7 +32,6 @@ const StyleRnd = styled.div<{ isDragging?: boolean }>`
   height: 100%;
   display: flex;
   flex-direction: column;
-  border-radius: 4px;
   margin: 0px;
   border: ${props => {
     if (props.isDragging) {
@@ -72,7 +71,6 @@ const StyleRndHeader = styled.div<{ isDragging?: boolean; isMaximized?: boolean 
   justify-content: space-between;
   align-items: center;
   padding: 0 8px;
-  border-radius: 4px 4px 0 0;
 `;
 
 const StyleRndHeaderTitle = styled.span`
@@ -109,7 +107,6 @@ const StyleRndBody = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2px 8px 4px;
-  border-radius: 0 0 4px 4px;
   overflow: auto;
   background: white;
   & > div {
@@ -125,7 +122,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const element = modalItem.element.props.element;
+  const element = modalItem.element;
   const isModal = modalItem.openTypeCode === "MODAL";
 
   const [state, setState] = useState<State>({
@@ -166,7 +163,10 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     const topBar = document.getElementById("topBar") ?? null;
     const mainBody = document.getElementById("mainBody") ?? null;
 
-    let topBarBottom, mainBodyTop, leftMenuRight, mainBodyLeft;
+    let topBarBottom = 0,
+      mainBodyTop = 0,
+      leftMenuRight = 0,
+      mainBodyLeft = 0;
 
     if (leftMenu) {
       leftMenuRight = leftMenu.getBoundingClientRect().right;
@@ -252,11 +252,40 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   };
 
   const onDragStop: RndDragCallback = (_: DraggableEvent, data: DraggableData) => {
+    let { x, y } = data;
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const leftMenuL = document.getElementById("leftMenu")?.offsetWidth ?? 0;
+    const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
+    const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
+    const width = typeof state.width === "number" ? state.width : parseInt(state.width);
+
+    // 화면의 좌측을 벗어나는 경우
+    if (x + width < -leftMenuL) {
+      x = -width;
+    }
+
+    // 화면의 우측을 벗어나는 경우
+    if (x > screenWidth - leftMenuL - 10) {
+      x = screenWidth + leftMenuL - width / 2;
+    }
+
+    // 화면의 상단을 벗어나는 경우
+    if (y < -(topMenuL + topBarL)) {
+      y = -(topMenuL + topBarL);
+    }
+
+    // 화면의 하단을 벗어나는 경우
+    if (y > screenHeight - (topMenuL + topBarL)) {
+      y = screenHeight - (topMenuL + topBarL) - 35;
+    }
+
     setState(prevState => ({
       ...prevState,
-      x: data.x,
-      y: data.y,
+      x: x,
+      y: y,
     }));
+
     setIsDragging(false);
   };
 
