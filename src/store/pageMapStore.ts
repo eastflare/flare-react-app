@@ -68,6 +68,7 @@ interface PageMapStore {
   resetPageMap: () => void;
   setMasterPageItem: (id: string, obj: PageItem) => void;
   setDetailPageItem: (id: string, obj: PageItem) => void;
+  setTabsOrder: (newOrder: string[]) => void;
 }
 
 const usePageMapStore = create<PageMapStore>((set, get) => ({
@@ -128,6 +129,18 @@ const usePageMapStore = create<PageMapStore>((set, get) => ({
 
       console.log("나는 두 번째 항목으로 추가됨", newMap);
       return { pageMap: newMap, curPageId: id };
+    }),
+
+  setTabsOrder: newOrder =>
+    set(state => {
+      const newMap = new Map<string, PageItem>();
+      newOrder.forEach(id => {
+        const item = state.pageMap.get(id);
+        if (item) {
+          newMap.set(id, item);
+        }
+      });
+      return { pageMap: newMap };
     }),
 }));
 
