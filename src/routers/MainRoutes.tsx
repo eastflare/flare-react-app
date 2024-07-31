@@ -3,7 +3,7 @@ import { Env } from "config/env";
 import { lazy } from "react";
 import PageRoutes from "components/cmn/Layout/PageRoutes";
 import Home from "pages/HomePage";
-import FormPage from "pages/FormPage";
+
 //const Home = lazy(() => import("pages/HomePage"));
 const About = lazy(() => import("pages/About"));
 const Services = lazy(() => import("pages/Services"));
@@ -17,6 +17,7 @@ const Sample6 = lazy(() => import("pages/Sample6"));
 const NoPage = lazy(() => import("pages/NoPage"));
 const MyModal3 = lazy(() => import("pages/smpl/poup/MyModal3"));
 const GridPage = lazy(() => import("pages/GridPage"));
+const FormPage = lazy(() => import("pages/FormPage"));
 const MyModal1 = lazy(() => import("pages/smpl/poup/MyModal1"));
 const MyModal2 = lazy(() => import("pages/smpl/poup/MyModal2"));
 const Matthew = lazy(() => import("pages/smpl/poup/Matthew"));

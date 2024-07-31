@@ -1,11 +1,10 @@
 import Form from 'components/Form';
-import { FormElement } from 'models/form'
-import { useState } from 'react';
+import { IFormElement } from 'models/form'
+import { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
 
 const FormPage = () => {
-  const [formMode, setFormMode] = useState('modify');
 
-  const elements: FormElement[] = [
+  const elements: IFormElement[] = [
     {
       id: 'firstName',
       name: 'First Name',
@@ -46,7 +45,7 @@ const FormPage = () => {
     },
   ]
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: FieldValues) => {
     console.log(data);
   }
 
