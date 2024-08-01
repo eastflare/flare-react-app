@@ -139,6 +139,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const [isMinimized, setIsMinimized] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
 
+  const rndRef = useRef<Rnd>(null);
+
   const originalSize = useRef({
     width: modalItem.options?.width ?? 800,
     height: modalItem.options?.height ?? 600,
@@ -156,6 +158,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     globalMaxZIndex += 1;
     setZIndex(globalMaxZIndex);
     setOverlayZIndex(globalMaxZIndex - 1);
+
     const leftMenuL = document.getElementById("leftMenu")?.offsetWidth ?? 0;
     const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
     const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
@@ -200,24 +203,41 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
     const posX = (screenWidth - modalWidth) / 2 - (leftMenuWidth + distanceWidth);
     const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + topBarHeight + distanceHeight);
-
-    setState(prevState => ({
-      ...prevState,
-      x: posX,
-      y: posY,
-    }));
+    if (state.x === 0 && state.y === 0) {
+      setState(prevState => ({
+        ...prevState,
+        x: posX,
+        y: posY,
+      }));
+    }
   }, [leftMenuWidth, topMenuHeight, topBarHeight, distanceHeight, distanceWidth]);
 
-  useEffect(() => {
-    globalMaxZIndex += 1;
-    setZIndex(globalMaxZIndex);
-    setOverlayZIndex(globalMaxZIndex - 1);
+  const getHighestZIndexElement = () => {
+    const allRndElements = document.querySelectorAll(".myRnd");
+    let highestZIndex = 0;
+    let highestElement: Element | null = null;
 
+    allRndElements.forEach(element => {
+      const zIndex = parseInt(window.getComputedStyle(element).zIndex || "0", 10);
+      if (zIndex > highestZIndex) {
+        highestZIndex = zIndex;
+        highestElement = element;
+      }
+    });
+
+    return highestElement;
+  };
+
+  useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        onClose();
+        const highestElement = getHighestZIndexElement();
+        if (highestElement && highestElement === rndRef.current?.resizableElement.current) {
+          onClose();
+        }
       }
     };
+
     document.addEventListener("keydown", handleKeyDown);
 
     return () => {
@@ -228,9 +248,15 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   useEffect(() => {
     const unListenHistoryEvent = history.listen(({ action }) => {
       if (action !== "POP") return;
-      onClose();
+
+      const highestElement = getHighestZIndexElement();
+      if (highestElement && highestElement === rndRef.current?.resizableElement.current) {
+        onClose();
+      }
+
       navigate(pathname, { replace: true });
     });
+
     return unListenHistoryEvent;
   }, []);
 
@@ -309,6 +335,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
   const onClose = () => {
     if (modalItem) {
+      console.log("modalItem", modalItem);
       modalItem.closeModal?.();
     }
   };
@@ -372,7 +399,20 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   return (
     <PageProvider value={{ ...getPageProviderProps() }}>
       {isModal && <Overlay topHeight={0} leftWidth={0} overlayZIndex={overlayZIndex} onClick={onClose} />}
-      <Rnd dragHandleClassName={"handle"} size={{ height, width }} position={{ x, y }} style={{ zIndex }} onDragStart={onDragStart} onDragStop={onDragStop} onResize={onResize} onResizeStop={onResizeStop} minHeight={50} minWidth={200}>
+      <Rnd
+        className='myRnd'
+        dragHandleClassName={"handle"}
+        size={{ height, width }}
+        position={{ x, y }}
+        style={{ zIndex }}
+        onDragStart={onDragStart}
+        onDragStop={onDragStop}
+        onResize={onResize}
+        onResizeStop={onResizeStop}
+        minHeight={50}
+        minWidth={200}
+        ref={rndRef}
+      >
         <StyleRnd isDragging={isDragging}>
           <StyleRndHeader isDragging={isDragging} isMaximized={isMaximized} className='handle'>
             <StyleRndHeaderTitle>{modalItem?.label ?? "Drag"}</StyleRndHeaderTitle>

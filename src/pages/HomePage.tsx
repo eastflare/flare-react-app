@@ -31,6 +31,15 @@ const HomePage = () => {
     );
   };
 
+  const handleClickGrid = () => {
+    openPage("/grid", {
+      foo: "bar",
+      callback: () => {
+        alert("그리드 뭐하는 사람인가요?");
+      },
+    });
+  };
+
   const handleClickJscho128 = () => {
     openModal(
       "/sample5/jscho128/조XX",
@@ -45,16 +54,25 @@ const HomePage = () => {
   };
 
   const handleClick = () => {
-    openModeless(
+    openModal(
       "/MyModal",
       {
         foo: "bar",
         callback: () => {
-          alert("전선배 뭐하는 사람인가요?");
+          alert("월급루팡 뭐하는 사람인가요?");
         },
       },
       { width: 800, height: 600 }
     );
+  };
+
+  const handleClickLupang = () => {
+    openPage("/MyModal", {
+      foo: "bar",
+      callback: () => {
+        alert("월급루팡 뭐하는 사람인가요?");
+      },
+    });
   };
 
   const handleClick1 = () => {
@@ -63,7 +81,7 @@ const HomePage = () => {
       {
         foo: "bar",
         callback: () => {
-          alert("월급루팡 뭐하는 사람인가요?");
+          alert("전선배 뭐하는 사람인가요?");
         },
       },
       { width: 800, height: 600 }
@@ -152,8 +170,10 @@ const HomePage = () => {
       <input type='text' value={input2} onChange={e => setInput2(e.target.value)} />
       <br />
       <BlueButton onClick={handleClickMatthew}>Matthew</BlueButton>
+      <BlueButton onClick={handleClickGrid}>grid</BlueButton>
       <GreyButton onClick={handleClickJscho128}>조XX</GreyButton>
       <BlueLineButton onClick={handleClick}>월급루팡</BlueLineButton>
+      <BlueLineButton onClick={handleClickLupang}>월급루팡상세</BlueLineButton>
       <GreyLineButton onClick={handleClick1}>전선배</GreyLineButton>
       <BlueButton onClick={handleClick8}>전선배상세1</BlueButton>
       <GreyButton onClick={handleClick2}>요시키상</GreyButton>
