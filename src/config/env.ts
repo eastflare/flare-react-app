@@ -1,5 +1,6 @@
-import { IEnv, TNodeEnv, isTNodeEnv } from "./env.types";
+import { DeviceTypeCode, IEnv, TNodeEnv, isTNodeEnv } from "./env.types";
 import { readEnv, parseBoolean, readBooleanEnv, readNumberEnv, parseNumber } from "./env.util";
+import { isMobile, isTablet, isBrowser } from "react-device-detect";
 import isArray from "lodash-es/isArray";
 import { sha256 } from "utils/rapUtil";
 import extractor from "utils/extractorUtil";
@@ -12,14 +13,16 @@ export class Env {
   readonly loginPageAccessKey: string; //string예시
   readonly maxPageTabSize: number;
   readonly isWindow: boolean;
+  readonly deviceTypeCode: DeviceTypeCode;
 
   private constructor(env: IEnv) {
-    const { nodeEnv, isMdi, loginPageAccessKey, maxPageTabSize, isWindow } = env;
+    const { nodeEnv, isMdi, loginPageAccessKey, maxPageTabSize, isWindow, deviceTypeCode } = env;
     this.nodeEnv = nodeEnv;
     this.isMdi = isMdi;
     this.loginPageAccessKey = loginPageAccessKey;
     this.maxPageTabSize = maxPageTabSize;
     this.isWindow = isWindow;
+    this.deviceTypeCode = deviceTypeCode;
   }
 
   static async configure() {
@@ -47,12 +50,14 @@ export class Env {
     );
 
     const isWindow = await Env.getIsWindow();
+    const deviceTypeCode = await Env.getDeviceTypeCode();
     const env = new Env({
       nodeEnv,
       isMdi,
       loginPageAccessKey,
       maxPageTabSize,
       isWindow,
+      deviceTypeCode,
     });
 
     Env.instance = env;
@@ -69,6 +74,17 @@ export class Env {
       return true;
     } else {
       return false;
+    }
+  }
+
+  static async getDeviceTypeCode() {
+
+    if(isMobile){
+      return DeviceTypeCode.MOBILE;
+    } else if (isTablet){
+      return DeviceTypeCode.TABLET;
+    } else {
+      return DeviceTypeCode.DESKTOP;
     }
   }
 

@@ -1,12 +1,12 @@
-import { isMobile, isTablet, isBrowser } from "react-device-detect";
+import { Env } from "config/env";
+
+const env = Env.getInstance();
 
 const DeviceDetact = () => {
   return (
     <div>
       현재 Device는
-      {isMobile && <p>Mobile Device</p>}
-      {isTablet && <p>Tablet Device</p>}
-      {isBrowser && <p>Browser Device</p>}
+      {env.deviceTypeCode}
       입니다.
     </div>
   );

@@ -1,11 +1,18 @@
 export type TGuardFunc<T extends string> = (input: string) => input is T;
 
+export enum DeviceTypeCode {
+  MOBILE = "MOBILE",
+  TABLET = "TABLET",
+  DESKTOP = "DESKTOP",
+}
+
 export interface IEnv {
   nodeEnv: TNodeEnv;
   isMdi: boolean;
   loginPageAccessKey: string;
   maxPageTabSize: number;
   isWindow: boolean;
+  deviceTypeCode: DeviceTypeCode;
 }
 
 export const NodeEnvKey = ["loc", "dev", "prd"] as const;
