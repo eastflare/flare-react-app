@@ -1,8 +1,8 @@
-import { lazy } from "react";
 import { Route } from "react-router-dom";
+import loadable from "@loadable/component";
 
-const About = lazy(() => import("pages/About"));
-const Services = lazy(() => import("pages/Services"));
+const About = loadable(() => import("pages/About"));
+const Services = loadable(() => import("pages/Services"));
 
 export default function AdminRoutes() {
   return (

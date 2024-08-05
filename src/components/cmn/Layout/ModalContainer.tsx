@@ -185,7 +185,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     }
 
     const distanceH = Math.abs(topBarBottom! - mainBodyTop!);
-    const distanceW = Math.abs(leftMenuRight! - mainBodyLeft!);
+    const distanceW = Math.abs(mainBodyLeft! - leftMenuRight!);
 
     setLeftMenuWidth(leftMenuL);
     setTopMenuHeight(topMenuL);
@@ -203,13 +203,12 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
     const posX = (screenWidth - modalWidth) / 2 - (leftMenuWidth + distanceWidth);
     const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + topBarHeight + distanceHeight);
-    if (state.x === 0 && state.y === 0) {
-      setState(prevState => ({
-        ...prevState,
-        x: posX,
-        y: posY,
-      }));
-    }
+
+    setState(prevState => ({
+      ...prevState,
+      x: posX,
+      y: posY,
+    }));
   }, [leftMenuWidth, topMenuHeight, topBarHeight, distanceHeight, distanceWidth]);
 
   const getHighestZIndexElement = () => {
