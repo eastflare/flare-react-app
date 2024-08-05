@@ -1,28 +1,28 @@
 import { Route } from "react-router-dom";
-import { lazy } from "react";
 import PageRoutes from "components/cmn/Layout/PageRoutes";
 import Home from "pages/HomePage";
+import loadable from "@loadable/component";
 
-//const Home = lazy(() => import("pages/HomePage"));
-const About = lazy(() => import("pages/About"));
-const Services = lazy(() => import("pages/Services"));
-const Contact = lazy(() => import("pages/Contact"));
-const Sample1 = lazy(() => import("pages/Sample1"));
-const Sample2 = lazy(() => import("pages/Sample2"));
-const Sample3 = lazy(() => import("pages/Sample3"));
-const Sample4 = lazy(() => import("pages/Sample4"));
-const Sample5 = lazy(() => import("pages/Sample5"));
-const Sample6 = lazy(() => import("pages/Sample6"));
-const NoPage = lazy(() => import("pages/NoPage"));
-const MyModal3 = lazy(() => import("pages/smpl/poup/MyModal3"));
-const GridPage = lazy(() => import("pages/GridPage"));
-const FormPage = lazy(() => import("pages/FormPage"));
-const MyModal1 = lazy(() => import("pages/smpl/poup/MyModal1"));
-const MyModal2 = lazy(() => import("pages/smpl/poup/MyModal2"));
-const Matthew = lazy(() => import("pages/smpl/poup/Matthew"));
-const MyModal = lazy(() => import("pages/smpl/poup/MyModal"));
-const MyModalGaeNullNull = lazy(() => import("pages/smpl/poup/MyModal"));
-const DeviceDetect = lazy(() => import("pages/DeviceDetect"));
+//const Home = loadable(() => import("pages/HomePage"));
+const About = loadable(() => import("pages/About"));
+const Services = loadable(() => import("pages/Services"));
+const Contact = loadable(() => import("pages/Contact"));
+const Sample1 = loadable(() => import("pages/Sample1"));
+const Sample2 = loadable(() => import("pages/Sample2"));
+const Sample3 = loadable(() => import("pages/Sample3"));
+const Sample4 = loadable(() => import("pages/Sample4"));
+const Sample5 = loadable(() => import("pages/Sample5"));
+const Sample6 = loadable(() => import("pages/Sample6"));
+const NoPage = loadable(() => import("pages/NoPage"));
+const MyModal3 = loadable(() => import("pages/smpl/poup/MyModal3"));
+const GridPage = loadable(() => import("pages/GridPage"));
+const FormPage = loadable(() => import("pages/FormPage"));
+const MyModal1 = loadable(() => import("pages/smpl/poup/MyModal1"));
+const MyModal2 = loadable(() => import("pages/smpl/poup/MyModal2"));
+const Matthew = loadable(() => import("pages/smpl/poup/Matthew"));
+const MyModal = loadable(() => import("pages/smpl/poup/MyModal"));
+const MyModalGaeNullNull = loadable(() => import("pages/smpl/poup/MyModal"));
+const DeviceDetect = loadable(() => import("pages/DeviceDetect"));
 
 const MainRoutes = () => {
   return (
