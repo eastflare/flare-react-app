@@ -1,11 +1,12 @@
 import useToast from "hooks/cmn/useToast";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { CellClickedEvent, ColDef } from "ag-grid-community";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
+import useEffectOnce from "hooks/cmn/useEffectOnce";
 
 const MyModal = () => {
   const [text, setText] = useState("");
@@ -15,6 +16,23 @@ const MyModal = () => {
   const gridRef = useRef<AgGridReact>(null);
   const [gridApi, setGridApi] = useState<any>(null);
 
+  // const init = async () => {
+  //   const response = await fetch("https://www.ag-grid.com/example-assets/row-data.json");
+  //   const result = await response.json();
+  //   setRowData(result);
+  //   console.log("조회되는겁니가?");
+  // };
+
+  // useEffectOnce(() => {
+  //   console.log("너는 뭡니까?once");
+  //   init();
+  // });
+  useEffect(() => {
+    console.log("순수한 useEffect");
+  }, []);
+  if (gridRef.current?.api.isDestroyed()) {
+    console.log("파괴되면 복구 불가능?");
+  }
   useEffect(() => {
     fetch("https://www.ag-grid.com/example-assets/row-data.json")
       .then(result => result.json())
@@ -25,57 +43,64 @@ const MyModal = () => {
     };
   }, []);
 
-  const onGridReady = (params: any) => {
-    setGridApi(params.api);
-  };
-
   useEffect(() => {
-    if (gridApi) {
+    if (gridApi && !gridApi.isDestroyed()) {
+      console.log("언제 찍히는 겁니까?");
       gridApi.setGridOption("rowData", rowData);
     }
   }, [rowData, gridApi]);
 
-  const columns: ColDef[] = [
-    {
-      width: 50,
-      headerCheckboxSelection: true,
-      checkboxSelection: true,
-      cellStyle: { textAlign: "center" },
-    },
-    {
-      headerName: "No",
-      width: 80,
-      cellStyle: { textAlign: "center" },
-      cellRenderer: (params: any) => {
-        return params.node.rowIndex + 1;
-      },
-    },
-    {
-      field: "make",
-      headerName: "메이커",
-      width: 150,
-      cellStyle: { textAlign: "left" },
-    },
-    {
-      field: "model",
-      headerName: "모델명",
-      width: 200,
-      cellStyle: { textAlign: "left" },
-      flex: 1,
-    },
-    {
-      field: "price",
-      headerName: "가격",
-      width: 200,
-      cellStyle: { textAlign: "right" },
-    },
-  ];
-
-  const defaultColDef: ColDef = {
-    sortable: true,
-    filter: true,
-    editable: true,
+  const onGridReady = (params: any) => {
+    console.log("언제 찍히는 겁니까?ready");
+    setGridApi(params.api);
+    gridRef.current?.api.sizeColumnsToFit();
   };
+
+  const columns = useMemo<ColDef[]>(() => {
+    return [
+      {
+        width: 50,
+        headerCheckboxSelection: true,
+        checkboxSelection: true,
+        cellStyle: { textAlign: "center" },
+      },
+      {
+        headerName: "No",
+        width: 80,
+        cellStyle: { textAlign: "center" },
+        cellRenderer: (params: any) => {
+          return params.node.rowIndex + 1;
+        },
+      },
+      {
+        field: "make",
+        headerName: "메이커",
+        width: 150,
+        cellStyle: { textAlign: "left" },
+      },
+      {
+        field: "model",
+        headerName: "모델명",
+        width: 200,
+        cellStyle: { textAlign: "left" },
+        flex: 1,
+      },
+      {
+        field: "price",
+        headerName: "가격",
+        width: 200,
+        cellStyle: { textAlign: "right" },
+      },
+    ];
+  }, []);
+
+  const defaultColDef = useMemo(() => {
+    return {
+      sortable: true,
+      filter: true,
+      editable: true,
+    };
+  }, []);
 
   const cellClickedListener = (e: CellClickedEvent) => {
     if (e.colDef.field === "price") {

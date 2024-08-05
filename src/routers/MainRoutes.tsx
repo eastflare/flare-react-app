@@ -22,6 +22,7 @@ const MyModal1 = lazy(() => import("pages/smpl/poup/MyModal1"));
 const MyModal2 = lazy(() => import("pages/smpl/poup/MyModal2"));
 const Matthew = lazy(() => import("pages/smpl/poup/Matthew"));
 const MyModal = lazy(() => import("pages/smpl/poup/MyModal"));
+const MyModalGaeNullNull = lazy(() => import("pages/smpl/poup/MyModal"));
 
 const MainRoutes = () => {
   return (
@@ -38,6 +39,7 @@ const MainRoutes = () => {
       <Route path='/sample6' element={<Sample6 />} />
       <Route path='/Matthew' element={<Matthew />} />
       <Route path='/MyModal' element={<MyModal />} />
+      <Route path='/MyModalGaeNullNull' element={<MyModalGaeNullNull />} />
       <Route path='/MyModal1' element={<MyModal1 />} />
       <Route path='/MyModal2' element={<MyModal2 />} />
       <Route path='/MyModal3' element={<MyModal3 />} />
