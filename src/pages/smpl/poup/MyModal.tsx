@@ -15,10 +15,6 @@ const MyModal = () => {
   const gridRef = useRef<AgGridReact>(null);
 
   useEffect(() => {
-    console.log("순수한 useEffect");
-  }, []);
-
-  useEffect(() => {
     fetch("https://www.ag-grid.com/example-assets/row-data.json")
       .then(result => result.json())
       .then(rowData => setRowData(rowData));

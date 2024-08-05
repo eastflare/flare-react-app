@@ -6,7 +6,6 @@ import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "store/pageMapStore";
 import PageModals from "./PageModals";
 import useWindowDimensions from "hooks/cmn/useWindowDimensions";
-import { Env } from "config/env";
 import PageHeaderLayout from "./PageHeaderLayout";
 
 interface DisplayRouteProps extends PathRouteProps {
@@ -15,9 +14,6 @@ interface DisplayRouteProps extends PathRouteProps {
   display?: boolean;
 }
 
-const env = Env.getInstance();
-const isMdi = env.isMdi;
-const isWindow = env.isWindow;
 let minusHeight = 0;
 
 function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }: DisplayRouteProps) {
@@ -30,11 +26,7 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
     //해당 페이지가 죽을때 callback 이 있으면 제거해 줘야함
     const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
     const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
-    if (isMdi) {
-      minusHeight = topMenuL + topBarL;
-    } else if (!isMdi && !isWindow) {
-      minusHeight = topMenuL + topBarL;
-    }
+    minusHeight = topMenuL + topBarL;
     return () => {
       //delPageCallback(pageItem.id);
     };

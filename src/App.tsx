@@ -1,7 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { Suspense } from "react";
 import Loading from "components/elements/Loading";
 import loadable from "@loadable/component";
 
@@ -15,14 +14,12 @@ const App = () => {
     <>
       <div className='app'>
         <BrowserRouter>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path='/ssoLogin' element={<SSOLoginRouter />} />
-              <Route path='/login' element={<LoginRouter />} />
-              <Route path='/fail/:message' element={<FailRouter />} />
-              <Route path='/*' element={<MainRouter />} />
-            </Routes>
-          </Suspense>
+          <Routes>
+            <Route path='/ssoLogin' element={<SSOLoginRouter />} />
+            <Route path='/login' element={<LoginRouter />} />
+            <Route path='/fail/:message' element={<FailRouter />} />
+            <Route path='/*' element={<MainRouter fallback={<Loading />} />} />
+          </Routes>
         </BrowserRouter>
       </div>
       <ToastContainer />

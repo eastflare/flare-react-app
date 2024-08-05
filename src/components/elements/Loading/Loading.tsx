@@ -61,10 +61,12 @@ const StyledLoading = styled.div<{
   row-gap: 8px;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   position: fixed;
-  z-index: 1000;
-  width: 100vw;
-  height: 100vh;
+  z-index: 5000;
+  width: 100%;
+  height: 100%;
   background-color: ${props => props.backgroundColor ?? "rgba(0, 0, 0, 0.2)"};
   transition: all 0.25s;
   & > div > div > svg {
