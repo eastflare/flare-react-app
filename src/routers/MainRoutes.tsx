@@ -2,27 +2,66 @@ import { Route } from "react-router-dom";
 import PageRoutes from "components/cmn/Layout/PageRoutes";
 import Home from "pages/HomePage";
 import loadable from "@loadable/component";
+import Loading from "components/elements/Loading";
 
 //const Home = loadable(() => import("pages/HomePage"));
-const About = loadable(() => import("pages/About"));
-const Services = loadable(() => import("pages/Services"));
-const Contact = loadable(() => import("pages/Contact"));
-const Sample1 = loadable(() => import("pages/Sample1"));
-const Sample2 = loadable(() => import("pages/Sample2"));
-const Sample3 = loadable(() => import("pages/Sample3"));
-const Sample4 = loadable(() => import("pages/Sample4"));
-const Sample5 = loadable(() => import("pages/Sample5"));
-const Sample6 = loadable(() => import("pages/Sample6"));
-const NoPage = loadable(() => import("pages/NoPage"));
-const MyModal3 = loadable(() => import("pages/smpl/poup/MyModal3"));
-const GridPage = loadable(() => import("pages/GridPage"));
-const FormPage = loadable(() => import("pages/FormPage"));
-const MyModal1 = loadable(() => import("pages/smpl/poup/MyModal1"));
-const MyModal2 = loadable(() => import("pages/smpl/poup/MyModal2"));
-const Matthew = loadable(() => import("pages/smpl/poup/Matthew"));
-const MyModal = loadable(() => import("pages/smpl/poup/MyModal"));
-const MyModalGaeNullNull = loadable(() => import("pages/smpl/poup/MyModal"));
-const DeviceDetect = loadable(() => import("pages/DeviceDetect"));
+const About = loadable(() => import("pages/About"), {
+  fallback: <Loading />,
+});
+const Services = loadable(() => import("pages/Services"), {
+  fallback: <Loading />,
+});
+const Contact = loadable(() => import("pages/Contact"), {
+  fallback: <Loading />,
+});
+const Sample1 = loadable(() => import("pages/Sample1"), {
+  fallback: <Loading />,
+});
+const Sample2 = loadable(() => import("pages/Sample2"), {
+  fallback: <Loading />,
+});
+const Sample3 = loadable(() => import("pages/Sample3"), {
+  fallback: <Loading />,
+});
+const Sample4 = loadable(() => import("pages/Sample4"), {
+  fallback: <Loading />,
+});
+const Sample5 = loadable(() => import("pages/Sample5"), {
+  fallback: <Loading />,
+});
+const Sample6 = loadable(() => import("pages/Sample6"), {
+  fallback: <Loading />,
+});
+const NoPage = loadable(() => import("pages/NoPage"), {
+  fallback: <Loading />,
+});
+const MyModal3 = loadable(() => import("pages/smpl/poup/MyModal3"), {
+  fallback: <Loading />,
+});
+const GridPage = loadable(() => import("pages/GridPage"), {
+  fallback: <Loading />,
+});
+const FormPage = loadable(() => import("pages/FormPage"), {
+  fallback: <Loading />,
+});
+const MyModal1 = loadable(() => import("pages/smpl/poup/MyModal1"), {
+  fallback: <Loading />,
+});
+const MyModal2 = loadable(() => import("pages/smpl/poup/MyModal2"), {
+  fallback: <Loading />,
+});
+const Matthew = loadable(() => import("pages/smpl/poup/Matthew"), {
+  fallback: <Loading />,
+});
+const MyModal = loadable(() => import("pages/smpl/poup/MyModal"), {
+  fallback: <Loading />,
+});
+const MyModalGaeNullNull = loadable(() => import("pages/smpl/poup/MyModal"), {
+  fallback: <Loading />,
+});
+const DeviceDetect = loadable(() => import("pages/DeviceDetect"), {
+  fallback: <Loading />,
+});
 
 const MainRoutes = () => {
   return (
