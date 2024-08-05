@@ -1,5 +1,4 @@
 import { Route } from "react-router-dom";
-import { Env } from "config/env";
 import { lazy } from "react";
 import PageRoutes from "components/cmn/Layout/PageRoutes";
 import Home from "pages/HomePage";
@@ -23,6 +22,7 @@ const MyModal2 = lazy(() => import("pages/smpl/poup/MyModal2"));
 const Matthew = lazy(() => import("pages/smpl/poup/Matthew"));
 const MyModal = lazy(() => import("pages/smpl/poup/MyModal"));
 const MyModalGaeNullNull = lazy(() => import("pages/smpl/poup/MyModal"));
+const DeviceDetect = lazy(() => import("pages/DeviceDetect"));
 
 const MainRoutes = () => {
   return (
@@ -43,6 +43,7 @@ const MainRoutes = () => {
       <Route path='/MyModal1' element={<MyModal1 />} />
       <Route path='/MyModal2' element={<MyModal2 />} />
       <Route path='/MyModal3' element={<MyModal3 />} />
+      <Route path='/DeviceDetect' element={<DeviceDetect />} />
       <Route path='/grid' element={<GridPage />} />
       <Route path='/form' element={<FormPage />} />
       <Route path='*' element={<NoPage />} />

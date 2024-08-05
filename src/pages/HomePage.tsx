@@ -121,6 +121,19 @@ const HomePage = () => {
     );
   };
 
+  const handleClickJp = () => {
+    openModal(
+      "/MyModal3",
+      {
+        foo: "bar",
+        callback: (a: string, b: string, c: string) => {
+          setInput1(a + b + c);
+        },
+      },
+      { width: 800, height: 400 }
+    );
+  };
+
   const handleClick4 = () => {
     openWindow(
       "/MyModal3",
@@ -169,28 +182,56 @@ const HomePage = () => {
       },
     });
   };
+  const handleClickDeviceDetect = () => {
+    openModal(
+      "/DeviceDetect",
+      {
+        foo: "bar",
+        callback: (deviceType: string) => {
+          alert("현재화면은 " + deviceType + "입니다.");
+        },
+      },
+      { width: 400, height: 300 }
+    );
+  };
 
   return (
     <>
       카공족1 Callback :
       <input type='text' value={input1} onChange={e => setInput1(e.target.value)} />
       <br />
+      <br />
       카공족2 Callback :
       <input type='text' value={input2} onChange={e => setInput2(e.target.value)} />
       <br />
-      <BlueButton onClick={handleClickMatthew}>Matthew</BlueButton>
-      <BlueButton onClick={handleClickGrid}>grid</BlueButton>
+      <br />
+      <GreyButton onClick={handleClickDeviceDetect}>DeviceDetect</GreyButton>
+      <br />
+      <br />
+      <GreyButton onClick={handleClickMatthew}>Matthew</GreyButton>
+      <BlueLineButton onClick={handleClickGrid}>grid</BlueLineButton>
+      <br />
+      <br />
       <GreyButton onClick={handleClickJscho128}>조XX</GreyButton>
-      <BlueLineButton onClick={handleClick}>월급루팡</BlueLineButton>
+      <br />
+      <br />
+      <GreyButton onClick={handleClick}>월급루팡</GreyButton>
       <BlueLineButton onClick={handleClickLupang}>월급루팡상세</BlueLineButton>
       <BlueLineButton onClick={handleClickGaeNullNull}>월급루팡개널널</BlueLineButton>
-      <GreyLineButton onClick={handleClick1}>전선배</GreyLineButton>
-      <BlueButton onClick={handleClick8}>전선배상세1</BlueButton>
+      <br />
+      <br />
+      <GreyButton onClick={handleClick1}>전선배</GreyButton>
+      <BlueLineButton onClick={handleClick8}>전선배상세1</BlueLineButton>
+      <br />
+      <br />
       <GreyButton onClick={handleClick2}>요시키상</GreyButton>
       <BlueLineButton onClick={handleClick7}>요시키상세1</BlueLineButton>
-      <GreyLineButton onClick={handleClick3}>카공족1</GreyLineButton>
+      <br />
+      <br />
+      <GreyButton onClick={handleClickJp}>카공족</GreyButton>
+      <BlueButton onClick={handleClick3}>카공족1</BlueButton>
       <BlueButton onClick={handleClick4}>카공족2</BlueButton>
-      <GreyButton onClick={handleClick5}>카공족상세1</GreyButton>
+      <BlueLineButton onClick={handleClick5}>카공족상세1</BlueLineButton>
       <BlueLineButton onClick={handleClick6}>카공족상세2</BlueLineButton>
     </>
   );
