@@ -75,6 +75,15 @@ const HomePage = () => {
     });
   };
 
+  const handleClickGaeNullNull = () => {
+    openPage("/MyModalGaeNullNull", {
+      foo: "bar",
+      callback: () => {
+        alert("월급루팡 뭐하는 사람인가요?");
+      },
+    });
+  };
+
   const handleClick1 = () => {
     openModal(
       "/MyModal1",
@@ -174,6 +183,7 @@ const HomePage = () => {
       <GreyButton onClick={handleClickJscho128}>조XX</GreyButton>
       <BlueLineButton onClick={handleClick}>월급루팡</BlueLineButton>
       <BlueLineButton onClick={handleClickLupang}>월급루팡상세</BlueLineButton>
+      <BlueLineButton onClick={handleClickGaeNullNull}>월급루팡개널널</BlueLineButton>
       <GreyLineButton onClick={handleClick1}>전선배</GreyLineButton>
       <BlueButton onClick={handleClick8}>전선배상세1</BlueButton>
       <GreyButton onClick={handleClick2}>요시키상</GreyButton>
