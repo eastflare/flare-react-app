@@ -30,9 +30,9 @@ const MyModal = () => {
   useEffect(() => {
     console.log("순수한 useEffect");
   }, []);
-  if (gridRef.current?.api.isDestroyed()) {
-    console.log("파괴되면 복구 불가능?");
-  }
+  // if (gridRef.current?.api.isDestroyed()) {
+  //   console.log("파괴되면 복구 불가능?");
+  // }
   useEffect(() => {
     fetch("https://www.ag-grid.com/example-assets/row-data.json")
       .then(result => result.json())
