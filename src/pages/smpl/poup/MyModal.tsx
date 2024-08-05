@@ -6,7 +6,6 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import { CellClickedEvent, ColDef } from "ag-grid-community";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
-import useEffectOnce from "hooks/cmn/useEffectOnce";
 
 const MyModal = () => {
   const [text, setText] = useState("");
@@ -14,25 +13,11 @@ const MyModal = () => {
   const { callback, close } = usePageContext();
   const [rowData, setRowData] = useState<any[]>([]);
   const gridRef = useRef<AgGridReact>(null);
-  const [gridApi, setGridApi] = useState<any>(null);
 
-  // const init = async () => {
-  //   const response = await fetch("https://www.ag-grid.com/example-assets/row-data.json");
-  //   const result = await response.json();
-  //   setRowData(result);
-  //   console.log("조회되는겁니가?");
-  // };
-
-  // useEffectOnce(() => {
-  //   console.log("너는 뭡니까?once");
-  //   init();
-  // });
   useEffect(() => {
     console.log("순수한 useEffect");
   }, []);
-  // if (gridRef.current?.api.isDestroyed()) {
-  //   console.log("파괴되면 복구 불가능?");
-  // }
+
   useEffect(() => {
     fetch("https://www.ag-grid.com/example-assets/row-data.json")
       .then(result => result.json())
@@ -42,19 +27,6 @@ const MyModal = () => {
       console.log("최루팡 다이");
     };
   }, []);
-
-  useEffect(() => {
-    if (gridApi && !gridApi.isDestroyed()) {
-      console.log("언제 찍히는 겁니까?");
-      gridApi.setGridOption("rowData", rowData);
-    }
-  }, [rowData, gridApi]);
-
-  const onGridReady = (params: any) => {
-    console.log("언제 찍히는 겁니까?ready");
-    setGridApi(params.api);
-    gridRef.current?.api.sizeColumnsToFit();
-  };
 
   const columns = useMemo<ColDef[]>(() => {
     return [
@@ -160,7 +132,6 @@ const MyModal = () => {
           domLayout='autoHeight'
           pagination={true}
           paginationPageSize={20}
-          onGridReady={onGridReady}
         ></AgGridReact>
       </div>
     </>
