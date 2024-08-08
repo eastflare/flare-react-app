@@ -2,10 +2,10 @@ import { useNavigate } from 'react-router';
 //import { useTheme } from '@lges/design-system';
 import { Box, FormControl, MenuItem, Select, Typography } from '@mui/material';
 import { Login } from '@mui/icons-material';
-import { Label } from 'components/ui/Label';
-import { InputField } from 'components/ui/InputField';
-import { Button } from 'components/ui/Button';
-import { HelperText } from 'components/ui/HelperText';
+import { Label } from 'components/ui/label';
+import { InputField } from 'components/ui/input-field';
+import { Button } from 'components/ui/button';
+import { HelperText } from 'components/ui/helper-text';
 
 import * as z from 'zod';
 import { useForm, Controller } from 'react-hook-form';
