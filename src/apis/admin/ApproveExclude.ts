@@ -1,4 +1,4 @@
-import { ApproveExcludeDetail, ApproveExcludeMaster, ApproveExcludeRequest, ApproveExcludeResponse } from "models/admin/ApproveExclude";
+import { ApproveExcludeDetail, ApproveExcludeMaster, ApprovalExcludeRequest, ApproveExcludeResponse } from "models/admin/ApproveExclude";
 import {
   CommonRequest,
   CommonResponse,
@@ -36,7 +36,7 @@ export const getAllApproveExcludeDetails = async (aprExcTgtId: string) => {
   return (response.successOrNot === "Y" ? response.data : null) as ApproveExcludeDetail[];
 };
 
-export const saveApproveExcludeCud = async (crudRequest: ApproveExcludeRequest) => {
+export const saveApproveExcludeCud = async (crudRequest: ApprovalExcludeRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
     url: "/v1/approval/exclude",
