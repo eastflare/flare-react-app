@@ -22,7 +22,14 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": ["*"]
-    }
+    },
+
+    /* cra setting test */
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "jsxImportSource": "@emotion/react"
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
