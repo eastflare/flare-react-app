@@ -15,7 +15,7 @@
     "lint:fix": "eslint src/**/*.ts{,x} --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx}\""
   },
-  "browserlist": {
+  "browserslist": {
     "production": [
       ">0.2%",
       "not dead",
