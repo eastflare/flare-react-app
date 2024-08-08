@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { useTheme } from "@mui/material/styles";
+import { useTheme } from "hooks/useTheme";
 import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
 import { Login } from "@mui/icons-material";
 import { Label } from "components/ui/label";
@@ -33,7 +33,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 const LoginRouter = () => {
-  const theme = useTheme();
+  const [theme] = useTheme();
   const { setSession } = useSessionStore();
   const { changeLanguage } = useLanguageStore();
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ const LoginRouter = () => {
   });
 
   return (
-    <Box display='flex' width='100%' height='100%' justifyContent='center' pt='160px' bgcolor={theme.palette.background.default}>
+    <Box display='flex' width='100%' height='100%' justifyContent='center' pt='160px' bgcolor={theme.palette.semantic.color.commonBgDeeper}>
       <Box>
         <Typography variant='h2' textAlign='center' fontSize='24px' lineHeight='150%'>
           표준프레임워크 로그인
