@@ -33,7 +33,7 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 const LoginRouter = () => {
-  const [theme] = useTheme();
+  const theme = useTheme();
   const { setSession } = useSessionStore();
   const { changeLanguage } = useLanguageStore();
   const navigate = useNavigate();
@@ -81,13 +81,13 @@ const LoginRouter = () => {
   });
 
   return (
-    <Box display='flex' width='100%' height='100%' justifyContent='center' pt='160px' bgcolor={theme.palette.semantic.color.commonBgDeeper}>
+    <Box display='flex' width='100%' height='100%' justifyContent='center' pt='160px' bgcolor={theme.palette.background.default}>
       <Box>
         <Typography variant='h2' textAlign='center' fontSize='24px' lineHeight='150%'>
           표준프레임워크 로그인
         </Typography>
         <form onSubmit={onSubmit}>
-          <Box mt='10px' px='24px' py='16px' minWidth='364px' bgcolor={theme.palette.semantic.color.commonBgBasic} boxShadow='0px 7px 10px 0px rgba(0, 0, 0, 0.12), 0px 0px 2px 0px rgba(0, 0, 0, 0.22)' display='flex' flexDirection='column'>
+          <Box mt='10px' px='24px' py='16px' minWidth='364px' bgcolor={theme.palette.background.default} boxShadow='0px 7px 10px 0px rgba(0, 0, 0, 0.12), 0px 0px 2px 0px rgba(0, 0, 0, 0.22)' display='flex' flexDirection='column'>
             <Box display='flex' alignItems='center'>
               <Label htmlFor='userId' labelText='사용자ID' textAlign='left' minWidth='80px' isRequired />
               <Box ml='8px' flex='1'>
