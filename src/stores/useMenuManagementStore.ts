@@ -1,6 +1,60 @@
 import { create } from "zustand";
 import { MenuEnum } from "models/admin/Menu";
 
+interface MenuManagementState {
+  modalOpen: boolean;
+  menuId: string;
+  menuName: string;
+  targetMenuId: MenuEnum;
+  menuLocation: string;
+  menuUseYn: string;
+  menuExposureYn: string;
+  menuOptionValue1: string;
+  menuOptionValue2: string;
+  menuOptionValue3: string;
+  menuOptionValue4: string;
+  menuOptionValue5: string;
+  messageCode: string;
+  menuUrl: string;
+  menuDesc: string;
+  menuInfoId: string;
+  menuInfoUrl: string;
+  menuInfoDesc: string;
+  rolesByMenu: any[];
+  employeesByMenu: any[];
+  departmentByMenu: any[];
+  allMenuList: any[];
+  allMenuListExceptClickedMenu: any[];
+  menuListWithCheckbox: any[];
+  menuListbyRole: any[];
+  setModalOpen: (modalOpen: boolean) => void;
+  setMenuId: (menuId: string) => void;
+  setMenuName: (menuName: string) => void;
+  setTargetMenuId: (targetMenuId: MenuEnum) => void;
+  setMenuLocation: (menuLocation: string) => void;
+  setMenuUseYn: (menuUseYn: string) => void;
+  setMenuExposureYn: (menuExposureYn: string) => void;
+  setMenuOptionValue1: (menuOptionValue1: string) => void;
+  setMenuOptionValue2: (menuOptionValue2: string) => void;
+  setMenuOptionValue3: (menuOptionValue3: string) => void;
+  setMenuOptionValue4: (menuOptionValue4: string) => void;
+  setMenuOptionValue5: (menuOptionValue5: string) => void;
+  setMessageCode: (messageCode: string) => void;
+  setMenuUrl: (menuUrl: string) => void;
+  setMenuDesc: (menuDesc: string) => void;
+  setMenuInfoId: (menuInfoId: string) => void;
+  setMenuInfoUrl: (menuInfoUrl: string) => void;
+  setMenuInfoDesc: (menuInfoDesc: string) => void;
+  setRolesByMenu: (rolesByMenu: any[]) => void;
+  setEmployeesByMenu: (employeesByMenu: any[]) => void;
+  setDepartmentsByMenu: (departmentByMenu: any[]) => void;
+  setAllMenuList: (allMenuList: any[]) => void;
+  setAllMenuListExceptClickedMenu: (allMenuListExceptClickedMenu: any[]) => void;
+  setMenuListWithCheckbox: (menuListWithCheckbox: any[]) => void;
+  setMenuListbyRole: (menuListbyRole: any[]) => void;
+  setInitMenuList: () => void;
+}
+
 const initMenuManagement = {
   modalOpen: false,
   menuId: "",
@@ -28,138 +82,116 @@ const initMenuManagement = {
   menuListWithCheckbox: [],
   menuListbyRole: [],
 };
-const useMenuManagementStore = create<any>(set => ({
-  modalOpen: false,
-  setModalOpen(modalOpen) {
+
+const useMenuManagementStore = create<MenuManagementState>(set => ({
+  ...initMenuManagement,
+
+  setModalOpen(modalOpen: boolean) {
     set(prev => ({ ...prev, modalOpen }));
   },
 
-  menuId: "",
-  setMenuId(menuId) {
+  setMenuId(menuId: string) {
     menuId = replaceNullToEmptyString(menuId);
     set(prev => ({ ...prev, menuId }));
   },
 
-  menuName: "",
-  setMenuName(menuName) {
+  setMenuName(menuName: string) {
     menuName = replaceNullToEmptyString(menuName);
     set(prev => ({ ...prev, menuName }));
   },
 
-  targetMenuId: MenuEnum.root,
-  setTargetMenuId(targetMenuId) {
+  setTargetMenuId(targetMenuId: MenuEnum) {
     set(prev => ({ ...prev, targetMenuId }));
   },
 
-  menuLocation: "3",
-  setMenuLocation(menuLocation) {
+  setMenuLocation(menuLocation: string) {
     set(prev => ({ ...prev, menuLocation }));
   },
 
-  menuUseYn: "Y",
-  setMenuUseYn(menuUseYn) {
+  setMenuUseYn(menuUseYn: string) {
     set(prev => ({ ...prev, menuUseYn }));
   },
 
-  menuExposureYn: "Y",
-  setMenuExposureYn(menuExposureYn) {
+  setMenuExposureYn(menuExposureYn: string) {
     set(prev => ({ ...prev, menuExposureYn }));
   },
 
-  menuOptionValue1: "",
-  setMenuOptionValue1(menuOptionValue1) {
+  setMenuOptionValue1(menuOptionValue1: string) {
     menuOptionValue1 = replaceNullToEmptyString(menuOptionValue1);
     set(prev => ({ ...prev, menuOptionValue1 }));
   },
 
-  menuOptionValue2: "",
-  setMenuOptionValue2(menuOptionValue2) {
+  setMenuOptionValue2(menuOptionValue2: string) {
     menuOptionValue2 = replaceNullToEmptyString(menuOptionValue2);
     set(prev => ({ ...prev, menuOptionValue2 }));
   },
 
-  menuOptionValue3: "",
-  setMenuOptionValue3(menuOptionValue3) {
+  setMenuOptionValue3(menuOptionValue3: string) {
     menuOptionValue3 = replaceNullToEmptyString(menuOptionValue3);
     set(prev => ({ ...prev, menuOptionValue3 }));
   },
 
-  menuOptionValue4: "",
-  setMenuOptionValue4(menuOptionValue4) {
+  setMenuOptionValue4(menuOptionValue4: string) {
     menuOptionValue4 = replaceNullToEmptyString(menuOptionValue4);
     set(prev => ({ ...prev, menuOptionValue4 }));
   },
 
-  menuOptionValue5: "",
-  setMenuOptionValue5(menuOptionValue5) {
+  setMenuOptionValue5(menuOptionValue5: string) {
     menuOptionValue5 = replaceNullToEmptyString(menuOptionValue5);
     set(prev => ({ ...prev, menuOptionValue5 }));
   },
 
-  messageCode: "",
-  setMessageCode(messageCode) {
+  setMessageCode(messageCode: string) {
     set(prev => ({ ...prev, messageCode }));
   },
 
-  menuUrl: "",
-  setMenuUrl(menuUrl) {
+  setMenuUrl(menuUrl: string) {
     menuUrl = replaceNullToEmptyString(menuUrl);
     set(prev => ({ ...prev, menuUrl }));
   },
 
-  menuDesc: "",
-  setMenuDesc(menuDesc) {
+  setMenuDesc(menuDesc: string) {
     menuDesc = replaceNullToEmptyString(menuDesc);
     set(prev => ({ ...prev, menuDesc }));
   },
 
-  menuInfoId: "",
-  setMenuInfoId(menuInfoId) {
+  setMenuInfoId(menuInfoId: string) {
     set(prev => ({ ...prev, menuInfoId }));
   },
 
-  menuInfoUrl: "",
-  setMenuInfoUrl(menuInfoUrl) {
+  setMenuInfoUrl(menuInfoUrl: string) {
     set(prev => ({ ...prev, menuInfoUrl }));
   },
 
-  menuInfoDesc: "",
-  setMenuInfoDesc(menuInfoDesc) {
+  setMenuInfoDesc(menuInfoDesc: string) {
     set(prev => ({ ...prev, menuInfoDesc }));
   },
 
-  rolesByMenu: [],
-  setRolesByMenu(rolesByMenu) {
+  setRolesByMenu(rolesByMenu: any[]) {
     set(prev => ({ ...prev, rolesByMenu }));
   },
 
-  employeesByMenu: [],
-  setEmployeesByMenu(employeesByMenu) {
+  setEmployeesByMenu(employeesByMenu: any[]) {
     set(prev => ({ ...prev, employeesByMenu }));
   },
 
-  departmentByMenu: [],
-  setDepartmentsByMenu(departmentByMenu) {
+  setDepartmentsByMenu(departmentByMenu: any[]) {
     set(prev => ({ ...prev, departmentByMenu }));
   },
 
-  allMenuList: [],
-  setAllMenuList(allMenuList) {
+  setAllMenuList(allMenuList: any[]) {
     set(prev => ({ ...prev, allMenuList }));
   },
 
-  allMenuListExceptClickedMenu: [],
-  setAllMenuListExceptClickedMenu(allMenuListExceptClickedMenu) {
+  setAllMenuListExceptClickedMenu(allMenuListExceptClickedMenu: any[]) {
     set(prev => ({ ...prev, allMenuListExceptClickedMenu }));
   },
 
-  menuListWithCheckbox: [],
-  setMenuListWithCheckbox(menuListWithCheckbox) {
+  setMenuListWithCheckbox(menuListWithCheckbox: any[]) {
     set(prev => ({ ...prev, menuListWithCheckbox }));
   },
 
-  menuListbyRole: [],
-  setMenuListbyRole(menuListbyRole) {
+  setMenuListbyRole(menuListbyRole: any[]) {
     set(prev => ({ ...prev, menuListbyRole }));
   },
 
@@ -168,7 +200,7 @@ const useMenuManagementStore = create<any>(set => ({
   },
 }));
 
-const replaceNullToEmptyString = param => {
+const replaceNullToEmptyString = (param: any) => {
   return param == null ? "" : param;
 };
 
