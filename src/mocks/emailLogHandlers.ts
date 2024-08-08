@@ -106,7 +106,7 @@ export const emailLogHandlers = [
     }
     if (paramSedDtmTo) {
       filteredLogs = filteredLogs.filter(
-        (log) => log.sedDtm.substring(0, 10).replaceAll('-', '') < = paramSedDtmTo
+        (log) => log.sedDtm.substring(0, 10).replaceAll('-', '') <= paramSedDtmTo
       );
     }
     if (paramSearchItem) {

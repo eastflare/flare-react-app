@@ -81,7 +81,7 @@ export const ifLogHandlers = [
     }
     if (paramIfLogDtmTo) {
       filteredLogs = filteredLogs.filter(
-        (log) => log.ifLogDtm.substring(0, 10).replaceAll('-', '') < = paramIfLogDtmTo
+        (log) => log.ifLogDtm.substring(0, 10).replaceAll('-', '') <= paramIfLogDtmTo
       );
     }
     if (paramSearchItem) {

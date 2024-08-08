@@ -69,7 +69,7 @@ export const loginLogHandlers = [
     }
     if (paramContDmtTo) {
       filteredLogs = filteredLogs.filter(
-        (log) => log.contDtm.substring(0, 10).replaceAll('-', '') < = paramContDmtTo
+        (log) => log.contDtm.substring(0, 10).replaceAll('-', '') <= paramContDmtTo
       );
     }
     if (paramSearchItem) {
