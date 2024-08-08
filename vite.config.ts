@@ -16,7 +16,7 @@ export default ({ mode }: { mode: string }) => {
     build: {
       // browserslist leverage plugin
       target: browserslistToEsbuild(),
-      outDir: "build",
+      outDir: "dist",
     },
     server: {
       port: 3000,
