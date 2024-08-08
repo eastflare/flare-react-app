@@ -1,7 +1,7 @@
 import { memo } from "react";
 import type { RoutesProps } from "react-router";
 import DrawPageRoute from "./DrawPageRoute";
-import { PageItem } from "store/pageMapStore";
+import { PageItem } from "stores/usePageMapStore";
 
 interface TaskRoutesProps {
   openedPageMap: Map<string, PageItem>;

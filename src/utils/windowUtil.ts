@@ -1,4 +1,4 @@
-import { OpenPopupTypeCode, WindowItem } from "store/pageMapStore";
+import { OpenPopupTypeCode, WindowItem } from "stores/usePageMapStore";
 
 export function openWindow(windowItem: WindowItem) {
   const arrParams = new Array();

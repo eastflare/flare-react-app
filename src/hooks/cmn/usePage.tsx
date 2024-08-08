@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ModalItem, OpenTypeCode, PageItem, WindowItem } from "store/pageMapStore";
+import { ModalItem, OpenTypeCode, PageItem, WindowItem } from "stores/usePageMapStore";
 import { openWindow } from "utils/windowUtil";
 import usePageTab from "./usePageTab";
 

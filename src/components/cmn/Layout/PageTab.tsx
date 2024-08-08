@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import usePageTab from "hooks/cmn/usePageTab";
 import { useEffect, useRef, useState } from "react";
-import usePageMapStore, { PageItem } from "store/pageMapStore";
+import usePageMapStore, { PageItem } from "stores/usePageMapStore";
 
 interface PageTabProps {
   pageId: string;

@@ -5,7 +5,7 @@ import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
 import usePage from "hooks/cmn/usePage";
-import { ModalItem } from "store/pageMapStore";
+import { ModalItem } from "stores/usePageMapStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { history } from "utils/historyUtil";
 

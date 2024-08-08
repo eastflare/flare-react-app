@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import usePageMapStore, { CallbackFunction, OpenTypeCode, WindowItem } from "store/pageMapStore";
+import usePageMapStore, { CallbackFunction, OpenTypeCode, WindowItem } from "stores/usePageMapStore";
 import { getUuid } from "utils/rapUtil";
 import { openWindow } from "utils/windowUtil";
-import usePageCallbackStore from "store/pageCallbackStore";
+import usePageCallbackStore from "stores/usePageCallbackStore";
 import { Env } from "config/env";
 
 export type PageTabItem = { id: string; path: string; label: string };

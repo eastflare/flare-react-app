@@ -2,7 +2,7 @@ import { BlueButton, BlueLineButton, GreyButton, GreyLineButton } from "componen
 import { Env } from "config/env";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { useEffect, useState } from "react";
-import { OpenPopupTypeCode } from "store/pageMapStore";
+import { OpenPopupTypeCode } from "stores/usePageMapStore";
 
 const HomePage = () => {
   const { openPage, openDetail, openModal, openModeless, openWindow } = usePageNavigate();

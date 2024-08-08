@@ -3,7 +3,7 @@ import type { RoutesProps, PathRouteProps } from "react-router";
 import styled from "@emotion/styled";
 import usePage from "hooks/cmn/usePage";
 import { PageProvider } from "contexts/cmn/PageContext";
-import { PageItem } from "store/pageMapStore";
+import { PageItem } from "stores/usePageMapStore";
 import PageModals from "./PageModals";
 import useWindowDimensions from "hooks/cmn/useWindowDimensions";
 import PageHeaderLayout from "./PageHeaderLayout";
