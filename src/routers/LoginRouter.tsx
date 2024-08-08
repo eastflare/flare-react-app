@@ -11,10 +11,11 @@ import * as z from 'zod';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useLoginMutation } from 'hooks/queries/login/use-login-mutation';
-import { useLoading } from 'components/loader';
+//import { useLoading } from 'components/loader';
 import useLanguageStore from 'stores/useLanguageStore';
 import useSessionStore from 'stores/useSessionStore';
 import { LanguageCode } from 'models/common/Session';
+import useToast from 'hooks/cmn/useToast';
 //import { useMessageBar } from 'components/ui/message-bar';
 
 const loginSchema = z.object({
@@ -36,9 +37,8 @@ const LoginRouter = () => {
   const { setSession } = useSessionStore();
   const { changeLanguage } = useLanguageStore();
   const navigate = useNavigate();
-  const { openLoading } = useLoading();
   const { mutateAsync: loginAsync } = useLoginMutation();
-  const { openMessageBar } = useMessageBar();
+  const { myToast } = useToast();
 
   const {
     handleSubmit,
@@ -54,7 +54,7 @@ const LoginRouter = () => {
 
   const onSubmit = handleSubmit(async ({ userId, langCd }) => {
     try {
-      openLoading(true);
+      //openLoading(true);
 
       const response = await loginAsync({ userId, langCd });
 
@@ -67,15 +67,16 @@ const LoginRouter = () => {
       changeLanguage(session.langCd || 'ko');
       setSession(session);
 
-      navigate('/system/code', { replace: true });
+      navigate('/', { replace: true });
     } catch (e) {
       console.log({ e });
-      openMessageBar({
-        content: '로그인에 실패하였습니다.',
-        messageBarType: 'error',
-      });
+      myToast("error","로그인에 실패하였습니다.");
+      // openMessageBar({
+      //   content: '로그인에 실패하였습니다.',
+      //   messageBarType: 'error',
+      // });
     } finally {
-      openLoading(false);
+      //openLoading(false);
     }
   });
 
