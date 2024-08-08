@@ -379,7 +379,7 @@ export const messageHandlers = [
       deletedRows: 0,
     };
 
-    requestBody.map(item => {
+    requestBody.map((item: any) => {
       if (item.crudKey === "C") {
         mockMessages = [
           ...mockMessages,

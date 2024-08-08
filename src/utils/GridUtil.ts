@@ -2,7 +2,7 @@ import { GridOptions, RowClassParams, RowStyle } from "ag-grid-community";
 import { CrudCode } from "models/common/Edit";
 
 export const crudKeyRowStyle = (params: RowClassParams): RowStyle => {
-  const crudKey = params["data"]["crudKey"];
+  const crudKey: CrudCode = params.data.crudKey;
 
   const backgroundColorMap: { [key in CrudCode]: string } = {
     C: "rgba(71, 96, 255, 0.05)",

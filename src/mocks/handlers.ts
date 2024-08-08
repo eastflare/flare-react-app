@@ -1,4 +1,4 @@
-import { rest } from "msw";
+import { rest, MockedRequest } from "msw";
 import { StatusCode, SuccessOrNot } from "models/common/RestApi";
 import { sessionData } from "./mock-data/session";
 import message_ko from "locales/message_ko.json";
@@ -7,7 +7,7 @@ import message_pl from "locales/message_pl.json";
 import message_zhC from "locales/message_zhC.json";
 import message_zhT from "locales/message_zhT.json";
 
-const returnMessage = req => {
+const returnMessage = (req: MockedRequest) => {
   if (req.url.search.indexOf("=") > -1) {
     const langCd = req.url.search.split("=")[1];
 

@@ -1,5 +1,6 @@
 import { rest } from "msw";
 import { StatusCode, SuccessOrNot } from "models/common/RestApi";
+import { any } from "zod";
 
 let mockApis = [
   {
@@ -124,7 +125,7 @@ export const apiHandlers = [
       deletedRows: 0,
     };
 
-    requestBody.map(item => {
+    requestBody.map((item: any) => {
       if (item.crudKey === "C") {
         mockApis = [
           ...mockApis,

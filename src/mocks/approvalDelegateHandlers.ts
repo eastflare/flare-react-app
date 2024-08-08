@@ -81,7 +81,7 @@ export const approvalTemplateHandlers = [
       deletedRows: 0,
     };
 
-    requestBody.map(item => {
+    requestBody.map((item: any) => {
       if (item.crudKey === "C") {
         mockDelegates = [
           ...mockDelegates,
@@ -103,7 +103,15 @@ export const approvalTemplateHandlers = [
         ];
         cudResult.insertedRows++;
       } else if (item.crudKey === "U") {
-        mockDelegates = mockDelegates.map(delegate => (delegate.aprDlgtNo === item.aprDlgtNo ? item : delegate));
+        mockDelegates = mockDelegates.map(delegate =>
+          delegate.aprDlgtNo === item.aprDlgtNo
+            ? {
+                ...item,
+                dataInsUserId: "developer",
+                dataInsDtm: "2024.01.24 00:00:00",
+              }
+            : delegate
+        );
         cudResult.updatedRows++;
       } else if (item.crudKey === "D") {
         mockDelegates = mockDelegates.filter(delegate => delegate.aprDlgtNo !== item.aprDlgtNo);

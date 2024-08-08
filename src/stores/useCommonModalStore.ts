@@ -1,14 +1,13 @@
 import { create } from "zustand";
 
 import { CommonModalInitialState, CommonModalType } from "models/common/CommonModal";
-import { DefaultTFuncReturn } from "i18next";
 // import { useTranslation } from 'react-i18next';
 
 interface CommonModalState {
   modalType: CommonModalType;
   isOpen: boolean;
-  title: string | DefaultTFuncReturn;
-  content: JSX.Element | string | DefaultTFuncReturn;
+  title: string;
+  content: JSX.Element | string;
   showCallbackResult: boolean;
   yesCallback?: () => any;
   noCallback?: () => any;

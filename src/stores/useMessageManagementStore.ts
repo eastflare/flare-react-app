@@ -78,7 +78,7 @@ const convertMessagesToShowingMessages = (messages: Message[], languageCodes: Co
           showingMessage = { ...showingMessage, ...rest };
         }
 
-        showingMessage["msgTxtCtn${i + 1}"] = msgTxtCtn;
+        (showingMessage as any)[`msgTxtCtn${i + 1}`] = msgTxtCtn;
       }
     }
 
@@ -100,7 +100,7 @@ const convertShowingMessagesToMessages = (showingMessages: ShowingMessage[], lan
       messages.push({
         ...rest,
         langCd: languageCode,
-        msgTxtCtn: showingMessage["msgTxtCtn${i + 1}"],
+        msgTxtCtn: (showingMessage as any)[`msgTxtCtn${i + 1}`],
       });
     }
   }

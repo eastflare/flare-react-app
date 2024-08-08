@@ -97,7 +97,8 @@ export const useNotificationManagementStore = create<NotificationManagementState
       });
     },
     findNotificationGroupUsers: async (notificationCondition: NotificationCondition) => {
-      const apiResult = (await getNotificationGroupUsers(notificationCondition)) ?? [];
+      const conditionAsString = JSON.stringify(notificationCondition);
+      const apiResult = (await getNotificationGroupUsers(conditionAsString)) ?? [];
 
       set({
         notificationGroupUsers: apiResult,
@@ -148,7 +149,7 @@ export const useNotificationManagementStore = create<NotificationManagementState
 
         return t("__삭제 성공");
       } else if (!_.isEmpty(dbNotificationGroupsToDelete)) {
-        const saveApiResult = await deleteNotificationGroup(dbNotificationGroupsToDelete);
+        const saveApiResult = await deleteNotificationGroup(JSON.stringify(dbNotificationGroupsToDelete));
 
         if (saveApiResult) {
           const findApiResult = (await getNotificationGroups(lastSearchedCondition)) ?? [];
@@ -246,7 +247,7 @@ export const useNotificationManagementStore = create<NotificationManagementState
         notificationGroupUsersToSave.push(...notificationGroupUsersToDelete);
         const saveGroupNewUserApiResult = await saveNotificationGroupUsers(notificationGroupUsersToSave);
         if (saveGroupNewUserApiResult) {
-          const apiResult = (await getNotificationGroupUsers(lastSearchedCondition)) ?? [];
+          const apiResult = (await getNotificationGroupUsers(JSON.stringify(lastSearchedCondition))) ?? [];
 
           set({
             notificationGroupUsers: apiResult,

@@ -650,7 +650,7 @@ export const roleHandlers = [
       updatedRows: 0,
       deletedRows: 0,
     };
-    requestBody.map(item => {
+    requestBody.map((item: any) => {
       if (item.crudKey === "C") {
         mockRoles = [...mockRoles, { roleCd: item.roleCd, roleNm: item.roleNm, roleDesc: item.roleDesc, useYn: item.useYn }];
         cudResult.insertedRows++;
@@ -702,7 +702,7 @@ export const roleHandlers = [
       deletedRows: 0,
     };
 
-    requestBody.deptCdList.map(deptCd => {
+    requestBody.deptCdList.map((deptCd: any) => {
       mockRoleDepartments.map(mockRoleDept => {
         if (mockRoleDept.roleCd === targetRoleCd) {
           mockRoleDept.depts = [
@@ -786,7 +786,7 @@ export const roleHandlers = [
 
     mockRoleEmployees.map(roleEmployee => {
       if (roleEmployee.roleCd === targetRoleCd) {
-        requestBody.userIdList.map(userId => {
+        requestBody.userIdList.map((userId: any) => {
           roleEmployee.employeeList = [
             ...roleEmployee.employeeList,
             {

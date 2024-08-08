@@ -505,7 +505,7 @@ export const notificationHandlers = [
       deletedRows: 0,
     };
 
-    requestBody.map(item => {
+    requestBody.map((item: any) => {
       if (item.crudKey === "C") {
         mockNotificationGroups = [
           ...mockNotificationGroups,
@@ -575,7 +575,7 @@ export const notificationHandlers = [
       deletedRows: 0,
     };
 
-    requestBody.map(item => {
+    requestBody.map((item: any) => {
       if (item.crudKey === "C") {
         mockUsers = [
           ...mockUsers,

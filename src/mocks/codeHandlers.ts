@@ -2737,7 +2737,7 @@ export const codeHandlers = [
       deletedRows: 0,
     };
 
-    requestBody.map(item => {
+    requestBody.map((item: any) => {
       if (item.crudKey === "C") {
         mockGroupCodes = [
           ...mockGroupCodes,
@@ -2805,7 +2805,7 @@ export const codeHandlers = [
       deletedRows: 0,
     };
 
-    requestBody.map(item => {
+    requestBody.map((item: any) => {
       if (item.crudKey === "C") {
         mockCodes = [
           ...mockCodes,

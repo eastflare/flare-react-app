@@ -1,11 +1,9 @@
-import { DefaultTFuncReturn } from "i18next";
-
 export type CommonModalType = "confirm" | "alert" | "yesno";
 
 export interface CommonModalInitialState {
   modalType?: CommonModalType;
-  title?: string | DefaultTFuncReturn;
-  content: JSX.Element | string | DefaultTFuncReturn;
+  title?: string;
+  content: JSX.Element | string;
   yesCallback?: () => any;
   noCallback?: () => any;
   showCallbackResult?: boolean;
