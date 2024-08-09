@@ -14,7 +14,7 @@ export const InputField = styled(CustomTextField)({
   ".MuiFormHelperText-root": {
     color: "red",
   },
-  "background-color": `${BgColor.White}`,
+  backgroundColor: `${BgColor.White}`,
 
   "& .MuiInputBase-input": {
     padding: 0,

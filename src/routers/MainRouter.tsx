@@ -3,19 +3,33 @@ import MainRoutes from "./MainRoutes";
 import styled from "@emotion/styled";
 import WindowContainer from "components/cmn/Layout/WindowContainer";
 import MainContainer from "components/cmn/Layout/MainContainer";
+import useSessionStore from "@/stores/useSessionStore";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const env = Env.getInstance();
 const isWindow = env.isWindow;
 const PageContainer = isWindow ? WindowContainer : MainContainer;
 
 const MainRouter = () => {
-  return (
-    <StyledMainContainer>
-      <PageContainer>
-        <MainRoutes />
-      </PageContainer>
-    </StyledMainContainer>
-  );
+  const { userId } = useSessionStore();
+  const isLogin = Boolean(userId);
+  //const isLogin = true;
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, [isLogin]);
+  if (isLogin) {
+    return (
+      <StyledMainContainer>
+        <PageContainer>
+          <MainRoutes />
+        </PageContainer>
+      </StyledMainContainer>
+    );
+  }
 };
 
 // const StyledGlobalContainer = styled.div`

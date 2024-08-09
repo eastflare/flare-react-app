@@ -117,7 +117,7 @@ export const callApi = async (apiRequest: CommonRequest): Promise<CommonResponse
     data: {},
   };
 
-  apiRequest.url = "/api${apiRequest.url}";
+  apiRequest.url = `/api${apiRequest.url}`;
 
   switch (apiRequest.method) {
     case Method.GET:
