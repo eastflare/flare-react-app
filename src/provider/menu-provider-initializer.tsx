@@ -42,7 +42,7 @@ function MenuProviderInitializer({ children }: { children: React.ReactNode }) {
           return;
         }
 
-        window.location.href = `http://eastflare.iptime.org/nls3/cookieLogin.jsp?UURL=${process.env.REDIRECT_BASE_URL}&RTOA=1`;
+        window.location.href = `http://sso.eastflare.iptime.org/nls3/cookieLogin.jsp?UURL=${process.env.REDIRECT_BASE_URL}&RTOA=1`;
       }
     } catch (e) {
       console.error(e);
