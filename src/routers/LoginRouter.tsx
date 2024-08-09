@@ -16,6 +16,7 @@ import useLanguageStore from "stores/useLanguageStore";
 import useSessionStore from "stores/useSessionStore";
 import { LanguageCode } from "models/common/Session";
 import useToast from "hooks/cmn/useToast";
+import { useEffect } from "react";
 //import { useMessageBar } from 'components/ui/message-bar';
 
 const loginSchema = z.object({
@@ -34,11 +35,19 @@ type LoginForm = z.infer<typeof loginSchema>;
 
 const LoginRouter = () => {
   //const [theme] = useTheme();
-  const { setSession } = useSessionStore();
+  const { setSession, userId } = useSessionStore();
   const { changeLanguage } = useLanguageStore();
   const navigate = useNavigate();
   const { mutateAsync: loginAsync } = useLoginMutation();
   const { myToast } = useToast();
+  //const isLogin = Boolean(userId);
+  const isLogin = true; //임시로 무조건 true
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    }
+  }, []);
 
   const {
     handleSubmit,
@@ -63,11 +72,11 @@ const LoginRouter = () => {
       }
 
       const session = response.data;
-
+      console.log("session", session);
       changeLanguage(session.langCd || "ko");
       setSession(session);
 
-      navigate("/", { replace: true });
+      navigate("/");
     } catch (e) {
       console.log({ e });
       myToast("error", "로그인에 실패하였습니다.");
@@ -84,7 +93,7 @@ const LoginRouter = () => {
     <Box display='flex' width='100%' height='100%' justifyContent='center' pt='160px' bgcolor='#F1F4F3'>
       <Box>
         <Typography variant='h2' textAlign='center' fontSize='24px' lineHeight='150%'>
-          갑이 되고 싶으면 로그인
+          로그인
         </Typography>
         <form onSubmit={onSubmit}>
           <Box mt='10px' px='24px' py='16px' minWidth='364px' bgcolor='#FFFFFF' boxShadow='0px 7px 10px 0px rgba(0, 0, 0, 0.12), 0px 0px 2px 0px rgba(0, 0, 0, 0.22)' display='flex' flexDirection='column'>
