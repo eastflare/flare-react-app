@@ -10,7 +10,7 @@ const getInstance = (request: CommonRequest): AxiosInstance => {
   if (process.env.MSW_ENABLE === "N" || !handlerUrls.some(regex => regex instanceof RegExp && regex.test(request.url))) {
     switch (request.serviceName) {
       case ServiceName.YOUR_BACK_END_SERVICE_NAME:
-        baseURL = "${process.env.API_BASE_URL}";
+        baseURL = `${process.env.API_BASE_URL}`;
         break;
       default:
     }
