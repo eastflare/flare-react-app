@@ -35,7 +35,7 @@ function useMenuInitEffect() {
         return;
       }
 
-      window.location.href = `http://sso.eastflare.iptime.org:8001/nls3/cookieLogin.jsp?UURL=${process.env.API_BASE_URL}&RTOA=1`;
+      window.location.href = `http://eastflare.iptime.org/login?UURL=${process.env.API_BASE_URL}&RTOA=1`;
     }
   };
 
