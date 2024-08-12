@@ -8,7 +8,7 @@
     "start:mock": "cross-env VITE_TEST_MODE=true env-cmd -e local vite",
     "build:dev": "env-cmd -e dev vite build",
     "build:prd": "env-cmd -e prd vite build",
-    "build": "tsc && vite build",
+    "build": "env-cmd -e dev vite build",
     "preview": "vite preview",
     "lint": "tsc -noEmit && eslint src/**/*.ts{,x}",
     "lint:fix": "eslint src/**/*.ts{,x} --fix",
