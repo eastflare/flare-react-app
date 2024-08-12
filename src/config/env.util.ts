@@ -10,7 +10,6 @@ export function isNumberString(input: string): input is string {
 
 export function readEnv<T extends string>({ envKey, typeGuard, typeLabel, defaultEnv }: { envKey: string; typeGuard?: TGuardFunc<T>; typeLabel?: string; defaultEnv?: T }) {
   const envInput = process.env[envKey] ?? defaultEnv;
-  console.log("asdjfklasdfk;ajfl;a", envInput, process.env[envKey]);
   if (!envInput) {
     throw new Error(`[Env] ${envKey} 환경변수가 지정되지 않았습니다`);
   }

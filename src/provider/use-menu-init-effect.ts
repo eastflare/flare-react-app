@@ -30,7 +30,7 @@ function useMenuInitEffect() {
     } else if (response.successOrNot === "N") {
       const appEnv = `${process.env.NODE_ENV}`;
 
-      if (appEnv == "local") {
+      if (appEnv == "local" || appEnv == "dev") {
         navigate("/login", { replace: true });
         return;
       }
