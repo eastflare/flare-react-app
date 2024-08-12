@@ -4,11 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "env-cmd -e local vite",
+    "dev": "env-cmd -e local vite",
     "start:mock": "cross-env VITE_TEST_MODE=true env-cmd -e local vite",
     "build:dev": "env-cmd -e dev vite build",
     "build:prd": "env-cmd -e prd vite build",
-    "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "tsc -noEmit && eslint src/**/*.ts{,x}",
