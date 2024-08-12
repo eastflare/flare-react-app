@@ -15,7 +15,7 @@ export interface IEnv {
   deviceTypeCode: DeviceTypeCode;
 }
 
-export const NodeEnvKey = ["loc", "dev", "prd"] as const;
+export const NodeEnvKey = ["local", "dev", "prd"] as const;
 
 export type TNodeEnv = (typeof NodeEnvKey)[number];
 

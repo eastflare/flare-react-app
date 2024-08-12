@@ -15,7 +15,7 @@ function main() {
 
 async function asyncInit() {
   //운영이 아닐 경우만 console.log 출력
-  const isPrd = import.meta.env.VITE_NODE_ENV === "prd";
+  const isPrd = `${process.env.NODE_ENV}` === "prd";
   PrintDebug({
     isPrintLog: !isPrd,
     isPrintInfoWarnError: !isPrd,

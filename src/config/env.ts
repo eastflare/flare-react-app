@@ -29,14 +29,14 @@ export class Env {
     if (Env.instance) return Env.instance;
 
     const nodeEnv = readEnv({
-      envKey: "VITE_NODE_ENV",
+      envKey: "NODE_ENV",
       typeGuard: isTNodeEnv,
       typeLabel: "TNodeEnv",
     }) as TNodeEnv;
 
     const isMdi = parseBoolean(
       readBooleanEnv({
-        envKey: "VITE_IS_MDI",
+        envKey: "IS_MDI",
         defaultEnv: "true",
       })
     );
@@ -45,7 +45,7 @@ export class Env {
 
     const maxPageTabSize = parseNumber(
       readNumberEnv({
-        envKey: "VITE_MAX_PAGE_TAP_SIZE",
+        envKey: "MAX_PAGE_TAP_SIZE",
       })
     );
 
@@ -78,10 +78,9 @@ export class Env {
   }
 
   static async getDeviceTypeCode() {
-
-    if(isMobile){
+    if (isMobile) {
       return DeviceTypeCode.MOBILE;
-    } else if (isTablet){
+    } else if (isTablet) {
       return DeviceTypeCode.TABLET;
     } else {
       return DeviceTypeCode.DESKTOP;
