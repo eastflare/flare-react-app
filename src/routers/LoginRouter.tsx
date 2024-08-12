@@ -40,8 +40,8 @@ const LoginRouter = () => {
   const navigate = useNavigate();
   const { mutateAsync: loginAsync } = useLoginMutation();
   const { myToast } = useToast();
-  //const isLogin = Boolean(userId);
-  const isLogin = true; //임시로 무조건 true
+  const isLogin = Boolean(userId);
+  //const isLogin = true; //임시로 무조건 true
 
   useEffect(() => {
     if (isLogin) {

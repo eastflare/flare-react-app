@@ -19,7 +19,7 @@ export default ({ mode }: { mode: string }) => {
       outDir: "dist",
     },
     server: {
-      port: 3000,
+      port: 5173,
     },
     define: {
       "process.env": env,
