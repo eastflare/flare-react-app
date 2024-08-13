@@ -10,7 +10,8 @@ const getInstance = (request: CommonRequest): AxiosInstance => {
   if (process.env.MSW_ENABLE === "N" || !handlerUrls.some(regex => regex instanceof RegExp && regex.test(request.url))) {
     switch (request.serviceName) {
       case ServiceName.YOUR_BACK_END_SERVICE_NAME:
-        baseURL = `${process.env.API_BASE_URL}`;
+        const isSsl = window.location.protocol === "https:";
+        baseURL = isSsl ? `${process.env.SSL_BASE_URL}` : `${process.env.API_BASE_URL}`;
         break;
       default:
     }

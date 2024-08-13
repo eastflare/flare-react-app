@@ -92,7 +92,9 @@ export const downloadFile = async (atchFileGrId: string, atchFileId: string) => 
 
 export const downloadAllFiles = async (atchFileGrId: string) => {
   try {
-    const response = await axios.get("${process.env.API_BASE_URL}/api/v1/file/download/all?atchFileGrId=${atchFileGrId}", {
+    const isSsl = window.location.protocol === "https:";
+    const baseURL = isSsl ? `${process.env.SSL_BASE_URL}` : `${process.env.API_BASE_URL}`;
+    const response = await axios.get(`${baseURL}/api/v1/file/download/all?atchFileGrId=${atchFileGrId}`, {
       responseType: "blob",
     });
 

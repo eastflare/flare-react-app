@@ -12,15 +12,15 @@ const isWindow = env.isWindow;
 const PageContainer = isWindow ? WindowContainer : MainContainer;
 
 const MainRouter = () => {
-  const { userId } = useSessionStore();
-  const isLogin = Boolean(userId);
-  //const isLogin = true; //임시로 무조건 true
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!isLogin) {
-      navigate("/login");
-    }
-  }, [isLogin]);
+  // const { userId } = useSessionStore();
+  //const isLogin = Boolean(userId);
+  const isLogin = true; //임시로 무조건 true
+  // const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!isLogin) {
+  //     navigate("/login");
+  //   }
+  // }, [isLogin]);
   if (isLogin) {
     return (
       <StyledMainContainer>
