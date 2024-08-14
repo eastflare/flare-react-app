@@ -197,7 +197,6 @@ const HomePage = () => {
 
   return (
     <>
-      <h1>여기서 작업을 한후 Commit을 하면 자동으로 반영됨</h1>
       카공족1 Callback :
       <input type='text' value={input1} onChange={e => setInput1(e.target.value)} />
       <br />
