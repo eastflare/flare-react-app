@@ -121,12 +121,11 @@ const StyledMDIContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  overflow-x: auto; /* 터치 스크롤을 위해 변경 */
+  overflow-x: auto;
   scroll-behavior: smooth;
   white-space: nowrap;
   margin-right: 98px;
   -webkit-overflow-scrolling: touch; /* 모바일에서 부드러운 스크롤을 위해 추가 */
-
   /* 스크롤바 숨기기 */
   &::-webkit-scrollbar {
     display: none;
