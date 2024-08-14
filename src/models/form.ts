@@ -1,8 +1,14 @@
 import { FieldErrors, FieldValues, SubmitHandler, UseFormRegister } from "react-hook-form";
 
-export interface FormProps {
+export interface IFormRow {
   elements: IFormElement[];
+  map: any;
+}
+
+export interface FormProps {
+  elements: IFormRow[];
   onSubmit: SubmitHandler<FieldValues>;
+  map: any;
 }
 
 export interface IFormElement {
@@ -20,6 +26,7 @@ export interface IFormElement {
       message: string;
     };
   };
+  map: any;
 }
 
 export interface FormElementProps {

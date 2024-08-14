@@ -1,6 +1,10 @@
 import { useForm } from "react-hook-form";
+import FormRow from "components/FormRow";
 import FormElement from "components/FormElement";
+import FormTable from "components/FormTable";
 import { FormProps } from "models/form";
+import { GreyButton } from "./buttons/CustomButton";
+import _ from "lodash";
 
 const Form = ({ elements, onSubmit }: FormProps) => {
   const {
@@ -10,12 +14,22 @@ const Form = ({ elements, onSubmit }: FormProps) => {
   } = useForm();
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {elements.map(element => (
-        <FormElement key={element.id} id={element.id} name={element.name} option={element.option} register={register} errors={errors} />
-      ))}
-      <button type='submit'>등록</button>
-    </form>
+    <>
+      <FormTable>
+        {
+          elements.map(pair => (
+            <FormRow>
+            {
+              pair.map(element=> (
+                <FormElement id={element.id} name={element.name} option={element.option} register={register} errors={errors} />
+              ))
+            }
+            </FormRow>
+          ))
+        }
+      </FormTable>
+      <GreyButton onClick={handleSubmit(onSubmit)}>등록</GreyButton>
+    </>
   );
 };
 

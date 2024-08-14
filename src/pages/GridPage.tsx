@@ -1,17 +1,22 @@
 import Grid from "components/Grid";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
-import { retrieveCars } from "mocks/grid";
+import { retrieveCars } from "@/mocks/gridHandlers";
 import useFetch from "hooks/cmn/useFetch";
+import { GreyButton } from "@/components/buttons/CustomButton";
 
 const GridPage = () => {
   const data = useFetch(retrieveCars);
 
+  const handleClickPopupGrid = () => {
+    //TODO
+  }
+  
   return (
     <>
       <div>
-        <h2>Grid page</h2>
-        <p>The list of cars</p>
+        <GreyButton onClick={handleClickPopupGrid}>Popup Grid</GreyButton>
+        <GreyButton onClick={handleClickPopupGrid}>Popup Grid</GreyButton>
       </div>
       <Grid
         data={data}

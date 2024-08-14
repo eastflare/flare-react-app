@@ -15,8 +15,12 @@ const Grid = ({ data, options }: { data: any; options: GridOptions }) => {
     options
   );
 
+  const gridWrapperStyle = {
+    
+  };
+
   return (
-    <div>
+    <div style={gridWrapperStyle}>
       <AgGridReact
         columnDefs={data.columns}
         rowData={data.rows}
