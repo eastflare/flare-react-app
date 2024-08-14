@@ -14,8 +14,6 @@ interface DisplayRouteProps extends PathRouteProps {
   display?: boolean;
 }
 
-let minusHeight = 0;
-
 function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }: DisplayRouteProps) {
   //Page Id
   //Function 가공
@@ -24,22 +22,19 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
 
   useEffect(() => {
     //해당 페이지가 죽을때 callback 이 있으면 제거해 줘야함
-    const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
-    const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
-    minusHeight = topMenuL + topBarL;
     return () => {
       //delPageCallback(pageItem.id);
     };
   }, []);
 
-  const { height } = useWindowDimensions();
+  const { bodyHeight } = useWindowDimensions();
 
   console.log("페이지에 넘어온 routesProps 와 props", routesProps, props);
   const { getPageProviderProps } = usePage({ pageItem });
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
       <PageProvider value={{ ...getPageProviderProps() }}>
-        <StyledBodyElement windowHeight={height - minusHeight}>
+        <StyledBodyElement bodyHeight={bodyHeight}>
           <PageHeaderLayout />
           {element}
         </StyledBodyElement>
@@ -55,10 +50,37 @@ const StyledDisplayElement = styled.div<{
   display: ${props => (props.display ? "unset" : "none")};
 `;
 
-const StyledBodyElement = styled.div<{ windowHeight?: number }>`
-  height: ${props => props.windowHeight || 0}px;
+const StyledBodyElement = styled.div<{ bodyHeight?: number }>`
+  height: ${props => props.bodyHeight || 0}px;
   overflow-y: auto;
   overflow-x: hidden;
+
+  /* 스크롤바 스타일링 */
+  ::-webkit-scrollbar {
+    width: 8px; /* 스크롤바의 너비 */
+    opacity: 0; /* 초기 상태에서 스크롤바를 숨김 */
+    transition: opacity 0.3s; /* 부드러운 전환 효과 */
+  }
+
+  /* 스크롤바 영역에 마우스 hover 시 스크롤바 표시 */
+  &:hover {
+    ::-webkit-scrollbar {
+      opacity: 1; /* hover 시 스크롤바 표시 */
+    }
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #d0d0d0; /* 연한 회색으로 스크롤바 색상 */
+    border-radius: 4px; /* 스크롤바의 모서리 둥글기 */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #b0b0b0; /* 연한 회색으로 hover 색상 */
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1); /* 연한 배경색 */
+  }
 `;
 
 export default memo(DrawPageMdiRoute);

@@ -25,6 +25,30 @@ const PageTopBar = () => {
     }
   };
 
+  const handleTabClick = (key: string) => {
+    onPageTabClick(key);
+
+    // Ensure the clicked tab is fully visible
+    if (mdiContainerRef.current) {
+      const tabElement = document.getElementById(`tab-${key}`);
+      if (tabElement) {
+        const tabLeft = tabElement.offsetLeft;
+        const tabRight = tabLeft + tabElement.offsetWidth;
+        const containerLeft = mdiContainerRef.current.scrollLeft;
+        const containerRight = containerLeft + mdiContainerRef.current.offsetWidth;
+
+        // Adjust scroll to the right if the tab is partially out of view on the right
+        if (tabRight > containerRight) {
+          mdiContainerRef.current.scrollLeft += tabRight - containerRight;
+        }
+        // Adjust scroll to the left if the tab is partially out of view on the left
+        else if (tabLeft < containerLeft) {
+          mdiContainerRef.current.scrollLeft -= containerLeft - tabLeft;
+        }
+      }
+    }
+  };
+
   const handleClickClose = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     onPageTabReset();
@@ -44,13 +68,22 @@ const PageTopBar = () => {
       }}
     >
       <StyledMDIContainer ref={mdiContainerRef}>
-        {" "}
-        {/* ref 연결 */}
         {[...openedPageMap.keys()].map((key: string) => {
           let pageItem = openedPageMap.get(key);
           let pageLabel = pageItem?.label ?? "";
 
-          return <PageTab key={key} pageId={key} label={pageLabel} isActive={curPageId === key} onClose={() => onPageTabClose(key)} onClick={() => onPageTabClick(key)} onPopup={() => onPageTabPopup()} />;
+          return (
+            <PageTab
+              key={key}
+              pageId={key}
+              id={`tab-${key}`} // 추가된 ID 속성
+              label={pageLabel}
+              isActive={curPageId === key}
+              onClose={() => onPageTabClose(key)}
+              onClick={() => handleTabClick(key)} // 클릭 핸들러 수정
+              onPopup={() => onPageTabPopup()}
+            />
+          );
         })}
       </StyledMDIContainer>
       <StyledPageTopButtons>
@@ -91,6 +124,7 @@ const StyledMDIContainer = styled.div`
   overflow-x: hidden; /* 스크롤이 가능하도록 설정 */
   scroll-behavior: smooth; /* 부드럽게 스크롤되도록 설정 */
   white-space: nowrap; /* 탭들이 한 줄에 나란히 놓이도록 설정 */
+  margin-right: 98px; /* StyledPageTopButtons 바로 왼쪽까지만 되도록 수정 */
 `;
 
 const StyledPageTopButtons = styled.div`

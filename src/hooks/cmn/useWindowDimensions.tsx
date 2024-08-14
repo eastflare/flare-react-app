@@ -1,10 +1,18 @@
 import { useState, useEffect } from "react";
 
 function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
+  const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
+
+  const topMenuHeight = document.getElementById("topMenu")?.offsetHeight ?? 0;
+  const topPageBarHeight = document.getElementById("topBar")?.offsetHeight ?? 0;
+  const bodyHeight = windowHeight - (topMenuHeight + topPageBarHeight);
+
   return {
-    width,
-    height,
+    windowWidth,
+    windowHeight,
+    topMenuHeight,
+    topPageBarHeight,
+    bodyHeight,
   };
 }
 

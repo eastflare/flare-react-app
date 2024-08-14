@@ -11,6 +11,8 @@
 
 .leftmenu {
   width: 150px;
+  height: 400px;
+  overflow-y: auto;
 }
 
 .content {

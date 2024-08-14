@@ -6,6 +6,7 @@ import usePageMapStore, { PageItem } from "stores/usePageMapStore";
 interface PageTabProps {
   pageId: string;
   label: string;
+  id: string;
   onClick: (...args: any[]) => void;
   onClose: (e?: MouseEvent) => void;
   onPopup: () => void;
