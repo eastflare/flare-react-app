@@ -38,20 +38,12 @@ const LeftMenu = () => {
           </a>
         </li>
         <li>
-          <a
-            href='#'
-            onClick={e => handleClick("/sample5/eastflare/이현승?message=111&message2=222", e)}
-          >
+          <a href='#' onClick={e => handleClick("/sample5/eastflare/이현승?message=111&message2=222", e)}>
             샘플5/:id/:name 이
           </a>
         </li>
         <li>
-          <a
-            href='#'
-            onClick={e =>
-              handleClick("/sample5/jscho128/조재성?message=333&message2=444&name=전선배", e)
-            }
-          >
+          <a href='#' onClick={e => handleClick("/sample5/jscho128/조재성?message=333&message2=444&name=전선배", e)}>
             샘플5/:id/:name 조
           </a>
         </li>
@@ -88,6 +80,11 @@ const LeftMenu = () => {
         <li>
           <a href='#' onClick={e => handleClick("/form", e)}>
             React-hook-form
+          </a>
+        </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/loginLog", e)}>
+            로그인로그
           </a>
         </li>
       </ul>

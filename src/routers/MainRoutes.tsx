@@ -62,6 +62,9 @@ const MyModalGaeNullNull = loadable(() => import("pages/smpl/poup/MyModal"), {
 const DeviceDetect = loadable(() => import("pages/DeviceDetect"), {
   fallback: <Loading />,
 });
+const LoginLog = loadable(() => import("pages/system/log/login-log-manage-page"), {
+  fallback: <Loading />,
+});
 
 const MainRoutes = () => {
   return (
@@ -85,6 +88,7 @@ const MainRoutes = () => {
       <Route path='/DeviceDetect' element={<DeviceDetect />} />
       <Route path='/grid' element={<GridPage />} />
       <Route path='/form' element={<FormPage />} />
+      <Route path='/loginLog' element={<LoginLog />} />
       <Route path='*' element={<NoPage />} />
     </PageRoutes>
   );
