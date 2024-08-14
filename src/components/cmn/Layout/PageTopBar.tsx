@@ -121,10 +121,16 @@ const StyledMDIContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  overflow-x: hidden; /* 스크롤이 가능하도록 설정 */
-  scroll-behavior: smooth; /* 부드럽게 스크롤되도록 설정 */
-  white-space: nowrap; /* 탭들이 한 줄에 나란히 놓이도록 설정 */
-  margin-right: 98px; /* StyledPageTopButtons 바로 왼쪽까지만 되도록 수정 */
+  overflow-x: auto; /* 터치 스크롤을 위해 변경 */
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  margin-right: 98px;
+  -webkit-overflow-scrolling: touch; /* 모바일에서 부드러운 스크롤을 위해 추가 */
+
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const StyledPageTopButtons = styled.div`
