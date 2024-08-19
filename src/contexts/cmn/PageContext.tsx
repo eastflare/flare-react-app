@@ -21,3 +21,4 @@ function PageProvider({ children, value }: PageProviderProps) {
 }
 
 export { PageProvider, PageContext, usePageContext };
+PageContext

@@ -4,7 +4,7 @@ import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
 
-const MyModal = () => {
+const PageListPage = () => {
   const { openModeless } = usePageNavigate();
   const { callback, close } = usePageContext();
   const [text, setText] = useState("");
@@ -98,4 +98,4 @@ const MyModal = () => {
   );
 };
 
-export default MyModal;
+export default PageListPage;

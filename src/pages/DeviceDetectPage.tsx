@@ -2,7 +2,7 @@ import { Env } from "config/env";
 
 const env = Env.getInstance();
 
-const DeviceDetact = () => {
+const DeviceDetactPage = () => {
   return (
     <div>
       현재 Device는
@@ -12,4 +12,4 @@ const DeviceDetact = () => {
   );
 };
 
-export default DeviceDetact;
+export default DeviceDetactPage;

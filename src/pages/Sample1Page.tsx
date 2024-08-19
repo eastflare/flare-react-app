@@ -3,7 +3,7 @@ import { usePageContext } from "contexts/cmn/PageContext";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { useEffect, useState } from "react";
 
-const Sample1 = () => {
+const Sample1Page = () => {
   const [input, setInput] = useState("");
   const { params, callback, close } = usePageContext();
   const { openModal } = usePageNavigate();
@@ -14,7 +14,7 @@ const Sample1 = () => {
 
   const handleClick1 = () => {
     openModal(
-      "/MyModal1",
+      "/my-modal1",
       {
         foo: "bar",
         callback: () => {
@@ -53,4 +53,4 @@ const Sample1 = () => {
   );
 };
 
-export default Sample1;
+export default Sample1Page;

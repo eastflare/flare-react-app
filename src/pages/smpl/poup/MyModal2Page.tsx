@@ -4,7 +4,7 @@ import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
 
-const MyModal = () => {
+const MyModal2Page = () => {
   const { openModal } = usePageNavigate();
   const { callback, close } = usePageContext();
   const [text, setText] = useState("");
@@ -38,7 +38,7 @@ const MyModal = () => {
 
   const openYoshiki = () => {
     openModal(
-      "/MyModal1",
+      "/my-modal1",
       {
         foo: "bar",
         callback: () => {
@@ -81,4 +81,4 @@ const MyModal = () => {
   );
 };
 
-export default MyModal;
+export default MyModal2Page;

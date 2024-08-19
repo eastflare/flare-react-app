@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const About = () => {
+const AboutPage = () => {
   const [input, setInput] = useState('');
 
   return (
@@ -16,4 +16,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;

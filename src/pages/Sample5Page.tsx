@@ -2,7 +2,7 @@ import { BlueButton } from "components/buttons/CustomButton";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { useState } from "react";
 
-const Sample5 = () => {
+const Sample5Page = () => {
   const [input, setInput] = useState("");
   const { params, callback } = usePageContext();
 
@@ -27,4 +27,4 @@ const Sample5 = () => {
   );
 };
 
-export default Sample5;
+export default Sample5Page;

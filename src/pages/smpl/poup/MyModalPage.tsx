@@ -7,7 +7,7 @@ import { CellClickedEvent, ColDef } from "ag-grid-community";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
 
-const MyModal = () => {
+const MyModalPage = () => {
   const [text, setText] = useState("");
   const { myToast } = useToast();
   const { callback, close } = usePageContext();
@@ -135,4 +135,4 @@ const MyModal = () => {
   );
 };
 
-export default MyModal;
+export default MyModalPage;

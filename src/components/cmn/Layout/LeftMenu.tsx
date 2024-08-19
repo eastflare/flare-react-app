@@ -87,7 +87,7 @@ const LeftMenu = () => {
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/loginLog", e)}>
+          <a href='#' onClick={e => handleClick("/login-Log", e)}>
             로그인로그
           </a>
         </li>

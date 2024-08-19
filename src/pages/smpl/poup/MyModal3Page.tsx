@@ -5,7 +5,7 @@ import usePageNavigate from "hooks/cmn/usePageNavigate";
 import useToast from "hooks/cmn/useToast";
 import { useEffect, useState } from "react";
 
-const MyModal = () => {
+const MyModal3Page = () => {
   const { callback, close } = usePageContext();
   const { openModal } = usePageNavigate();
   const [text, setText] = useState("");
@@ -28,7 +28,7 @@ const MyModal = () => {
 
   const openYoshiki = () => {
     openModal(
-      "/MyModal1",
+      "/my-modal1",
       {
         foo: "bar",
         callback: () => {
@@ -89,4 +89,4 @@ const MyModal = () => {
   );
 };
 
-export default MyModal;
+export default MyModal3Page;

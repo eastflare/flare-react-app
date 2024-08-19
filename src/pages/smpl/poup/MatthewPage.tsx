@@ -12,7 +12,7 @@ const MatthewDiv = styled.div`
   background-repeat: no-repeat;
 `;
 
-const MyModal = () => {
+const MatthewPage = () => {
   const [text, setText] = useState("");
   const { myToast } = useToast();
   const { callback, close } = usePageContext();
@@ -67,4 +67,4 @@ const MyModal = () => {
   );
 };
 
-export default MyModal;
+export default MatthewPage;

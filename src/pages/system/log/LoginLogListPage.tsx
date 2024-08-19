@@ -27,7 +27,7 @@ type LoginLogSearchForm = {
   searchItem?: string;
 };
 
-const LoginLogManagementPage = () => {
+const LoginLogListPage = () => {
   const { t } = useTranslation();
 
   const { currentLanguage } = useLanguageStore();
@@ -268,4 +268,4 @@ const LoginLogManagementPage = () => {
   //return <></>;
 };
 
-export default LoginLogManagementPage;
+export default LoginLogListPage;

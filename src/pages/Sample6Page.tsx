@@ -1,26 +1,30 @@
 import { BlueButton } from "components/buttons/CustomButton";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { useEffect, useState } from "react";
-//import { useParams } from "react-router-dom";
 
-const Sample4 = () => {
+const Sample6Page = () => {
   const [input, setInput] = useState("");
+  //const [searchParams] = useSearchParams();
+  // URL의 'query' 매개변수를 읽기
+  // let message2 = searchParams.get("message");
+  // const location = useLocation();
+  // const message = location.state?.message;
   const { params, callback } = usePageContext();
 
   useEffect(() => {
-    console.log("sample4 파람즈->", params);
+    console.log("sample6 파람즈->", params);
   }, [params]);
 
   return (
     <div>
-      <h2>Sample4 : ID를 pathVariable로 수신함</h2>
-      <p>id: {params.id} </p>
+      <h2>Sample6 : useSearchParams 로 message 파라메터를 받음 </h2>
+      <p>메세지 : {params.message} </p>
       <input type='text' value={input} onChange={e => setInput(e.target.value)} />
       <BlueButton
         type='button'
         onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
           e.preventDefault;
-          callback(4, "sample4에서 콜백보냄");
+          callback("스트링", "sample6에서 콜백보냄");
         }}
       >
         콜백
@@ -29,4 +33,4 @@ const Sample4 = () => {
   );
 };
 
-export default Sample4;
+export default Sample6Page;
