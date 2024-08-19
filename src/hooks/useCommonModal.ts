@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-import { CommonModalAnimateClassName, CommonModalInitialState, CommonModalState } from "models/common/CommonModal";
+import { CommonModalAnimateClassName, CommonModalInitialState, CommonModalState } from "@/models/common/CommonModal";
 import { useCommonModalStore } from "stores/useCommonModalStore";
 
 export const useCommonModal = () => {

@@ -1,4 +1,4 @@
-import { CommonRequest, CommonResponse, Method, ServiceName } from "models/common/RestApi";
+import { CommonRequest, CommonResponse, Method, ServiceName } from "@/models/common/RestApi";
 import { callApi } from "utils/ApiUtil";
 
 export const getSample = async () => {

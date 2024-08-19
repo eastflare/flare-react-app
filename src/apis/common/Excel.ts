@@ -1,5 +1,5 @@
-import { InfoForExcelConvertion } from "models/common/Excel";
-import { CommonRequest, CommonResponse, Method, ServiceName } from "models/common/RestApi";
+import { InfoForExcelConvertion } from "@/models/common/Excel";
+import { CommonRequest, CommonResponse, Method, ServiceName } from "@/models/common/RestApi";
 import { callApi } from "utils/ApiUtil";
 
 export const downloadFile = (data: Blob, filename: string) => {

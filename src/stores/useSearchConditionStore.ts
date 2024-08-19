@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { IfLogRequest } from "models/admin/IfLog";
+import { IfLogRequest } from "@/models/system/IfLog";
 import { create } from "zustand";
 
 interface SearchConditionState {

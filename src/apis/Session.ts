@@ -1,5 +1,5 @@
-import { Session } from "models/common/Session";
-import { CommonRequest, CommonResponse, Method, ServiceName } from "models/common/RestApi";
+import { Session } from "@/models/common/Session";
+import { CommonRequest, CommonResponse, Method, ServiceName } from "@/models/common/RestApi";
 import { callApi } from "utils/ApiUtil";
 
 export const devLogin = async (userId: string, langCd: string) => {

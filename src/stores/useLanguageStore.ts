@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { getTranslatedMessages, changeSessionLangCd } from "apis/admin/TranslatedMessage";
+import { getTranslatedMessages, changeSessionLangCd } from "apis/system/TranslatedMessage";
 import i18n from "i18n";
 import useSessionStore from "stores/useSessionStore";
-import { LangType } from "models/common/Session";
+import { LangType } from "@/models/common/Session";
 import message_ko from "locales/message_ko.json";
 import message_en from "locales/message_en.json";
 import message_pl from "locales/message_pl.json";

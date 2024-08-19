@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { MenuContextType, defaultMenuContext } from "models/admin/Menu";
+import { MenuContextType, defaultMenuContext } from "@/models/system/Menu";
 import { MenuProviderInner } from "./menu-provider-inner";
 import { MenuProviderInitializer } from "./menu-provider-initializer";
 

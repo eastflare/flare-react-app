@@ -1,4 +1,4 @@
-import { FormElementProps } from "models/form";
+import { FormElementProps } from "@/models/form";
 import { FieldError } from "react-hook-form";
 
 const FormElement = ({ id, name, type, option, register, errors }: FormElementProps) => {

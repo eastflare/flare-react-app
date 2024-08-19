@@ -1,6 +1,6 @@
 import { getUserInfo } from "./../apis/common/Employee";
 import { rest } from "msw";
-import { StatusCode, SuccessOrNot } from "models/common/RestApi";
+import { StatusCode, SuccessOrNot } from "@/models/common/RestApi";
 
 let mockApprovalRules = [
   {

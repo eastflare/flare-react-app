@@ -1,5 +1,5 @@
 import { GridOptions, RowClassParams, RowStyle } from "ag-grid-community";
-import { CrudCode } from "models/common/Edit";
+import { CrudCode } from "@/models/common/Edit";
 
 export const crudKeyRowStyle = (params: RowClassParams): RowStyle => {
   const crudKey: CrudCode = params.data.crudKey;

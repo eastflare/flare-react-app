@@ -3,11 +3,11 @@ import { v4 as uuid } from "uuid";
 import { GridApi, IRowNode } from "ag-grid-community";
 import _ from "lodash";
 
-import { getNotificationGroups, getNotificationGroupDivisions, getNotificationGroupUsers, saveNotificationGroups, deleteNotificationGroup, saveNotificationGroupUsers } from "apis/admin/Notification";
-import { NotificationCondition, NotificationGroup, NotificationGroupDivision, NotificationGroupUser } from "models/admin/Notification";
-import { CommonYN } from "models/common/Common";
-import { CrudCode } from "models/common/Edit";
-import { Nullable } from "models/common/FalsyGeneric";
+import { getNotificationGroups, getNotificationGroupDivisions, getNotificationGroupUsers, saveNotificationGroups, deleteNotificationGroup, saveNotificationGroupUsers } from "apis/system/Notification";
+import { NotificationCondition, NotificationGroup, NotificationGroupDivision, NotificationGroupUser } from "@/models/system/Notification";
+import { CommonYN } from "@/models/common/Common";
+import { CrudCode } from "@/models/common/Edit";
+import { Nullable } from "@/models/common/FalsyGeneric";
 import { translate as t } from "utils/i18nUtil";
 
 interface NotificationManagementState {

@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import { handlerUrls } from "mocks/worker";
 
-import { CommonRequest, CommonResponse, Method, ServiceName, StatusCode, SuccessOrNot } from "models/common/RestApi";
+import { CommonRequest, CommonResponse, Method, ServiceName, StatusCode, SuccessOrNot } from "@/models/common/RestApi";
 import useSessionStore from "stores/useSessionStore";
 
 axios.defaults.withCredentials = true;

@@ -3,14 +3,14 @@ import { v4 as uuid } from "uuid";
 import { GridApi, IRowNode } from "ag-grid-community";
 import _ from "lodash";
 
-import { getCommonCodeNames } from "apis/admin/CommonCode";
-import { findMessages, saveMessages } from "apis/admin/Message";
-import { Message, MessageCondition, ShowingMessage } from "models/admin/Message";
-import { CommonYN } from "models/common/Common";
-import { Nullable } from "models/common/FalsyGeneric";
+import { getCommonCodeNames } from "apis/system/CommonCode";
+import { findMessages, saveMessages } from "apis/system/Message";
+import { Message, MessageCondition, ShowingMessage } from "@/models/system/Message";
+import { CommonYN } from "@/models/common/Common";
+import { Nullable } from "@/models/common/FalsyGeneric";
 import { translate as t } from "utils/i18nUtil";
-import { Code, commonYNList } from "models/common/CommonCode";
-import { CrudCode } from "models/common/Edit";
+import { Code, commonYNList } from "@/models/common/CommonCode";
+import { CrudCode } from "@/models/common/Edit";
 
 interface MessageManagementState {
   messages: Message[];

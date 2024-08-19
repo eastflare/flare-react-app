@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { CommonModalInitialState, CommonModalType } from "models/common/CommonModal";
+import { CommonModalInitialState, CommonModalType } from "@/models/common/CommonModal";
 // import { useTranslation } from 'react-i18next';
 
 interface CommonModalState {

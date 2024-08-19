@@ -1,4 +1,4 @@
-import { DateRangePickerValueType } from "models/date/date-range-calendar";
+import { DateRangePickerValueType } from "@/models/date/date-range-calendar";
 import dayjs from "dayjs";
 
 export const isValidDateRangePickerValue = (dateRange: DateRangePickerValueType | unknown) => {

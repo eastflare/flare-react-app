@@ -1,6 +1,6 @@
-import { CommonRequest, CommonResponse, Method, ServiceName } from "models/common/RestApi.ts";
-import { BbsCondition, BbsPost, BbsPostDetail } from "models/admin/Bbs";
-import { PaginationResponse } from "models/common/Pagination";
+import { CommonRequest, CommonResponse, Method, ServiceName } from "@/models/common/RestApi.ts";
+import { BbsCondition, BbsPost, BbsPostDetail } from "@/models/system/Bbs";
+import { PaginationResponse } from "@/models/common/Pagination";
 import { callApi } from "utils/ApiUtil";
 
 export const getBbsPosts = async (condition: BbsCondition): Promise<PaginationResponse<BbsPost>> => {

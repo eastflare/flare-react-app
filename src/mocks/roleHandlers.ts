@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { StatusCode, SuccessOrNot } from "models/common/RestApi";
+import { StatusCode, SuccessOrNot } from "@/models/common/RestApi";
 
 let mockRoles = [
   { roleCd: "CMN", roleNm: "일반 사용자", roleDesc: "일반 사용자", useYn: "Y" },

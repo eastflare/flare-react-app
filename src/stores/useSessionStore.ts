@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { Session, LangType, GridNoRowsTemplateData } from "models/common/Session";
-import { Menu } from "models/admin/Menu";
+import { Session, LangType, GridNoRowsTemplateData } from "@/models/common/Session";
+import { Menu } from "@/models/system/Menu";
 
 interface SessionState {
   userId: string;

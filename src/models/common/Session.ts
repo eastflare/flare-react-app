@@ -1,4 +1,4 @@
-import { Menu } from "models/admin/Menu";
+import { Menu } from "@/models/system/Menu";
 
 export type LangType = "ko" | "en" | "zhC" | "zhT" | "pl";
 

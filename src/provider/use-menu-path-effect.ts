@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import useSessionStore from "stores/useSessionStore";
-import { HomeMenu, INTERNAL_MENU_PATHS, Menu } from "models/admin/Menu";
+import { HomeMenu, INTERNAL_MENU_PATHS, Menu } from "@/models/system/Menu";
 import { useMenuContext } from "./menu-provider";
 
 function useMenuPathEffect() {

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
-import { Undefinedable } from "models/common/FalsyGeneric";
-import { CommonModalAnimateClassName } from "models/common/CommonModal";
+import { Undefinedable } from "@/models/common/FalsyGeneric";
+import { CommonModalAnimateClassName } from "@/models/common/CommonModal";
 
 interface CommonModalState {
   isOpen: boolean;

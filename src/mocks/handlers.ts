@@ -1,5 +1,5 @@
 import { rest, MockedRequest } from "msw";
-import { StatusCode, SuccessOrNot } from "models/common/RestApi";
+import { StatusCode, SuccessOrNot } from "@/models/common/RestApi";
 import { sessionData } from "./mock-data/session";
 import message_ko from "locales/message_ko.json";
 import message_en from "locales/message_en.json";

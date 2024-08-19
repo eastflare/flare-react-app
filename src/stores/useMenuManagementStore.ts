@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MenuEnum } from "models/admin/Menu";
+import { MenuEnum } from "@/models/system/Menu";
 
 interface MenuManagementState {
   modalOpen: boolean;

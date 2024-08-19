@@ -2,12 +2,12 @@ import { create } from "zustand";
 import { v4 as uuid } from "uuid";
 import { GridApi, IRowNode } from "ag-grid-community";
 
-import { findApiUrls, saveApiUrls } from "apis/admin/ApiUrl";
-import { ApiUrl, ApiUrlCondition, ShowingApiUrl } from "models/admin/ApiUrl";
-import { Nullable } from "models/common/FalsyGeneric";
+import { findApiUrls, saveApiUrls } from "apis/system/ApiUrl";
+import { ApiUrl, ApiUrlCondition, ShowingApiUrl } from "@/models/system/ApiUrl";
+import { Nullable } from "@/models/common/FalsyGeneric";
 import _ from "lodash";
-import { getRoles } from "apis/admin/Role";
-import { CrudCode } from "models/common/Edit";
+import { getRoles } from "apis/system/Role";
+import { CrudCode } from "@/models/common/Edit";
 
 interface ApiUrlManagementState {
   apiUrls: ApiUrl[];
