@@ -17,77 +17,82 @@ const LeftMenu = () => {
     <StyledMenuElement className='leftmenu' bodyHeight={menuHeight}>
       <ul>
         <li>
-          <a href='#' onClick={e => handleClick("/sample1", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample1", e)}>
             Sample1
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample2", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample2", e)}>
             Sample2
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample3", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample3", e)}>
             Sample3
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample4/eastflare", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample4/eastflare", e)}>
             샘플4/:id 이
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample4/jscho128", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample4/jscho128", e)}>
             샘플4/:id 조
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample5/eastflare/이현승?message=111&message2=222", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample5/eastflare/이현승?message=111&message2=222", e)}>
             샘플5/:id/:name 이
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample5/jscho128/조재성?message=333&message2=444&name=전선배", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample5/jscho128/조재성?message=333&message2=444&name=전선배", e)}>
             샘플5/:id/:name 조
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample6?message=ABCDEF", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample6?message=ABCDEF", e)}>
             샘플6 메세지
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/sample6?message=bbb", e)}>
+          <a href='#' onClick={e => handleClick("/sample/sample6?message=bbb", e)}>
             샘플6 다른메세지
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/about", e)}>
+          <a href='#' onClick={e => handleClick("/sample/about", e)}>
             about
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/services", e)}>
+          <a href='#' onClick={e => handleClick("/sample/services", e)}>
             services
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/contact", e)}>
+          <a href='#' onClick={e => handleClick("/sample/contact", e)}>
             contact
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/grid", e)}>
+          <a href='#' onClick={e => handleClick("/sample/grid", e)}>
             AG-GRID
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/form", e)}>
+          <a href='#' onClick={e => handleClick("/sample/form", e)}>
             React-hook-form
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/login-Log", e)}>
+          <a href='#' onClick={e => handleClick("/system/page/page-list", e)}>
+            페이지 목록
+          </a>
+        </li>
+        <li>
+          <a href='#' onClick={e => handleClick("/system/page/login-log-list", e)}>
             로그인로그
           </a>
         </li>

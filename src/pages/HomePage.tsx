@@ -20,7 +20,7 @@ const HomePage = () => {
 
   const handleClickMatthew = () => {
     openModeless(
-      "/matthew",
+      "/sample/matthew",
       {
         foo: "bar",
         callback: () => {
@@ -32,7 +32,7 @@ const HomePage = () => {
   };
 
   const handleClickGrid = () => {
-    openPage("/grid", {
+    openPage("/sample/grid", {
       foo: "bar",
       callback: () => {
         alert("그리드 뭐하는 사람인가요?");
@@ -42,7 +42,7 @@ const HomePage = () => {
 
   const handleClickJscho128 = () => {
     openModal(
-      "/sample5/jscho128/조XX",
+      "/sample/sample5/jscho128/조XX",
       {
         foo: "bar",
         callback: () => {
@@ -55,7 +55,7 @@ const HomePage = () => {
 
   const handleClick = () => {
     openModal(
-      "/my-modal",
+      "/sample/my-modal",
       {
         foo: "bar",
         callback: () => {
@@ -67,7 +67,7 @@ const HomePage = () => {
   };
 
   const handleClickLupang = () => {
-    openPage("/my-modal", {
+    openPage("/sample/my-modal", {
       foo: "bar",
       callback: () => {
         alert("월급루팡 뭐하는 사람인가요?");
@@ -77,7 +77,7 @@ const HomePage = () => {
 
   const handleClick1 = () => {
     openModal(
-      "/my-modal1",
+      "/sample/my-modal1",
       {
         foo: "bar",
         callback: () => {
@@ -89,7 +89,7 @@ const HomePage = () => {
   };
   const handleClick2 = () => {
     openModal(
-      "/my-modal2",
+      "/sample/my-modal2",
       {
         foo: "bar",
         callback: () => {
@@ -101,7 +101,7 @@ const HomePage = () => {
   };
   const handleClick3 = () => {
     openWindow(
-      "/my-modal3",
+      "/sample/my-modal3",
       {
         foo: "bar",
         callback: (a: string, b: string, c: string) => {
@@ -114,7 +114,7 @@ const HomePage = () => {
 
   const handleClickJp = () => {
     openModal(
-      "/my-modal3",
+      "/sample/my-modal3",
       {
         foo: "bar",
         callback: (a: string, b: string, c: string) => {
@@ -127,7 +127,7 @@ const HomePage = () => {
 
   const handleClick4 = () => {
     openWindow(
-      "/my-modal3",
+      "/sample/my-modal3",
       {
         foo: "bar",
         callback: (c: string) => {
@@ -138,7 +138,7 @@ const HomePage = () => {
     );
   };
   const handleClick5 = () => {
-    openPage("/my-modal3", {
+    openPage("/sample/my-modal3", {
       foo: "bar",
       callback: (a: string, b: string) => {
         alert("Facker 뭐하는 사람인가요?");
@@ -147,7 +147,7 @@ const HomePage = () => {
     });
   };
   const handleClick6 = () => {
-    openPage("/my-modal3", {
+    openPage("/sample/my-modal3", {
       foo: "bar",
       callback: (c: string) => {
         alert("국민사기꾼 뭐하는 사람인가요?");
@@ -156,7 +156,7 @@ const HomePage = () => {
     });
   };
   const handleClick7 = () => {
-    openPage("/my-modal2", {
+    openPage("/sample/my-modal2", {
       foo: "bar",
       callback: (c: string) => {
         alert("요시키 뭐하는 사람인가요?");
@@ -165,7 +165,7 @@ const HomePage = () => {
     });
   };
   const handleClick8 = () => {
-    openDetail("/my-modal1", {
+    openDetail("/sample/my-modal1", {
       foo: "bar",
       callback: (c: string) => {
         alert("전선배 뭐하는 사람인가요?");
@@ -175,7 +175,7 @@ const HomePage = () => {
   };
   const handleClickDeviceDetect = () => {
     openModal(
-      "/device-detect",
+      "/sample/device-detect",
       {
         foo: "bar",
         callback: (deviceType: string) => {
