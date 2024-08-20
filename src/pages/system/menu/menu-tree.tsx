@@ -1,7 +1,7 @@
 import { Menu, MenuVO } from "@/models/system/Menu";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 //import { Tree, TreeData } from "@lges/design-system";
-import { MenuEnum } from "@/pages/system/menu/menu-manage-page";
+import { MenuEnum } from "@/pages/system/menu/menu-list-page";
 import useMenuManagementStore from "@/stores/useMenuManagementStore";
 import { getDepartmentsByMenu, getEmployeesByMenu, getMenu, getRolesByMenu } from "@/apis/system/MenuApi";
 

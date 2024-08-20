@@ -21,6 +21,9 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   //ReactNode로 받아온 Routes 를 RouteObject로 일괄 변환하여 배열로 가지고 있는다.
   const routes = useMemo(
     () =>
+
+      //Route 목록을 그림
+      
       React.Children.toArray(children).map(childNode => {
         const element = childNode as ReactElement;
         return { path: element.props.path, element } as RouteObject;

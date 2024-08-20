@@ -1,4 +1,4 @@
-const ServicesPage = () => {
+const ServicePage = () => {
   return (
     <section id='services' className='section'>
       <h2>Our Services</h2>
@@ -7,4 +7,4 @@ const ServicesPage = () => {
   );
 };
 
-export default ServicesPage;
+export default ServicePage;
