@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useState } from "react";
+import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
 import { ColDef } from "ag-grid-community";
@@ -13,10 +13,11 @@ import { Spacer } from "@/components/ui/common-ui";
 import { keepPreviousData } from "@tanstack/react-query";
 //import { FormItem } from "components/design/form-item";
 //import InputField from "components/design/input-field";
-import { SearchArea } from "components/design/search-area";
+//import { SearchArea } from "components/design/search-area";
 import DataGrid from "components/design/data-grid";
 import { DateRangePickerValueType } from "@/models/date/date-range-calendar";
-import { Grid, Box } from "@mui/material";
+import { Grid, Box, TextField, Button, InputLabel } from "@mui/material";
+import { DateRangePicker } from "@mui/x-date-pickers-pro";
 import { isValidDateRangePickerValue } from "@/utils/DateUtil";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -122,13 +123,15 @@ const LoginLogListPage = () => {
     setCurrentPage(page);
   };
 
-  const handleSearch = handleSubmit(async ({ dates, searchItem }) => {
+  const handleSearch = async (data: LoginLogSearchForm) => {
+    const { dates, searchItem } = data;
+
     setSearchConditon({
       ...searchCondition,
-      contDtmFr: dayjs(dates && dates[0] ? dates[0] : getValues("dates")?.[0] || new Date())
+      contDtmFr: dayjs(dates && dates[0] ? dates[0] : new Date())
         .format("YYYYMMDD")
         .toString(),
-      contDtmTo: dayjs(dates && dates[1] ? dates[1] : getValues("dates")?.[1] || new Date())
+      contDtmTo: dayjs(dates && dates[1] ? dates[1] : new Date())
         .format("YYYYMMDD")
         .toString(),
       searchItem: searchItem || "",
@@ -137,7 +140,7 @@ const LoginLogListPage = () => {
     setCurrentPage(1);
     console.log("조회 버튼 클릭!!!!!!!!!!");
     console.log(searchCondition);
-  });
+  };
 
   const defaultColum: ColDef = {
     cellStyle: { textAlign: "center" },
@@ -181,54 +184,21 @@ const LoginLogListPage = () => {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <Box width='100%'>
-          <SearchArea
-            conditions={
-              <>
-                <Grid item xs={6}>
-                  {/* <FormItem
-                    label={`${t("login-log.label.접속일자", "__접속일자")}`}
-                    labelAlign='right'
-                    render={() => (
-                      <Controller
-                        control={control}
-                        name='dates'
-                        render={({ field: { ref, onChange, value, ...restField } }) => (
-                          <InputField {...restField} type='date-range' value={value} onChange={onChange} afterDisable={dayjs()} size='medium' status={errors?.dates?.message ? "error" : "default"} />
-                        )}
-                      />
-                    )}
-                  /> */}
-                </Grid>
-                <Grid item xs={6}>
-                  {/* <FormItem
-                    label={`${t("login-log.label.사용자ID/명", "__사용자ID/명")}`}
-                    labelAlign='right'
-                    render={() => (
-                      <Controller
-                        control={control}
-                        name='searchItem'
-                        render={({ field: { ref, ...field } }) => (
-                          <InputField
-                            {...field}
-                            inputRef={ref}
-                            fullWidth
-                            status={errors?.searchItem?.message ? "error" : "default"}
-                            size='medium'
-                            placeholder='입력하세요.'
-                            onKeyUp={e => {
-                              if (e.key === "Enter") handleSearch();
-                            }}
-                          />
-                        )}
-                      />
-                    )}
-                  /> */}
-                </Grid>
-              </>
-            }
-            onSearch={handleSearch}
-          />
+        <Box component='form' onSubmit={handleSubmit(handleSearch)} width='100%' mb={2} sx={{ border: "1px solid #dde0df", bgcolor: "#F7F9F8", padding: "20px 120px 20px 0" }}>
+          <Grid container spacing={2}>
+            <Grid item xs={1}>
+              <InputLabel>사용자ID/명</InputLabel>
+            </Grid>
+            <Grid item xs={5}>
+              <Controller control={control} name='searchItem' render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff" }} />} />
+            </Grid>
+            <Grid item xs={5}></Grid>
+            <Grid item xs={1}>
+              <Button type='submit' variant='contained' color='primary'>
+                검색
+              </Button>
+            </Grid>
+          </Grid>
         </Box>
         <Spacer type='h' size='12' />
         <DataGrid
@@ -244,7 +214,6 @@ const LoginLogListPage = () => {
           pageSize={pageSize}
           rowHeight={25}
           onChangePageSize={onChangePageSize}
-          headerButton={[{ variant: "download", onClick: handleExcelDownload }]}
           animateRows={true}
           rowData={fetchedLoginLogs?.list}
           columnDefs={columnDefs}
