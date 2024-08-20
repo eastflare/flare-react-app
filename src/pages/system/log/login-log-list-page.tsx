@@ -17,7 +17,6 @@ import { keepPreviousData } from "@tanstack/react-query";
 import DataGrid from "components/design/data-grid";
 import { DateRangePickerValueType } from "@/models/date/date-range-calendar";
 import { Grid, Box, TextField, Button, InputLabel } from "@mui/material";
-import { DateRangePicker } from "@mui/x-date-pickers-pro";
 import { isValidDateRangePickerValue } from "@/utils/DateUtil";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
@@ -184,18 +183,49 @@ const LoginLogListPage = () => {
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <Box component='form' onSubmit={handleSubmit(handleSearch)} width='100%' mb={2} sx={{ border: "1px solid #dde0df", bgcolor: "#F7F9F8", padding: "20px 120px 20px 0" }}>
+        <Box component='form' onSubmit={handleSubmit(handleSearch)} mb={2} sx={{ border: "1px solid #dde0df", bgcolor: "#F7F9F8", padding: "20px 0px 20px 0", display: "flex", alignItems: "center" }}>
           <Grid container spacing={2}>
-            <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
-              <InputLabel>사용자ID/명</InputLabel>
+            <Grid item xs={10}>
+              <Grid container spacing={2}>
+                <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
+                  <InputLabel sx={{ paddingLeft: "4px" }}>사용자ID/명</InputLabel>
+                </Grid>
+                <Grid item xs={3}>
+                  <Controller
+                    control={control}
+                    name='searchItem'
+                    render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff", "& .MuiInputBase-root": { height: "36px", fontSize: "14px" } }} InputProps={{ sx: { padding: "0 2px" } }} />}
+                  />
+                </Grid>
+                <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
+                  <InputLabel sx={{ paddingLeft: "4px" }}>사용자ID/명</InputLabel>
+                </Grid>
+                <Grid item xs={3}>
+                  <Controller
+                    control={control}
+                    name='searchItem'
+                    render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff", "& .MuiInputBase-root": { height: "36px", fontSize: "14px" } }} InputProps={{ sx: { padding: "0 2px" } }} />}
+                  />
+                </Grid>
+                <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
+                  <InputLabel sx={{ paddingLeft: "4px" }}>사용자ID/명</InputLabel>
+                </Grid>
+                <Grid item xs={3}>
+                  <Controller
+                    control={control}
+                    name='searchItem'
+                    render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff", "& .MuiInputBase-root": { height: "36px", fontSize: "14px" } }} InputProps={{ sx: { padding: "0 2px" } }} />}
+                  />
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs={5}>
-              <Controller control={control} name='searchItem' render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff" }} />} />
-            </Grid>
-            <Grid item xs={5}></Grid>
-            <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
-              <Button type='submit' variant='contained' color='primary'>
+            <Grid item xs={2} sx={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-end", paddingRight: "4px", flexDirection: "row", gap: "4px" }}>
+              {/* flexDirection: direction === 'vertical' ? 'column' : 'row', */}
+              <Button type='submit' variant='contained' color='primary' sx={{ width: "70px" }}>
                 검색
+              </Button>
+              <Button type='submit' variant='contained' color='primary' sx={{ width: "70px" }}>
+                검색2
               </Button>
             </Grid>
           </Grid>
