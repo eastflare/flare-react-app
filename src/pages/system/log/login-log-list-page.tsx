@@ -186,7 +186,7 @@ const LoginLogListPage = () => {
       <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <Box component='form' onSubmit={handleSubmit(handleSearch)} width='100%' mb={2} sx={{ border: "1px solid #dde0df", bgcolor: "#F7F9F8", padding: "20px 120px 20px 0" }}>
           <Grid container spacing={2}>
-            <Grid item xs={1}>
+            <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
               <InputLabel>사용자ID/명</InputLabel>
             </Grid>
             <Grid item xs={5}>
