@@ -2,20 +2,20 @@ import { CommonYN } from "@/models/common/Common";
 import { Crud } from "@/models/common/Edit";
 
 export interface RouteCondition {
-  routeId?: string;
-  routeNm?: string;
-  routeUrl?: string;
+  ruteId?: string;
+  ruteNm?: string;
+  ruteUrl?: string;
   useYn?: string;
 }
 
 export interface Route extends Crud {
-  routeId: string;
-  routeNm: string;
-  routeUrl: string;
-  popupWthLen: number;
-  popupVtcLen: number;
+  ruteId: string;
+  ruteNm: string;
+  ruteUrl: string;
+  poupWthLen: number;
+  poupVtcLen: number;
   useYn: CommonYN;
-  routeRoles: string[];
+  ruteRoles: string[];
   dataInsUserName: string;
   dataInsDtm: string;
   dataUpdUserName: string;
@@ -24,13 +24,13 @@ export interface Route extends Crud {
 
 export interface ShowingRoute extends Crud {
   no: string;
-  routeId: string;
-  routeNm: string;
-  routeUrl: string;
-  popupWthLen: number;
-  popupVtcLen: number;
+  ruteId: string;
+  ruteNm: string;
+  ruteUrl: string;
+  poupWthLen: number;
+  poupVtcLen: number;
   useYn: CommonYN;
-  routeRoles: string[];
+  ruteRoles: string[];
   dataInsUserName: string;
   dataInsDtm: string;
   dataUpdUserName: string;

@@ -3,7 +3,7 @@ import { savePages } from "@/apis/system/Page";
 import { Page } from "@/models/system/Page";
 
 export const usePagesMutation = () => {
-  return useReactMutation((apiUrls: Page[]) => {
-    return savePages(apiUrls);
+  return useReactMutation((pages: Page[]) => {
+    return savePages(pages);
   });
 };

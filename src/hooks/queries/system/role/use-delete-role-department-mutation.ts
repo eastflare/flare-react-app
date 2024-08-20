@@ -1,9 +1,9 @@
-import { insertRoleDepartment } from "@/apis/system/RoleDepartment";
+import { deleteRoleDepartment } from "@/apis/system/RoleDepartment";
 import { useReactMutation } from "@/hooks/use-react-mutation";
 import { RoleDepartmentMutateRequest } from "@/models/system/Role";
 
-export const usePostRoleDepartmentMutate = () => {
+export const useDeleteRoleDepartmentMutation = () => {
   return useReactMutation((roleDepartmentMutateRequest: RoleDepartmentMutateRequest) => {
-    return insertRoleDepartment(roleDepartmentMutateRequest);
+    return deleteRoleDepartment(roleDepartmentMutateRequest);
   });
 };
