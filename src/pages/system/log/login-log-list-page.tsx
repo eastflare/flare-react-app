@@ -193,7 +193,7 @@ const LoginLogListPage = () => {
               <Controller control={control} name='searchItem' render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff" }} />} />
             </Grid>
             <Grid item xs={5}></Grid>
-            <Grid item xs={1}>
+            <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
               <Button type='submit' variant='contained' color='primary'>
                 검색
               </Button>
