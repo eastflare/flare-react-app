@@ -59,6 +59,9 @@ const MyModalPage = loadable(() => import("pages/sample/my-modal-page"), {
 const DeviceDetectPage = loadable(() => import("pages/sample/device-detect-page"), {
   fallback: <Loading />,
 });
+const RouteListPage = loadable(() => import("pages/system/route/route-list-page"), {
+  fallback: <Loading />,
+});
 const PageListPage = loadable(() => import("pages/system/page/page-list-page"), {
   fallback: <Loading />,
 });
@@ -89,8 +92,9 @@ const MainRoutes = () => {
       <Route path='/sample/device-detect' element={<DeviceDetectPage />} />
       <Route path='/sample/grid' element={<GridPage />} />
       <Route path='/sample/form' element={<FormPage />} />
+      <Route path='/system/route/route-list' element={<RouteListPage />} />
       <Route path='/system/page/page-list' element={<PageListPage />} />
-      <Route path='/system/page/login-log-list' element={<LoginLogListPage />} />
+      <Route path='/system/log/login-log-list' element={<LoginLogListPage />} />
       <Route path='*' element={<NoPage />} />
     </PageRoutes>
   );
