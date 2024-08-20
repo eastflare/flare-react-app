@@ -20,7 +20,7 @@ import useMenuManagementStore from '@/stores/useMenuManagementStore';
 import { useMenuAllQuery } from '@/hooks/queries/system/menu/use-menu-query';
 import { useMessageModalStore } from '@/stores/useMessageModalStore';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Menu, MenuRequest, MenuVO } from '@/models/admin/Menu';
+import { Menu, MenuRequest, MenuVO } from '@/models/system/Menu';
 import { createMenu, deleteMenus } from '@/apis/system/MenuApi';
 import { CrudCode } from '@/models/common/Edit';
 import { useQueryClient } from '@tanstack/react-query';
