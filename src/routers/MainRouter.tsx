@@ -1,8 +1,8 @@
 import { Env } from "config/env";
 import MainRoutes from "./MainRoutes";
 import styled from "@emotion/styled";
-import WindowContainer from "components/cmn/Layout/WindowContainer";
-import MainContainer from "components/cmn/Layout/MainContainer";
+import WindowContainer from "@/components/layout/WindowContainer";
+import MainContainer from "@/components/layout/MainContainer";
 import useSessionStore from "@/stores/useSessionStore";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";

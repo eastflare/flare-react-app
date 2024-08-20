@@ -14,7 +14,7 @@ const LeftMenu = () => {
   };
 
   return (
-    <StyledMenuElement className='leftmenu' bodyHeight={menuHeight}>
+    <StyledMenuElement className='leftmenu' pageHeight={menuHeight}>
       <ul>
         <li>
           <a href='#' onClick={e => handleClick("/sample/sample1", e)}>
@@ -106,8 +106,8 @@ const LeftMenu = () => {
   );
 };
 
-const StyledMenuElement = styled.div<{ bodyHeight?: number }>`
-  height: ${props => props.bodyHeight || 0}px;
+const StyledMenuElement = styled.div<{ pageHeight?: number }>`
+  height: ${props => props.pageHeight || 0}px;
   overflow-y: auto;
   overflow-x: hidden;
 

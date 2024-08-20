@@ -27,14 +27,14 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
     };
   }, []);
 
-  const { bodyHeight } = useWindowDimensions();
+  const { pageHeight } = useWindowDimensions();
 
   console.log("페이지에 넘어온 routesProps 와 props", routesProps, props);
   const { getPageProviderProps } = usePage({ pageItem });
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
       <PageProvider value={{ ...getPageProviderProps() }}>
-        <StyledBodyElement bodyHeight={bodyHeight}>
+        <StyledBodyElement pageHeight={pageHeight}>
           <PageHeaderLayout />
           {element}
         </StyledBodyElement>
@@ -50,8 +50,8 @@ const StyledDisplayElement = styled.div<{
   display: ${props => (props.display ? "unset" : "none")};
 `;
 
-const StyledBodyElement = styled.div<{ bodyHeight?: number }>`
-  height: ${props => props.bodyHeight || 0}px;
+const StyledBodyElement = styled.div<{ pageHeight?: number }>`
+  height: ${props => props.pageHeight || 0}px;
   overflow-y: auto;
   overflow-x: hidden;
 

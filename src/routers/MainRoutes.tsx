@@ -1,5 +1,5 @@
 import { Route } from "react-router-dom";
-import PageRoutes from "components/cmn/Layout/PageRoutes";
+import PageRoutes from "@/components/layout/PageRoutes";
 import Home from "pages/home-page";
 import loadable from "@loadable/component";
 import Loading from "components/elements/Loading";

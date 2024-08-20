@@ -9,7 +9,7 @@ import popupIcon from "assets/img/popup.svg";
 import closeIcon from "assets/img/close.svg";
 import { useRef } from "react";
 
-const PageTopBar = () => {
+const PageTabBar = () => {
   const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset, onPageTabPopup } = usePageTab();
   const mdiContainerRef = useRef<HTMLDivElement>(null); // MDI 컨테이너 참조
 
@@ -60,8 +60,8 @@ const PageTopBar = () => {
   };
 
   return (
-    <StyledPageTopBar
-      id='topBar'
+    <StyledPageTabBar
+      id='pageTabBar'
       onContextMenu={e => {
         e.preventDefault();
         return false;
@@ -100,13 +100,13 @@ const PageTopBar = () => {
           <ReactSVG src={closeIcon} />
         </IconButton>
       </StyledPageTopButtons>
-    </StyledPageTopBar>
+    </StyledPageTabBar>
   );
 };
 
-export default PageTopBar;
+export default PageTabBar;
 
-const StyledPageTopBar = styled.div`
+const StyledPageTabBar = styled.div`
   height: 40px;
   background-color: #f7f9f8;
   border-bottom: 1px solid #ebeeed;

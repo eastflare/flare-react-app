@@ -2,7 +2,7 @@ import { ReactNode, useState } from "react";
 import TopMenu from "./TopMenu";
 import LeftMenu from "./LeftMenu";
 import styled from "@emotion/styled";
-import PageTopBar from "./PageTopBar";
+import PageTabBar from "./PageTabBar";
 import { BgColor } from "ui/theme/Color";
 import { Env } from "config/env";
 
@@ -31,8 +31,8 @@ const MainContainer = (props: { children: ReactNode }) => {
           <LeftMenu />
         </StyledMainLeft>
         <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
-          {isMdi ? <PageTopBar /> : null}
-          <StyledMainPage id='mainBody' showPageTopBar={isMdi}>
+          {isMdi ? <PageTabBar /> : null}
+          <StyledMainPage id='mainBody' showPageTabBar={isMdi}>
             {children}
           </StyledMainPage>
         </StyledMainRight>
@@ -81,9 +81,9 @@ const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
   overflow-y: auto;
 `;
 
-const StyledMainPage = styled.div<{ showPageTopBar: boolean }>`
+const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
-  //PageTopBar 높이 만큼 빼줌
+  //PageTabBar 높이 만큼 빼줌
   padding: 0;
 `;
 

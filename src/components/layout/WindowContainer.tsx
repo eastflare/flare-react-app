@@ -7,13 +7,13 @@ const WindowContainer = (props: { children: ReactNode }) => {
 
   const { children } = props;
   const isLeftCollapsed = false;
-  const showPageTopBar = false;
+  const showPageTabBar = false;
 
   return (
     <StyledMainContainer>
       <StyledMainBody>
         <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
-          <StyledMainPage showPageTopBar={showPageTopBar}>{children}</StyledMainPage>
+          <StyledMainPage showPageTabBar={showPageTabBar}>{children}</StyledMainPage>
         </StyledMainRight>
       </StyledMainBody>
     </StyledMainContainer>
@@ -42,9 +42,9 @@ const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
   overflow-y: auto;
 `;
 
-const StyledMainPage = styled.div<{ showPageTopBar: boolean }>`
+const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
-  height: ${({ showPageTopBar }) => (showPageTopBar ? "calc(100% -150px)" : "100%")}; //PageTopBar 높이 만큼 빼줌
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% -150px)" : "100%")}; //PageTabBar 높이 만큼 빼줌
   padding: 0;
 `;
 
