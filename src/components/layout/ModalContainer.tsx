@@ -8,6 +8,9 @@ import usePage from "hooks/cmn/usePage";
 import { ModalItem } from "stores/usePageMapStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { history } from "utils/historyUtil";
+import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
+import { FontColor } from "@/ui/theme/Color";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface State {
   width: number | string;
@@ -16,6 +19,79 @@ interface State {
   y: number;
   maxZIndex: number;
 }
+
+const StyleDialog = styled(Dialog)`
+  .MuiDialog-paper {
+    padding: 25px;
+    box-shadow: none;
+    border-radius: 0;
+    color: ${FontColor.Default};
+  }
+
+  .popupTitle {
+    position: relative;
+    padding: 0 0 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: ${FontColor.Primary700};
+    &:before {
+      content: "";
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 8px;
+      width: 8px;
+      border-radius: 50%;
+      background-color: ${FontColor.Primary};
+    }
+  }
+
+  .info {
+    margin-left: 10px;
+  }
+
+  .popupContent {
+    padding: 20px 0;
+
+    .section {
+      line-height: 1.4;
+    }
+    .searchBox {
+      margin-bottom: 40px;
+    }
+
+    table {
+      margin-bottom: 0;
+    }
+  }
+
+  .MuiDialogTitle-root + .MuiDialogContent-root {
+    padding-top: 20px;
+  }
+
+  .buttonClose {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    min-width: 20px;
+    svg {
+      fill: ${FontColor.Gray400};
+      font-size: 1.5rem;
+    }
+  }
+
+  .buttonsTop {
+    text-align: right;
+    & + .section {
+      margin-top: 20px;
+    }
+  }
+
+  .popupBottom {
+    padding: 0 0 10px;
+  }
+`;
 
 const Overlay = styled.div<{ topHeight?: number; leftWidth?: number; overlayZIndex?: number }>`
   position: fixed;
@@ -124,6 +200,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
   const element = modalItem.element;
   const isModal = modalItem.openTypeCode === "MODAL";
+  const isFixModal = modalItem.options!.rndYn === "N";
 
   const [state, setState] = useState<State>({
     width: modalItem.options?.width ?? 800,
@@ -395,8 +472,29 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
   const { getPageProviderProps } = usePage({ pageItem: modalItem });
 
-  return (
-    <PageProvider value={{ ...getPageProviderProps() }}>
+  const content = isFixModal ? (
+    <StyleDialog
+      open={true}
+      onClose={onClose}
+      PaperProps={{
+        style: {
+          width: modalItem.options?.width ?? 800,
+          height: modalItem.options?.height ?? 600,
+          maxWidth: "none",
+          maxHeight: "none",
+        },
+      }}
+    >
+      <DialogTitle className='popupTitle'>
+        {modalItem?.label ?? "Dialog"}
+        <IconButton className='buttonClose' onClick={onClose}>
+          <CloseIcon fontSize='large'></CloseIcon>
+        </IconButton>
+      </DialogTitle>
+      <DialogContent className='popupContent'>{modalItem.element}</DialogContent>
+    </StyleDialog>
+  ) : (
+    <>
       {isModal && <Overlay topHeight={0} leftWidth={0} overlayZIndex={overlayZIndex} onClick={onClose} />}
       <Rnd
         className='myRnd'
@@ -416,25 +514,20 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
           <StyleRndHeader isDragging={isDragging} isMaximized={isMaximized} className='handle'>
             <StyleRndHeaderTitle>{modalItem?.label ?? "Drag"}</StyleRndHeaderTitle>
             <StyleRndButtonGroup>
-              <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
-                -
-              </button>
-              {!isMinimized && (
-                <button onClick={onMaximize} onGotPointerCapture={onMaximize}>
-                  {isMaximized ? "🗗" : "🗖"}
-                </button>
-              )}
-              <button onClick={onClose} onGotPointerCapture={onClose}>
-                ×
-              </button>
+              <button onClick={onMinimize}>-</button>
+              {!isMinimized && <button onClick={onMaximize}>{isMaximized ? "🗗" : "🗖"}</button>}
+              <button onClick={onClose}>×</button>
             </StyleRndButtonGroup>
           </StyleRndHeader>
-          <StyleRndBody>
-            {!isMinimized && element}
-            {/* {!isMinimized && element && <div>{element}</div>} */}
-          </StyleRndBody>
+          <StyleRndBody>{!isMinimized && modalItem.element}</StyleRndBody>
         </StyleRnd>
       </Rnd>
+    </>
+  );
+
+  return (
+    <PageProvider value={{ ...getPageProviderProps() }}>
+      {content}
       <PageModals />
     </PageProvider>
   );

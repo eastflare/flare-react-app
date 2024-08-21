@@ -87,6 +87,20 @@ const HomePage = () => {
       { width: 800, height: 600 }
     );
   };
+
+  const handleClick1Dialog = () => {
+    openModal(
+      "/sample/my-modal1",
+      {
+        foo: "bar",
+        callback: () => {
+          alert("전선배 뭐하는 사람인가요?");
+        },
+      },
+      { width: 800, height: 600, rndYn: "N" }
+    );
+  };
+
   const handleClick2 = () => {
     openModal(
       "/sample/my-modal2",
@@ -186,6 +200,19 @@ const HomePage = () => {
     );
   };
 
+  const handleClickDeviceDetectDialog = () => {
+    openModal(
+      "/sample/device-detect",
+      {
+        foo: "bar",
+        callback: (deviceType: string) => {
+          alert("현재화면은 " + deviceType + "입니다.");
+        },
+      },
+      { width: 400, height: 300, rndYn: "N" }
+    );
+  };
+
   return (
     <>
       카공족1 Callback :
@@ -197,6 +224,7 @@ const HomePage = () => {
       <br />
       <br />
       <GreyButton onClick={handleClickDeviceDetect}>DeviceDetect</GreyButton>
+      <GreyButton onClick={handleClickDeviceDetectDialog}>DeviceDetect-Dialog</GreyButton>
       <br />
       <br />
       <GreyButton onClick={handleClickMatthew}>Matthew</GreyButton>
@@ -211,6 +239,7 @@ const HomePage = () => {
       <br />
       <br />
       <GreyButton onClick={handleClick1}>전선배</GreyButton>
+      <GreyButton onClick={handleClick1Dialog}>전선배-Dialog</GreyButton>
       <BlueLineButton onClick={handleClick8}>전선배상세1</BlueLineButton>
       <br />
       <br />

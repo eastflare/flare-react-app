@@ -22,6 +22,7 @@ interface PopupOptions {
   width?: number;
   height?: number;
   title?: string;
+  rndYn?: string;
 }
 
 const env = Env.getInstance();
@@ -94,6 +95,7 @@ export default function usePageNavigate() {
   const openModal = (url: string, params: ObjAny, options?: PopupOptions) => {
     const newId = getUuid();
     const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
+    options!.rndYn = options?.rndYn ?? "Y";
 
     const modalItem: ModalItem = {
       openTypeCode: OpenTypeCode.MODAL,
@@ -152,6 +154,7 @@ export default function usePageNavigate() {
   const openModeless = (url: string, params: ObjAny, options?: PopupOptions) => {
     const newId = getUuid();
     const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
+    options!.rndYn = options?.rndYn ?? "Y";
 
     const modelessItem: ModalItem = {
       openTypeCode: OpenTypeCode.MODELESS,
