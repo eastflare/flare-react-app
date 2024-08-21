@@ -5,7 +5,8 @@ export interface PageCondition {
   pageId?: string;
   pageNm?: string;
   pageUrl?: string;
-  ruteUrl?: string;
+  rutePathNm?: string;
+  cpntPathNm?: string;
   useYn?: string;
 }
 
@@ -31,7 +32,8 @@ export interface ShowingPage extends Crud {
   pageNm: string;
   pageUrl: string;
   ruteId: string;
-  ruteUrl: string;
+  rutePathNm: string;
+  cpntPathNm: string;
   msgCtn: string;
   sysDivsCd: string;
   popupWthLen: number;

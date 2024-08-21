@@ -2,6 +2,17 @@ import { Route, RouteCondition } from "@/models/system/Route";
 import { CommonRequest, CommonResponse, DmlResponse, Method, ServiceName } from "@/models/common/RestApi";
 import { callApi } from "utils/ApiUtil";
 
+export const findRoutesByRoles = async () => {
+  const request: CommonRequest = {
+    method: Method.GET,
+    url: "/v1/routes/roles",
+    serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
+  };
+  const response: CommonResponse<Route[]> = await callApi(request);
+
+  return (response.successOrNot === "Y" ? response.data : []) as Route[];
+};
+
 export const findRoutes = async (routeCondition: RouteCondition) => {
   const request: CommonRequest = {
     method: Method.GET,
