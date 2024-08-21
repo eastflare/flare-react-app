@@ -89,7 +89,7 @@ const MainRoutes = () => {
 
         const dynamicRoutes = data.map(route => {
           const componentImport = () =>
-            import(`/dist/${route.cpntPathNm}`).catch(() => {
+            import(`@/${route.cpntPathNm}`).catch(() => {
               console.error(`해당 경로의 Component를 Import 하지 못했습니다: /src/${route.cpntPathNm}`);
               return { default: () => <NoPage /> };
             });
