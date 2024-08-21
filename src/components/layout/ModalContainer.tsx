@@ -339,7 +339,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const rndManagerRef = useRef<HTMLElement | null>(null);
 
   const onDragStart: RndDragCallback = (_: DraggableEvent, data: DraggableData) => {
-    if (data.node) {
+    if (data.node && !isModal) {
       rndManagerRef.current = data.node;
       if (rndManagerRef.current.style.zIndex !== globalMaxZIndex.toString()) {
         setZIndex(__ => {
@@ -482,6 +482,13 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
           height: modalItem.options?.height ?? 600,
           maxWidth: "none",
           maxHeight: "none",
+          zIndex: zIndex,
+        },
+      }}
+      sx={{
+        zIndex: overlayZIndex,
+        "& .MuiDialog-root": {
+          zIndex: overlayZIndex,
         },
       }}
     >
@@ -514,9 +521,17 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
           <StyleRndHeader isDragging={isDragging} isMaximized={isMaximized} className='handle'>
             <StyleRndHeaderTitle>{modalItem?.label ?? "Drag"}</StyleRndHeaderTitle>
             <StyleRndButtonGroup>
-              <button onClick={onMinimize}>-</button>
-              {!isMinimized && <button onClick={onMaximize}>{isMaximized ? "🗗" : "🗖"}</button>}
-              <button onClick={onClose}>×</button>
+              <button onClick={onMinimize} onGotPointerCapture={onMinimize}>
+                -
+              </button>
+              {!isMinimized && (
+                <button onClick={onMaximize} onGotPointerCapture={onMaximize}>
+                  {isMaximized ? "🗗" : "🗖"}
+                </button>
+              )}
+              <button onClick={onClose} onGotPointerCapture={onClose}>
+                ×
+              </button>
             </StyleRndButtonGroup>
           </StyleRndHeader>
           <StyleRndBody>{!isMinimized && modalItem.element}</StyleRndBody>
