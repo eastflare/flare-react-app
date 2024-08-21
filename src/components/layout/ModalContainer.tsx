@@ -150,7 +150,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
   const [leftMenuWidth, setLeftMenuWidth] = useState(0);
   const [topMenuHeight, setTopMenuHeight] = useState(0);
-  const [topBarHeight, setTopBarHeight] = useState(0);
+  const [pageTabBarHeight, setPageTabBarHeight] = useState(0);
   const [distanceHeight, setDistanceHeight] = useState(0);
   const [distanceWidth, setDistanceWidth] = useState(0);
 
@@ -161,12 +161,12 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
     const leftMenuL = document.getElementById("leftMenu")?.offsetWidth ?? 0;
     const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
-    const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
+    const pageTabBarL = document.getElementById("pageTabBar")?.offsetHeight ?? 0;
     const leftMenu = document.getElementById("leftMenu") ?? null;
-    const topBar = document.getElementById("topBar") ?? null;
+    const pageTabBar = document.getElementById("pageTabBar") ?? null;
     const mainBody = document.getElementById("mainBody") ?? null;
 
-    let topBarBottom = 0,
+    let pageTabBarBottom = 0,
       mainBodyTop = 0,
       leftMenuRight = 0,
       mainBodyLeft = 0;
@@ -175,8 +175,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       leftMenuRight = leftMenu.getBoundingClientRect().right;
     }
 
-    if (topBar) {
-      topBarBottom = topBar.getBoundingClientRect().bottom;
+    if (pageTabBar) {
+      pageTabBarBottom = pageTabBar.getBoundingClientRect().bottom;
     }
 
     if (mainBody) {
@@ -184,12 +184,12 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       mainBodyLeft = mainBody.getBoundingClientRect().left;
     }
 
-    const distanceH = Math.abs(topBarBottom! - mainBodyTop!);
+    const distanceH = Math.abs(pageTabBarBottom! - mainBodyTop!);
     const distanceW = Math.abs(mainBodyLeft! - leftMenuRight!);
 
     setLeftMenuWidth(leftMenuL);
     setTopMenuHeight(topMenuL);
-    setTopBarHeight(topBarL);
+    setPageTabBarHeight(pageTabBarL);
     setDistanceHeight(distanceH);
     setDistanceWidth(distanceW);
 
@@ -202,14 +202,14 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     const modalHeight = typeof height === "number" ? height : parseInt(height);
 
     const posX = (screenWidth - modalWidth) / 2 - (leftMenuWidth + distanceWidth);
-    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + topBarHeight + distanceHeight);
+    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + pageTabBarHeight + distanceHeight);
 
     setState(prevState => ({
       ...prevState,
       x: posX,
       y: posY,
     }));
-  }, [leftMenuWidth, topMenuHeight, topBarHeight, distanceHeight, distanceWidth]);
+  }, [leftMenuWidth, topMenuHeight, pageTabBarHeight, distanceHeight, distanceWidth]);
 
   const getHighestZIndexElement = () => {
     const allRndElements = document.querySelectorAll(".myRnd");
@@ -282,7 +282,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     const screenHeight = window.innerHeight;
     const leftMenuL = document.getElementById("leftMenu")?.offsetWidth ?? 0;
     const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
-    const topBarL = document.getElementById("topBar")?.offsetHeight ?? 0;
+    const pageTabBarL = document.getElementById("pageTabBar")?.offsetHeight ?? 0;
     const width = typeof state.width === "number" ? state.width : parseInt(state.width);
 
     // 화면의 좌측을 벗어나는 경우
@@ -296,13 +296,13 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     }
 
     // 화면의 상단을 벗어나는 경우
-    if (y < -(topMenuL + topBarL)) {
-      y = -(topMenuL + topBarL);
+    if (y < -(topMenuL + pageTabBarL)) {
+      y = -(topMenuL + pageTabBarL);
     }
 
     // 화면의 하단을 벗어나는 경우
-    if (y > screenHeight - (topMenuL + topBarL)) {
-      y = screenHeight - (topMenuL + topBarL) - 35;
+    if (y > screenHeight - (topMenuL + pageTabBarL)) {
+      y = screenHeight - (topMenuL + pageTabBarL) - 35;
     }
 
     setState(prevState => ({
@@ -358,7 +358,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
         width: "100%",
         height: "100%",
         x: -(leftMenuWidth + distanceWidth),
-        y: -(topMenuHeight + topBarHeight + distanceHeight),
+        y: -(topMenuHeight + pageTabBarHeight + distanceHeight),
         maxZIndex: state.maxZIndex,
       });
     }
