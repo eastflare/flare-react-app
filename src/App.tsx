@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 //import LoginRouter from "routers/LoginRouter";
 import { CookiesProvider } from "react-cookie";
 import { MenuProvider } from "provider/menu-provider";
+import { CommonModal } from "./components/modals/common/CommonModal";
 
 const SSOLoginRouter = loadable(() => import("routers/SSOLoginRouter"));
 const LoginRouter = loadable(() => import("routers/LoginRouter"));
@@ -39,6 +40,9 @@ const App = () => {
                   <Route path='/fail/:message' element={<FailRouter />} />
                   <Route path='/*' element={<MainRouter fallback={<Loading />} />} />
                 </Routes>
+                <>
+                  <CommonModal />
+                </>
               </MenuProvider>
             </QueryClientProvider>
           </CookiesProvider>

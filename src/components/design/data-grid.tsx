@@ -5,6 +5,7 @@ import { Pagination } from "./pagination";
 import { DotTagInfo, DotTagInfoProps } from "./dot-tag-info";
 import { DataGridHeaderRightMember, DataGridWrapperHeaderRight } from "./wrapper-header";
 import { DropdownOption } from "./dropdown-field";
+import "ag-grid-community/styles/ag-grid.css";
 
 export type LanguageType = "ko" | "en" | "zhC" | "zhT" | "pl";
 

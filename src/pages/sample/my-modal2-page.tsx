@@ -3,12 +3,14 @@ import useToast from "hooks/cmn/useToast";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
+import { useCommonModal } from "@/hooks/useCommonModal";
 
 const MyModal2Page = () => {
   const { openModal } = usePageNavigate();
   const { callback, close } = usePageContext();
   const [text, setText] = useState("");
   const { myToast } = useToast();
+  const { openCommonModal } = useCommonModal();
 
   useEffect(() => {
     console.log("요시키 렌더링");
@@ -24,7 +26,16 @@ const MyModal2Page = () => {
   };
 
   const handleClickCancel = () => {
-    close();
+    openCommonModal({
+      modalType: "confirm",
+      content: "팝업 창을 닫겠습니까?",
+      yesCallback: async () => {
+        close();
+      },
+      noCallback: () => {
+        return false;
+      },
+    });
   };
 
   const handleClickAlert = () => {
