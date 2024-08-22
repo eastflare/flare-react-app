@@ -6,7 +6,7 @@ import axios from "axios";
 export const findFiles = async (atchFileGrId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/files",
+    url: `/v1/files`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     headers: {},
     queryParams: new URLSearchParams({ atchFileGrId: atchFileGrId }),
@@ -19,7 +19,7 @@ export const findFiles = async (atchFileGrId: string) => {
 export const uploadFiles = async (formData: FormData) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/file/upload",
+    url: `/v1/file/upload`,
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -35,7 +35,7 @@ export const uploadFiles = async (formData: FormData) => {
 export const uploadFileWithNewGroupId = async (formData: FormData) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/file/upload/new",
+    url: `/v1/file/upload/new`,
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -51,7 +51,7 @@ export const uploadFileWithNewGroupId = async (formData: FormData) => {
 export const modifyFiles = async (files: FileInfo[]) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/files",
+    url: `/v1/files`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: files,
   };
@@ -64,7 +64,7 @@ export const modifyFiles = async (files: FileInfo[]) => {
 export const modifyFilesWithNewGroupId = async (atchFileGrId: string, files: FileInfo[]) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/files/new",
+    url: `/v1/files/new`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: {
       atchFileGrId: atchFileGrId,
@@ -80,7 +80,7 @@ export const modifyFilesWithNewGroupId = async (atchFileGrId: string, files: Fil
 export const downloadFile = async (atchFileGrId: string, atchFileId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/file/download",
+    url: `/v1/file/download`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ atchFileGrId: atchFileGrId, atchFileId: atchFileId }),
   };

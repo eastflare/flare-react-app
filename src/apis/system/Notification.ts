@@ -1,11 +1,11 @@
-import { NotificationCondition, NotificationGroup, NotificationGroupDivision, NotificationGroupUser } from "../../models/admin/Notification";
+import { NotificationCondition, NotificationGroup, NotificationGroupDivision, NotificationGroupUser } from "@/models/system/Notification";
 import { CommonRequest, CommonResponse, Method, ServiceName } from "../../models/common/RestApi";
 import { callApi } from "utils/ApiUtil";
 
 export const getNotificationGroups = async (notificationCondition: NotificationCondition) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/notificationGroups",
+    url: `/v1/notificationGroups`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ ntdkNm: notificationCondition.ntdkNm ?? "" }),
   };
@@ -17,7 +17,7 @@ export const getNotificationGroups = async (notificationCondition: NotificationC
 export const getNotificationGroupDivisions = async () => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/notificationGroup/divisions",
+    url: `/v1/notificationGroup/divisions`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<NotificationGroupDivision[]> = await callApi(request);
@@ -28,7 +28,7 @@ export const getNotificationGroupDivisions = async () => {
 export const getNotificationGroupUsers = async (ntdkId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/notificationGroup/${ntdkId}/users",
+    url: `/v1/notificationGroup/${ntdkId}/users`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<NotificationGroupUser[]> = await callApi(request);
@@ -39,7 +39,7 @@ export const getNotificationGroupUsers = async (ntdkId: string) => {
 export const saveNotificationGroups = async (notificationGroups: NotificationGroup[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/notificationGroups",
+    url: `/v1/notificationGroups`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: notificationGroups,
   };
@@ -51,7 +51,7 @@ export const saveNotificationGroups = async (notificationGroups: NotificationGro
 export const deleteNotificationGroup = async (ntdkId: string) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/notificationGroup/${ntdkId}",
+    url: `/v1/notificationGroup/${ntdkId}`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
 
@@ -63,7 +63,7 @@ export const deleteNotificationGroup = async (ntdkId: string) => {
 export const saveNotificationGroupUsers = async (notificationGroupUsers: NotificationGroupUser[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/notificationGroup/users",
+    url: `/v1/notificationGroup/users`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: notificationGroupUsers,
   };
@@ -75,7 +75,7 @@ export const saveNotificationGroupUsers = async (notificationGroupUsers: Notific
 export const getApprovalNotificationGroups = async (ntdkId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/notificationGroup/${ntdkId}/approvals",
+    url: `/v1/notificationGroup/${ntdkId}/approvals`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<NotificationGroup[]> = await callApi(request);

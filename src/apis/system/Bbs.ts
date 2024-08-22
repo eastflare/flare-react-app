@@ -6,7 +6,7 @@ import { callApi } from "utils/ApiUtil";
 export const findBbsPosts = async (bbsCondition?: BbsCondition) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/bbs/posts",
+    url: `/v1/bbs/posts`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ ...bbsCondition }),
   };
@@ -18,7 +18,7 @@ export const findBbsPosts = async (bbsCondition?: BbsCondition) => {
 export const findBbsPost = async (bbmNo: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/bbs/post/${bbmNo}",
+    url: `/v1/bbs/post/${bbmNo}`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<BbsPostDetail> = await callApi(request);
@@ -29,7 +29,7 @@ export const findBbsPost = async (bbmNo: string) => {
 export const createBbs = async (bbs: BbsPostRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/bbs/post",
+    url: `/v1/bbs/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: bbs,
   };
@@ -42,7 +42,7 @@ export const createBbs = async (bbs: BbsPostRequest) => {
 export const createBbsOld = async (bbs: BbsPostDetail) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/bbs/post",
+    url: `/v1/bbs/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: bbs,
   };
@@ -55,7 +55,7 @@ export const createBbsOld = async (bbs: BbsPostDetail) => {
 export const modifyBbs = async (bbs: BbsPostUpdateRequest) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/bbs/post",
+    url: `/v1/bbs/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: bbs,
   };
@@ -68,7 +68,7 @@ export const modifyBbs = async (bbs: BbsPostUpdateRequest) => {
 export const modifyBbsOld = async (bbs: BbsPostDetail) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/bbs/post",
+    url: `/v1/bbs/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: bbs,
   };
@@ -81,7 +81,7 @@ export const modifyBbsOld = async (bbs: BbsPostDetail) => {
 export const deleteBbs = async (bbmNo: string) => {
   const request: CommonRequest = {
     method: Method.PATCH,
-    url: "/v1/bbs/post",
+    url: `/v1/bbs/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: new Number(bbmNo),
   };

@@ -5,7 +5,7 @@ import { callApi } from "utils/ApiUtil";
 export const getApprovalRuleMasters = async (aprRuleId: string, searchRuleNm: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/approval/rules",
+    url: `/v1/approval/rules`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({
       aprRuleId: aprRuleId,
@@ -20,7 +20,7 @@ export const getApprovalRuleMasters = async (aprRuleId: string, searchRuleNm: st
 export const setApprovalRuleMaster = async (saveData: ApprovalRuleMaster) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/approval/rule",
+    url: `/v1/approval/rule`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: saveData,
   };
@@ -32,7 +32,7 @@ export const setApprovalRuleMaster = async (saveData: ApprovalRuleMaster) => {
 export const getApprovalRuleDetails = async (aprRuleId?: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/approval/rule/${aprRuleId}/details",
+    url: `/v1/approval/rule/${aprRuleId}/details`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<ApprovalRuleDetail[]> = await callApi(request);
@@ -43,7 +43,7 @@ export const getApprovalRuleDetails = async (aprRuleId?: string) => {
 export const setApprovalRuleDetails = async (saveData: ApprovalRuleDetail[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/approval/rule/details",
+    url: `/v1/approval/rule/details`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: saveData,
   };

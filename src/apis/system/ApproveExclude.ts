@@ -11,7 +11,7 @@ import { callApi } from "utils/ApiUtil";
 export const getAllApproveExcludeList = async (aprExcNm: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/approval/excludes",
+    url: `/v1/approval/excludes`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({
       aprExcNm: aprExcNm ?? "",
@@ -25,7 +25,7 @@ export const getAllApproveExcludeList = async (aprExcNm: string) => {
 export const getAllApproveExcludeDetails = async (aprExcTgtId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/approval/exclude/${aprExcTgtId}/details",
+    url: `/v1/approval/exclude/${aprExcTgtId}/details`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     // queryParams: new URLSearchParams({
     //   aprExcTgtId: aprExcTgtId ?? '',
@@ -39,7 +39,7 @@ export const getAllApproveExcludeDetails = async (aprExcTgtId: string) => {
 export const saveApproveExcludeCud = async (crudRequest: ApprovalExcludeRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/approval/exclude",
+    url: `/v1/approval/exclude`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: crudRequest,
   };
@@ -52,7 +52,7 @@ export const saveApproveExcludeCud = async (crudRequest: ApprovalExcludeRequest)
 export const deleteApproveExcludeMaster = async (aprExcTgtId: string) => {
   const request: CommonRequest = {
     method: Method.DELETE,
-    url: "/v1/approval/exclude/${aprExcTgtId}",
+    url: `/v1/approval/exclude/${aprExcTgtId}`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
 

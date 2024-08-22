@@ -5,7 +5,7 @@ import { callApi } from "utils/ApiUtil";
 export const createReply = async (bbsReplyRequest: BbsReplyRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/bbs/reply",
+    url: `/v1/bbs/reply`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: bbsReplyRequest,
   };
@@ -17,7 +17,7 @@ export const createReply = async (bbsReplyRequest: BbsReplyRequest) => {
 export const removeReply = async (bbmNo: string, bbmReNo: string) => {
   const request: CommonRequest = {
     method: Method.DELETE,
-    url: "/v1/bbs/reply/${bbmNo}/${bbmReNo}",
+    url: `/v1/bbs/reply/${bbmNo}/${bbmReNo}`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse = await callApi(request);
@@ -28,7 +28,7 @@ export const removeReply = async (bbmNo: string, bbmReNo: string) => {
 export const modifyReply = async (bbsReplyUpdateRequest: BbsReplyUpdateRequest) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/bbs/reply",
+    url: `/v1/bbs/reply`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: bbsReplyUpdateRequest,
   };

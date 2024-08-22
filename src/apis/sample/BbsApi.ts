@@ -6,7 +6,7 @@ import { callApi } from "utils/ApiUtil";
 export const getBbsPosts = async (condition: BbsCondition): Promise<PaginationResponse<BbsPost>> => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/bbs/posts",
+    url: `/v1/bbs/posts`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ ...condition }),
   };
@@ -17,7 +17,7 @@ export const getBbsPosts = async (condition: BbsCondition): Promise<PaginationRe
 export const createBbsPost = async (bbs: BbsPostDetail): Promise<string> => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/bbs/post",
+    url: `/v1/bbs/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: bbs,
   };
@@ -28,7 +28,7 @@ export const createBbsPost = async (bbs: BbsPostDetail): Promise<string> => {
 export const updateBbsPost = async (bbs: BbsPostDetail): Promise<string> => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/bbs/post",
+    url: `/v1/bbs/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: bbs,
   };

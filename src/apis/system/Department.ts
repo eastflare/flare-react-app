@@ -5,7 +5,7 @@ import { callApi } from "utils/ApiUtil";
 export const getDepartments = async (searchItem?: string, deptNm?: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/departments",
+    url: `/v1/departments`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({
       searchItem: searchItem ? searchItem : "",
@@ -20,7 +20,7 @@ export const getDepartments = async (searchItem?: string, deptNm?: string) => {
 export const getAllDepartments = async () => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/departments",
+    url: `/v1/departments`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<any> = await callApi(request);
@@ -31,7 +31,7 @@ export const getAllDepartments = async () => {
 export const getParentDepartment = async () => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/department/parent",
+    url: `/v1/department/parent`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<string> = await callApi(request);

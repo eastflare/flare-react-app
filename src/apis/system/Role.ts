@@ -5,7 +5,7 @@ import { callApi } from "utils/ApiUtil";
 export const getRoles = async (roleNm: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/roles",
+    url: `/v1/roles`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ roleNm: roleNm }),
   };
@@ -17,7 +17,7 @@ export const getRoles = async (roleNm: string) => {
 export const setRoles = async (saveData: Role[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/roles",
+    url: `/v1/roles`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: saveData,
   };

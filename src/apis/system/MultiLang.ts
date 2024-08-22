@@ -1,4 +1,4 @@
-// import { Message, MessageCondition } from 'models/admin/Message';
+// import { Message, MessageCondition } from '@/models/system/Message';
 import {
   CommonRequest,
   CommonResponse,

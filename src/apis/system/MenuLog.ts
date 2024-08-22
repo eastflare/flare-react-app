@@ -1,6 +1,6 @@
 import { CommonRequest, CommonResponse, Method, ServiceName } from "@/models/common/RestApi";
 import { callApi } from "utils/ApiUtil";
-import { MenuLog, MenuLogRequest } from "../../models/admin/MenuLog";
+import { MenuLog, MenuLogRequest } from "@/models/system/MenuLog";
 import { PaginationResponse } from "@/models/common/Pagination";
 
 export const findMenuLogs = async (condition: MenuLogRequest) => {

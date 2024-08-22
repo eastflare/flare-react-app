@@ -5,7 +5,7 @@ import { callApi } from "utils/ApiUtil";
 export const getEmployeeBySearchCondition = async (searchItem?: string, deptCd?: string, deptNm?: string, empNm?: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/employees",
+    url: `/v1/employees`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({
       searchItem: searchItem ?? "",
@@ -22,7 +22,7 @@ export const getEmployeeBySearchCondition = async (searchItem?: string, deptCd?:
 export const getTeamLeaderIdByDeptCd = async (deptCd: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/employee/teamLeaderId",
+    url: `/v1/employee/teamLeaderId`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ deptCd }),
   };

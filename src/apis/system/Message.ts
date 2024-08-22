@@ -5,7 +5,7 @@ import { callApi } from "utils/ApiUtil";
 export const findMessages = async (messageCondition?: MessageCondition) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/message",
+    url: `/v1/message`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ ...messageCondition }),
   };
@@ -18,7 +18,7 @@ export const findMessages = async (messageCondition?: MessageCondition) => {
 export const findMessagesMsgCtn = async (messageCondition?: MessageCondition) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/messageMsgCtn",
+    url: `/v1/messageMsgCtn`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ ...messageCondition }),
   };
@@ -31,7 +31,7 @@ export const findMessagesMsgCtn = async (messageCondition?: MessageCondition) =>
 export const createMessage = async (message: Message) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/message",
+    url: `/v1/message`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: message,
   };
@@ -44,7 +44,7 @@ export const createMessage = async (message: Message) => {
 export const modifyMessage = async (message: Message) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/message",
+    url: `/v1/message`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: message,
   };
@@ -57,7 +57,7 @@ export const modifyMessage = async (message: Message) => {
 export const deleteMessage = async (msgCtn: string, langCd: string) => {
   const request: CommonRequest = {
     method: Method.DELETE,
-    url: "/v1/message",
+    url: `/v1/message`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ msgCtn: msgCtn, langCd: langCd }),
   };
@@ -70,7 +70,7 @@ export const deleteMessage = async (msgCtn: string, langCd: string) => {
 export const saveMessages = async (messages: Message[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/messages",
+    url: `/v1/messages`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: messages,
   };
@@ -83,7 +83,7 @@ export const saveMessages = async (messages: Message[]) => {
 export const reloadMessages = async () => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/reloadMessageCache",
+    url: `/v1/reloadMessageCache`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
 

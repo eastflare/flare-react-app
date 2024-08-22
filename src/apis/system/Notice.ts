@@ -6,7 +6,7 @@ import { callApi } from "utils/ApiUtil";
 export const findNoticePosts = async (noticeCondition?: NoticeCondition) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/notice/posts",
+    url: `/v1/notice/posts`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ ...noticeCondition }),
   };
@@ -18,7 +18,7 @@ export const findNoticePosts = async (noticeCondition?: NoticeCondition) => {
 export const findNoticePost = async (bbmNo: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/notice/post/${bbmNo}",
+    url: `/v1/notice/post/${bbmNo}`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<NoticePostDetail> = await callApi(request);
@@ -29,7 +29,7 @@ export const findNoticePost = async (bbmNo: string) => {
 export const findNoticePopupPost = async () => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/notice/post",
+    url: `/v1/notice/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<NoticePostDetail[]> = await callApi(request);
@@ -40,7 +40,7 @@ export const findNoticePopupPost = async () => {
 export const createNotice = async (notice: NoticePostRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/notice/post",
+    url: `/v1/notice/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: notice,
   };
@@ -53,7 +53,7 @@ export const createNotice = async (notice: NoticePostRequest) => {
 export const createNoticeOld = async (notice: NoticePostDetail) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/notice/post",
+    url: `/v1/notice/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: notice,
   };
@@ -66,7 +66,7 @@ export const createNoticeOld = async (notice: NoticePostDetail) => {
 export const modifyNotice = async (notice: NoticePostUpdateRequest) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/notice/post",
+    url: `/v1/notice/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: notice,
   };
@@ -79,7 +79,7 @@ export const modifyNotice = async (notice: NoticePostUpdateRequest) => {
 export const modifyNoticeOld = async (notice: NoticePostDetail) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/notice/post",
+    url: `/v1/notice/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: notice,
   };
@@ -92,7 +92,7 @@ export const modifyNoticeOld = async (notice: NoticePostDetail) => {
 export const deleteNotice = async (bbmNo: string) => {
   const request: CommonRequest = {
     method: Method.PATCH,
-    url: "/v1/notice/post",
+    url: `/v1/notice/post`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: new Number(bbmNo),
   };

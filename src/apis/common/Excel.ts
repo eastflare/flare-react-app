@@ -15,7 +15,7 @@ export const downloadFile = (data: Blob, filename: string) => {
 export const getExcelSample = async () => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/excel/download",
+    url: `/v1/excel/download`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     headers: {
       Accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -31,7 +31,7 @@ export const getExcelSample = async () => {
 export const convertToExcel = async (infoForExcelConvertion: InfoForExcelConvertion) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/excel/convert",
+    url: `/v1/excel/convert`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     headers: {
       Accept: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -42,6 +42,6 @@ export const convertToExcel = async (infoForExcelConvertion: InfoForExcelConvert
   };
   const response: CommonResponse<Blob> = await callApi(request);
   if (response?.data) {
-    downloadFile(response.data, "${infoForExcelConvertion.fileName}");
+    downloadFile(response.data, `${infoForExcelConvertion.fileName}`);
   }
 };

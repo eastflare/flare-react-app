@@ -6,7 +6,7 @@ import { callApi } from "utils/ApiUtil";
 export const getCommonCodeGroups = async (searchGrCd: string, searchCode: string, searchUseYn: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/commonCodeGroups",
+    url: `/v1/commonCodeGroups`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({
       searchGrCd: searchGrCd,
@@ -22,7 +22,7 @@ export const getCommonCodeGroups = async (searchGrCd: string, searchCode: string
 export const setCommonCodeGroups = async (saveData: CommonCodeGroup[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/commonCodeGroups",
+    url: `/v1/commonCodeGroups`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: saveData,
   };
@@ -34,7 +34,7 @@ export const setCommonCodeGroups = async (saveData: CommonCodeGroup[]) => {
 export const getCommonCodes = async (cmnGrCd: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/commonCodes",
+    url: `/v1/commonCodes`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ cmnGrCd: cmnGrCd }),
   };
@@ -46,7 +46,7 @@ export const getCommonCodes = async (cmnGrCd: string) => {
 export const setCommonCodes = async (saveData: CommonCode[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/commonCodes",
+    url: `/v1/commonCodes`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: saveData,
   };
@@ -58,7 +58,7 @@ export const setCommonCodes = async (saveData: CommonCode[]) => {
 export const getCommonCodeHeader = async (cmnGrCd: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/commonCodeHeader",
+    url: `/v1/commonCodeHeader`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ cmnGrCd: cmnGrCd }),
   };
@@ -70,7 +70,7 @@ export const getCommonCodeHeader = async (cmnGrCd: string) => {
 export const getCommonCodeNames = async (cmnGrCd: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/commonCodeNames",
+    url: `/v1/commonCodeNames`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ cmnGrCd: cmnGrCd }),
   };
@@ -83,7 +83,7 @@ export const getCommonCodeNames = async (cmnGrCd: string) => {
 export const getCommonCodeNamesWithCode = async (cmnGrCd: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/commonCodeNamesWithCode",
+    url: `/v1/commonCodeNamesWithCode`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ cmnGrCd: cmnGrCd }),
   };
@@ -96,7 +96,7 @@ export const getCommonCodeNamesWithCode = async (cmnGrCd: string) => {
 export const getCommonCodeNamesCondition = async (condition: CommonCodeCondition) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/commonCodeNamesCondition",
+    url: `/v1/commonCodeNamesCondition`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ ...condition }),
   };

@@ -1,12 +1,12 @@
 import { RoleDepartmentMutateRequest } from "@/models/system/Role";
-import { Department } from "../../models/admin/Department";
-import { CommonRequest, CommonResponse, Method, ServiceName } from "../../models/common/RestApi";
+import { Department } from "@/models/system/Department";
+import { CommonRequest, CommonResponse, Method, ServiceName } from "@/models/common/RestApi";
 import { callApi } from "utils/ApiUtil";
 
 export const getRoleDepartment = async (roleCd: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/role/${roleCd}/departments",
+    url: `/v1/role/${roleCd}/departments`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ roleCd: roleCd }),
   };
@@ -18,7 +18,7 @@ export const getRoleDepartment = async (roleCd: string) => {
 export const insertRoleDepartment = async (roleDepartmentMutateRequest: RoleDepartmentMutateRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/role/${roleDepartmentMutateRequest.roleCd}/departments",
+    url: `/v1/role/${roleDepartmentMutateRequest.roleCd}/departments`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: roleDepartmentMutateRequest.deptCdList,
   };
@@ -35,7 +35,7 @@ export const deleteRoleDepartment = async (roleDepartmentMutateRequest: RoleDepa
 
   const request: CommonRequest = {
     method: Method.DELETE,
-    url: "/v1/role/${roleDepartmentMutateRequest.roleCd}/departments",
+    url: `/v1/role/${roleDepartmentMutateRequest.roleCd}/departments`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: queryParams,
   };

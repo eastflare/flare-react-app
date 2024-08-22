@@ -8,7 +8,7 @@ import { Department } from "@/models/system/Department";
 export const getAllMenus = async () => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/menus",
+    url: `/v1/menus`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<MenuVO[]> = await callApi(request);
@@ -19,7 +19,7 @@ export const getAllMenus = async () => {
 export const getMenu = async (mnuId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/menu/${mnuId}",
+    url: `/v1/menu/${mnuId}`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<MenuVO> = await callApi(request);
@@ -30,7 +30,7 @@ export const getMenu = async (mnuId: string) => {
 export const getMenusByRole = async (roleCd: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/role/${roleCd}/menus",
+    url: `/v1/role/${roleCd}/menus`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     // queryParams: new URLSearchParams({ roleCd: roleCd }),
   };
@@ -42,7 +42,7 @@ export const getMenusByRole = async (roleCd: string) => {
 export const saveMenusByRole = async (roleCd: string, mnuIdList: string[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/role/${roleCd}/menus",
+    url: `/v1/role/${roleCd}/menus`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: mnuIdList,
   };
@@ -54,7 +54,7 @@ export const saveMenusByRole = async (roleCd: string, mnuIdList: string[]) => {
 export const getRolesByMenu = async (mnuId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/menu/${mnuId}/roles",
+    url: `/v1/menu/${mnuId}/roles`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     // queryParams: new URLSearchParams({ mnuId: mnuId }),
   };
@@ -66,7 +66,7 @@ export const getRolesByMenu = async (mnuId: string) => {
 export const getEmployeesByMenu = async (mnuId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/menu/${mnuId}/employees",
+    url: `/v1/menu/${mnuId}/employees`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     // queryParams: new URLSearchParams({ mnuId: mnuId }),
   };
@@ -78,7 +78,7 @@ export const getEmployeesByMenu = async (mnuId: string) => {
 export const getDepartmentsByMenu = async (mnuId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/menu/${mnuId}/departments",
+    url: `/v1/menu/${mnuId}/departments`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     // queryParams: new URLSearchParams({ mnuId: mnuId }),
   };
@@ -90,7 +90,7 @@ export const getDepartmentsByMenu = async (mnuId: string) => {
 export const deleteMenus = async (mnuId: string) => {
   const request: CommonRequest = {
     method: Method.DELETE,
-    url: "/v1/menu/${mnuId}",
+    url: `/v1/menu/${mnuId}`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     // queryParams: new URLSearchParams({ mnuId: mnuId }),
   };
@@ -102,7 +102,7 @@ export const deleteMenus = async (mnuId: string) => {
 export const createMenu = async (menu: MenuRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/menu",
+    url: `/v1/menu`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: menu,
   };

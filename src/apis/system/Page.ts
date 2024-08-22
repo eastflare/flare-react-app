@@ -5,9 +5,8 @@ import { callApi } from "utils/ApiUtil";
 export const findPageById = async (pageId: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/page/${pageId}",
+    url: `/v1/page/${pageId}`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
-    
   };
   const response: CommonResponse<Page> = await callApi(request);
 
@@ -17,7 +16,7 @@ export const findPageById = async (pageId: string) => {
 export const findPages = async (pageCondition: PageCondition) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/pages",
+    url: `/v1/pages`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ ...pageCondition }),
   };
@@ -29,7 +28,7 @@ export const findPages = async (pageCondition: PageCondition) => {
 export const savePages = async (pages: Page[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/pages",
+    url: `/v1/pages`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: pages,
   };

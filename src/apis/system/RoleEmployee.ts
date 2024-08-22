@@ -5,7 +5,7 @@ import { callApi } from "utils/ApiUtil";
 export const getRoleEmps = async (typeCode: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/role/${typeCode}/employees",
+    url: `/v1/role/${typeCode}/employees`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<RoleEmployee[]> = await callApi(request);
@@ -16,7 +16,7 @@ export const getRoleEmps = async (typeCode: string) => {
 export const setRoleEmps = async (roleEmployeeMutateRequest: RoleEmployeeMutateRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/role/${roleEmployeeMutateRequest.roleCd}/employees",
+    url: `/v1/role/${roleEmployeeMutateRequest.roleCd}/employees`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: roleEmployeeMutateRequest.userIdList,
   };
@@ -33,7 +33,7 @@ export const deleteRoleEmps = async (roleEmployeeMutateRequest: RoleEmployeeMuta
 
   const request: CommonRequest = {
     method: Method.DELETE,
-    url: "/v1/role/${roleEmployeeMutateRequest.roleCd}/employees",
+    url: `/v1/role/${roleEmployeeMutateRequest.roleCd}/employees`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: queryParams,
   };

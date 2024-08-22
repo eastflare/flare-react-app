@@ -87,11 +87,6 @@ const LeftMenu = () => {
           </a>
         </li>
         <li>
-          <a href='#' onClick={e => handleClick("/system/route/route-list", e)}>
-            라우트 목록
-          </a>
-        </li>
-        <li>
           <a href='#' onClick={e => handleClick("/system/page/page-list", e)}>
             페이지 목록
           </a>

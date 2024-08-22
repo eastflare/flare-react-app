@@ -7,7 +7,7 @@ import { callApi } from "utils/ApiUtil";
 export const getApprovalTemplate = async (aprTplNm: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/approval/templates",
+    url: `/v1/approval/templates`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ aprTplNm: aprTplNm }),
   };
@@ -19,7 +19,7 @@ export const getApprovalTemplate = async (aprTplNm: string) => {
 export const createApprovalTemplate = async (approvalTemplate: ApprovalTemplate) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/approval/template",
+    url: `/v1/approval/template`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: approvalTemplate,
   };
@@ -32,7 +32,7 @@ export const createApprovalTemplate = async (approvalTemplate: ApprovalTemplate)
 export const modifyApprovalTemplate = async (approvalTemplate: ApprovalTemplate) => {
   const request: CommonRequest = {
     method: Method.PUT,
-    url: "/v1/approval/template",
+    url: `/v1/approval/template`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: approvalTemplate,
   };
@@ -45,7 +45,7 @@ export const modifyApprovalTemplate = async (approvalTemplate: ApprovalTemplate)
 export const deleteApprovalTemplate = async (aprTplId: string) => {
   const request: CommonRequest = {
     method: Method.DELETE,
-    url: "/v1/approval/template",
+    url: `/v1/approval/template`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ aprTplId: aprTplId }),
   };
@@ -58,7 +58,7 @@ export const deleteApprovalTemplate = async (aprTplId: string) => {
 export const approvalAuto = async (approvalCommon: ApprovalCommon) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/WebServiceRequestAuto",
+    url: `/v1/WebServiceRequestAuto`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: approvalCommon,
   };
@@ -71,7 +71,7 @@ export const approvalAuto = async (approvalCommon: ApprovalCommon) => {
 export const approvalList = async (approvalCommon: ApprovalCommon) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/WebServiceRequestList",
+    url: `/v1/WebServiceRequestList`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: approvalCommon,
   };
@@ -84,7 +84,7 @@ export const approvalList = async (approvalCommon: ApprovalCommon) => {
 export const approvalSetEntrust = async (approvalSetEntrust: ApprovalSetEntrust) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/WebServiceSetEntrust",
+    url: `/v1/WebServiceSetEntrust`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: approvalSetEntrust,
   };
@@ -97,7 +97,7 @@ export const approvalSetEntrust = async (approvalSetEntrust: ApprovalSetEntrust)
 export const getApprovalDelegates = async (aprDlgtUserId: string, statusFlag: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/approval/delegates",
+    url: `/v1/approval/delegates`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({ aprDlgtUserId: aprDlgtUserId, statusFlag: statusFlag }),
   };
@@ -109,7 +109,7 @@ export const getApprovalDelegates = async (aprDlgtUserId: string, statusFlag: st
 export const saveApprovalDelegates = async (approvalDelegates: ApprovalDelegate[]) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/approval/delegates",
+    url: `/v1/approval/delegates`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: approvalDelegates,
   };

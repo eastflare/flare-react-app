@@ -10,7 +10,7 @@ import { IfLogRequest } from "@/models/system/IfLog";
 export const downLoadLogInLogListExcel = async (condition: ExcelDownloadRequest<LoginLogRequest>) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/login/list/excel-download",
+    url: `/v1/login/list/excel-download`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: condition,
     headers: {
@@ -26,7 +26,7 @@ export const downLoadLogInLogListExcel = async (condition: ExcelDownloadRequest<
 export const downLoadEmailLogListExcel = async (condition: ExcelDownloadRequest<EmailLogRequest>) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/email/list/excel-download",
+    url: `/v1/email/list/excel-download`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: condition,
     headers: {
@@ -42,7 +42,7 @@ export const downLoadEmailLogListExcel = async (condition: ExcelDownloadRequest<
 export const downLoadMenuAccessLogListExcel = async (condition: ExcelDownloadRequest<MenuLogRequest>) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/menu/list/excel-download",
+    url: `/v1/menu/list/excel-download`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: condition,
     headers: {
@@ -58,7 +58,7 @@ export const downLoadMenuAccessLogListExcel = async (condition: ExcelDownloadReq
 export const downLoadIFLogListExcel = async (condition: ExcelDownloadRequest<IfLogRequest>) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/if/list/excel-download",
+    url: `/v1/if/list/excel-download`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: condition,
     headers: {

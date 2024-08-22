@@ -5,7 +5,7 @@ import { callApi } from "utils/ApiUtil";
 export const getMailTemplate = async (templateType: string) => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/emailTemplate",
+    url: `/v1/emailTemplate`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     queryParams: new URLSearchParams({
       templateType: templateType,
@@ -19,7 +19,7 @@ export const getMailTemplate = async (templateType: string) => {
 export const mailBatchTest = async () => {
   const request: CommonRequest = {
     method: Method.GET,
-    url: "/v1/mailBatchTest",
+    url: `/v1/mailBatchTest`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
   };
   const response: CommonResponse<any> = await callApi(request);
@@ -30,7 +30,7 @@ export const mailBatchTest = async () => {
 export const sendMail = async (emailRequest: MailSendRequest) => {
   const request: CommonRequest = {
     method: Method.POST,
-    url: "/v1/emailTest",
+    url: `/v1/emailTest`,
     serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
     bodyParams: emailRequest,
   };
