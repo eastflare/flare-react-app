@@ -23,7 +23,6 @@ const MyModal2Page = loadable(() => import("pages/sample/my-modal2-page"), loada
 const MatthewPage = loadable(() => import("pages/sample/matthew-page"), loadableOptions);
 const MyModalPage = loadable(() => import("pages/sample/my-modal-page"), loadableOptions);
 const DeviceDetectPage = loadable(() => import("pages/sample/device-detect-page"), loadableOptions);
-const RouteListPage = loadable(() => import("pages/system/route/route-list-page"), loadableOptions);
 const PageListPage = loadable(() => import("pages/system/page/page-list-page"), loadableOptions);
 const LoginLogListPage = loadable(() => import("pages/system/log/login-log-list-page"), loadableOptions);
 
@@ -48,7 +47,6 @@ const MainRoutes = () => {
       <Route path='/sample/device-detect' element={<DeviceDetectPage />} />
       <Route path='/sample/grid' element={<GridPage />} />
       <Route path='/sample/form' element={<FormPage />} />
-      <Route path='/system/route/route-list' element={<RouteListPage />} />
       <Route path='/system/page/page-list' element={<PageListPage />} />
       <Route path='/system/log/login-log-list' element={<LoginLogListPage />} />
       <Route path='*' element={<NoPage />} />
