@@ -11,6 +11,7 @@ import { history } from "utils/historyUtil";
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import { FontColor } from "@/ui/theme/Color";
 import CloseIcon from "@mui/icons-material/Close";
+import { Env } from "@/config/env";
 
 interface State {
   width: number | string;
@@ -191,6 +192,8 @@ const StyleRndBody = styled.div`
 `;
 
 let globalMaxZIndex = 1000;
+const env = Env.getInstance();
+const isMdi = env.isMdi;
 
 const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   //const Component = modalItem.element;
@@ -217,6 +220,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const [isDragging, setIsDragging] = useState(false);
 
   const rndRef = useRef<Rnd>(null);
+  const dialogRef = useRef(null);
 
   const originalSize = useRef({
     width: modalItem.options?.width ?? 800,
@@ -261,7 +265,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       mainBodyLeft = mainBody.getBoundingClientRect().left;
     }
 
-    const distanceH = Math.abs(pageTabBarBottom! - mainBodyTop!);
+    const distanceH = !isMdi ? Math.abs(pageTabBarBottom! - mainBodyTop!) : 0;
     const distanceW = Math.abs(mainBodyLeft! - leftMenuRight!);
 
     setLeftMenuWidth(leftMenuL);
@@ -289,7 +293,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   }, [leftMenuWidth, topMenuHeight, pageTabBarHeight, distanceHeight, distanceWidth]);
 
   const getHighestZIndexElement = () => {
-    const allRndElements = document.querySelectorAll(".myRnd");
+    const allRndElements = document.querySelectorAll(".myRnd, .MuiDialog-root");
     let highestZIndex = 0;
     let highestElement: Element | null = null;
 
@@ -308,7 +312,9 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         const highestElement = getHighestZIndexElement();
-        if (highestElement && highestElement === rndRef.current?.resizableElement.current) {
+        const dialogElement = dialogRef.current as HTMLElement | null;
+
+        if (highestElement && (highestElement === rndRef.current?.resizableElement.current || highestElement === dialogElement)) {
           onClose();
         }
       }
@@ -322,19 +328,39 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   }, []);
 
   useEffect(() => {
-    const unListenHistoryEvent = history.listen(({ action }) => {
-      if (action !== "POP") return;
-
+    const handlePopState = () => {
       const highestElement = getHighestZIndexElement();
-      if (highestElement && highestElement === rndRef.current?.resizableElement.current) {
+      const dialogElement = dialogRef.current as HTMLElement | null;
+
+      if (highestElement && (highestElement === rndRef.current?.resizableElement.current || highestElement === dialogElement)) {
         onClose();
       }
 
       navigate(pathname, { replace: true });
-    });
+    };
 
-    return unListenHistoryEvent;
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, []);
+
+  // useEffect(() => {
+  //   const unListenHistoryEvent = history.listen(({ action }) => {
+  //     if (action !== "POP") return;
+
+  //     const highestElement = getHighestZIndexElement();
+  //     const dialogElement = dialogRef.current as HTMLElement | null;
+  //     if (highestElement && (highestElement === rndRef.current?.resizableElement.current || highestElement === dialogElement)) {
+  //       onClose();
+  //     }
+
+  //     navigate(pathname, { replace: true });
+  //   });
+
+  //   return unListenHistoryEvent;
+  // }, []);
 
   const rndManagerRef = useRef<HTMLElement | null>(null);
 
@@ -474,6 +500,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
   const content = isFixModal ? (
     <StyleDialog
+      disableEscapeKeyDown
+      ref={dialogRef}
       open={true}
       onClose={onClose}
       PaperProps={{

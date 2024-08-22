@@ -6,7 +6,7 @@ import { BlueButton } from "components/buttons/CustomButton";
 import { useCommonModal } from "@/hooks/useCommonModal";
 
 const MyModal2Page = () => {
-  const { openModal } = usePageNavigate();
+  const { openModal, openModeless } = usePageNavigate();
   const { callback, close } = usePageContext();
   const [text, setText] = useState("");
   const { myToast } = useToast();
@@ -48,7 +48,7 @@ const MyModal2Page = () => {
   };
 
   const openYoshiki = () => {
-    openModal(
+    openModeless(
       "/sample/my-modal1",
       {
         foo: "bar",

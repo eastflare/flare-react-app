@@ -5,7 +5,7 @@ import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
 
 const MyModal1Page = () => {
-  const { openModeless } = usePageNavigate();
+  const { openModeless, openDialog } = usePageNavigate();
   const { callback, close } = usePageContext();
   const [text, setText] = useState("");
   const { myToast } = useToast();
@@ -34,7 +34,7 @@ const MyModal1Page = () => {
   };
 
   const openYoshiki = () => {
-    openModeless(
+    openDialog(
       "/sample/my-modal2",
       {
         foo: "bar",
