@@ -11,6 +11,7 @@ export enum OpenTypeCode {
   MODAL = "MODAL",
   MODELESS = "MODELESS",
   WINDOW = "WINDOW",
+  DIALOG = "DIALOG",
 }
 
 export enum OpenPopupTypeCode {

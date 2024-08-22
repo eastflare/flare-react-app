@@ -200,7 +200,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
 
   const element = modalItem.element;
   const isModal = modalItem.openTypeCode === "MODAL";
-  const isFixModal = modalItem.options!.rndYn === "N";
+  const isFixModal = modalItem.options!.isFix === true || modalItem.openTypeCode === "DIALOG";
 
   const [state, setState] = useState<State>({
     width: modalItem.options?.width ?? 800,

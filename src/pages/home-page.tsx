@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { OpenPopupTypeCode } from "stores/usePageMapStore";
 
 const HomePage = () => {
-  const { openPage, openDetail, openModal, openModeless, openWindow } = usePageNavigate();
+  const { openPage, openDetail, openModal, openModeless, openWindow, openDialog } = usePageNavigate();
   const [input1, setInput1] = useState("");
   const [input2, setInput2] = useState("");
 
@@ -89,7 +89,7 @@ const HomePage = () => {
   };
 
   const handleClick1Dialog = () => {
-    openModal(
+    openDialog(
       "/sample/my-modal1",
       {
         foo: "bar",
@@ -97,7 +97,7 @@ const HomePage = () => {
           alert("전선배 뭐하는 사람인가요?");
         },
       },
-      { width: 800, height: 600, rndYn: "N" }
+      { width: 800, height: 600 }
     );
   };
 
@@ -201,7 +201,7 @@ const HomePage = () => {
   };
 
   const handleClickDeviceDetectDialog = () => {
-    openModal(
+    openDialog(
       "/sample/device-detect",
       {
         foo: "bar",
@@ -209,7 +209,7 @@ const HomePage = () => {
           alert("현재화면은 " + deviceType + "입니다.");
         },
       },
-      { width: 400, height: 300, rndYn: "N" }
+      { width: 400, height: 300 }
     );
   };
 
@@ -224,7 +224,7 @@ const HomePage = () => {
       <br />
       <br />
       <GreyButton onClick={handleClickDeviceDetect}>DeviceDetect</GreyButton>
-      <GreyButton onClick={handleClickDeviceDetectDialog}>DeviceDetect-Dialog</GreyButton>
+      <GreyLineButton onClick={handleClickDeviceDetectDialog}>DeviceDetect-Dialog</GreyLineButton>
       <br />
       <br />
       <GreyButton onClick={handleClickMatthew}>Matthew</GreyButton>
@@ -239,7 +239,7 @@ const HomePage = () => {
       <br />
       <br />
       <GreyButton onClick={handleClick1}>전선배</GreyButton>
-      <GreyButton onClick={handleClick1Dialog}>전선배-Dialog</GreyButton>
+      <GreyLineButton onClick={handleClick1Dialog}>전선배-Dialog</GreyLineButton>
       <BlueLineButton onClick={handleClick8}>전선배상세1</BlueLineButton>
       <br />
       <br />

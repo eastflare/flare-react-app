@@ -22,7 +22,7 @@ interface PopupOptions {
   width?: number;
   height?: number;
   title?: string;
-  rndYn?: string;
+  isFix?: boolean;
 }
 
 const env = Env.getInstance();
@@ -95,7 +95,7 @@ export default function usePageNavigate() {
   const openModal = (url: string, params: ObjAny, options?: PopupOptions) => {
     const newId = getUuid();
     const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
-    options!.rndYn = options?.rndYn ?? "Y";
+    options!.isFix = options?.isFix ?? false;
 
     const modalItem: ModalItem = {
       openTypeCode: OpenTypeCode.MODAL,
@@ -111,6 +111,27 @@ export default function usePageNavigate() {
     };
     //PageContext에 팝업정보를 추가한다.
     addModal(modalItem);
+  };
+
+  const openDialog = (url: string, params: ObjAny, options?: PopupOptions) => {
+    const newId = getUuid();
+    const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
+    options!.isFix = true;
+
+    const dialogItem: ModalItem = {
+      openTypeCode: OpenTypeCode.DIALOG,
+      id: newId,
+      label: options?.title ?? "DIALOG팝업",
+      params: pageParams,
+      options: options,
+      callback: pageCallback,
+      element: pageElement,
+      closeModal: () => {
+        closeModal(newId);
+      },
+    };
+    //PageContext에 팝업정보를 추가한다.
+    addModal(dialogItem);
   };
 
   const getMatchedRouteByUrl = useCallback(
@@ -154,7 +175,7 @@ export default function usePageNavigate() {
   const openModeless = (url: string, params: ObjAny, options?: PopupOptions) => {
     const newId = getUuid();
     const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
-    options!.rndYn = options?.rndYn ?? "Y";
+    options!.isFix = false;
 
     const modelessItem: ModalItem = {
       openTypeCode: OpenTypeCode.MODELESS,
@@ -196,5 +217,6 @@ export default function usePageNavigate() {
     openModal,
     openModeless,
     openWindow,
+    openDialog,
   };
 }
