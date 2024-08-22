@@ -166,7 +166,7 @@ const StyledPageTopButtons = styled.div`
   }
 
   .rightArrow-button {
-    padding-top: 6px;
+    padding-top: 4px;
   }
 
   .popup-button {
