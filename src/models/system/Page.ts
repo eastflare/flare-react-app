@@ -14,8 +14,8 @@ export interface Page extends Crud {
   pageUrl: string;
   msgCtn: string;
   sysDivsCd: string;
-  popupWthLen: number;
-  popupVtcLen: number;
+  poupWthLen: number;
+  poupVtcLen: number;
   useYn: CommonYN;
   dataInsUserName: string;
   dataInsDtm: string;

@@ -1,3 +1,4 @@
+import { findPageById } from "@/apis/system/Page";
 import { Env } from "config/env";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { useCallback } from "react";
@@ -97,20 +98,41 @@ export default function usePageNavigate() {
     const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
     options!.isFix = options?.isFix ?? false;
 
-    const modalItem: ModalItem = {
-      openTypeCode: OpenTypeCode.MODAL,
-      id: newId,
-      label: options?.title ?? "모달팝업",
-      params: pageParams,
-      options: options,
-      callback: pageCallback,
-      element: pageElement,
-      closeModal: () => {
-        closeModal(newId);
-      },
-    };
-    //PageContext에 팝업정보를 추가한다.
-    addModal(modalItem);
+    findPageById("RAP_COM_001").then(data => {
+      if (data) {
+        options!.width = data.poupWthLen ?? options?.width;
+        options!.height = data.poupVtcLen ?? options?.height;
+        const modalItem: ModalItem = {
+          openTypeCode: OpenTypeCode.MODAL,
+          id: newId,
+          label: options?.title ?? "모달팝업",
+          params: pageParams,
+          options: options,
+          callback: pageCallback,
+          element: pageElement,
+          closeModal: () => {
+            closeModal(newId);
+          },
+        };
+        //PageContext에 팝업정보를 추가한다.
+        addModal(modalItem);
+      }
+    });
+
+    // const modalItem: ModalItem = {
+    //   openTypeCode: OpenTypeCode.MODAL,
+    //   id: newId,
+    //   label: options?.title ?? "모달팝업",
+    //   params: pageParams,
+    //   options: options,
+    //   callback: pageCallback,
+    //   element: pageElement,
+    //   closeModal: () => {
+    //     closeModal(newId);
+    //   },
+    // };
+    // //PageContext에 팝업정보를 추가한다.
+    // addModal(modalItem);
   };
 
   const openDialog = (url: string, params: ObjAny, options?: PopupOptions) => {
