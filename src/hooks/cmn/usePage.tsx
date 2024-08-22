@@ -38,6 +38,7 @@ const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
     switch (props.pageItem.openTypeCode) {
       case OpenTypeCode.MODAL:
       case OpenTypeCode.MODELESS:
+      case OpenTypeCode.DIALOG:
         props.pageItem.closeModal?.();
         break;
       case OpenTypeCode.WINDOW:
