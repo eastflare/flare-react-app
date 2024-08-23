@@ -5,13 +5,16 @@ import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
 import usePage from "hooks/cmn/usePage";
-import { ModalItem } from "stores/usePageMapStore";
+import { PopupItem } from "stores/usePageMapStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { history } from "utils/historyUtil";
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import { FontColor } from "@/ui/theme/Color";
 import CloseIcon from "@mui/icons-material/Close";
 import { Env } from "@/config/env";
+import { TransitionProps } from "@mui/material/transitions";
+import Slide from "@mui/material/Slide";
+import React from "react";
 
 interface State {
   width: number | string;
@@ -191,11 +194,27 @@ const StyleRndBody = styled.div`
   }
 `;
 
+const getRndStyle = ({ zIndex, isDragging }: { zIndex: number; isDragging: boolean }): React.CSSProperties => {
+  return {
+    zIndex: zIndex,
+    transition: isDragging ? "" : "all 0.3s",
+  };
+};
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement<any, any>;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction='down' ref={ref} {...props} />;
+});
+
 let globalMaxZIndex = 1000;
 const env = Env.getInstance();
 const isMdi = env.isMdi;
 
-const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
+const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
   //const Component = modalItem.element;
   //const props = modalItem.params;
   const { pathname } = useLocation();
@@ -208,7 +227,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const [state, setState] = useState<State>({
     width: Math.min(modalItem.options?.width || 800, window.innerWidth),
     height: Math.min(modalItem.options?.height || 600, window.innerHeight),
-    x: 0,
+    x: -100,
     y: 0,
     maxZIndex: 0,
   });
@@ -265,7 +284,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       mainBodyLeft = mainBody.getBoundingClientRect().left;
     }
 
-    const distanceH = !isMdi ? Math.abs(pageTabBarBottom! - mainBodyTop!) : 0;
+    const distanceH = isMdi ? Math.abs(pageTabBarBottom! - mainBodyTop!) : 0;
     const distanceW = Math.abs(mainBodyLeft! - leftMenuRight!);
 
     setLeftMenuWidth(leftMenuL);
@@ -424,6 +443,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       height: ref.offsetHeight,
       ...position,
     }));
+    setIsDragging(true);
   };
 
   const onResizeStop: RndResizeCallback = (_, __, ref, ___, position) => {
@@ -433,6 +453,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
       height: ref.style.height,
       ...position,
     }));
+    setIsDragging(false);
   };
 
   const onClose = () => {
@@ -501,6 +522,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const content = isFixModal ? (
     <StyleDialog
       disableEscapeKeyDown
+      TransitionComponent={Transition}
       ref={dialogRef}
       open={true}
       onClose={onClose}
@@ -536,7 +558,7 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
         dragHandleClassName={"handle"}
         size={{ height, width }}
         position={{ x, y }}
-        style={{ zIndex }}
+        style={getRndStyle({ zIndex, isDragging })}
         onDragStart={onDragStart}
         onDragStop={onDragStop}
         onResize={onResize}
