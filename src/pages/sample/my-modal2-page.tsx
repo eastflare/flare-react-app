@@ -47,13 +47,13 @@ const MyModal2Page = () => {
     setText(e.target.value);
   };
 
-  const openYoshiki = () => {
+  const openJeonSenbbai = () => {
     openModeless(
-      "RAP_POUP_004",
+      "RAP_POUP_003",
       {
         foo: "bar",
         callback: () => {
-          alert("매튜 뭐하는 사람인가요?");
+          alert("전선배 뭐하는 사람인가요?");
         },
       },
       { width: 800, height: 600 }
@@ -75,7 +75,7 @@ const MyModal2Page = () => {
         <li>(향후)Sam송(미국출장시)</li>
       </ul>
       <div>
-        <BlueButton onClick={openYoshiki} onGotPointerCapture={openYoshiki}>
+        <BlueButton onClick={openJeonSenbbai} onGotPointerCapture={openJeonSenbbai}>
           요시키 에서 전선배
         </BlueButton>
         <BlueButton onClick={handleClickSubmit} onGotPointerCapture={handleClickSubmit}>

@@ -176,13 +176,20 @@ export default function usePageNavigate() {
   const openModeless = (pageId: string, params: ObjAny, options?: PopupOptions) => {
     const open = (data: Page) => {
       const newId = getUuid();
-      const { pageElement, pageParams, pageCallback } = getPageObj(data.pageId, params);
-      options!.isFix = false;
+      const { pageElement, pageParams, pageCallback } = getPageObj(data.pageUrl, params);
+
+      // 기본 옵션을 설정합니다.
+      const modalOptions: PopupOptions = {
+        ...options, // 전달된 옵션을 먼저 적용합니다.
+        isFix: options?.isFix ?? false,
+        width: options?.width ?? data.poupWthLen ?? 800,
+        height: options?.height ?? data.poupVtcLen ?? 600,
+      };
 
       const modelessItem: PopupItem = {
         openTypeCode: OpenTypeCode.MODELESS,
         id: newId,
-        label: options?.title ?? data.pageNm,
+        label: modalOptions.title ?? data.pageNm,
         params: pageParams,
         options: options,
         callback: pageCallback,
