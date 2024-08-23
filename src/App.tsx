@@ -4,7 +4,6 @@ import { ToastContainer } from "react-toastify";
 import Loading from "components/elements/Loading";
 import loadable from "@loadable/component";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-//import LoginRouter from "routers/LoginRouter";
 import { CookiesProvider } from "react-cookie";
 import { MenuProvider } from "provider/menu-provider";
 import { CommonModal } from "./components/modals/common/CommonModal";
