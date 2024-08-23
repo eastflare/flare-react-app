@@ -7,7 +7,7 @@ import { IconButton } from "components/buttons/CustomButton";
 import refreshIcon from "assets/img/refresh.svg";
 import { ReactSVG } from "react-svg";
 
-const pageHeaderLayout = () => {
+const PageHeader = () => {
   const { setRefreshCount } = usePageContext();
 
   const handleRefresh = () => {
@@ -15,33 +15,30 @@ const pageHeaderLayout = () => {
   };
 
   return (
-    <>
-      <HeaderSection>
-        <h1>메뉴명</h1>
-        <div className='right-section'>
-          <div className='breadcrumb'>
-            <Link to='/'>Home</Link>
-            <KeyboardArrowRightIcon />
-            <Link to='/'>메뉴명1</Link>
-            <KeyboardArrowRightIcon />
-            <Link to='/'>메뉴명2</Link>
-          </div>
-          <IconButton onClick={handleRefresh} className='refresh-button'>
-            <ReactSVG src={refreshIcon} />
-          </IconButton>
+    <HeaderSection>
+      <h1>메뉴명</h1>
+      <div className='right-section'>
+        <div className='breadcrumb'>
+          <Link to='/'>Home</Link>
+          <KeyboardArrowRightIcon />
+          <Link to='/'>메뉴명1</Link>
+          <KeyboardArrowRightIcon />
+          <Link to='/'>메뉴명2</Link>
         </div>
-      </HeaderSection>
-    </>
+        <IconButton onClick={handleRefresh} className='refresh-button'>
+          <ReactSVG src={refreshIcon} />
+        </IconButton>
+      </div>
+    </HeaderSection>
   );
 };
 
-export default pageHeaderLayout;
+export default PageHeader;
 
 export const HeaderSection = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  padding: 30px 0 25px;
   background-color: ${BgColor.White};
   transition: 0.5s;
 

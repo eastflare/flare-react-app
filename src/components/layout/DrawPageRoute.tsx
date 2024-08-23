@@ -6,7 +6,7 @@ import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "stores/usePageMapStore";
 import PageModals from "./PageModals";
 import useWindowDimensions from "hooks/cmn/useWindowDimensions";
-import PageHeaderLayout from "./PageHeaderLayout";
+import PageHeader from "./PageHeader";
 
 interface DisplayRouteProps extends PathRouteProps {
   routesProps: RoutesProps;
@@ -35,7 +35,7 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
     <StyledDisplayElement display={display ? `${display}` : undefined}>
       <PageProvider value={{ ...getPageProviderProps() }}>
         <StyledBodyElement pageHeight={pageHeight}>
-          <PageHeaderLayout />
+          <PageHeader />
           {element}
         </StyledBodyElement>
         <PageModals />
@@ -54,6 +54,8 @@ const StyledBodyElement = styled.div<{ pageHeight?: number }>`
   height: ${props => props.pageHeight || 0}px;
   overflow-y: auto;
   overflow-x: hidden;
+  /* 페이지 Padding */
+  padding: 20px;
 
   /* 스크롤바 스타일링 */
   ::-webkit-scrollbar {

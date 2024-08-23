@@ -78,13 +78,12 @@ const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
   height: 100%;
   /* min-height는 StyleGlobalPage가 가짐 */
   width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100% -150px)")};
-  overflow-y: auto;
 `;
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
   //PageTabBar 높이 만큼 빼줌
-  padding: 0;
+  overflow-y: auto;
 `;
 
 export default MainContainer;
