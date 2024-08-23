@@ -1,4 +1,4 @@
-import { OpenPopupTypeCode, PopupItem } from "stores/usePageMapStore";
+import { PopupTypeCode, PopupItem } from "stores/usePageMapStore";
 
 export function openWindow(windowUrl: string, windowItem: PopupItem) {
   const arrParams = new Array();
@@ -59,10 +59,10 @@ export function openWindow(windowUrl: string, windowItem: PopupItem) {
   features.push("fullscreen=" + windowItem.options?.fullscreen || "no");
 
   switch (popupTypeCode) {
-    case OpenPopupTypeCode.TAB:
+    case PopupTypeCode.TAB:
       objPopup = window.open(url);
       break;
-    case OpenPopupTypeCode.NORMAL:
+    case PopupTypeCode.NORMAL:
       objPopup = window.open(url, windowItem.id, features.join(","));
       break;
     default:

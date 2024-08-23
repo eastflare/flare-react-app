@@ -14,7 +14,7 @@ export enum OpenTypeCode {
   DIALOG = "DIALOG",
 }
 
-export enum OpenPopupTypeCode {
+export enum PopupTypeCode {
   NORMAL = "NORMAL",
   TAB = "TAB",
 }

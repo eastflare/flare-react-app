@@ -5,7 +5,7 @@ import { usePageContext } from "contexts/cmn/PageContext";
 import { useCallback } from "react";
 import { matchPath, useNavigate } from "react-router-dom";
 import usePageCallbackStore from "stores/usePageCallbackStore";
-import { PopupItem, OpenTypeCode } from "stores/usePageMapStore";
+import { PopupItem, OpenTypeCode, PopupTypeCode } from "stores/usePageMapStore";
 import usePageRouteStore from "stores/usePageRouteStore";
 import { getUuid } from "utils/rapUtil";
 
@@ -21,6 +21,7 @@ interface PopupOptions {
   height?: number;
   title?: string;
   isFix?: boolean;
+  popupType?: PopupTypeCode;
 }
 
 const env = Env.getInstance();

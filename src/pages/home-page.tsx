@@ -2,7 +2,7 @@ import { BlueButton, BlueLineButton, GreyButton, GreyLineButton } from "componen
 import { Env } from "config/env";
 import usePageNavigate from "hooks/cmn/usePageNavigate";
 import { useEffect, useState } from "react";
-import { OpenPopupTypeCode } from "stores/usePageMapStore";
+import { PopupTypeCode } from "stores/usePageMapStore";
 
 const HomePage = () => {
   const { openPage, openDetail, openModal, openModeless, openWindow, openDialog } = usePageNavigate();
@@ -19,16 +19,12 @@ const HomePage = () => {
   }, []);
 
   const handleClickMatthew = () => {
-    openModeless(
-      "RAP_POUP_001",
-      {
-        foo: "bar",
-        callback: () => {
-          alert("매튜 뭐하는 사람인가요?");
-        },
+    openModeless("RAP_POUP_001", {
+      foo: "bar",
+      callback: () => {
+        alert("매튜 뭐하는 사람인가요?");
       },
-      { width: 800, height: 600 }
-    );
+    });
   };
 
   const handleClickGrid = () => {
@@ -41,17 +37,13 @@ const HomePage = () => {
   };
 
   const handleClickJscho128 = () => {
-    openModal(
-      "RAP_SMPL_005",
-      {
-        id: "jscho128",
-        name: "조XX",
-        callback: () => {
-          alert("조XX 뭐하는 사람인가요?");
-        },
+    openModal("RAP_SMPL_005", {
+      id: "jscho128",
+      name: "조XX",
+      callback: () => {
+        alert("조XX 뭐하는 사람인가요?");
       },
-      { width: 800, height: 600 }
-    );
+    });
   };
 
   const handleClick = () => {
@@ -62,7 +54,7 @@ const HomePage = () => {
           alert("월급루팡 뭐하는 사람인가요?");
         },
       },
-      { width: 800, height: 600 }
+      { width: 800, height: 400 }
     );
   };
 
@@ -75,16 +67,12 @@ const HomePage = () => {
   };
 
   const handleClick1 = () => {
-    openModal(
-      "RAP_POUP_003",
-      {
-        foo: "bar",
-        callback: () => {
-          alert("전선배 뭐하는 사람인가요?");
-        },
+    openModal("RAP_POUP_003", {
+      foo: "bar",
+      callback: () => {
+        alert("전선배 뭐하는 사람인가요?");
       },
-      { width: 800, height: 600 }
-    );
+    });
   };
 
   const handleClick1Dialog = () => {
@@ -101,41 +89,29 @@ const HomePage = () => {
   };
 
   const handleClick2 = () => {
-    openModal(
-      "RAP_POUP_004",
-      {
-        foo: "bar",
-        callback: () => {
-          alert("요시키 뭐하는 사람인가요?");
-        },
+    openModal("RAP_POUP_004", {
+      foo: "bar",
+      callback: () => {
+        alert("요시키 뭐하는 사람인가요?");
       },
-      { width: 800, height: 600 }
-    );
+    });
   };
   const handleClick3 = () => {
-    openWindow(
-      "RAP_POUP_005",
-      {
-        foo: "bar",
-        callback: (a: string, b: string, c: string) => {
-          setInput1(a + b + c);
-        },
+    openWindow("RAP_POUP_005", {
+      foo: "bar",
+      callback: (a: string, b: string, c: string) => {
+        setInput1(a + b + c);
       },
-      { width: 800, height: 600 }
-    );
+    });
   };
 
   const handleClickJp = () => {
-    openModal(
-      "RAP_POUP_005",
-      {
-        foo: "bar",
-        callback: (a: string, b: string, c: string) => {
-          setInput1(a + b + c);
-        },
+    openModal("RAP_POUP_005", {
+      foo: "bar",
+      callback: (a: string, b: string, c: string) => {
+        setInput1(a + b + c);
       },
-      { width: 800, height: 400 }
-    );
+    });
   };
 
   const handleClick4 = () => {
@@ -147,7 +123,7 @@ const HomePage = () => {
           setInput2(c);
         },
       },
-      { width: 800, height: 600, popupType: OpenPopupTypeCode.TAB }
+      { width: 800, height: 600, popupType: PopupTypeCode.TAB }
     );
   };
   const handleClick5 = () => {
@@ -187,29 +163,21 @@ const HomePage = () => {
     });
   };
   const handleClickDeviceDetect = () => {
-    openModal(
-      "RAP_SMPL_010",
-      {
-        foo: "bar",
-        callback: (deviceType: string) => {
-          alert("현재화면은 " + deviceType + "입니다.");
-        },
+    openModal("RAP_SMPL_010", {
+      foo: "bar",
+      callback: (deviceType: string) => {
+        alert("현재화면은 " + deviceType + "입니다.");
       },
-      { width: 400, height: 300 }
-    );
+    });
   };
 
   const handleClickDeviceDetectDialog = () => {
-    openDialog(
-      "RAP_SMPL_010",
-      {
-        foo: "bar",
-        callback: (deviceType: string) => {
-          alert("현재화면은 " + deviceType + "입니다.");
-        },
+    openDialog("RAP_SMPL_010", {
+      foo: "bar",
+      callback: (deviceType: string) => {
+        alert("현재화면은 " + deviceType + "입니다.");
       },
-      { width: 400, height: 300 }
-    );
+    });
   };
 
   return (
