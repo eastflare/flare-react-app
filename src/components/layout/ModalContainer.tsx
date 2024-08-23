@@ -206,8 +206,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
   const isFixModal = modalItem.options!.isFix === true || modalItem.openTypeCode === "DIALOG";
 
   const [state, setState] = useState<State>({
-    width: modalItem.options?.width ?? 800,
-    height: modalItem.options?.height ?? 600,
+    width: Math.min(modalItem.options?.width || 800, window.innerWidth),
+    height: Math.min(modalItem.options?.height || 600, window.innerHeight),
     x: 0,
     y: 0,
     maxZIndex: 0,
@@ -508,8 +508,8 @@ const ModalContainer = ({ modalItem }: { modalItem: ModalItem }) => {
         style: {
           width: modalItem.options?.width ?? 800,
           height: modalItem.options?.height ?? 600,
-          maxWidth: "none",
-          maxHeight: "none",
+          maxWidth: "100%",
+          maxHeight: "100%",
           zIndex: zIndex,
         },
       }}
