@@ -37,7 +37,7 @@ export interface PageItem {
   element: ReactElement;
 }
 
-export interface ModalItem {
+export interface PopupItem {
   openTypeCode: OpenTypeCode;
   id: string;
   label: string;
@@ -45,18 +45,7 @@ export interface ModalItem {
   options?: Object;
   callback?: CallbackFunction;
   closeModal?: CloseFunction;
-  element: ReactElement;
-}
-
-export interface WindowItem {
-  openTypeCode: OpenTypeCode;
-  id: string;
-  url: string;
-  label: string;
-  params?: Object;
-  options?: Object;
-  callback?: CallbackFunction;
-  closeModal?: CloseFunction;
+  element?: ReactElement;
 }
 
 interface PageMapStore {

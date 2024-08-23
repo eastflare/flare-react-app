@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { ModalItem, OpenTypeCode, PageItem, WindowItem } from "stores/usePageMapStore";
+import { ModalItem, OpenTypeCode, PageItem, PopupItem } from "stores/usePageMapStore";
 import { openWindow } from "utils/windowUtil";
 import usePageTab from "./usePageTab";
 
-const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
+const usePage = (props: { pageItem: PageItem | ModalItem | PopupItem }) => {
   const { openTypeCode = OpenTypeCode.PAGE, params = {}, options = {}, callback = () => {} } = props.pageItem;
 
   const { onPageTabClose } = usePageTab();
@@ -54,8 +54,8 @@ const usePage = (props: { pageItem: PageItem | ModalItem | WindowItem }) => {
     }
   };
 
-  const addWindow = (windowProps: WindowItem) => {
-    openWindow(windowProps);
+  const addWindow = (url: string, windowProps: PopupItem) => {
+    openWindow(url, windowProps);
   };
 
   const getPageProviderProps = () => ({

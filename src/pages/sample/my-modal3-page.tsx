@@ -28,7 +28,7 @@ const MyModal3Page = () => {
 
   const openYoshiki = () => {
     openModal(
-      "/sample/my-modal1",
+      "RAP_POUP_003",
       {
         foo: "bar",
         callback: () => {

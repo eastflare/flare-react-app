@@ -1,6 +1,6 @@
-import { OpenPopupTypeCode, WindowItem } from "stores/usePageMapStore";
+import { OpenPopupTypeCode, PopupItem } from "stores/usePageMapStore";
 
-export function openWindow(windowItem: WindowItem) {
+export function openWindow(windowUrl: string, windowItem: PopupItem) {
   const arrParams = new Array();
 
   const parentCallback = windowItem.params?.callback;
@@ -18,7 +18,7 @@ export function openWindow(windowItem: WindowItem) {
   }
   arrParams.push("openTypeCode=WINDOW");
 
-  const url = windowItem.url + "?" + arrParams.join("&");
+  const url = windowUrl + "?" + arrParams.join("&");
 
   let width = windowItem.options?.width ?? 800;
   let height = windowItem.options?.height ?? 600;
@@ -26,13 +26,8 @@ export function openWindow(windowItem: WindowItem) {
   const screenLeft = top?.window.screenLeft != undefined ? top?.window.screenLeft : top?.screenLeft;
   const screenTop = top?.window.screenTop != undefined ? top?.window.screenTop : top?.screenTop;
 
-  const windowWidth =
-    top?.window.innerWidth || top?.document.documentElement.clientWidth || top?.screen.width || 800;
-  const windowHeight =
-    top?.window.innerHeight ??
-    top?.document.documentElement.clientHeight ??
-    top?.screen.height ??
-    600;
+  const windowWidth = top?.window.innerWidth || top?.document.documentElement.clientWidth || top?.screen.width || 800;
+  const windowHeight = top?.window.innerHeight ?? top?.document.documentElement.clientHeight ?? top?.screen.height ?? 600;
 
   const posTop = windowHeight / 2 - height / 2 + (screenTop ?? 0);
   const posleft = windowWidth / 2 - width / 2 + (screenLeft ?? 0);

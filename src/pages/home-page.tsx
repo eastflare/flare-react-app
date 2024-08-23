@@ -20,7 +20,7 @@ const HomePage = () => {
 
   const handleClickMatthew = () => {
     openModeless(
-      "/sample/matthew",
+      "RAP_POUP_001",
       {
         foo: "bar",
         callback: () => {
@@ -32,7 +32,7 @@ const HomePage = () => {
   };
 
   const handleClickGrid = () => {
-    openPage("/sample/grid", {
+    openPage("RAP_SMPL_012", {
       foo: "bar",
       callback: () => {
         alert("그리드 뭐하는 사람인가요?");
@@ -42,9 +42,10 @@ const HomePage = () => {
 
   const handleClickJscho128 = () => {
     openModal(
-      "/sample/sample5/jscho128/조XX",
+      "RAP_SMPL_005",
       {
-        foo: "bar",
+        id: "jscho128",
+        name: "조XX",
         callback: () => {
           alert("조XX 뭐하는 사람인가요?");
         },
@@ -55,9 +56,8 @@ const HomePage = () => {
 
   const handleClick = () => {
     openModal(
-      "/sample/my-modal",
+      "RAP_POUP_002",
       {
-        foo: "bar",
         callback: () => {
           alert("월급루팡 뭐하는 사람인가요?");
         },
@@ -67,8 +67,7 @@ const HomePage = () => {
   };
 
   const handleClickLupang = () => {
-    openPage("/sample/my-modal", {
-      foo: "bar",
+    openPage("RAP_POUP_002", {
       callback: () => {
         alert("월급루팡 뭐하는 사람인가요?");
       },
@@ -77,7 +76,7 @@ const HomePage = () => {
 
   const handleClick1 = () => {
     openModal(
-      "/sample/my-modal1",
+      "RAP_POUP_003",
       {
         foo: "bar",
         callback: () => {
@@ -90,7 +89,7 @@ const HomePage = () => {
 
   const handleClick1Dialog = () => {
     openDialog(
-      "/sample/my-modal1",
+      "RAP_POUP_003",
       {
         foo: "bar",
         callback: () => {
@@ -103,7 +102,7 @@ const HomePage = () => {
 
   const handleClick2 = () => {
     openModal(
-      "/sample/my-modal2",
+      "RAP_POUP_004",
       {
         foo: "bar",
         callback: () => {
@@ -115,7 +114,7 @@ const HomePage = () => {
   };
   const handleClick3 = () => {
     openWindow(
-      "/sample/my-modal3",
+      "RAP_POUP_005",
       {
         foo: "bar",
         callback: (a: string, b: string, c: string) => {
@@ -128,7 +127,7 @@ const HomePage = () => {
 
   const handleClickJp = () => {
     openModal(
-      "/sample/my-modal3",
+      "RAP_POUP_005",
       {
         foo: "bar",
         callback: (a: string, b: string, c: string) => {
@@ -141,7 +140,7 @@ const HomePage = () => {
 
   const handleClick4 = () => {
     openWindow(
-      "/sample/my-modal3",
+      "RAP_POUP_005",
       {
         foo: "bar",
         callback: (c: string) => {
@@ -152,7 +151,7 @@ const HomePage = () => {
     );
   };
   const handleClick5 = () => {
-    openPage("/sample/my-modal3", {
+    openPage("RAP_POUP_005", {
       foo: "bar",
       callback: (a: string, b: string) => {
         alert("Facker 뭐하는 사람인가요?");
@@ -161,7 +160,7 @@ const HomePage = () => {
     });
   };
   const handleClick6 = () => {
-    openPage("/sample/my-modal3", {
+    openPage("RAP_POUP_005", {
       foo: "bar",
       callback: (c: string) => {
         alert("국민사기꾼 뭐하는 사람인가요?");
@@ -170,7 +169,7 @@ const HomePage = () => {
     });
   };
   const handleClick7 = () => {
-    openPage("/sample/my-modal2", {
+    openPage("RAP_POUP_004", {
       foo: "bar",
       callback: (c: string) => {
         alert("요시키 뭐하는 사람인가요?");
@@ -179,7 +178,7 @@ const HomePage = () => {
     });
   };
   const handleClick8 = () => {
-    openDetail("/sample/my-modal1", {
+    openDetail("RAP_POUP_003", {
       foo: "bar",
       callback: (c: string) => {
         alert("전선배 뭐하는 사람인가요?");
@@ -189,7 +188,7 @@ const HomePage = () => {
   };
   const handleClickDeviceDetect = () => {
     openModal(
-      "/sample/device-detect",
+      "RAP_SMPL_010",
       {
         foo: "bar",
         callback: (deviceType: string) => {
@@ -202,7 +201,7 @@ const HomePage = () => {
 
   const handleClickDeviceDetectDialog = () => {
     openDialog(
-      "/sample/device-detect",
+      "RAP_SMPL_010",
       {
         foo: "bar",
         callback: (deviceType: string) => {

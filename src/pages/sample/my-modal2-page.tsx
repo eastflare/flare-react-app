@@ -49,7 +49,7 @@ const MyModal2Page = () => {
 
   const openYoshiki = () => {
     openModeless(
-      "/sample/my-modal1",
+      "RAP_POUP_004",
       {
         foo: "bar",
         callback: () => {
