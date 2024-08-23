@@ -4,6 +4,7 @@ import "index.css";
 import { Env } from "config/env";
 import { PrintDebug } from "config/removeConsole";
 import React from "react";
+import "i18n";
 
 function main() {
   ReactDOM.createRoot(document.getElementById("root")!).render(
