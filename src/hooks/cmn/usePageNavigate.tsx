@@ -141,16 +141,23 @@ export default function usePageNavigate() {
     openModal(pageId, params, { ...options, isFix: true });
   };
 
-  const openWindow = (pageId: string, params: Record<string, any>, options?: PopupOptions) => {
+  const openWindow = (pageId: string, params: Record<string, any>, options: PopupOptions = {}) => {
     const handlePage = (data: Page) => {
       const { pageParams, pageCallback } = getPageObj(data.pageUrl, params);
+
+      // 기본 옵션을 설정합니다.
+      const popupOptions: PopupOptions = {
+        ...options,
+        width: options.width ?? data.poupWthLen ?? 800,
+        height: options.height ?? data.poupVtcLen ?? 600,
+      };
 
       const windowItem: PopupItem = {
         openTypeCode: OpenTypeCode.WINDOW,
         id: options?.key ?? data.pageId,
         label: options?.title ?? data.pageNm,
         params: pageParams,
-        options: options,
+        options: popupOptions,
         callback: pageCallback,
       };
       addWindow(data.pageUrl, windowItem);
