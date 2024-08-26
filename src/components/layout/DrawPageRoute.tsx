@@ -29,7 +29,6 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
 
   const { pageHeight } = useWindowDimensions();
 
-  console.log("페이지에 넘어온 routesProps 와 props", routesProps, props);
   const { getPageProviderProps } = usePage({ pageItem });
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>

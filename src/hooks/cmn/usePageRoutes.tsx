@@ -61,7 +61,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     //console.log("나는location입니다.", search, pathname);
     //console.log("나는route입니다.", matchedRoute);
     //console.log("나는파람스~입니다.", matchedRoute ? matchedRoute.params : undefined);
-    console.log("실험중 페이지맵이 변경이 됐을까요?", pageMap);
+    //console.log("실험중 페이지맵이 변경이 됐을까요?", pageMap);
   }, [pageMap]);
 
   // const initRoutesObj = useCallback(() => {

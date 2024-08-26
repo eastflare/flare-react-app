@@ -11,15 +11,15 @@ const HomePage = () => {
 
   useEffect(() => {
     const env = Env.getInstance();
-    console.log("메인페이지 입니다.");
-    console.log("환경변수는...?", env.isCurrentNodeEnv("prd"));
-    console.log("MDI...?", env.isMdi);
-    console.log("TAB_SIZE...?", env.maxPageTabSize);
-    console.log("iswindow...?", env.isWindow);
+    // console.log("메인페이지 입니다.");
+    // console.log("환경변수는...?", env.isCurrentNodeEnv("prd"));
+    // console.log("MDI...?", env.isMdi);
+    // console.log("TAB_SIZE...?", env.maxPageTabSize);
+    // console.log("iswindow...?", env.isWindow);
   }, []);
 
   const handleClickMatthew = () => {
-    openModeless("RAP_POUP_001", {
+    openModeless(`/sample/matthew`, {
       foo: "bar",
       callback: () => {
         alert("매튜 뭐하는 사람인가요?");
@@ -28,7 +28,7 @@ const HomePage = () => {
   };
 
   const handleClickGrid = () => {
-    openPage("RAP_SMPL_012", {
+    openPage("/sample/grid", {
       foo: "bar",
       callback: () => {
         alert("그리드 뭐하는 사람인가요?");
@@ -37,7 +37,10 @@ const HomePage = () => {
   };
 
   const handleClickJscho128 = () => {
-    openModal("RAP_SMPL_005", {
+    const id = "jscho";
+    const name = "조XX";
+
+    openModal(`/sample/sample5/${id}/${name}`, {
       id: "jscho128",
       name: "조XX",
       callback: () => {
@@ -48,7 +51,7 @@ const HomePage = () => {
 
   const handleClick = () => {
     openModal(
-      "RAP_POUP_002",
+      `/sample/my-modal`,
       {
         callback: () => {
           alert("월급루팡 뭐하는 사람인가요?");
@@ -59,7 +62,7 @@ const HomePage = () => {
   };
 
   const handleClickLupang = () => {
-    openPage("RAP_POUP_002", {
+    openPage(`/sample/my-modal`, {
       callback: () => {
         alert("월급루팡 뭐하는 사람인가요?");
       },
@@ -67,7 +70,7 @@ const HomePage = () => {
   };
 
   const handleClick1 = () => {
-    openModal("RAP_POUP_003", {
+    openModal(`/sample/my-modal1`, {
       foo: "bar",
       callback: () => {
         alert("전선배 뭐하는 사람인가요?");
@@ -77,7 +80,7 @@ const HomePage = () => {
 
   const handleClick1Dialog = () => {
     openDialog(
-      "RAP_POUP_003",
+      `/sample/my-modal1`,
       {
         foo: "bar",
         callback: () => {
@@ -89,7 +92,7 @@ const HomePage = () => {
   };
 
   const handleClick2 = () => {
-    openModal("RAP_POUP_004", {
+    openModal(`/sample/my-modal2`, {
       foo: "bar",
       callback: () => {
         alert("요시키 뭐하는 사람인가요?");
@@ -97,7 +100,7 @@ const HomePage = () => {
     });
   };
   const handleClick3 = () => {
-    openWindow("RAP_POUP_005", {
+    openWindow(`/sample/my-modal3`, {
       foo: "bar",
       callback: (a: string, b: string, c: string) => {
         setInput1(a + b + c);
@@ -106,7 +109,7 @@ const HomePage = () => {
   };
 
   const handleClickJp = () => {
-    openModal("RAP_POUP_005", {
+    openModal(`/sample/my-modal3`, {
       foo: "bar",
       callback: (a: string, b: string, c: string) => {
         setInput1(a + b + c);
@@ -116,7 +119,7 @@ const HomePage = () => {
 
   const handleClick4 = () => {
     openWindow(
-      "RAP_POUP_005",
+      `/sample/my-modal3`,
       {
         foo: "bar",
         callback: (c: string) => {
@@ -127,7 +130,7 @@ const HomePage = () => {
     );
   };
   const handleClick5 = () => {
-    openPage("RAP_POUP_005", {
+    openPage(`/sample/my-modal3`, {
       foo: "bar",
       callback: (a: string, b: string) => {
         alert("Facker 뭐하는 사람인가요?");
@@ -136,7 +139,7 @@ const HomePage = () => {
     });
   };
   const handleClick6 = () => {
-    openPage("RAP_POUP_005", {
+    openPage(`/sample/my-modal3`, {
       foo: "bar",
       callback: (c: string) => {
         alert("국민사기꾼 뭐하는 사람인가요?");
@@ -145,7 +148,7 @@ const HomePage = () => {
     });
   };
   const handleClick7 = () => {
-    openPage("RAP_POUP_004", {
+    openPage(`/sample/my-modal2`, {
       foo: "bar",
       callback: (c: string) => {
         alert("요시키 뭐하는 사람인가요?");
@@ -154,7 +157,7 @@ const HomePage = () => {
     });
   };
   const handleClick8 = () => {
-    openDetail("RAP_POUP_003", {
+    openDetail(`/sample/my-modal1`, {
       foo: "bar",
       callback: (c: string) => {
         alert("전선배 뭐하는 사람인가요?");
@@ -163,7 +166,7 @@ const HomePage = () => {
     });
   };
   const handleClickDeviceDetect = () => {
-    openModal("RAP_SMPL_010", {
+    openModal(`/sample/device-detect`, {
       foo: "bar",
       callback: (deviceType: string) => {
         alert("현재화면은 " + deviceType + "입니다.");
@@ -172,7 +175,7 @@ const HomePage = () => {
   };
 
   const handleClickDeviceDetectDialog = () => {
-    openDialog("RAP_SMPL_010", {
+    openDialog(`/sample/device-detect`, {
       foo: "bar",
       callback: (deviceType: string) => {
         alert("현재화면은 " + deviceType + "입니다.");

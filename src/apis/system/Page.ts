@@ -13,6 +13,18 @@ export const findPageById = async (pageId: string) => {
   return (response.successOrNot === "Y" ? response.data : null) as Page;
 };
 
+export const findPageByPathNm = async (pagePathNm: string) => {
+  const request: CommonRequest = {
+    method: Method.GET,
+    url: `/v1/page/path`,
+    serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
+    queryParams: new URLSearchParams({ pagePathNm: pagePathNm }),
+  };
+
+  const response: CommonResponse<Page> = await callApi(request);
+  return (response.successOrNot === "Y" ? response.data : null) as Page;
+};
+
 export const findPages = async (pageCondition: PageCondition) => {
   const request: CommonRequest = {
     method: Method.GET,

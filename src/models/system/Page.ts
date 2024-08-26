@@ -4,14 +4,14 @@ import { Crud } from "@/models/common/Edit";
 export interface PageCondition {
   pageId?: string;
   pageNm?: string;
-  pageUrl?: string;
+  pagePathNm?: string;
   useYn?: string;
 }
 
 export interface Page extends Crud {
   pageId: string;
   pageNm: string;
-  pageUrl: string;
+  pagePathNm: string;
   msgCtn: string;
   sysDivsCd: string;
   poupWthLen: number;
@@ -27,7 +27,7 @@ export interface ShowingPage extends Crud {
   no: string;
   pageId: string;
   pageNm: string;
-  pageUrl: string;
+  pagePathNm: string;
   msgCtn: string;
   sysDivsCd: string;
   popupWthLen: number;

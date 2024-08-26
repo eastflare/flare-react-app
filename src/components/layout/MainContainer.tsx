@@ -12,7 +12,6 @@ const isMdi = env.isMdi;
 const MainContainer = (props: { children: ReactNode }) => {
   //메인 화면의 레이아웃 구성
   //상단메뉴, 좌측메뉴, 화면영역은 children : Routes 객체임
-  console.log("이즈엡디아이", isMdi);
 
   const { children } = props;
   const [isLeftCollapsed, setIsLeftCollapsed] = useState(false);

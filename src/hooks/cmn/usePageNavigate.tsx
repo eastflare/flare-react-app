@@ -1,8 +1,9 @@
-import { findPageById } from "@/apis/system/Page";
+import { findPageById, findPageByPathNm } from "@/apis/system/Page";
 import { Page } from "@/models/system/Page";
+import { usePageStore } from "@/stores/usePageStore";
 import { Env } from "config/env";
 import { usePageContext } from "contexts/cmn/PageContext";
-import { useCallback } from "react";
+import { ReactElement, useCallback } from "react";
 import { matchPath, useNavigate } from "react-router-dom";
 import usePageCallbackStore from "stores/usePageCallbackStore";
 import { PopupItem, OpenTypeCode, PopupTypeCode } from "stores/usePageMapStore";
@@ -24,6 +25,14 @@ interface PopupOptions {
   popupType?: PopupTypeCode;
 }
 
+interface PageObj {
+  pagePathNm: string;
+  pageUrl: string;
+  pageElement: ReactElement;
+  pageParams: Record<string, any>;
+  pageCallback: () => {};
+}
+
 const env = Env.getInstance();
 const isMdi = env.isWindow ? false : env.isMdi;
 
@@ -31,6 +40,7 @@ export default function usePageNavigate() {
   const { pageRoutes, getElementByRoutePath } = usePageRouteStore();
   const { addModal, delModal, addWindow } = usePageContext();
   const { addPageCallback } = usePageCallbackStore();
+  const { getPage, setPage } = usePageStore();
   const navigator = useNavigate();
 
   const closeModal = useCallback(
@@ -54,7 +64,7 @@ export default function usePageNavigate() {
   };
 
   // 페이지 정보를 생성하는 함수
-  const getPageObj = (url: string, params: Record<string, any>) => {
+  const getPageObj = (url: string, params: Record<string, any>): PageObj => {
     // URL에서 경로 변수 대체
     const pageUrl = replacePathVariables(url, params);
 
@@ -66,14 +76,15 @@ export default function usePageNavigate() {
 
     // 매칭된 경로 정보 얻기
     const matchRoute = matchPath(routePath, pageUrl);
-    const routeParams = matchRoute?.params || {};
+    const matchParams = matchRoute?.params || {};
 
     // 요소와 페이지 파라미터 설정
     const element = getElementByRoutePath(routePath);
     const { callback = () => {}, ...restParams } = params;
-    const pageParams = { ...routeParams, ...restParams };
+    const pageParams = { ...matchParams, ...restParams };
 
     return {
+      pagePathNm: routePath,
       pageUrl,
       pageElement: element.props.element,
       pageParams,
@@ -82,13 +93,22 @@ export default function usePageNavigate() {
   };
 
   // 페이지를 열고 콜백을 호출하는 함수
-  const goPage = async (pageId: string, callback: (data: Page) => void) => {
+  const goPage = async (url: string, params: Record<string, any>, handlePage: (pageObj: PageObj, data: Page) => void) => {
+    const pageObj = getPageObj(url, params);
     try {
-      const data = await findPageById(pageId);
+      // 이미 저장된 페이지 데이터가 있는지 확인합니다.
+      const cachedData = getPage(pageObj.pagePathNm);
+      if (cachedData) {
+        handlePage(pageObj, cachedData);
+        return;
+      }
+
+      const data = await findPageByPathNm(pageObj.pagePathNm);
       if (data) {
-        callback(data);
+        setPage(pageObj.pagePathNm, data);
+        handlePage(pageObj, data);
       } else {
-        console.error(`Page with ID ${pageId} not found.`);
+        console.error(`Page with pagePathNm : ${pageObj.pagePathNm} not found.`);
       }
     } catch (error) {
       console.error("Failed to fetch page data:", error);
@@ -96,10 +116,10 @@ export default function usePageNavigate() {
   };
 
   // 공통 팝업 생성 함수
-  const createPopup = (pageId: string, params: Record<string, any>, options: PopupOptions = {}, openType: OpenTypeCode, addPopup: (popup: PopupItem) => void) => {
-    const handlePage = (data: Page) => {
+  const createPopup = (url: string, params: Record<string, any>, options: PopupOptions = {}, openType: OpenTypeCode, addPopup: (popup: PopupItem) => void) => {
+    const handlePage = (pageObj: PageObj, data: Page) => {
+      //const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
       const newId = getUuid();
-      const { pageElement, pageParams, pageCallback } = getPageObj(data.pageUrl, params);
 
       // 기본 옵션을 설정합니다.
       const popupOptions: PopupOptions = {
@@ -113,38 +133,37 @@ export default function usePageNavigate() {
         openTypeCode: openType,
         id: newId,
         label: popupOptions.title ?? data.pageNm,
-        params: pageParams,
+        params: pageObj.pageParams,
         options: popupOptions,
-        callback: pageCallback,
-        element: pageElement,
+        callback: pageObj.pageCallback,
+        element: pageObj.pageElement,
         closeModal: () => closeModal(newId),
       };
 
       addPopup(popupItem);
     };
 
-    goPage(pageId, handlePage);
+    goPage(url, params, handlePage);
   };
 
   // Modal 팝업 열기
-  const openModal = (pageId: string, params: Record<string, any>, options?: PopupOptions) => {
-    createPopup(pageId, params, options, OpenTypeCode.MODAL, addModal);
+  const openModal = (url: string, params: Record<string, any>, options?: PopupOptions) => {
+    createPopup(url, params, options, OpenTypeCode.MODAL, addModal);
   };
 
   // Modeless 팝업 열기
-  const openModeless = (pageId: string, params: Record<string, any>, options?: PopupOptions) => {
-    createPopup(pageId, params, options, OpenTypeCode.MODELESS, addModal);
+  const openModeless = (url: string, params: Record<string, any>, options?: PopupOptions) => {
+    createPopup(url, params, options, OpenTypeCode.MODELESS, addModal);
   };
 
   // Dialog 팝업 열기 (Modal의 일종이므로 openModal을 사용)
-  const openDialog = (pageId: string, params: Record<string, any>, options?: PopupOptions) => {
-    openModal(pageId, params, { ...options, isFix: true });
+  const openDialog = (url: string, params: Record<string, any>, options?: PopupOptions) => {
+    openModal(url, params, { ...options, isFix: true });
   };
 
-  const openWindow = (pageId: string, params: Record<string, any>, options: PopupOptions = {}) => {
-    const handlePage = (data: Page) => {
-      const { pageParams, pageCallback } = getPageObj(data.pageUrl, params);
-
+  const openWindow = (url: string, params: Record<string, any>, options: PopupOptions = {}) => {
+    const handlePage = (pageObj: PageObj, data: Page) => {
+      //const { pageUrl, pageParams, pageCallback } = getPageObj(url, params);
       // 기본 옵션을 설정합니다.
       const popupOptions: PopupOptions = {
         ...options,
@@ -154,27 +173,26 @@ export default function usePageNavigate() {
 
       const windowItem: PopupItem = {
         openTypeCode: OpenTypeCode.WINDOW,
-        id: options?.key ?? data.pageId,
+        id: options?.key ?? pageObj.pageUrl,
         label: options?.title ?? data.pageNm,
-        params: pageParams,
+        params: pageObj.pageParams,
         options: popupOptions,
-        callback: pageCallback,
+        callback: pageObj.pageCallback,
       };
-      addWindow(data.pageUrl, windowItem);
+      addWindow(pageObj.pageUrl, windowItem);
     };
 
-    goPage(pageId, handlePage);
+    goPage(url, params, handlePage);
   };
 
-  const openPage = (pageId: string, params: Record<string, any>, options?: PageOptions) => {
-    const handlePage = (data: Page) => {
-      const { pageUrl, pageParams, pageCallback } = getPageObj(data.pageUrl, params);
-
+  const openPage = (url: string, params: Record<string, any>, options?: PageOptions) => {
+    const handlePage = (pageObj: PageObj, data: Page) => {
+      //const { pageUrl, pageParams, pageCallback } = getPageObj(url, params);
       let queryParams = new Array();
-      const newId = pageUrl;
+      const newId = pageObj.pageUrl;
 
       // 페이지 파라미터 추가
-      Object.entries(pageParams).forEach(([key, value]) => {
+      Object.entries(pageObj.pageParams).forEach(([key, value]) => {
         queryParams.push(`${key}=${value}`);
       });
 
@@ -189,18 +207,18 @@ export default function usePageNavigate() {
 
       queryParams.push("pageId=" + newId);
 
-      addPageCallback(newId, pageCallback);
-      const searchUrl = `${pageUrl}?${queryParams.join("&")}`;
+      addPageCallback(newId, pageObj.pageCallback);
+      const searchUrl = `${pageObj.pageUrl}?${queryParams.join("&")}`;
 
       navigator(searchUrl);
     };
 
-    goPage(pageId, handlePage);
+    goPage(url, params, handlePage);
   };
 
   const openDetail = (url: string, params: Record<string, any>, options: PageOptions = {}) => {
-    const updatedOptions = { ...options, isDetail: true };
-    openPage(url, params, updatedOptions);
+    const detailPageOptions = { ...options, isDetail: true };
+    openPage(url, params, detailPageOptions);
   };
 
   return {

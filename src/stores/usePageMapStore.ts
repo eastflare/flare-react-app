@@ -71,7 +71,6 @@ const usePageMapStore = create<PageMapStore>((set, get) => ({
       //신규 페이지를 추가함
       const newMap = new Map(state.pageMap);
       newMap.set(id, obj);
-      console.log("나는 추가됨", newMap);
       return { pageMap: newMap, curPageId: id };
     }),
 

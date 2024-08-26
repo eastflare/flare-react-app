@@ -26,7 +26,7 @@ const usePage = (props: { pageItem: PageItem | ModalItem | PopupItem }) => {
   const decodedParams = useMemo(() => decodeParams(params), [params]);
 
   useEffect(() => {
-    console.log("모달 키 리스트", modals);
+    //console.log("모달 키 리스트", modals);
   }, []);
 
   const delModal = (id: string) => {
