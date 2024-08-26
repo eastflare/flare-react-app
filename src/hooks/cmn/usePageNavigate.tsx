@@ -4,17 +4,11 @@ import { usePageStore } from "@/stores/usePageStore";
 import { Env } from "config/env";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { ReactElement, useCallback } from "react";
-import { matchPath, useNavigate } from "react-router-dom";
-import usePageCallbackStore from "stores/usePageCallbackStore";
+import { matchPath } from "react-router-dom";
 import { PopupItem, OpenTypeCode, PopupTypeCode } from "stores/usePageMapStore";
 import usePageRouteStore from "stores/usePageRouteStore";
 import { getUuid } from "utils/rapUtil";
-
-interface PageOptions {
-  key?: string;
-  title?: string;
-  isDetail?: boolean;
-}
+import useMenuNavigate from "./useMenuNavigate";
 
 interface PopupOptions {
   key?: string;
@@ -39,9 +33,8 @@ const isMdi = env.isWindow ? false : env.isMdi;
 export default function usePageNavigate() {
   const { pageRoutes, getElementByRoutePath } = usePageRouteStore();
   const { addModal, delModal, addWindow } = usePageContext();
-  const { addPageCallback } = usePageCallbackStore();
   const { getPage, setPage } = usePageStore();
-  const navigator = useNavigate();
+  const { openPage, openDetail } = useMenuNavigate();
 
   const closeModal = useCallback(
     (id: string) => {
@@ -180,39 +173,6 @@ export default function usePageNavigate() {
     };
 
     goPage(url, params, options, handlePage);
-  };
-
-  const openPage = (url: string, params: Record<string, any> = {}, options: PageOptions = {}) => {
-    let queryParams = new Array();
-    const newId = url;
-
-    // 페이지 파라미터 추가
-    Object.entries(params).forEach(([key, value]) => {
-      queryParams.push(`${key}=${value}`);
-    });
-
-    const title = options?.title;
-    if (title) {
-      queryParams.push(`title=${encodeURIComponent(title)}`);
-    }
-
-    if (options?.isDetail) {
-      queryParams.push("detailYn=Y");
-    }
-
-    if (params.callback) {
-      queryParams.push("pageId=" + newId);
-      addPageCallback(newId, params.callback);
-    }
-
-    const searchUrl = `${url}?${queryParams.join("&")}`;
-
-    navigator(searchUrl);
-  };
-
-  const openDetail = (url: string, params: Record<string, any>, options: PageOptions = {}) => {
-    const detailPageOptions = { ...options, isDetail: true };
-    openPage(url, params, detailPageOptions);
   };
 
   return {
