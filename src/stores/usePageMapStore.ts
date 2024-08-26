@@ -34,7 +34,7 @@ export interface PageItem {
   options?: Object;
   callback?: CallbackFunction;
   closeModal?: CloseFunction;
-  element: ReactElement;
+  element?: ReactElement;
 }
 
 export interface PopupItem {

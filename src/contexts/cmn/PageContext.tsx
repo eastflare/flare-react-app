@@ -1,4 +1,4 @@
-import { TPageProviderProps } from "hooks/cmn/usePage";
+import { TPageProviderProps } from "hooks/cmn/usePageProvider";
 import { createContext, useContext } from "react";
 
 interface PageProviderProps {
@@ -21,4 +21,3 @@ function PageProvider({ children, value }: PageProviderProps) {
 }
 
 export { PageProvider, PageContext, usePageContext };
-PageContext

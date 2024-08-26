@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 import type { RoutesProps, PathRouteProps } from "react-router";
 import styled from "@emotion/styled";
-import usePage from "hooks/cmn/usePage";
+import usePageProvider from "hooks/cmn/usePageProvider";
 import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "stores/usePageMapStore";
 import PageModals from "./PageModals";
@@ -29,7 +29,7 @@ function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }:
 
   const { pageHeight } = useWindowDimensions();
 
-  const { getPageProviderProps } = usePage({ pageItem });
+  const { getPageProviderProps } = usePageProvider({ pageItem });
   return (
     <StyledDisplayElement display={display ? `${display}` : undefined}>
       <PageProvider value={{ ...getPageProviderProps() }}>

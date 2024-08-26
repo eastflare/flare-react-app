@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import usePageMapStore, { CallbackFunction, OpenTypeCode, WindowItem } from "stores/usePageMapStore";
-import { getUuid } from "utils/rapUtil";
+import usePageMapStore, { CallbackFunction, OpenTypeCode, PopupItem } from "stores/usePageMapStore";
 import { openWindow } from "utils/windowUtil";
 import usePageCallbackStore from "stores/usePageCallbackStore";
 import { Env } from "config/env";
@@ -84,16 +83,15 @@ const usePageTab = () => {
 
         console.log("컬콜백입니다.", curCallback);
 
-        const windowItem: WindowItem = {
+        const PopupItem: PopupItem = {
           openTypeCode: OpenTypeCode.WINDOW,
           id: myPageId,
           label: "팝업(윈도우)",
-          url: curPathName,
           params: curParams,
           options: curOptions,
           callback: curCallback as CallbackFunction<any, any>,
         };
-        openWindow(windowItem);
+        openWindow(curPathName, PopupItem);
 
         handleDeletePageTab(myPageId);
       }

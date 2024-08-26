@@ -4,10 +4,9 @@ import { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
-import usePage from "hooks/cmn/usePage";
+import usePageProvider from "hooks/cmn/usePageProvider";
 import { PopupItem } from "stores/usePageMapStore";
 import { useLocation, useNavigate } from "react-router-dom";
-import { history } from "utils/historyUtil";
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import { FontColor } from "@/ui/theme/Color";
 import CloseIcon from "@mui/icons-material/Close";
@@ -517,7 +516,7 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
 
   const { width, height, x, y } = state;
 
-  const { getPageProviderProps } = usePage({ pageItem: modalItem });
+  const { getPageProviderProps } = usePageProvider({ pageItem: modalItem });
 
   const content = isFixModal ? (
     <StyleDialog

@@ -1,4 +1,4 @@
-import { findPageById, findPageByPathNm } from "@/apis/system/Page";
+import { findPageByPathNm } from "@/apis/system/Page";
 import { Page } from "@/models/system/Page";
 import { usePageStore } from "@/stores/usePageStore";
 import { Env } from "config/env";
@@ -66,7 +66,7 @@ export default function usePageNavigate() {
   // 페이지 정보를 생성하는 함수
   const getPageObj = (url: string, params: Record<string, any>): PageObj => {
     // URL에서 경로 변수 대체
-    const pageUrl = replacePathVariables(url, params);
+    const pageUrl = params ? replacePathVariables(url, params) : url;
 
     // 경로 매칭
     const routePath = getMatchedRouteByUrl(pageUrl);
@@ -93,20 +93,29 @@ export default function usePageNavigate() {
   };
 
   // 페이지를 열고 콜백을 호출하는 함수
-  const goPage = async (url: string, params: Record<string, any>, handlePage: (pageObj: PageObj, data: Page) => void) => {
+  const goPage = async (url: string, params: Record<string, any> = {}, options: Record<string, any> = {}, handlePage?: (pageObj: PageObj, data: Page) => void) => {
     const pageObj = getPageObj(url, params);
+
+    const handleGoPage = (pageObj: PageObj, data: Page) => {
+      if (handlePage) {
+        handlePage(pageObj, data);
+      } else {
+        openPage(url, params, options);
+      }
+    };
+
     try {
       // 이미 저장된 페이지 데이터가 있는지 확인합니다.
       const cachedData = getPage(pageObj.pagePathNm);
       if (cachedData) {
-        handlePage(pageObj, cachedData);
+        handleGoPage(pageObj, cachedData);
         return;
       }
 
       const data = await findPageByPathNm(pageObj.pagePathNm);
       if (data) {
         setPage(pageObj.pagePathNm, data);
-        handlePage(pageObj, data);
+        handleGoPage(pageObj, data);
       } else {
         console.error(`Page with pagePathNm : ${pageObj.pagePathNm} not found.`);
       }
@@ -118,13 +127,11 @@ export default function usePageNavigate() {
   // 공통 팝업 생성 함수
   const createPopup = (url: string, params: Record<string, any>, options: PopupOptions = {}, openType: OpenTypeCode, addPopup: (popup: PopupItem) => void) => {
     const handlePage = (pageObj: PageObj, data: Page) => {
-      //const { pageElement, pageParams, pageCallback } = getPageObj(url, params);
       const newId = getUuid();
 
       // 기본 옵션을 설정합니다.
       const popupOptions: PopupOptions = {
         ...options, // 전달된 옵션을 먼저 적용합니다.
-        //isFix: options.isFix ?? (openType === OpenTypeCode.MODELESS ? false : true),
         width: options.width ?? data.poupWthLen ?? 800,
         height: options.height ?? data.poupVtcLen ?? 600,
       };
@@ -143,7 +150,7 @@ export default function usePageNavigate() {
       addPopup(popupItem);
     };
 
-    goPage(url, params, handlePage);
+    goPage(url, params, options, handlePage);
   };
 
   // Modal 팝업 열기
@@ -163,8 +170,6 @@ export default function usePageNavigate() {
 
   const openWindow = (url: string, params: Record<string, any>, options: PopupOptions = {}) => {
     const handlePage = (pageObj: PageObj, data: Page) => {
-      //const { pageUrl, pageParams, pageCallback } = getPageObj(url, params);
-      // 기본 옵션을 설정합니다.
       const popupOptions: PopupOptions = {
         ...options,
         width: options.width ?? data.poupWthLen ?? 800,
@@ -182,38 +187,35 @@ export default function usePageNavigate() {
       addWindow(pageObj.pageUrl, windowItem);
     };
 
-    goPage(url, params, handlePage);
+    goPage(url, params, options, handlePage);
   };
 
-  const openPage = (url: string, params: Record<string, any>, options?: PageOptions) => {
-    const handlePage = (pageObj: PageObj, data: Page) => {
-      //const { pageUrl, pageParams, pageCallback } = getPageObj(url, params);
-      let queryParams = new Array();
-      const newId = pageObj.pageUrl;
+  const openPage = (url: string, params: Record<string, any> = {}, options: PageOptions = {}) => {
+    let queryParams = new Array();
+    const newId = url;
 
-      // 페이지 파라미터 추가
-      Object.entries(pageObj.pageParams).forEach(([key, value]) => {
-        queryParams.push(`${key}=${value}`);
-      });
+    // 페이지 파라미터 추가
+    Object.entries(params).forEach(([key, value]) => {
+      queryParams.push(`${key}=${value}`);
+    });
 
-      const title = options?.title ?? data.pageNm;
-      if (title) {
-        queryParams.push(`title=${encodeURIComponent(title)}`);
-      }
+    const title = options?.title;
+    if (title) {
+      queryParams.push(`title=${encodeURIComponent(title)}`);
+    }
 
-      if (options?.isDetail) {
-        queryParams.push("detailYn=Y");
-      }
+    if (options?.isDetail) {
+      queryParams.push("detailYn=Y");
+    }
 
+    if (params.callback) {
       queryParams.push("pageId=" + newId);
+      addPageCallback(newId, params.callback);
+    }
 
-      addPageCallback(newId, pageObj.pageCallback);
-      const searchUrl = `${pageObj.pageUrl}?${queryParams.join("&")}`;
+    const searchUrl = `${url}?${queryParams.join("&")}`;
 
-      navigator(searchUrl);
-    };
-
-    goPage(url, params, handlePage);
+    navigator(searchUrl);
   };
 
   const openDetail = (url: string, params: Record<string, any>, options: PageOptions = {}) => {

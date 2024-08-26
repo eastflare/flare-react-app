@@ -1,15 +1,15 @@
 import { useEffect, useMemo, useState } from "react";
-import { ModalItem, OpenTypeCode, PageItem, PopupItem } from "stores/usePageMapStore";
+import { PopupItem, OpenTypeCode, PageItem } from "stores/usePageMapStore";
 import { openWindow } from "utils/windowUtil";
 import usePageTab from "./usePageTab";
 
-const usePage = (props: { pageItem: PageItem | ModalItem | PopupItem }) => {
+const usePageProvider = (props: { pageItem: PageItem | PopupItem }) => {
   const { openTypeCode = OpenTypeCode.PAGE, params = {}, options = {}, callback = () => {} } = props.pageItem;
 
   const { onPageTabClose } = usePageTab();
-  const [modals, setModals] = useState<ModalItem[]>([]); // Destructure the tuple correctly
+  const [modals, setModals] = useState<PopupItem[]>([]); // Destructure the tuple correctly
   const [refreshCount, setRefreshCount] = useState(0);
-  const addModal = (modalProps: ModalItem) => {
+  const addModal = (modalProps: PopupItem) => {
     setModals(prev => [...prev, modalProps]);
   };
 
@@ -77,7 +77,7 @@ const usePage = (props: { pageItem: PageItem | ModalItem | PopupItem }) => {
   };
 };
 
-export default usePage;
+export default usePageProvider;
 
 //PageContext 에서 사용하기 위한 Type을 ReturnType의 함수를 통해 정의함.
-export type TPageProviderProps = ReturnType<ReturnType<typeof usePage>["getPageProviderProps"]>;
+export type TPageProviderProps = ReturnType<ReturnType<typeof usePageProvider>["getPageProviderProps"]>;

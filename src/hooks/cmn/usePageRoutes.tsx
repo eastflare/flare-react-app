@@ -51,29 +51,6 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const curRouteItem = useMemo(() => pageRoutes[routepath], [pageRoutes, routepath]);
   const matchedRoute = routepath && useMatch(routepath);
 
-  //현재 화면에 열려있는 Route (Max 10개)
-  useEffect(() => {
-    //console.log("pageRoutes,routepath --->", pageRoutes, routepath);
-  }, [curRouteItem]);
-
-  useEffect(() => {
-    //console.log("routepath -->", routepath);
-    //console.log("나는location입니다.", search, pathname);
-    //console.log("나는route입니다.", matchedRoute);
-    //console.log("나는파람스~입니다.", matchedRoute ? matchedRoute.params : undefined);
-    //console.log("실험중 페이지맵이 변경이 됐을까요?", pageMap);
-  }, [pageMap]);
-
-  // const initRoutesObj = useCallback(() => {
-  //   //전체 Route를 Object<id, element> 형태의 맵으로 재구성한다.
-  //   console.log("실행실행 최초 --->", ...routes);
-
-  //   startTransition(() => {});
-  // }, [routes]);
-
-  // // routes가 추가 될때만 실행됨
-  // useEffect(initRoutesObj, [initRoutesObj]);
-
   const openPageRoute = useCallback(() => {
     //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬 (callback function 은 없음)
     const pathParams = matchedRoute ? matchedRoute.params : {};
@@ -81,7 +58,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     const params = { ...pathParams, ...restSearchParams };
 
     //임시 페이지명을 path의 마지막 글자로 변경
-    const label = decodeURIComponent(pathname.split("/").pop() || "Home");
+    const label = pathname === "/" ? "Home" : decodeURIComponent(title || "No Title");
 
     const pageId = pathname;
     //현재 주소와 매핑된 Route가 있을 경우
@@ -103,7 +80,6 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
         //페이지일 경우 Callback 처리
         const pageCallback = (...args: any[]) => {
           const tmpCallback = getPageCallback(pageId);
-          console.log("페이지 Callback 입니다.", tmpCallback);
           if (typeof tmpCallback === "function") {
             return tmpCallback(...args);
           }
