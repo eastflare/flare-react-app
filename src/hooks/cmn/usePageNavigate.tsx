@@ -93,29 +93,21 @@ export default function usePageNavigate() {
   };
 
   // 페이지를 열고 콜백을 호출하는 함수
-  const goPage = async (url: string, params: Record<string, any> = {}, options: Record<string, any> = {}, handlePage?: (pageObj: PageObj, data: Page) => void) => {
+  const goPage = async (url: string, params: Record<string, any> = {}, options: Record<string, any> = {}, handlePage: (pageObj: PageObj, data: Page) => void) => {
     const pageObj = getPageObj(url, params);
-
-    const handleGoPage = (pageObj: PageObj, data: Page) => {
-      if (handlePage) {
-        handlePage(pageObj, data);
-      } else {
-        openPage(url, params, options);
-      }
-    };
 
     try {
       // 이미 저장된 페이지 데이터가 있는지 확인합니다.
       const cachedData = getPage(pageObj.pagePathNm);
       if (cachedData) {
-        handleGoPage(pageObj, cachedData);
+        handlePage(pageObj, cachedData);
         return;
       }
 
       const data = await findPageByPathNm(pageObj.pagePathNm);
       if (data) {
         setPage(pageObj.pagePathNm, data);
-        handleGoPage(pageObj, data);
+        handlePage(pageObj, data);
       } else {
         console.error(`Page with pagePathNm : ${pageObj.pagePathNm} not found.`);
       }

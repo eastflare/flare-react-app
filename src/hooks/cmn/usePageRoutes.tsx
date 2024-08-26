@@ -1,5 +1,7 @@
+import { findPageByPathNm } from "@/apis/system/Page";
+import { usePageStore } from "@/stores/usePageStore";
 import { Env } from "config/env";
-import React, { startTransition, useCallback, useEffect, useLayoutEffect } from "react";
+import React, { useCallback, useEffect, useLayoutEffect } from "react";
 import { ReactElement, ReactNode, useMemo } from "react";
 import { RouteObject, matchRoutes, useLocation, useMatch, useSearchParams } from "react-router-dom";
 import usePageCallbackStore from "stores/usePageCallbackStore";
@@ -15,25 +17,26 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const { pageRoutes, setPageRoutes } = usePageRouteStore();
   const { pageMap, curPageId, setPageItem, setMasterPageItem, setDetailPageItem } = usePageMapStore();
   const { getPageCallback } = usePageCallbackStore();
+  const { getPage, setPage } = usePageStore();
   const { pathname, search } = useLocation();
   const [searchParams] = useSearchParams();
 
-  // ReactNode로 받아온 Routes를 RouteObject로 변환
-  const routes = useMemo(
+  // Convert ReactNode to RouteObject
+  const routes = React.useMemo(
     () =>
       React.Children.toArray(children).map(childNode => {
-        const element = childNode as ReactElement;
+        const element = childNode as React.ReactElement;
         return { path: element.props.path, element } as RouteObject;
       }),
     [children]
   );
 
+  // Update pageRoutes
   useEffect(() => {
     const routeMap = routes.reduce(
       (acc, item) => {
-        const key = (item?.path as string) ?? "";
-        const _key = key.startsWith("/") ? key : "/" + key;
-        acc[_key] = item;
+        const key = item.path?.startsWith("/") ? item.path : `/${item.path}`;
+        acc[key] = item;
         return acc;
       },
       {} as Record<string, RouteObject>
@@ -51,33 +54,58 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
   const curRouteItem = useMemo(() => pageRoutes[routepath], [pageRoutes, routepath]);
   const matchedRoute = routepath && useMatch(routepath);
 
-  const openPageRoute = useCallback(() => {
-    //PathVariable 과 SearchParams 를 합쳐서 하나의 Params로 만듬 (callback function 은 없음)
+  const getPageInfo = useCallback(
+    async (routepath: string) => {
+      // routepath가 빈 문자열이거나 "/"인 경우 null을 반환
+      if (!routepath || routepath === "/") return null;
+
+      try {
+        // 이미 저장된 페이지 데이터가 있는지 확인합니다.
+        const cachedData = getPage(routepath);
+        if (cachedData) {
+          return cachedData;
+        }
+
+        const data = await findPageByPathNm(routepath);
+        if (data) {
+          setPage(routepath, data);
+          return data;
+        } else {
+          console.error(`Page with pagePathNm : ${routepath} not found.`);
+        }
+      } catch (error) {
+        console.error("Failed to fetch page data:", error);
+      }
+    },
+    [routepath]
+  );
+
+  const openPageRoute = useCallback(async () => {
+    // PathVariable과 SearchParams를 합쳐서 하나의 Params로 만듦 (callback function 없음)
     const pathParams = matchedRoute ? matchedRoute.params : {};
     const { title, detailYn, openTypeCode, ...restSearchParams } = Object.fromEntries(searchParams);
     const params = { ...pathParams, ...restSearchParams };
-
-    //임시 페이지명을 path의 마지막 글자로 변경
-    const label = pathname === "/" ? "Home" : decodeURIComponent(title || "No Title");
-
+    const data = await getPageInfo(routepath);
+    const label = pathname === "/" ? "Home" : decodeURIComponent(title ?? data?.pageNm);
     const pageId = pathname;
-    //현재 주소와 매핑된 Route가 있을 경우
+
+    // 현재 주소와 매핑된 Route가 있을 경우
     if (curRouteItem) {
-      //Window 팝업일 경우 OpenTypeCode 와 Callback을 상황에 맞게 변경한다.
+      // Window 팝업일 경우 OpenTypeCode와 Callback을 상황에 맞게 변경한다.
       let openTypeCode = OpenTypeCode.PAGE;
       let callback = () => {};
 
       if (isWindow) {
-        //파라메터의 openTypeCode=WINDOW 파라메터로 오면 pageItem의 openTypeCode 를 WINDOW 로 변경한다.
+        // 파라미터의 openTypeCode=WINDOW 파라미터로 오면 pageItem의 openTypeCode를 WINDOW로 변경한다.
         openTypeCode = OpenTypeCode.WINDOW;
 
-        //윈도우 팝업일 경우 Callback 처리
+        // 윈도우 팝업일 경우 Callback 처리
         const windowCallback = (...args: any[]) => {
           return window.parentCallback(...args);
         };
         callback = windowCallback;
       } else {
-        //페이지일 경우 Callback 처리
+        // 페이지일 경우 Callback 처리
         const pageCallback = (...args: any[]) => {
           const tmpCallback = getPageCallback(pageId);
           if (typeof tmpCallback === "function") {
@@ -100,7 +128,7 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
       };
 
       if (isMdi) {
-        //메뉴를 클릭하거나 Windows Popup 화면일 경우 Zustand에다 Page정보를 입력한다.
+        // 메뉴를 클릭하거나 Windows Popup 화면일 경우 Zustand에다 Page정보를 입력한다.
         setPageItem(pageId, pageItem);
       } else {
         if (detailYn === "Y") {
@@ -112,9 +140,13 @@ const usePageRoutes = ({ children }: { children: ReactNode }) => {
     }
   }, [pathname, search, curRouteItem]);
 
-  //DOM 이 렌더링 되기 전에 동기적으로 처리 할때
-  //(위의 함수가 pathname, search, curRouteItem 가 변하여 함수가 재렌더링 되면 LayoutEffect로 그 함수를 실행함)
-  useLayoutEffect(openPageRoute, [openPageRoute]);
+  // DOM이 렌더링되기 전에 동기적으로 처리
+  useLayoutEffect(() => {
+    const executeAsync = async () => {
+      await openPageRoute();
+    };
+    executeAsync();
+  }, [openPageRoute]);
 
   return {
     openedPageMap: pageMap,
