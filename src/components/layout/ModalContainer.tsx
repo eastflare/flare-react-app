@@ -4,7 +4,7 @@ import { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
 import { PageProvider } from "contexts/cmn/PageContext";
-import usePageProvider from "hooks/cmn/usePageProvider";
+import usePageProvider from "hooks/layout/usePageProvider";
 import { PopupItem } from "stores/usePageMapStore";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";

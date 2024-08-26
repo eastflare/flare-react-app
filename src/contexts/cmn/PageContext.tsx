@@ -1,4 +1,4 @@
-import { TPageProviderProps } from "hooks/cmn/usePageProvider";
+import { TPageProviderProps } from "hooks/layout/usePageProvider";
 import { createContext, useContext } from "react";
 
 interface PageProviderProps {

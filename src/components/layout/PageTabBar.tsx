@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import usePageTab from "hooks/cmn/usePageTab";
+import usePageTab from "hooks/layout/usePageTab";
 import PageTab from "./PageTab";
 import { IconButton } from "components/buttons/CustomButton";
 import { ReactSVG } from "react-svg";

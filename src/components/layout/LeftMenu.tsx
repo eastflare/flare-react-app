@@ -1,7 +1,7 @@
 import useWindowDimensions from "@/hooks/cmn/useWindowDimensions";
 import React from "react";
 import styled from "@emotion/styled";
-import useMenuNavigate from "@/hooks/cmn/useMenuNavigate";
+import useMenuNavigate from "@/hooks/layout/useMenuNavigate";
 
 const LeftMenu = () => {
   const { openPage } = useMenuNavigate();

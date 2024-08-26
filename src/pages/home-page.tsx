@@ -1,6 +1,6 @@
 import { BlueButton, BlueLineButton, GreyButton, GreyLineButton } from "components/buttons/CustomButton";
 import { Env } from "config/env";
-import usePageNavigate from "hooks/cmn/usePageNavigate";
+import usePageNavigate from "hooks/layout/usePageNavigate";
 import { useEffect, useState } from "react";
 import { PopupTypeCode } from "stores/usePageMapStore";
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useToast from "hooks/cmn/useToast";
-import usePageNavigate from "hooks/cmn/usePageNavigate";
+import usePageNavigate from "hooks/layout/usePageNavigate";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
 import { useCommonModal } from "@/hooks/useCommonModal";
@@ -49,7 +49,7 @@ const MyModal2Page = () => {
 
   const openJeonSenbbai = () => {
     openModeless(
-      "RAP_POUP_003",
+      `/sample/my-modal1`,
       {
         foo: "bar",
         callback: () => {

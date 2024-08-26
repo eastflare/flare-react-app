@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useToast from "hooks/cmn/useToast";
-import usePageNavigate from "hooks/cmn/usePageNavigate";
+import usePageNavigate from "hooks/layout/usePageNavigate";
 import { usePageContext } from "contexts/cmn/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
 
@@ -35,7 +35,7 @@ const MyModal1Page = () => {
 
   const openYoshiki = () => {
     openDialog(
-      "RAP_POUP_004",
+      `/sample/my-modal2`,
       {
         foo: "bar",
         callback: () => {

@@ -5,10 +5,7 @@ import { findPageById } from "@/apis/system/Page";
 const PageListPage = () => {
   const [pageId, setPageId] = useState("");
 
-  const handleClickSubmit = async () => {
-    const data = await findPageById("RAP_COM_001");
-    console.log("페이지 데이터 ", data);
-  };
+  const handleClickSubmit = async () => {};
 
   const handleClickCancel = () => {
     close();

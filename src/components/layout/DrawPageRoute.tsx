@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 import type { RoutesProps, PathRouteProps } from "react-router";
 import styled from "@emotion/styled";
-import usePageProvider from "hooks/cmn/usePageProvider";
+import usePageProvider from "hooks/layout/usePageProvider";
 import { PageProvider } from "contexts/cmn/PageContext";
 import { PageItem } from "stores/usePageMapStore";
 import PageModals from "./PageModals";

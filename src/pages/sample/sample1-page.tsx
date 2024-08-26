@@ -1,6 +1,6 @@
 import { BlueButton } from "components/buttons/CustomButton";
 import { usePageContext } from "contexts/cmn/PageContext";
-import usePageNavigate from "hooks/cmn/usePageNavigate";
+import usePageNavigate from "hooks/layout/usePageNavigate";
 import { useEffect, useState } from "react";
 
 const Sample1Page = () => {

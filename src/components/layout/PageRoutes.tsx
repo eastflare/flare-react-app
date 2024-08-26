@@ -1,6 +1,6 @@
 import { RoutesProps } from "react-router-dom";
 import DrawPageRoutes from "./DrawPageRoutes";
-import usePageRoutes from "hooks/cmn/usePageRoutes";
+import usePageRoutes from "hooks/layout/usePageRoutes";
 import { memo } from "react";
 
 const PageRoutes = ({ children, ...props }: RoutesProps) => {
