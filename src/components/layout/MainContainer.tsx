@@ -58,7 +58,7 @@ const StyledMainBody = styled.div`
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  height: calc(100%-50px);
+  height: calc(100vh - 50px);
 `;
 
 const StyledMainLeft = styled.div<{ isCollapsed: boolean }>`
@@ -76,7 +76,7 @@ const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
   flex-grow: 1;
   height: 100%;
   /* min-height는 StyleGlobalPage가 가짐 */
-  width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100% -150px)")};
+  width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100vh - 150px)")};
 `;
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`

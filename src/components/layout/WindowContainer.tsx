@@ -31,20 +31,20 @@ const StyledMainBody = styled.div`
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  height: calc(100%-50px);
+  height: calc(100vh - 50px);
 `;
 
 const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
   flex-grow: 1;
   height: 100%;
   /* min-height는 StyleGlobalPage가 가짐 */
-  width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100% -150px)")};
+  width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100vh - 150px)")};
   overflow-y: auto;
 `;
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
-  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% -150px)" : "100%")}; //PageTabBar 높이 만큼 빼줌
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100vh - 150px)" : "100%")}; //PageTabBar 높이 만큼 빼줌
   padding: 0;
 `;
 

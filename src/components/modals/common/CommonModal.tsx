@@ -150,7 +150,7 @@ export const CommonModal = () => {
 
   useEffect(() => {
     if (isOpen) {
-      document.body.style.top = "-${window.pageYOffset}px";
+      document.body.style.top = `-${window.scrollY}px`;
       // common modal 발생 시 최상단으로 스크롤 업됨 우선 주석처리.
       // document.body.style.position = 'fixed';
       document.body.style.overflow = "hidden";
