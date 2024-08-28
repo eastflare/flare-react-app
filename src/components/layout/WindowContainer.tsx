@@ -1,51 +1,15 @@
 import { ReactNode } from "react";
 import styled from "@emotion/styled";
-import { useMenuContext } from "contexts/MenuContext";
 
 const WindowContainer = (props: { children: ReactNode }) => {
-  //메인 화면의 레이아웃 구성
-  //상단메뉴, 좌측메뉴, 화면영역은 children : Routes 객체임
-
   const { children } = props;
-  const { showLeftMenu } = useMenuContext();
-  const showPageTabBar = false;
-
-  return (
-    <StyledMainContainer>
-      <StyledMainBody>
-        <StyledMainRight showLeftMenu={showLeftMenu}>
-          <StyledMainPage showPageTabBar={showPageTabBar}>{children}</StyledMainPage>
-        </StyledMainRight>
-      </StyledMainBody>
-    </StyledMainContainer>
-  );
+  return <StyledMainPage>{children}</StyledMainPage>;
 };
 
-const StyledMainContainer = styled.div`
-  /* width: 100%; */
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const StyledMainBody = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  height: calc(100vh - 50px);
-`;
-
-const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
-  flex-grow: 1;
-  height: 100%;
-  /* min-height는 StyleGlobalPage가 가짐 */
-  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100vh - 150px)")};
-  overflow-y: auto;
-`;
-
-const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
+const StyledMainPage = styled.div`
   width: 100%;
-  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100vh - 150px)" : "100%")}; //PageTabBar 높이 만큼 빼줌
+  height: 100%;
+  overflow: auto;
   padding: 0;
 `;
 

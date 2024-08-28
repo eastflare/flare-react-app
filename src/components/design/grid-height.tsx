@@ -1,9 +1,9 @@
 export const GridHeight = {
   SearchArea: {
-    Line1: "calc(100vh - 290px)",
-    Line2: "calc(100vh - 330px)",
-    Line3: "calc(100vh - 380px)",
-    Line4: "calc(100vh - 410px)",
+    Line1: "calc(100% - 290px)",
+    Line2: "calc(100% - 330px)",
+    Line3: "calc(100% - 380px)",
+    Line4: "calc(100% - 410px)",
   },
   VerticalHalf: {
     SearchArea: {

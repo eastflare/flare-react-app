@@ -1,12 +1,9 @@
-import useWindowDimensions from "@/hooks/cmn/useWindowDimensions";
 import React from "react";
 import styled from "@emotion/styled";
 import useMenuNavigate from "@/hooks/layout/useMenuNavigate";
 
 const LeftMenu = () => {
   const { openPage } = useMenuNavigate();
-  const { topMenuHeight, windowHeight } = useWindowDimensions();
-  const menuHeight = windowHeight - topMenuHeight;
 
   const handleClick = (path: string, title: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -14,7 +11,7 @@ const LeftMenu = () => {
   };
 
   return (
-    <StyledMenuElement className='leftmenu' pageHeight={menuHeight}>
+    <StyledMenuElement className='leftmenu'>
       <ul>
         <li>
           <a href='#' onClick={e => handleClick("/sample/sample1", "메뉴명-Sample1", e)}>
@@ -101,37 +98,8 @@ const LeftMenu = () => {
   );
 };
 
-const StyledMenuElement = styled.div<{ pageHeight?: number }>`
-  height: ${props => props.pageHeight || 0}px;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  /* 스크롤바 스타일링 */
-  ::-webkit-scrollbar {
-    width: 8px; /* 스크롤바의 너비 */
-    opacity: 0; /* 초기 상태에서 스크롤바를 숨김 */
-    transition: opacity 0.3s; /* 부드러운 전환 효과 */
-  }
-
-  /* 스크롤바 영역에 마우스 hover 시 스크롤바 표시 */
-  &:hover {
-    ::-webkit-scrollbar {
-      opacity: 1; /* hover 시 스크롤바 표시 */
-    }
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background-color: #d0d0d0; /* 연한 회색으로 스크롤바 색상 */
-    border-radius: 4px; /* 스크롤바의 모서리 둥글기 */
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #b0b0b0; /* 연한 회색으로 hover 색상 */
-  }
-
-  ::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.1); /* 연한 배경색 */
-  }
+const StyledMenuElement = styled.div`
+  height: 100%;
 `;
 
 export default LeftMenu;

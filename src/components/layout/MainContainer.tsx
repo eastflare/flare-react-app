@@ -27,7 +27,7 @@ const MainContainer = (props: { children: ReactNode }) => {
         <TopMenu onToggleLeftMenu={handleToggleLeftMenu} />
       </StyledMainHeader>
       <StyledMainBody>
-        <StyledMainLeft id='leftMenu' showLeftMenu={showLeftMenu}>
+        <StyledMainLeft id='leftMenu' showLeftMenu={showLeftMenu} showPageTabBar={isMdi}>
           <LeftMenu />
         </StyledMainLeft>
         <StyledMainRight showLeftMenu={showLeftMenu}>
@@ -62,9 +62,10 @@ const StyledMainBody = styled.div`
   height: calc(100vh - 50px);
 `;
 
-const StyledMainLeft = styled.div<{ showLeftMenu: boolean }>`
+const StyledMainLeft = styled.div<{ showLeftMenu: boolean; showPageTabBar: boolean }>`
   width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
   min-width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
+  height: calc(100vh - 50px);
   transition: 0.3s;
   border-right: 1px solid #ddd;
   background-color: ${BgColor.Gray50};
@@ -75,14 +76,14 @@ const StyledMainLeft = styled.div<{ showLeftMenu: boolean }>`
 
 const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
   flex-grow: 1;
+  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100% - 150px)")};
   height: 100%;
-  /* min-height는 StyleGlobalPage가 가짐 */
-  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100vh - 150px)")};
 `;
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
-  //PageTabBar 높이 만큼 빼줌
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100vh - 90px)" : "100%")};
+  overflow-x: hidden;
   overflow-y: auto;
 `;
 

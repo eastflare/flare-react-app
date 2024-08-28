@@ -374,7 +374,7 @@ export const MenuPage = () => {
             />
           </Box>
           <Spacer type="h" size="4" />
-          <Box sx={{ height: 'calc(100vh - 140px)', overflow: 'auto' }}>
+          <Box sx={{ height: 'calc(100% - 140px)', overflow: 'auto' }}>
             {allMenuList && <MenuTree items={allMenuList} ref={menuTreeRef} />}
           </Box>
           <Spacer type="h" size="4" />
