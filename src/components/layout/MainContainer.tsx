@@ -59,13 +59,13 @@ const StyledMainBody = styled.div`
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  height: calc(100% - 50px);
+  height: calc(100vh - 50px);
 `;
 
 const StyledMainLeft = styled.div<{ showLeftMenu: boolean; showPageTabBar: boolean }>`
   width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
   min-width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
-  height: calc(100% - 50px);
+  height: calc(100vh - 50px);
   transition: 0.3s;
   border-right: 1px solid #ddd;
   background-color: ${BgColor.Gray50};
@@ -76,13 +76,13 @@ const StyledMainLeft = styled.div<{ showLeftMenu: boolean; showPageTabBar: boole
 
 const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
   flex-grow: 1;
-  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100% - 150px)")};
+  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100vh - 150px)")};
   height: 100%;
 `;
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
-  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 90px)" : "100%")};
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100vh - 90px)" : "100%")};
   overflow-x: hidden;
   overflow-y: auto;
 `;

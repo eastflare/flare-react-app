@@ -5,7 +5,6 @@ import usePageProvider from "hooks/layout/usePageProvider";
 import { PageProvider } from "contexts/PageContext";
 import { PageItem } from "stores/usePageMapStore";
 import PageModals from "./PageModals";
-import useWindowDimensions from "hooks/cmn/useWindowDimensions";
 import PageHeader from "./PageHeader";
 
 interface DisplayRouteProps extends PathRouteProps {
