@@ -1,18 +1,19 @@
 import { ReactNode } from "react";
 import styled from "@emotion/styled";
+import { useMenuContext } from "contexts/MenuContext";
 
 const WindowContainer = (props: { children: ReactNode }) => {
   //메인 화면의 레이아웃 구성
   //상단메뉴, 좌측메뉴, 화면영역은 children : Routes 객체임
 
   const { children } = props;
-  const isLeftCollapsed = false;
+  const { showLeftMenu } = useMenuContext();
   const showPageTabBar = false;
 
   return (
     <StyledMainContainer>
       <StyledMainBody>
-        <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
+        <StyledMainRight showLeftMenu={showLeftMenu}>
           <StyledMainPage showPageTabBar={showPageTabBar}>{children}</StyledMainPage>
         </StyledMainRight>
       </StyledMainBody>
@@ -34,11 +35,11 @@ const StyledMainBody = styled.div`
   height: calc(100vh - 50px);
 `;
 
-const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
+const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
   flex-grow: 1;
   height: 100%;
   /* min-height는 StyleGlobalPage가 가짐 */
-  width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100vh - 150px)")};
+  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100vh - 150px)")};
   overflow-y: auto;
 `;
 

@@ -11,7 +11,7 @@ const isWindow = env.isWindow;
 const PageContainer = isWindow ? WindowContainer : MainContainer;
 
 const MainRouter = () => {
-  const { getMenuProviderProps } = useMenuProvider(undefined);
+  const { getMenuProviderProps } = useMenuProvider();
 
   return (
     <StyledMainContainer>

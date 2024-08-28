@@ -2,8 +2,8 @@ import { PopupItem } from "@/stores/usePageMapStore";
 import { useState } from "react";
 import { openWindow } from "utils/windowUtil";
 
-const useMenuProvider = (props: any) => {
-  const [showMenu, setShowMenu] = useState(true);
+const useMenuProvider = () => {
+  const [showLeftMenu, setShowLeftMenu] = useState(false);
 
   const close = () => {};
 
@@ -12,6 +12,8 @@ const useMenuProvider = (props: any) => {
   };
 
   const getMenuProviderProps = () => ({
+    showLeftMenu,
+    setShowLeftMenu,
     close,
     addWindow,
   });

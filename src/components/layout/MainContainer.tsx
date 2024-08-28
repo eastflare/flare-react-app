@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import PageTabBar from "./PageTabBar";
 import { BgColor } from "ui/theme/Color";
 import { Env } from "config/env";
+import { useMenuContext } from "@/contexts/MenuContext";
 
 const env = Env.getInstance();
 const isMdi = env.isMdi;
@@ -14,10 +15,10 @@ const MainContainer = (props: { children: ReactNode }) => {
   //상단메뉴, 좌측메뉴, 화면영역은 children : Routes 객체임
 
   const { children } = props;
-  const [isLeftCollapsed, setIsLeftCollapsed] = useState(false);
+  const { showLeftMenu, setShowLeftMenu } = useMenuContext();
 
   const handleToggleLeftMenu = () => {
-    setIsLeftCollapsed(prevState => !prevState);
+    setShowLeftMenu(prevState => !prevState);
   };
 
   return (
@@ -26,10 +27,10 @@ const MainContainer = (props: { children: ReactNode }) => {
         <TopMenu onToggleLeftMenu={handleToggleLeftMenu} />
       </StyledMainHeader>
       <StyledMainBody>
-        <StyledMainLeft id='leftMenu' isCollapsed={isLeftCollapsed}>
+        <StyledMainLeft id='leftMenu' showLeftMenu={showLeftMenu}>
           <LeftMenu />
         </StyledMainLeft>
-        <StyledMainRight isLeftCollapsed={isLeftCollapsed}>
+        <StyledMainRight showLeftMenu={showLeftMenu}>
           {isMdi ? <PageTabBar /> : null}
           <StyledMainPage id='mainBody' showPageTabBar={isMdi}>
             {children}
@@ -61,9 +62,9 @@ const StyledMainBody = styled.div`
   height: calc(100vh - 50px);
 `;
 
-const StyledMainLeft = styled.div<{ isCollapsed: boolean }>`
-  width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "150px")};
-  min-width: ${({ isCollapsed }) => (isCollapsed ? "0px" : "150px")};
+const StyledMainLeft = styled.div<{ showLeftMenu: boolean }>`
+  width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
+  min-width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
   transition: 0.3s;
   border-right: 1px solid #ddd;
   background-color: ${BgColor.Gray50};
@@ -72,11 +73,11 @@ const StyledMainLeft = styled.div<{ isCollapsed: boolean }>`
   overflow-y: auto;
 `;
 
-const StyledMainRight = styled.div<{ isLeftCollapsed: boolean }>`
+const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
   flex-grow: 1;
   height: 100%;
   /* min-height는 StyleGlobalPage가 가짐 */
-  width: ${({ isLeftCollapsed }) => (isLeftCollapsed ? "100%" : "calc(100vh - 150px)")};
+  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100vh - 150px)")};
 `;
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
