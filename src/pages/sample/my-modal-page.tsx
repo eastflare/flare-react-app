@@ -4,7 +4,7 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import { CellClickedEvent, ColDef } from "ag-grid-community";
-import { usePageContext } from "contexts/cmn/PageContext";
+import { usePageContext } from "contexts/PageContext";
 import { BlueButton } from "components/buttons/CustomButton";
 
 const MyModalPage = () => {

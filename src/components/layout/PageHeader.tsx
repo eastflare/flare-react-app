@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { BgColor, FontColor } from "ui/theme/Color";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { usePageContext } from "contexts/cmn/PageContext";
+import { usePageContext } from "contexts/PageContext";
 import { IconButton } from "components/buttons/CustomButton";
 import refreshIcon from "assets/img/refresh.svg";
 import { ReactSVG } from "react-svg";

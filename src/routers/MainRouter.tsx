@@ -1,19 +1,25 @@
 import { Env } from "config/env";
-import MainRoutes from "./MainRoutes";
 import styled from "@emotion/styled";
 import WindowContainer from "@/components/layout/WindowContainer";
 import MainContainer from "@/components/layout/MainContainer";
+import MainRoutes from "@/routers/MainRoutes";
+import { MenuProvider } from "@/contexts/MenuContext";
+import useMenuProvider from "@/hooks/layout/useMenuProvider";
 
 const env = Env.getInstance();
 const isWindow = env.isWindow;
 const PageContainer = isWindow ? WindowContainer : MainContainer;
 
 const MainRouter = () => {
+  const { getMenuProviderProps } = useMenuProvider(undefined);
+
   return (
     <StyledMainContainer>
-      <PageContainer>
-        <MainRoutes />
-      </PageContainer>
+      <MenuProvider value={{ ...getMenuProviderProps() }}>
+        <PageContainer>
+          <MainRoutes />
+        </PageContainer>
+      </MenuProvider>
     </StyledMainContainer>
   );
 };

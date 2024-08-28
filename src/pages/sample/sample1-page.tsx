@@ -1,5 +1,5 @@
 import { BlueButton } from "components/buttons/CustomButton";
-import { usePageContext } from "contexts/cmn/PageContext";
+import { usePageContext } from "contexts/PageContext";
 import usePageNavigate from "hooks/layout/usePageNavigate";
 import { useEffect, useState } from "react";
 

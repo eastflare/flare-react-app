@@ -3,7 +3,7 @@ import { DraggableData, Rnd, RndDragCallback, RndResizeCallback } from "react-rn
 import { memo, useEffect, useLayoutEffect, useRef, useState } from "react";
 import PageModals from "./PageModals";
 import { DraggableEvent } from "react-draggable";
-import { PageProvider } from "contexts/cmn/PageContext";
+import { PageProvider } from "contexts/PageContext";
 import usePageProvider from "hooks/layout/usePageProvider";
 import { PopupItem } from "stores/usePageMapStore";
 import { useLocation, useNavigate } from "react-router-dom";

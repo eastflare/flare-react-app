@@ -1,4 +1,4 @@
-import { usePageContext } from "contexts/cmn/PageContext";
+import { usePageContext } from "contexts/PageContext";
 import ModalContainer from "./ModalContainer";
 
 const PageModals = () => {

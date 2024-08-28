@@ -2,7 +2,7 @@ import { findPageByPathNm } from "@/apis/system/Page";
 import { Page } from "@/models/system/Page";
 import { usePageStore } from "@/stores/usePageStore";
 import { Env } from "config/env";
-import { usePageContext } from "contexts/cmn/PageContext";
+import { usePageContext } from "contexts/PageContext";
 import { ReactElement, useCallback } from "react";
 import { matchPath } from "react-router-dom";
 import { PopupItem, OpenTypeCode, PopupTypeCode } from "stores/usePageMapStore";

@@ -1,5 +1,5 @@
 import { BlueButton } from "components/buttons/CustomButton";
-import { usePageContext } from "contexts/cmn/PageContext";
+import { usePageContext } from "contexts/PageContext";
 import { useState } from "react";
 
 const Sample5Page = () => {

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { PopupItem, OpenTypeCode, PageItem } from "stores/usePageMapStore";
 import { openWindow } from "utils/windowUtil";
 import usePageTab from "./usePageTab";
@@ -7,34 +7,18 @@ const usePageProvider = (props: { pageItem: PageItem | PopupItem }) => {
   const { openTypeCode = OpenTypeCode.PAGE, params = {}, options = {}, callback = () => {} } = props.pageItem;
 
   const { onPageTabClose } = usePageTab();
-  const [modals, setModals] = useState<PopupItem[]>([]); // Destructure the tuple correctly
+  const [modals, setModals] = useState<PopupItem[]>([]);
   const [refreshCount, setRefreshCount] = useState(0);
-  const addModal = (modalProps: PopupItem) => {
+
+  const addModal = useCallback((modalProps: PopupItem) => {
     setModals(prev => [...prev, modalProps]);
-  };
-
-  // Function to decode all values in the params object
-  const decodeParams = (params: { [key: string]: string }) => {
-    const decodedParams: { [key: string]: string } = {};
-    for (const [key, value] of Object.entries(params)) {
-      decodedParams[key] = decodeURIComponent(value);
-    }
-    return decodedParams;
-  };
-
-  // Decoding the params
-  const decodedParams = useMemo(() => decodeParams(params), [params]);
-
-  useEffect(() => {
-    //console.log("모달 키 리스트", modals);
   }, []);
 
-  const delModal = (id: string) => {
-    //카운트를 기억해라.... 기본도 안된 사람아
+  const delModal = useCallback((id: string) => {
     setModals(prev => prev.filter(item => item.id !== id));
-  };
+  }, []);
 
-  const close = () => {
+  const close = useCallback(() => {
     switch (props.pageItem.openTypeCode) {
       case OpenTypeCode.MODAL:
       case OpenTypeCode.MODELESS:
@@ -52,11 +36,27 @@ const usePageProvider = (props: { pageItem: PageItem | PopupItem }) => {
       default:
         break;
     }
+  }, [props.pageItem, onPageTabClose]);
+
+  const addWindow = useCallback((url: string, windowProps: PopupItem) => {
+    openWindow(url, windowProps);
+  }, []);
+
+  // params 객체의 값을 모두 디코딩하는 함수
+  const decodeParams = (params: { [key: string]: string }) => {
+    const decodedParams: { [key: string]: string } = {};
+    for (const [key, value] of Object.entries(params)) {
+      decodedParams[key] = decodeURIComponent(value);
+    }
+    return decodedParams;
   };
 
-  const addWindow = (url: string, windowProps: PopupItem) => {
-    openWindow(url, windowProps);
-  };
+  // params 디코딩
+  const decodedParams = useMemo(() => decodeParams(params), [params]);
+
+  useEffect(() => {
+    //console.log("모달 키 리스트", modals);
+  }, [modals]);
 
   const getPageProviderProps = () => ({
     openTypeCode,
@@ -79,5 +79,5 @@ const usePageProvider = (props: { pageItem: PageItem | PopupItem }) => {
 
 export default usePageProvider;
 
-//PageContext 에서 사용하기 위한 Type을 ReturnType의 함수를 통해 정의함.
+// PageContext 에서 사용하기 위한 Type을 ReturnType의 함수를 통해 정의함.
 export type TPageProviderProps = ReturnType<ReturnType<typeof usePageProvider>["getPageProviderProps"]>;
