@@ -39,9 +39,7 @@ const App = () => {
                   <Route path='/fail/:message' element={<FailRouter />} />
                   <Route path='/*' element={<MainRouter fallback={<Loading />} />} />
                 </Routes>
-                <>
-                  <CommonModal />
-                </>
+                <CommonModal />
               </MenuProvider>
             </QueryClientProvider>
           </CookiesProvider>

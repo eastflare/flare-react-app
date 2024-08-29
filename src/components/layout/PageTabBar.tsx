@@ -11,6 +11,7 @@ import { useRef } from "react";
 
 const PageTabBar = () => {
   const { openedPageMap, curPageId, onPageTabClick, onPageTabClose, onPageTabReset, onPageTabPopup } = usePageTab();
+
   const mdiContainerRef = useRef<HTMLDivElement>(null); // MDI 컨테이너 참조
 
   const handleScrollLeft = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -27,26 +28,6 @@ const PageTabBar = () => {
 
   const handleTabClick = (key: string) => {
     onPageTabClick(key);
-
-    // Ensure the clicked tab is fully visible
-    if (mdiContainerRef.current) {
-      const tabElement = document.getElementById(`tab-${key}`);
-      if (tabElement) {
-        const tabLeft = tabElement.offsetLeft;
-        const tabRight = tabLeft + tabElement.offsetWidth;
-        const containerLeft = mdiContainerRef.current.scrollLeft;
-        const containerRight = containerLeft + mdiContainerRef.current.offsetWidth;
-
-        // Adjust scroll to the right if the tab is partially out of view on the right
-        if (tabRight > containerRight) {
-          mdiContainerRef.current.scrollLeft += tabRight - containerRight;
-        }
-        // Adjust scroll to the left if the tab is partially out of view on the left
-        else if (tabLeft < containerLeft) {
-          mdiContainerRef.current.scrollLeft -= containerLeft - tabLeft;
-        }
-      }
-    }
   };
 
   const handleClickClose = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -107,24 +88,16 @@ const PageTabBar = () => {
 export default PageTabBar;
 
 const StyledPageTabBar = styled.div`
-  height: 40px;
   background-color: #f7f9f8;
   border-bottom: 1px solid #ebeeed;
-  box-shadow: #f0f0f0;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 const StyledMDIContainer = styled.div`
-  flex-grow: 1;
+  width: calc(100% - 100px);
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
   overflow-x: auto;
   scroll-behavior: smooth;
-  white-space: nowrap;
-  margin-right: 98px;
   -webkit-overflow-scrolling: touch; /* 모바일에서 부드러운 스크롤을 위해 추가 */
   /* 스크롤바 숨기기 */
   &::-webkit-scrollbar {
@@ -133,11 +106,10 @@ const StyledMDIContainer = styled.div`
 `;
 
 const StyledPageTopButtons = styled.div`
+  width: 100px;
   position: absolute;
   right: 0;
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
   align-items: center;
   padding: 0;
   margin: 0;
