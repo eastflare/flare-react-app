@@ -1,36 +1,45 @@
 import { Route, Routes } from "react-router-dom";
-import PageRoutes from "@/components/layout/PageRoutes";
+import PageContainer from "@/components/layout/PageContainer";
+import routes from "@/pages/main-route";
+
 import Home from "pages/home-page";
 import NoPage from "pages/sample/no-page";
 import Loading from "@/components/elements/Loading";
 import loadable from "@loadable/component";
 
-const loadableOptions = { fallback: <Loading /> };
-const ServicePage = loadable(() => import("pages/sample/service-page"), loadableOptions);
-const ContactPage = loadable(() => import("pages/sample/contact-page"), loadableOptions);
-const AboutPage = loadable(() => import("pages/sample/about-page"), loadableOptions);
-const Sample1Page = loadable(() => import("pages/sample/sample1-page"), loadableOptions);
-const Sample2Page = loadable(() => import("pages/sample/sample2-page"), loadableOptions);
-const Sample3Page = loadable(() => import("pages/sample/sample3-page"), loadableOptions);
-const Sample4Page = loadable(() => import("pages/sample/sample4-page"), loadableOptions);
-const Sample5Page = loadable(() => import("pages/sample/sample5-page"), loadableOptions);
-const Sample6Page = loadable(() => import("pages/sample/sample6-page"), loadableOptions);
-const MyModal3Page = loadable(() => import("pages/sample/my-modal3-page"), loadableOptions);
-const GridPage = loadable(() => import("pages/sample/grid-page"), loadableOptions);
-const FormPage = loadable(() => import("pages/sample/form-page"), loadableOptions);
-const MyModal1Page = loadable(() => import("pages/sample/my-modal1-page"), loadableOptions);
-const MyModal2Page = loadable(() => import("pages/sample/my-modal2-page"), loadableOptions);
-const MatthewPage = loadable(() => import("pages/sample/matthew-page"), loadableOptions);
-const MyModalPage = loadable(() => import("pages/sample/my-modal-page"), loadableOptions);
-const DeviceDetectPage = loadable(() => import("pages/sample/device-detect-page"), loadableOptions);
-const PageListPage = loadable(() => import("pages/system/page/page-list-page"), loadableOptions);
-const LoginLogListPage = loadable(() => import("pages/system/log/login-log-list-page"), loadableOptions);
+// const loadableOptions = { fallback: <Loading /> };
+// const ServicePage = loadable(() => import("pages/sample/service-page"), loadableOptions);
+// const ContactPage = loadable(() => import("pages/sample/contact-page"), loadableOptions);
+// const AboutPage = loadable(() => import("pages/sample/about-page"), loadableOptions);
+// const Sample1Page = loadable(() => import("pages/sample/sample1-page"), loadableOptions);
+// const Sample2Page = loadable(() => import("pages/sample/sample2-page"), loadableOptions);
+// const Sample3Page = loadable(() => import("pages/sample/sample3-page"), loadableOptions);
+// const Sample4Page = loadable(() => import("pages/sample/sample4-page"), loadableOptions);
+// const Sample5Page = loadable(() => import("pages/sample/sample5-page"), loadableOptions);
+// const Sample6Page = loadable(() => import("pages/sample/sample6-page"), loadableOptions);
+// const MyModal3Page = loadable(() => import("pages/sample/my-modal3-page"), loadableOptions);
+// const GridPage = loadable(() => import("pages/sample/grid-page"), loadableOptions);
+// const FormPage = loadable(() => import("pages/sample/form-page"), loadableOptions);
+// const MyModal1Page = loadable(() => import("pages/sample/my-modal1-page"), loadableOptions);
+// const MyModal2Page = loadable(() => import("pages/sample/my-modal2-page"), loadableOptions);
+// const MatthewPage = loadable(() => import("pages/sample/matthew-page"), loadableOptions);
+// const MyModalPage = loadable(() => import("pages/sample/my-modal-page"), loadableOptions);
+// const DeviceDetectPage = loadable(() => import("pages/sample/device-detect-page"), loadableOptions);
+// const PageListPage = loadable(() => import("pages/system/page/page-list-page"), loadableOptions);
+// const LoginLogListPage = loadable(() => import("pages/system/log/login-log-list-page"), loadableOptions);
 
 const MainRoutes = () => {
   return (
-    <PageRoutes>
+    <PageContainer>
       <Routes>
-        <Route path='/' element={<Home />} />
+      {routes.map((route, index) => (
+        <Route
+          key={index}
+          path={route.path}
+          element={route.element}
+        />
+      ))}
+        {/* <Route path='/' element={<Home />} />
         <Route path='/sample/about' element={<AboutPage />} />
         <Route path='/sample/service' element={<ServicePage />} />
         <Route path='/sample/contact' element={<ContactPage />} />
@@ -50,9 +59,9 @@ const MainRoutes = () => {
         <Route path='/sample/form' element={<FormPage />} />
         <Route path='/system/page/page-list' element={<PageListPage />} />
         <Route path='/system/log/login-log-list' element={<LoginLogListPage />} />
-        <Route path='*' element={<NoPage />} />
+        <Route path='*' element={<NoPage />} /> */}
       </Routes>
-    </PageRoutes>
+    </PageContainer>
   );
 };
 
