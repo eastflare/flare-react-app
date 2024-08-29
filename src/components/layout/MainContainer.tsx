@@ -76,7 +76,7 @@ const StyledMainLeft = styled.div<{ showLeftMenu: boolean; showPageTabBar: boole
 
 const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
   flex-grow: 1;
-  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100vh - 150px)")};
+  width: ${({ showLeftMenu }) => (showLeftMenu ? "100%" : "calc(100% - 150px)")};
   height: 100%;
 `;
 

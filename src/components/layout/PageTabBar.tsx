@@ -48,7 +48,7 @@ const PageTabBar = () => {
         return false;
       }}
     >
-      <StyledMDIContainer ref={mdiContainerRef}>
+      <StyledPageTabs ref={mdiContainerRef}>
         {[...openedPageMap.keys()].map((key: string) => {
           let pageItem = openedPageMap.get(key);
           let pageLabel = pageItem?.label ?? "";
@@ -66,7 +66,7 @@ const PageTabBar = () => {
             />
           );
         })}
-      </StyledMDIContainer>
+      </StyledPageTabs>
       <StyledPageTopButtons>
         <IconButton className='leftArrow-button' onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleScrollLeft(e)}>
           <ReactSVG src={leftArrowIcon} />
@@ -93,9 +93,10 @@ const StyledPageTabBar = styled.div`
   display: flex;
 `;
 
-const StyledMDIContainer = styled.div`
+const StyledPageTabs = styled.div`
   width: calc(100% - 100px);
   display: flex;
+  overflow-y: hidden;
   overflow-x: auto;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch; /* 모바일에서 부드러운 스크롤을 위해 추가 */
@@ -106,13 +107,10 @@ const StyledMDIContainer = styled.div`
 `;
 
 const StyledPageTopButtons = styled.div`
-  width: 100px;
+  width: 95px;
   position: absolute;
   right: 0;
   display: flex;
-  align-items: center;
-  padding: 0;
-  margin: 0;
 
   button {
     background-color: #f7f9f8;

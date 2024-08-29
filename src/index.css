@@ -1,5 +1,7 @@
 :root {
-  font-family: Spoqa Han Sans Neo, sans-serif;
+  font-family:
+    Spoqa Han Sans Neo,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -14,8 +16,8 @@
 }
 
 input {
-  background: #FFFFFF;
-  border: 1px solid #B9BCBB;
+  background: #ffffff;
+  border: 1px solid #b9bcbb;
   border-radius: 2px;
 }
 
@@ -33,8 +35,7 @@ body {
   margin: 0;
   display: block;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  min-width: 100px;
   overflow-x: hidden;
   overflow-y: hidden;
 }
