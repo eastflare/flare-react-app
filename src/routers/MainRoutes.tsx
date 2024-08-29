@@ -29,27 +29,29 @@ const LoginLogListPage = loadable(() => import("pages/system/log/login-log-list-
 const MainRoutes = () => {
   return (
     <PageRoutes>
-      <Route path='/' element={<Home />} />
-      <Route path='/sample/about' element={<AboutPage />} />
-      <Route path='/sample/service' element={<ServicePage />} />
-      <Route path='/sample/contact' element={<ContactPage />} />
-      <Route path='/sample/sample1' element={<Sample1Page />} />
-      <Route path='/sample/sample2' element={<Sample2Page />} />
-      <Route path='/sample/sample3' element={<Sample3Page />} />
-      <Route path='/sample/sample4/:id' element={<Sample4Page />} />
-      <Route path='/sample/sample5/:id/:name' element={<Sample5Page />} />
-      <Route path='/sample/sample6' element={<Sample6Page />} />
-      <Route path='/sample/matthew' element={<MatthewPage />} />
-      <Route path='/sample/my-modal' element={<MyModalPage />} />
-      <Route path='/sample/my-modal1' element={<MyModal1Page />} />
-      <Route path='/sample/my-modal2' element={<MyModal2Page />} />
-      <Route path='/sample/my-modal3' element={<MyModal3Page />} />
-      <Route path='/sample/device-detect' element={<DeviceDetectPage />} />
-      <Route path='/sample/grid' element={<GridPage />} />
-      <Route path='/sample/form' element={<FormPage />} />
-      <Route path='/system/page/page-list' element={<PageListPage />} />
-      <Route path='/system/log/login-log-list' element={<LoginLogListPage />} />
-      <Route path='*' element={<NoPage />} />
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/sample/about' element={<AboutPage />} />
+        <Route path='/sample/service' element={<ServicePage />} />
+        <Route path='/sample/contact' element={<ContactPage />} />
+        <Route path='/sample/sample1' element={<Sample1Page />} />
+        <Route path='/sample/sample2' element={<Sample2Page />} />
+        <Route path='/sample/sample3' element={<Sample3Page />} />
+        <Route path='/sample/sample4/:id' element={<Sample4Page />} />
+        <Route path='/sample/sample5/:id/:name' element={<Sample5Page />} />
+        <Route path='/sample/sample6' element={<Sample6Page />} />
+        <Route path='/sample/matthew' element={<MatthewPage />} />
+        <Route path='/sample/my-modal' element={<MyModalPage />} />
+        <Route path='/sample/my-modal1' element={<MyModal1Page />} />
+        <Route path='/sample/my-modal2' element={<MyModal2Page />} />
+        <Route path='/sample/my-modal3' element={<MyModal3Page />} />
+        <Route path='/sample/device-detect' element={<DeviceDetectPage />} />
+        <Route path='/sample/grid' element={<GridPage />} />
+        <Route path='/sample/form' element={<FormPage />} />
+        <Route path='/system/page/page-list' element={<PageListPage />} />
+        <Route path='/system/log/login-log-list' element={<LoginLogListPage />} />
+        <Route path='*' element={<NoPage />} />
+      </Routes>
     </PageRoutes>
   );
 };

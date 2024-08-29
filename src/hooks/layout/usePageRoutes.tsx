@@ -13,23 +13,13 @@ const isWindow = env.isWindow;
 const isMdi = env.isWindow ? false : env.isMdi;
 const maxPageTabSize = isMdi ? env.maxPageTabSize : 2;
 
-const usePageRoutes = ({ children }: { children: ReactNode }) => {
+const usePageRoutes = ({ routes }: { routes: RouteObject[] }) => {
   const { pageRoutes, setPageRoutes } = usePageRouteStore();
   const { pageMap, curPageId, setPageItem, setMasterPageItem, setDetailPageItem } = usePageMapStore();
   const { getPageCallback } = usePageCallbackStore();
   const { getPage, setPage } = usePageStore();
   const { pathname, search } = useLocation();
   const [searchParams] = useSearchParams();
-
-  // Convert ReactNode to RouteObject
-  const routes = React.useMemo(
-    () =>
-      React.Children.toArray(children).map(childNode => {
-        const element = childNode as React.ReactElement;
-        return { path: element.props.path, element } as RouteObject;
-      }),
-    [children]
-  );
 
   // Update pageRoutes
   useEffect(() => {
