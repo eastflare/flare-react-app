@@ -3,10 +3,9 @@ import DrawPageRoutes from "./DrawPageRoutes";
 import usePageRoutes from "hooks/layout/usePageRoutes";
 import { ReactElement, ReactNode, memo } from "react";
 import React from "react";
-import routes from "@/pages/main-route";
+import routes from "@/pages/page-route";
 
 const PageContainer = ({ children, ...props }: RoutesProps) => {
-
   // const routes = React.useMemo(() => {
   //   let routeElements: ReactNode[] = [];
 
@@ -21,6 +20,8 @@ const PageContainer = ({ children, ...props }: RoutesProps) => {
   //       return { path: element.props.path, element } as RouteObject;
   //     });
   // }, [children]);
+
+  console.log("이거슨 칠드런 ", children, routes);
 
   const { curPageId, openedPageMap } = usePageRoutes({ routes });
   return <DrawPageRoutes curPageId={curPageId} openedPageMap={openedPageMap} routesProps={props} />;

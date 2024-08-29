@@ -8,7 +8,7 @@ import useMenuProvider from "@/hooks/layout/useMenuProvider";
 
 const env = Env.getInstance();
 const isWindow = env.isWindow;
-const PageContainer = isWindow ? WindowContainer : MainContainer;
+const PageLayoutContainer = isWindow ? WindowContainer : MainContainer;
 
 const MainRouter = () => {
   const { getMenuProviderProps } = useMenuProvider();
@@ -16,9 +16,9 @@ const MainRouter = () => {
   return (
     <StyledMainContainer>
       <MenuProvider value={{ ...getMenuProviderProps() }}>
-        <PageContainer>
+        <PageLayoutContainer>
           <MainRoutes />
-        </PageContainer>
+        </PageLayoutContainer>
       </MenuProvider>
     </StyledMainContainer>
   );

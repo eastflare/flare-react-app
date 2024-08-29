@@ -13,13 +13,14 @@ interface DisplayRouteProps extends PathRouteProps {
   display?: boolean;
 }
 
-function DrawPageMdiRoute({ element, pageItem, display, routesProps, ...props }: DisplayRouteProps) {
+function DrawPageRoute({ element, pageItem, display, routesProps, ...props }: DisplayRouteProps) {
   //Page Id
   //Function 가공
   //페이지이동하는 함수
   //const { delPageCallback } = usePageCallbackStore();
 
   useEffect(() => {
+    console.log("페이지 그릴때 element", element);
     //해당 페이지가 죽을때 callback 이 있으면 제거해 줘야함
     return () => {
       //delPageCallback(pageItem.id);
@@ -50,4 +51,4 @@ const StyledBodyElement = styled.div`
   padding: 20px;
 `;
 
-export default memo(DrawPageMdiRoute);
+export default memo(DrawPageRoute);

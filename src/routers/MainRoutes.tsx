@@ -1,6 +1,6 @@
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useRoutes } from "react-router-dom";
 import PageContainer from "@/components/layout/PageContainer";
-import routes from "@/pages/main-route";
+import PageRoutes from "@/pages/page-route";
 
 import Home from "pages/home-page";
 import NoPage from "pages/sample/no-page";
@@ -28,18 +28,17 @@ import loadable from "@loadable/component";
 // const PageListPage = loadable(() => import("pages/system/page/page-list-page"), loadableOptions);
 // const LoginLogListPage = loadable(() => import("pages/system/log/login-log-list-page"), loadableOptions);
 
+function AppRoutes() {
+  // useRoutes를 사용하여 라우트 설정
+  const routes = useRoutes(PageRoutes);
+  return routes;
+}
+
 const MainRoutes = () => {
   return (
     <PageContainer>
-      <Routes>
-      {routes.map((route, index) => (
-        <Route
-          key={index}
-          path={route.path}
-          element={route.element}
-        />
-      ))}
-        {/* <Route path='/' element={<Home />} />
+      <AppRoutes />
+      {/* <Route path='/' element={<Home />} />
         <Route path='/sample/about' element={<AboutPage />} />
         <Route path='/sample/service' element={<ServicePage />} />
         <Route path='/sample/contact' element={<ContactPage />} />
@@ -60,7 +59,6 @@ const MainRoutes = () => {
         <Route path='/system/page/page-list' element={<PageListPage />} />
         <Route path='/system/log/login-log-list' element={<LoginLogListPage />} />
         <Route path='*' element={<NoPage />} /> */}
-      </Routes>
     </PageContainer>
   );
 };

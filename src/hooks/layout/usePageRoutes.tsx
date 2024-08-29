@@ -32,6 +32,8 @@ const usePageRoutes = ({ routes }: { routes: RouteObject[] }) => {
       {} as Record<string, RouteObject>
     );
 
+    console.log("라우트 맵을 만들고 있습니다.", routeMap);
+
     setPageRoutes(routeMap);
   }, [routes, setPageRoutes]);
 

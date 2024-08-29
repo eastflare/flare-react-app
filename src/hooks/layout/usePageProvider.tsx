@@ -18,6 +18,8 @@ const usePageProvider = (props: { pageItem: PageItem | PopupItem }) => {
     setModals(prev => prev.filter(item => item.id !== id));
   }, []);
 
+  console.log("또 이거슨 뭔가요?", props.pageItem);
+
   const close = useCallback(() => {
     switch (props.pageItem.openTypeCode) {
       case OpenTypeCode.MODAL:
