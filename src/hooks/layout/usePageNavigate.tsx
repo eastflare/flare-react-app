@@ -79,7 +79,7 @@ export default function usePageNavigate() {
     return {
       pagePathNm: routePath,
       pageUrl,
-      pageElement: element.props.element,
+      pageElement: element,
       pageParams,
       pageCallback: callback,
     };
