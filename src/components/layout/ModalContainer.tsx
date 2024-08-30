@@ -252,6 +252,7 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
   const [pageTabBarHeight, setPageTabBarHeight] = useState(0);
   const [distanceHeight, setDistanceHeight] = useState(0);
   const [distanceWidth, setDistanceWidth] = useState(0);
+  const [scrollTop, setScrollTop] = useState(0);
 
   useLayoutEffect(() => {
     globalMaxZIndex += 1;
@@ -268,7 +269,8 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
     let pageTabBarBottom = 0,
       mainBodyTop = 0,
       leftMenuRight = 0,
-      mainBodyLeft = 0;
+      mainBodyLeft = 0,
+      mainBodyScrollTop = 0;
 
     if (leftMenu) {
       leftMenuRight = leftMenu.getBoundingClientRect().right;
@@ -281,6 +283,7 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
     if (mainBody) {
       mainBodyTop = mainBody.getBoundingClientRect().top;
       mainBodyLeft = mainBody.getBoundingClientRect().left;
+      mainBodyScrollTop = mainBody.scrollTop;
     }
 
     const distanceH = isMdi ? Math.abs(pageTabBarBottom! - mainBodyTop!) : 0;
@@ -291,6 +294,7 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
     setPageTabBarHeight(pageTabBarL);
     setDistanceHeight(distanceH);
     setDistanceWidth(distanceW);
+    setScrollTop(mainBodyScrollTop);
 
     const width = typeof state.width === "number" ? state.width : parseInt(state.width);
     const height = typeof state.height === "number" ? state.height : parseInt(state.height);
@@ -301,7 +305,7 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
     const modalHeight = typeof height === "number" ? height : parseInt(height);
 
     const posX = (screenWidth - modalWidth) / 2 - (leftMenuWidth + distanceWidth);
-    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + pageTabBarHeight + distanceHeight);
+    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + pageTabBarHeight + distanceHeight - scrollTop);
 
     setState(prevState => ({
       ...prevState,
