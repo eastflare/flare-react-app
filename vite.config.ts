@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import svgr from "vite-plugin-svgr";
 import tsconfigPaths from "vite-tsconfig-paths";
 import browserslistToEsbuild from "browserslist-to-esbuild";
+import mkcert from "vite-plugin-mkcert";
 
 // https://vitejs.dev/config/
 export default ({ mode }: { mode: string }) => {
@@ -25,6 +26,6 @@ export default ({ mode }: { mode: string }) => {
       "process.env": env,
     },
     assetsInclude: ["**/*.xlsx"],
-    plugins: [tsconfigPaths(), react(), svgr()],
+    plugins: [tsconfigPaths(), react(), svgr(), mkcert()],
   });
 };

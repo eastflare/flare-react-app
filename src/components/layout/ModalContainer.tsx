@@ -296,22 +296,35 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
     setDistanceWidth(distanceW);
     setScrollTop(mainBodyScrollTop);
 
-    const width = typeof state.width === "number" ? state.width : parseInt(state.width);
-    const height = typeof state.height === "number" ? state.height : parseInt(state.height);
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
 
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    const modalWidth = typeof width === "number" ? width : parseInt(width);
-    const modalHeight = typeof height === "number" ? height : parseInt(height);
+      const width = typeof state.width === "number" ? state.width : parseInt(state.width);
+      const height = typeof state.height === "number" ? state.height : parseInt(state.height);
 
-    const posX = (screenWidth - modalWidth) / 2 - (leftMenuWidth + distanceWidth);
-    const posY = (screenHeight - modalHeight) / 2 - (topMenuHeight + pageTabBarHeight + distanceHeight - scrollTop);
+      // 팝업 창이 브라우저보다 크면 브라우저 크기에 맞게 조정
+      const newWidth = Math.min(width, screenWidth);
+      const newHeight = Math.min(height, screenHeight);
 
-    setState(prevState => ({
-      ...prevState,
-      x: posX,
-      y: posY,
-    }));
+      const posX = (screenWidth - newWidth) / 2 - (leftMenuWidth + distanceWidth);
+      const posY = (screenHeight - newHeight) / 2 - (topMenuHeight + pageTabBarHeight + distanceHeight - scrollTop);
+
+      setState(prevState => ({
+        ...prevState,
+        width: newWidth,
+        height: newHeight,
+        x: posX,
+        y: posY,
+      }));
+    };
+
+    handleResize(); // 초기 실행
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [leftMenuWidth, topMenuHeight, pageTabBarHeight, distanceHeight, distanceWidth]);
 
   const getHighestZIndexElement = () => {
