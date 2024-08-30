@@ -1,5 +1,5 @@
 import { memo } from "react";
-import DrawPageRoute from "./DrawPageRoute";
+import PageView from "./PageView";
 import { PageItem } from "stores/usePageMapStore";
 
 interface TaskRoutesProps {
@@ -7,14 +7,14 @@ interface TaskRoutesProps {
   curPageId: string;
 }
 
-function DrawPageRoutes({ openedPageMap, curPageId }: TaskRoutesProps) {
+function PageRenderer({ openedPageMap, curPageId }: TaskRoutesProps) {
   return (
     <>
       {Array.from(openedPageMap.entries()).map(([key, value]) => (
-        <DrawPageRoute key={key} {...value} pageItem={value} display={key === curPageId} />
+        <PageView key={key} {...value} pageItem={value} display={key === curPageId} />
       ))}
     </>
   );
 }
 
-export default memo(DrawPageRoutes);
+export default memo(PageRenderer);

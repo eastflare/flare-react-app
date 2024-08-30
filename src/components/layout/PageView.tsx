@@ -12,7 +12,7 @@ interface DisplayRouteProps extends PathRouteProps {
   display?: boolean;
 }
 
-function DrawPageRoute({ element, pageItem, display }: DisplayRouteProps) {
+function PageView({ element, pageItem, display }: DisplayRouteProps) {
   //Page Id
   //Function 가공
   //페이지이동하는 함수
@@ -50,4 +50,4 @@ const StyledBodyElement = styled.div`
   padding: 20px;
 `;
 
-export default memo(DrawPageRoute);
+export default memo(PageView);

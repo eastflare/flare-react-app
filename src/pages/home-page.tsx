@@ -40,6 +40,7 @@ const HomePage = () => {
     const id = "jscho";
     const name = "조XX";
 
+    //우리페이지가 남의 링크, Iframe ->
     openModal(`/sample/sample5/${id}/${name}`, {
       id: "jscho128",
       name: "조XX",
