@@ -485,7 +485,7 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
         width: "100%",
         height: "100%",
         x: -(leftMenuWidth + distanceWidth),
-        y: -(topMenuHeight + pageTabBarHeight + distanceHeight),
+        y: -(topMenuHeight + pageTabBarHeight + distanceHeight - scrollTop),
         maxZIndex: state.maxZIndex,
       });
     }
