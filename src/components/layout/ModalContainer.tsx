@@ -405,29 +405,25 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
     let { x, y } = data;
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    const leftMenuL = document.getElementById("leftMenu")?.offsetWidth ?? 0;
-    const topMenuL = document.getElementById("topMenu")?.offsetHeight ?? 0;
-    const pageTabBarL = document.getElementById("pageTabBar")?.offsetHeight ?? 0;
     const width = typeof state.width === "number" ? state.width : parseInt(state.width);
-
     // 화면의 좌측을 벗어나는 경우
-    if (x + width < -leftMenuL) {
+    if (x + width < 0) {
       x = -width;
     }
 
     // 화면의 우측을 벗어나는 경우
-    if (x > screenWidth - leftMenuL - 10) {
-      x = screenWidth + leftMenuL - width / 2;
+    if (x > screenWidth - leftMenuWidth - 20) {
+      x = screenWidth - leftMenuWidth - width / 2;
     }
 
     // 화면의 상단을 벗어나는 경우
-    if (y < -(topMenuL + pageTabBarL)) {
-      y = -(topMenuL + pageTabBarL);
+    if (y < -(topMenuHeight + pageTabBarHeight - scrollTop)) {
+      y = -(topMenuHeight + pageTabBarHeight - scrollTop);
     }
 
     // 화면의 하단을 벗어나는 경우
-    if (y > screenHeight - (topMenuL + pageTabBarL)) {
-      y = screenHeight - (topMenuL + pageTabBarL) - 35;
+    if (y > screenHeight - (topMenuHeight + pageTabBarHeight - scrollTop)) {
+      y = screenHeight - (topMenuHeight + pageTabBarHeight - scrollTop) - 35;
     }
 
     setState(prevState => ({
