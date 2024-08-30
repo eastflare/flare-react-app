@@ -2,9 +2,9 @@ import { Env } from "config/env";
 import styled from "@emotion/styled";
 import WindowContainer from "@/components/layout/WindowContainer";
 import MainContainer from "@/components/layout/MainContainer";
-import MainRoutes from "@/routers/MainRoutes";
 import { MenuProvider } from "@/contexts/MenuContext";
 import useMenuProvider from "@/hooks/layout/useMenuProvider";
+import PageContainer from "@/components/layout/PageContainer";
 
 const env = Env.getInstance();
 const isWindow = env.isWindow;
@@ -17,7 +17,7 @@ const MainRouter = () => {
     <StyledMainContainer>
       <MenuProvider value={{ ...getMenuProviderProps() }}>
         <PageLayoutContainer>
-          <MainRoutes />
+          <PageContainer />
         </PageLayoutContainer>
       </MenuProvider>
     </StyledMainContainer>

@@ -5,7 +5,7 @@ import { ReactElement, ReactNode, memo } from "react";
 import React from "react";
 import routes from "@/pages/page-route";
 
-const PageContainer = ({ children, ...props }: RoutesProps) => {
+const PageContainer = () => {
   // const routes = React.useMemo(() => {
   //   let routeElements: ReactNode[] = [];
 
@@ -21,10 +21,10 @@ const PageContainer = ({ children, ...props }: RoutesProps) => {
   //     });
   // }, [children]);
 
-  console.log("이거슨 칠드런 ", children, routes);
+  //console.log("이거슨 칠드런 ", children, routes);
 
   const { curPageId, openedPageMap } = usePageRoutes({ routes });
-  return <DrawPageRoutes curPageId={curPageId} openedPageMap={openedPageMap} routesProps={props} />;
+  return <DrawPageRoutes curPageId={curPageId} openedPageMap={openedPageMap} />;
 };
 
 export default memo(PageContainer);

@@ -37,7 +37,6 @@ function AppRoutes() {
 const MainRoutes = () => {
   return (
     <PageContainer>
-      <AppRoutes />
       {/* <Route path='/' element={<Home />} />
         <Route path='/sample/about' element={<AboutPage />} />
         <Route path='/sample/service' element={<ServicePage />} />

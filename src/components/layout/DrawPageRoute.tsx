@@ -1,5 +1,5 @@
 import { memo, useEffect } from "react";
-import type { RoutesProps, PathRouteProps } from "react-router";
+import type { PathRouteProps } from "react-router";
 import styled from "@emotion/styled";
 import usePageProvider from "hooks/layout/usePageProvider";
 import { PageProvider } from "contexts/PageContext";
@@ -8,12 +8,11 @@ import PageModals from "./PageModals";
 import PageHeader from "./PageHeader";
 
 interface DisplayRouteProps extends PathRouteProps {
-  routesProps: RoutesProps;
   pageItem: PageItem;
   display?: boolean;
 }
 
-function DrawPageRoute({ element, pageItem, display, routesProps, ...props }: DisplayRouteProps) {
+function DrawPageRoute({ element, pageItem, display }: DisplayRouteProps) {
   //Page Id
   //Function 가공
   //페이지이동하는 함수

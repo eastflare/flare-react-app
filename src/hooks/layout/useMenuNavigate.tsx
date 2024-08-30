@@ -34,7 +34,8 @@ export default function useMenuNavigate() {
       addPageCallback(newId, params.callback);
     }
 
-    const searchUrl = `${url}?${queryParams.join("&")}`;
+    const separator = url.includes("?") ? "&" : "?";
+    const searchUrl = `${url}${separator}${queryParams.join("&")}`;
 
     navigator(searchUrl);
   };
