@@ -13,7 +13,6 @@ export interface Page extends Crud {
   pageNm: string;
   pagePathNm: string;
   msgCtn: string;
-  sysDivsCd: string;
   poupWthLen: number;
   poupVtcLen: number;
   useYn: CommonYN;
@@ -29,7 +28,6 @@ export interface ShowingPage extends Crud {
   pageNm: string;
   pagePathNm: string;
   msgCtn: string;
-  sysDivsCd: string;
   popupWthLen: number;
   popupVtcLen: number;
   useYn: CommonYN;
