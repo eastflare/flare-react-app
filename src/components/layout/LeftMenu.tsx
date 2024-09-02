@@ -98,8 +98,6 @@ const LeftMenu = () => {
   );
 };
 
-const StyledMenuElement = styled.div`
-  height: 100%;
-`;
+const StyledMenuElement = styled.div``;
 
 export default LeftMenu;

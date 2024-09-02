@@ -47,7 +47,6 @@ const StyledMainHeader = styled.div``;
 // border-right: 1px solid ${props => props.theme.palette.color.divider}; --> #800000
 
 const StyledMainContainer = styled.div`
-  /* width: 100%; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -59,13 +58,12 @@ const StyledMainBody = styled.div`
   display: flex;
   flex-direction: row;
   flex-grow: 1;
-  height: calc(100vh - 50px);
+  height: 100%;
 `;
 
 const StyledMainLeft = styled.div<{ showLeftMenu: boolean; showPageTabBar: boolean }>`
   width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
   min-width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
-  height: calc(100vh - 50px);
   transition: 0.3s;
   border-right: 1px solid #ddd;
   background-color: ${BgColor.Gray50};
@@ -82,7 +80,7 @@ const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
-  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100vh - 90px)" : "100%")};
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 90px)" : "100%")};
   overflow-x: hidden;
   overflow-y: auto;
 `;
