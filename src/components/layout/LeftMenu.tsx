@@ -98,6 +98,9 @@ const LeftMenu = () => {
   );
 };
 
-const StyledMenuElement = styled.div``;
+const StyledMenuElement = styled.div`
+  width: 150px;
+  overflow: hidden;
+`;
 
 export default LeftMenu;

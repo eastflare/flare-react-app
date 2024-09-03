@@ -41,7 +41,9 @@ const MainContainer = (props: { children: ReactNode }) => {
   );
 };
 
-const StyledMainHeader = styled.div``;
+const StyledMainHeader = styled.div`
+  height: 51px;
+`;
 
 // border-left: 1px solid ${props => props.theme.palette.color.divider + "04"}; --> #32cd32
 // border-right: 1px solid ${props => props.theme.palette.color.divider}; --> #800000
@@ -50,8 +52,6 @@ const StyledMainContainer = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* border-left: 1px solid #32cd32;
-  border-right: 1px solid #800000; */
 `;
 
 const StyledMainBody = styled.div`
@@ -63,11 +63,9 @@ const StyledMainBody = styled.div`
 
 const StyledMainLeft = styled.div<{ showLeftMenu: boolean; showPageTabBar: boolean }>`
   width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
-  min-width: ${({ showLeftMenu }) => (showLeftMenu ? "0px" : "150px")};
-  transition: 0.3s;
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 51px)" : "100%")};
   border-right: 1px solid #ddd;
   background-color: ${BgColor.Gray50};
-  position: relative;
   overflow-x: hidden;
   overflow-y: auto;
 `;
@@ -80,7 +78,7 @@ const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
-  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 90px)" : "100%")};
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 91px)" : "100%")};
   overflow-x: hidden;
   overflow-y: auto;
 `;
