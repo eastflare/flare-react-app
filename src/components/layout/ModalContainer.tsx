@@ -470,7 +470,6 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
 
   const onClose = () => {
     if (modalItem) {
-      console.log("modalItem", modalItem);
       modalItem.closeModal?.();
     }
   };
@@ -491,8 +490,8 @@ const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
         y: state.y,
       };
       setState({
-        width: "100%",
-        height: "100%",
+        width: window.innerWidth,
+        height: window.innerHeight,
         x: -(leftMenuWidth + distanceWidth),
         y: -(topMenuHeight + pageTabBarHeight + distanceHeight - scrollTop),
         maxZIndex: state.maxZIndex,

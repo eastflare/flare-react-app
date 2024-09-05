@@ -50,8 +50,6 @@ const StyledMainHeader = styled.div`
 
 const StyledMainContainer = styled.div`
   height: 100%;
-  display: flex;
-  flex-direction: column;
 `;
 
 const StyledMainBody = styled.div`

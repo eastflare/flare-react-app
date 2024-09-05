@@ -1,17 +1,5 @@
 .app {
-  display: flex;
-  flex-direction: column;
-  height: 100dvh;
-}
-
-.container {
-  display: flex;
-  flex: 1;
-}
-
-.content {
-  flex: 1;
-  padding: 20px;
+  height: 100vh;
 }
 
 #topMenu nav ul {

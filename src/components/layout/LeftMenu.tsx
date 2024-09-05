@@ -1,17 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import useMenuNavigate from "@/hooks/layout/useMenuNavigate";
+import { useSideBarMenus } from "@/hooks/layout/useSideBarMenus";
+import { useMenuContext } from "@/provider/menu-provider";
+import useSessionStore from "@/stores/useSessionStore";
+import { useTranslation } from "react-i18next";
+import { LeftMenuList } from "./LeftMenuList";
 
 const LeftMenu = () => {
   const { openPage } = useMenuNavigate();
+  const { sideMenus } = useSideBarMenus();
+  const menuContext = useMenuContext();
+  const { headerMenus } = useSessionStore();
+  const { t } = useTranslation();
 
   const handleClick = (path: string, title: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     openPage(path, {}, { title: title });
   };
 
+  // useEffect(() => {
+  //   console.log("sideMenus", sideMenus);
+  // }, [sideMenus]);
+
   return (
     <StyledMenuElement className='leftmenu'>
+      {sideMenus.map(it => (
+        <LeftMenuList key={it.menuInfo.mnuId} summary={{ menuInfo: it.menuInfo }} content={it.children} isActive={false} />
+      ))}
       <ul>
         <li>
           <a href='#' onClick={e => handleClick("/sample/sample1", "메뉴명-Sample1", e)}>

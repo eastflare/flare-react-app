@@ -10,3 +10,13 @@ export const createMenuAccessLog = async (mnuId: string) => {
   };
   callApi(request);
 };
+
+export const createPageAccessLogByPath = async (pagePathNm: string) => {
+  const request: CommonRequest = {
+    method: Method.POST,
+    url: `/v1/log/page-access`,
+    serviceName: ServiceName.YOUR_BACK_END_SERVICE_NAME,
+    bodyParams: { pagePathNm: pagePathNm },
+  };
+  callApi(request);
+};

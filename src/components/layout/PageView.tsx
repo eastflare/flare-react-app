@@ -47,7 +47,7 @@ const StyledDisplayElement = styled.div<{
 `;
 
 const StyledBodyElement = styled.div`
-  padding: 20px;
+  padding: 0px;
 `;
 
 export default memo(PageView);
