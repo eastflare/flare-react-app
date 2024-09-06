@@ -55,7 +55,7 @@ function LeftMenuContent({ contentList, isActive, openParent }: LeftMenuContentP
           return (
             <Box
               width='100%'
-              height={isActive ? "calc(40px * ${count})" : 0}
+              height={isActive ? `calc(40px * ${count})` : 0}
               overflow='hidden'
               sx={{
                 transition: "height 0.35s ease",
@@ -109,7 +109,7 @@ function LeftMenuContent({ contentList, isActive, openParent }: LeftMenuContentP
                 },
               }}
             >
-              {t("${it.msgCtn}", "${it.mnuNm}")}
+              {t(`${it.msgCtn}`, `${it.mnuNm}`)}
             </Box>
           </Box>
         );
@@ -147,7 +147,7 @@ function LeftMenuSummary({ header, isSelectedMenu, hasEpsMenus }: LeftMenuSummar
             whiteSpace: "pre",
           }}
         >
-          {t("${header.msgCtn}", "${header.mnuNm}")}
+          {t(`${header.msgCtn}`, `${header.mnuNm}`)}
         </Typography>
       ) : (
         <Typography
@@ -158,7 +158,7 @@ function LeftMenuSummary({ header, isSelectedMenu, hasEpsMenus }: LeftMenuSummar
             whiteSpace: "pre",
           }}
         >
-          {t("${header.msgCtn}", "${header.mnuNm}")}
+          {t(`${header.msgCtn}`, `${header.mnuNm}`)}
         </Typography>
       )}
     </Box>
