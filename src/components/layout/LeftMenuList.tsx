@@ -87,7 +87,7 @@ function LeftMenuContent({ contentList, isActive, openParent }: LeftMenuContentP
             key={it.mnuId}
             onClick={event => {
               event.preventDefault();
-              openPage(toAbsolutePath(it.mnuUrl ?? ""), {}, { title: it.mnuNm ?? "" });
+              openPage(toAbsolutePath(it.mnuUrl ?? ""), {}, {});
               //navigateToMenu(it.mnuUrl ?? "");
             }}
           >
@@ -187,7 +187,7 @@ function LeftMenuList({ summary, content, isActive, openParent }: LeftMenuListPr
   const isSelectedMenu = hasEpsMenus ? isOpen : currentMenu?.mnuId === menuInfo.mnuId;
 
   const navigateToMenu = (menuUrl: string, linkTo?: boolean) => {
-    linkTo && menuUrl && openPage(toAbsolutePath(menuUrl), {}, { title: menuInfo.mnuNm ?? "" });
+    linkTo && menuUrl && openPage(toAbsolutePath(menuUrl), {}, {});
     //linkTo && menuUrl && navigate(toAbsolutePath(menuUrl), { replace: false });
     setIsOpen(!isOpen);
   };

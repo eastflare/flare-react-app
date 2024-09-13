@@ -20,7 +20,7 @@ export const downLoadLogInLogListExcel = async (condition: ExcelDownloadRequest<
     responseType: "blob",
   };
   const response: CommonResponse<Blob> = await callApi(request);
-  if (response?.data) downloadFile(response.data, "${condition.fileName}");
+  if (response?.data) downloadFile(response.data, `${condition.fileName}`);
 };
 
 export const downLoadEmailLogListExcel = async (condition: ExcelDownloadRequest<EmailLogRequest>) => {
@@ -36,7 +36,7 @@ export const downLoadEmailLogListExcel = async (condition: ExcelDownloadRequest<
     responseType: "blob",
   };
   const response: CommonResponse<Blob> = await callApi(request);
-  if (response?.data) downloadFile(response.data, "${condition.fileName}");
+  if (response?.data) downloadFile(response.data, `${condition.fileName}`);
 };
 
 export const downLoadMenuAccessLogListExcel = async (condition: ExcelDownloadRequest<MenuLogRequest>) => {
@@ -52,7 +52,7 @@ export const downLoadMenuAccessLogListExcel = async (condition: ExcelDownloadReq
     responseType: "blob",
   };
   const response: CommonResponse<Blob> = await callApi(request);
-  if (response?.data) downloadFile(response.data, "${condition.fileName}");
+  if (response?.data) downloadFile(response.data, `${condition.fileName}`);
 };
 
 export const downLoadIFLogListExcel = async (condition: ExcelDownloadRequest<IfLogRequest>) => {
@@ -68,5 +68,5 @@ export const downLoadIFLogListExcel = async (condition: ExcelDownloadRequest<IfL
     responseType: "blob",
   };
   const response: CommonResponse<Blob> = await callApi(request);
-  if (response?.data) downloadFile(response.data, "${condition.fileName}");
+  if (response?.data) downloadFile(response.data, `${condition.fileName}`);
 };

@@ -214,8 +214,6 @@ const env = Env.getInstance();
 const isMdi = env.isMdi;
 
 const ModalContainer = ({ modalItem }: { modalItem: PopupItem }) => {
-  //const Component = modalItem.element;
-  //const props = modalItem.params;
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
