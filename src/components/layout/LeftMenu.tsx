@@ -66,7 +66,7 @@ const LeftMenu = () => {
     if (location.pathname === "/") {
       return "Home";
     }
-    return String(t("${headerMenu?.msgCtn}", "__${headerMenu?.mnuNm}"));
+    return String(t(`${headerMenu?.msgCtn}`, `__${headerMenu?.mnuNm}`));
   };
 
   useEffect(() => {
@@ -81,7 +81,7 @@ const LeftMenu = () => {
         <p className='pate-title'>{getHeaderMenuName(menuContext.selectedHeaderMenu)}</p>
         {getHeaderMenuName(menuContext.selectedHeaderMenu) !== "Home" && sideMenus.map(it => <LeftMenuList key={it.menuInfo.mnuId} summary={{ menuInfo: it.menuInfo }} content={it.children} isActive={false} />)}
       </div>
-      <ul>
+      {/* <ul>
         <li>
           <a href='#' onClick={e => handleClick("/sample/sample1", "메뉴명-Sample1", e)}>
             Sample1
@@ -162,7 +162,7 @@ const LeftMenu = () => {
             로그인로그
           </a>
         </li>
-      </ul>
+      </ul> */}
     </StyledMenuElement>
   );
 };
