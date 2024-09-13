@@ -76,7 +76,7 @@ function TopMenuList() {
               }}
             >
               <Typography fontSize='14px' fontWeight={700} color={menu.mnuId === menuContext.selectedHeaderMenu ? "#5B5C5B" : "#979998"}>
-                {t("${menu.msgCtn}", "${menu.mnuNm}")}
+                {t(`${menu.msgCtn}`, `${menu.mnuNm}`)}
               </Typography>
               <Box
                 position='absolute'
@@ -109,7 +109,7 @@ function TopMenuList() {
                           color: "#1F1F1F",
                           width: "auto",
                           whiteSpace: "nowrap",
-                          backgroundColor: "${BgColor.Gray50}",
+                          backgroundColor: `${BgColor.Gray50}`,
                           "&:hover": {
                             color: "#1F1F1F",
                             backgroundColor: "#DDE0DF",
@@ -117,7 +117,7 @@ function TopMenuList() {
                           },
                         }}
                       >
-                        {t("${subMenu.msgCtn}", "${subMenu.mnuNm}")}
+                        {t(`${subMenu.msgCtn}`, `${subMenu.mnuNm}`)}
                       </Box>
                     ))}
                 </Box>
