@@ -6,7 +6,7 @@ import { useMenuContext } from "./menu-provider";
 
 function useMenuPathEffect() {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   const { menus, headerMenus } = useSessionStore();
   const menuContext = useMenuContext();
@@ -15,7 +15,14 @@ function useMenuPathEffect() {
 
   useEffect(() => {
     if (menus?.length > 0) {
-      const currentUrl = location.pathname.substring(1);
+      const pathNameUrl = decodeURIComponent(location.pathname.substring(1));
+      let params = new URLSearchParams(location.search);
+      params.delete("title");
+      let searchUrl = decodeURIComponent(params.toString());
+      if (searchUrl) {
+        searchUrl = "?" + searchUrl;
+      }
+      const currentUrl = pathNameUrl + searchUrl;
 
       if (currentUrl === "") {
         handleMenuChange({
@@ -82,7 +89,7 @@ function useMenuPathEffect() {
       });
       //navigate('/errorPage');
     }
-  }, [pathname, menus]);
+  }, [pathname, search, menus]);
 }
 
 export { useMenuPathEffect };

@@ -1,6 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "@emotion/styled";
 import { BgColor } from "ui/theme/Color";
+import { useSideBarMenus } from "@/hooks/layout/useSideBarMenus";
+import { Button, Menu, MenuItem } from "@mui/material";
+import { useEffect, useState } from "react";
+import useMenuNavigate from "@/hooks/layout/useMenuNavigate";
+import { toAbsolutePath } from "@/utils/mainLayoutUtils";
+import { TopMenuList } from "./TopMenuList";
+import { useMenuContext } from "@/provider/menu-provider";
 
 const TopMenu = ({ onToggleLeftMenu }: { onToggleLeftMenu: () => void }) => {
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -10,25 +17,51 @@ const TopMenu = ({ onToggleLeftMenu }: { onToggleLeftMenu: () => void }) => {
     window.location.replace("/");
   };
 
+  const { sideMenus } = useSideBarMenus();
+  const { openPage } = useMenuNavigate();
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [selectedMenu, setSelectedMenu] = useState<string | null>(null);
+  const [showToggle, setShowToggle] = useState(false);
+  const open = Boolean(anchorEl);
+  const menuContext = useMenuContext();
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, menuId: string) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedMenu(menuId);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+    setSelectedMenu(null);
+  };
+
+  // useEffect(() => {
+  //   if (menuContext.selectedHeaderMenu) {
+  //     setShowToggle(true);
+  //   }
+  // }, [menuContext.selectedHeaderMenu]);
+
   return (
     <StyledHeader id='topMenu'>
       <LeftContainer>
-        <ToggleButton onClick={onToggleLeftMenu}>☰</ToggleButton>
+        <ToggleButton
+          showToggle={true}
+          onClick={e => {
+            const currentTarget = e.currentTarget;
+            currentTarget.setAttribute("disabled", "true");
+            onToggleLeftMenu();
+            setTimeout(() => currentTarget.removeAttribute("disabled"), 10);
+          }}
+        >
+          ☰
+        </ToggleButton>
         <LogoContainer href='/' onClick={handleLinkClick}>
           <img src='GAP.png' alt='Logo' />
         </LogoContainer>
       </LeftContainer>
       <TopMenuItems>
-        <nav>
-          <ul>
-            <li>
-              <Link to='/sample/about'>About</Link>
-            </li>
-            <li>
-              <Link to='/sample/contact'>Contact</Link>
-            </li>
-          </ul>
-        </nav>
+        <TopMenuList></TopMenuList>
       </TopMenuItems>
     </StyledHeader>
   );
@@ -61,14 +94,14 @@ const LogoContainer = styled.a`
   }
 `;
 
-const ToggleButton = styled.button`
+const ToggleButton = styled.button<{ showToggle: boolean }>`
   background-color: #2d9bb2;
   border: none;
   color: white;
   padding: 10px;
   text-align: center;
   text-decoration: none;
-  display: flex;
+  display: ${({ showToggle }) => (showToggle ? "flex" : "none")};
   align-items: center;
   justify-content: center;
   font-size: 16px;

@@ -6,6 +6,47 @@ import { useMenuContext } from "@/provider/menu-provider";
 import useSessionStore from "@/stores/useSessionStore";
 import { useTranslation } from "react-i18next";
 import { LeftMenuList } from "./LeftMenuList";
+import { css } from "@emotion/react";
+import { BgColor, FontColor } from "@/ui/theme/Color";
+import { useMenuContext as useLeftMenu } from "@/contexts/MenuContext";
+
+const st = {
+  root: (isClicked: boolean) => css`
+    position: relative;
+    z-index: 11;
+    width: ${isClicked ? "240px" : "0"};
+    height: calc(100vh - 52px);
+    background-color: ${BgColor.Gray50};
+    transition: 0.3s;
+    border-right: 1px solid #ddd;
+  `,
+
+  iconList: css`
+    width: 100%;
+    height: 100%;
+  `,
+
+  accList: css`
+    width: 100%;
+    height: 100%;
+    .pate-title {
+      text-align: center;
+      font-size: 15px;
+      font-weight: bold;
+      padding: 18px 14px;
+      border-bottom: 1px solid #ddd;
+      color: ${FontColor.Gray400};
+    }
+    overflow-y: auto;
+  `,
+  iconWrapper: css`
+    width: 100%;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `,
+};
 
 const LeftMenu = () => {
   const { openPage } = useMenuNavigate();
@@ -13,21 +54,33 @@ const LeftMenu = () => {
   const menuContext = useMenuContext();
   const { headerMenus } = useSessionStore();
   const { t } = useTranslation();
+  const { setShowLeftMenu } = useLeftMenu();
 
   const handleClick = (path: string, title: string, event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     openPage(path, {}, { title: title });
   };
 
-  // useEffect(() => {
-  //   console.log("sideMenus", sideMenus);
-  // }, [sideMenus]);
+  const getHeaderMenuName = (mnuId: string) => {
+    const headerMenu = headerMenus.find(item => item.mnuId === mnuId);
+    if (location.pathname === "/") {
+      return "Home";
+    }
+    return String(t("${headerMenu?.msgCtn}", "__${headerMenu?.mnuNm}"));
+  };
+
+  useEffect(() => {
+    if (menuContext.selectedHeaderMenu) {
+      setShowLeftMenu(true);
+    }
+  }, [menuContext.selectedHeaderMenu]);
 
   return (
     <StyledMenuElement className='leftmenu'>
-      {sideMenus.map(it => (
-        <LeftMenuList key={it.menuInfo.mnuId} summary={{ menuInfo: it.menuInfo }} content={it.children} isActive={false} />
-      ))}
+      <div css={st.accList}>
+        <p className='pate-title'>{getHeaderMenuName(menuContext.selectedHeaderMenu)}</p>
+        {getHeaderMenuName(menuContext.selectedHeaderMenu) !== "Home" && sideMenus.map(it => <LeftMenuList key={it.menuInfo.mnuId} summary={{ menuInfo: it.menuInfo }} content={it.children} isActive={false} />)}
+      </div>
       <ul>
         <li>
           <a href='#' onClick={e => handleClick("/sample/sample1", "메뉴명-Sample1", e)}>

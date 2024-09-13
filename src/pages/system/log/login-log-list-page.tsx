@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { BaseSyntheticEvent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { ColDef } from "ag-grid-community";
 import { ExcelDownloadRequest } from "@/models/common/Excel";
 import { LoginLogRequest } from "@/models/system/LoginLog";
@@ -15,16 +15,26 @@ import { keepPreviousData } from "@tanstack/react-query";
 //import InputField from "components/design/input-field";
 //import { SearchArea } from "components/design/search-area";
 import DataGrid from "components/design/data-grid";
-import { DateRangePickerValueType } from "@/models/date/date-range-calendar";
-import { Grid, Box, TextField, Button, InputLabel } from "@mui/material";
-import { isValidDateRangePickerValue } from "@/utils/DateUtil";
+import { DateRangePickerValueType, RapDatePickerValueType, RapDateRangePickerValueType } from "@/models/date/date-range-calendar";
+import { Grid, Box, TextField, Button, InputLabel, Tooltip, Typography, Select, MenuItem } from "@mui/material";
+import { getCalendarDate, getCalendarRange, isValidDateRangePickerValue } from "@/utils/DateUtil";
 import { z } from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RapBasicDatePicker, RapFromToDatePicker } from "@/components/ui/rap/DatePickerTemp";
+import { RapInputLabel } from "@/components/ui/rap/InputLabel";
+import { RapTextField } from "@/components/ui/rap/TextField";
+import "rsuite/dist/rsuite.min.css";
+import { RapDateRangePicker } from "@/components/ui/rap/DateRangePicker";
+import { RapDatePicker } from "@/components/ui/rap/DatePicker";
+import { LanguageCode } from "@/models/common/Session";
+import { RapSelect } from "@/components/ui/rap/Select";
 
 type LoginLogSearchForm = {
-  dates: DateRangePickerValueType;
+  dates: RapDateRangePickerValueType;
+  dates3: RapDatePickerValueType;
   searchItem?: string;
+  langCd?: string | string[];
 };
 
 const LoginLogListPage = () => {
@@ -55,38 +65,55 @@ const LoginLogListPage = () => {
         });
       }
     }
-    console.log("페이지 처음 실행!!!!!!!!!!!");
   }, [fetchedLoginLogs]);
 
   const [pageSize, setPageSize] = useState(20);
 
-  const DataRangePickerValue = z.custom<{ arg: DateRangePickerValueType }>(
+  const DataRangePickerValue = z.custom<{ arg: DateRangePickerValueType | RapDateRangePickerValueType }>(
     val => {
       return isValidDateRangePickerValue(val);
     },
     {
-      message: `${t("menu-log.label.접속일자를 다시 선택해 주세요", "__접속일자를 다시 선택해 주세요")}`,
+      message: '${t("menu-log.label.접속일자를 다시 선택해 주세요", "__접속일자를 다시 선택해 주세요")}',
     }
   );
   const menuLogSearchSchema = z.object({
     dates: DataRangePickerValue,
-    searchItem: z.string().optional(),
+    dates3: z
+      .date()
+      .nullable()
+      .refine(val => val !== null, {
+        message: "접속일자를 다시 선택해 주세요",
+      }),
+    searchItem: z.string().min(1, "사용자ID/명은 필수값 입니다"),
+    langCd: z
+      .nativeEnum(LanguageCode, {
+        required_error: "언어를 반드시 선택하세요.",
+      })
+      .or(z.string().array().min(1, "언어를 반드시 선택하세요."))
+      .or(z.string().min(1, "언어를 반드시 선택하세요.")),
   });
 
   const {
     handleSubmit,
     control,
     formState: { errors },
+    setError,
+    clearErrors,
     getValues,
   } = useForm<LoginLogSearchForm>({
     resolver: zodResolver(menuLogSearchSchema),
     defaultValues: {
-      dates: [dayjs().add(-1, "month"), dayjs()],
+      dates: getCalendarRange("month", -1),
+      //dates2: [dayjs().add(-1, "month")],
+      dates3: getCalendarDate("day", 0),
       searchItem: "",
+      langCd: ["ko", "en"],
     },
   });
 
   const handleExcelDownload = async () => {
+    //gridRef.current!.api.exportDataAsExcel();
     const execelData: ExcelDownloadRequest<LoginLogRequest> = {
       fileName: "로그인로그.xlsx",
       sheetName: "로그인로그",
@@ -137,8 +164,6 @@ const LoginLogListPage = () => {
       start: "0",
     });
     setCurrentPage(1);
-    console.log("조회 버튼 클릭!!!!!!!!!!");
-    console.log(searchCondition);
   };
 
   const defaultColum: ColDef = {
@@ -147,7 +172,23 @@ const LoginLogListPage = () => {
     sortable: false,
   };
 
+  const readOnly = true; //readonlyTest용
+
   const columnDefs: ColDef[] = [
+    {
+      width: 50,
+      headerCheckboxSelection: true,
+      checkboxSelection: true,
+      cellStyle: { textAlign: "center" },
+    },
+    {
+      headerName: "No",
+      width: 60,
+      cellStyle: { textAlign: "center" },
+      cellRenderer: (params: any) => {
+        return params.node.rowIndex + 1;
+      },
+    },
     {
       headerName: String(t("login-log.column.로그인 일시", "__로그인 일시")),
       field: "contDtm",
@@ -187,44 +228,111 @@ const LoginLogListPage = () => {
           <Grid container spacing={2}>
             <Grid item xs={10}>
               <Grid container spacing={2}>
-                <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
-                  <InputLabel sx={{ paddingLeft: "4px" }}>사용자ID/명</InputLabel>
+                <Grid item xs={1} sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                  <RapInputLabel htmlFor='userId' required={true}>
+                    사용자ID/명
+                  </RapInputLabel>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
+                  <Controller control={control} name='searchItem' render={({ field }) => <RapTextField {...field} id='userId' placeholder='업무는value값이겠죠(readonly)' readOnly={readOnly} />} />
+                </Grid>
+                <Grid item xs={1} sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                  <RapInputLabel htmlFor='userId' required={true}>
+                    사용자ID/명
+                  </RapInputLabel>
+                </Grid>
+                <Grid item xs={2}>
+                  <Controller control={control} name='searchItem' render={({ field }) => <RapTextField {...field} id='userId' placeholder='입력하세요' readOnly={false} />} />
+                  {errors.searchItem && (
+                    <Tooltip title={errors.searchItem.message} open={!!errors.searchItem} arrow>
+                      <div></div>
+                    </Tooltip>
+                  )}
+                </Grid>
+                <Grid item xs={1} sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                  <RapInputLabel htmlFor='selectTest' required={true}>
+                    SELECT테스트
+                  </RapInputLabel>
+                </Grid>
+                <Grid item xs={2}>
                   <Controller
                     control={control}
-                    name='searchItem'
-                    render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff", "& .MuiInputBase-root": { height: "36px", fontSize: "14px" } }} InputProps={{ sx: { padding: "0 2px" } }} />}
+                    name='langCd'
+                    render={({ field }) => (
+                      <RapSelect
+                        {...field}
+                        id='selectTest'
+                        label=''
+                        value={field.value}
+                        required={!!errors.langCd}
+                        readonly={false}
+                        message={errors.langCd?.message}
+                        multiple={true}
+                        selectItems={LanguageCode}
+                        onValueChange={newValue => {
+                          console.log("값이 변경되었습니다: ", newValue);
+                        }}
+                      ></RapSelect>
+                    )}
                   />
                 </Grid>
-                <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
-                  <InputLabel sx={{ paddingLeft: "4px" }}>사용자ID/명</InputLabel>
+                <Grid item xs={1} sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                  <RapInputLabel htmlFor='rangeCalendar' required={true}>
+                    range달력rsuite
+                  </RapInputLabel>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                   <Controller
                     control={control}
-                    name='searchItem'
-                    render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff", "& .MuiInputBase-root": { height: "36px", fontSize: "14px" } }} InputProps={{ sx: { padding: "0 2px" } }} />}
+                    name='dates'
+                    render={({ field }) => (
+                      <RapDateRangePicker
+                        {...field}
+                        id='rangeCalendar'
+                        date={field.value}
+                        readonly={false}
+                        required={!!errors.dates}
+                        message={errors.dates?.message}
+                        onValueChange={newValue => {
+                          console.log("값이 변경되었습니다: ", newValue);
+                        }}
+                        changeDate={date => field.onChange(date)}
+                      />
+                    )}
                   />
                 </Grid>
-                <Grid item xs={1} sx={{ display: "flex", alignItems: "center" }}>
-                  <InputLabel sx={{ paddingLeft: "4px" }}>사용자ID/명</InputLabel>
+                <Grid item xs={1} sx={{ display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+                  <RapInputLabel htmlFor='singleCalendar' required={true}>
+                    rsuite달력
+                  </RapInputLabel>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                   <Controller
                     control={control}
-                    name='searchItem'
-                    render={({ field }) => <TextField {...field} fullWidth placeholder='입력하세요.' sx={{ bgcolor: "#ffffff", "& .MuiInputBase-root": { height: "36px", fontSize: "14px" } }} InputProps={{ sx: { padding: "0 2px" } }} />}
+                    name='dates3'
+                    render={({ field }) => (
+                      <RapDatePicker
+                        {...field}
+                        id='singleCalendar'
+                        date={field.value}
+                        readonly={false}
+                        required={!!errors.dates3}
+                        onValueChange={newValue => {
+                          console.log("값이 변경되었습니다: ", newValue);
+                        }}
+                        changeDate={date => field.onChange(date)}
+                      />
+                    )}
                   />
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={2} sx={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-end", paddingRight: "4px", flexDirection: "row", gap: "4px" }}>
+            <Grid item xs={2} sx={{ display: "flex", alignItems: "flex-end", justifyContent: "flex-end", paddingRight: "4px", flexDirection: "column", gap: "4px" }}>
               {/* flexDirection: direction === 'vertical' ? 'column' : 'row', */}
-              <Button type='submit' variant='contained' color='primary' sx={{ width: "70px" }}>
+              <Button type='submit' variant='outlined' size='small' color='primary' sx={{ width: "70px" }}>
                 검색
               </Button>
-              <Button type='submit' variant='contained' color='primary' sx={{ width: "70px" }}>
+              <Button type='submit' variant='outlined' size='small' color='primary' sx={{ width: "70px" }}>
                 검색2
               </Button>
             </Grid>
@@ -232,9 +340,10 @@ const LoginLogListPage = () => {
         </Box>
         <Spacer type='h' size='12' />
         <DataGrid
-          gridHeight={GridHeight.SearchArea.Line2}
-          minGridHeight={GridHeight.SearchArea.Line2}
+          gridHeight={GridHeight.SearchArea.Line4}
+          minGridHeight={GridHeight.SearchArea.Line4}
           totalCount={fetchedLoginLogs?.totalCount}
+          infoText={t("code.label.그리드 테스트 중 입니다.", "그리드 테스트 중 입니다.") ?? ""}
           currentPage={currentPage}
           onChangePage={onChangePage}
           title={String(t("login-log.label.로그인 로그 목록", "__로그인 로그 목록"))}
@@ -242,13 +351,15 @@ const LoginLogListPage = () => {
           hasPageSizeArea={true}
           hasPaginationArea={true}
           pageSize={pageSize}
-          rowHeight={25}
+          rowHeight={30}
           onChangePageSize={onChangePageSize}
           animateRows={true}
           rowData={fetchedLoginLogs?.list}
           columnDefs={columnDefs}
+          headerButton={[{ variant: "download", onClick: handleExcelDownload }]} //버튼 추가하고 싶으면 ','붙이면서 { variant: "add",label: '${t('common.label.행추가', '행추가')}', onClick: handleAdd } 이런거 추가하면 됨
           suppressPaginationPanel={true}
           defaultColDef={defaultColum}
+          rowSelection='multiple'
           emptyLabel={t("common.label.조회 가능한 데이터가 없습니다.", "__조회 가능한 데이터가 없습니다.") ?? ""}
           sxOfWrapper={{
             display: "flex",
