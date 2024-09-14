@@ -10,14 +10,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 html,
 body,
 #root {
   height: 100%;
+  font-family: "Spoqa Han Sans Neo", "맑은 고딕", "malgun gothic", "AppleGothicNeoSD", "Apple SD 산돌고딕 Neo", "Microsoft NeoGothic", "Droid sans", sans-serif;
 }
 
 body {

@@ -7,6 +7,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { CookiesProvider } from "react-cookie";
 import { MenuProvider } from "provider/menu-provider";
 import { CommonModal } from "./components/modals/common/CommonModal";
+import { ThemeProvider } from "@mui/material";
+import { defaultTheme } from "./ui/theme/CustomTheme";
 
 const SSOLoginRouter = loadable(() => import("routers/SSOLoginRouter"));
 const LoginRouter = loadable(() => import("routers/LoginRouter"));
@@ -31,17 +33,19 @@ const App = () => {
       <div className='app'>
         <BrowserRouter>
           <CookiesProvider>
-            <QueryClientProvider client={queryClient}>
-              <MenuProvider>
-                <Routes>
-                  <Route path='/ssoLogin' element={<SSOLoginRouter />} />
-                  <Route path='/login' element={<LoginRouter />} />
-                  <Route path='/fail/:message' element={<FailRouter />} />
-                  <Route path='/*' element={<MainRouter fallback={<Loading />} />} />
-                </Routes>
-                <CommonModal />
-              </MenuProvider>
-            </QueryClientProvider>
+            <ThemeProvider theme={defaultTheme}>
+              <QueryClientProvider client={queryClient}>
+                <MenuProvider>
+                  <Routes>
+                    <Route path='/ssoLogin' element={<SSOLoginRouter />} />
+                    <Route path='/login' element={<LoginRouter />} />
+                    <Route path='/fail/:message' element={<FailRouter />} />
+                    <Route path='/*' element={<MainRouter fallback={<Loading />} />} />
+                  </Routes>
+                  <CommonModal />
+                </MenuProvider>
+              </QueryClientProvider>
+            </ThemeProvider>
           </CookiesProvider>
         </BrowserRouter>
       </div>
