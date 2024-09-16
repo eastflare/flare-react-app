@@ -67,7 +67,6 @@ const di = {
     .MuiDialog-paper {
       min-width: 400px;
       padding: 25px;
-      box-sizing: content-box;
       box-shadow: none;
       border-radius: 0;
       color: ${FontColor.Default};

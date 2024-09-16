@@ -134,7 +134,6 @@ const StyledPageTab = styled.div<{ isOpenTab: boolean }>`
   align-items: center;
   border-right: 1px solid #f1f4f3;
   color: ${({ isOpenTab }) => (isOpenTab ? "#1F1F1F" : "#979998")};
-  box-sizing: border-box;
   background-color: ${({ isOpenTab }) => (isOpenTab ? "#FFFFFF" : "#f1f4f3")};
   flex: none;
   order: 0;
