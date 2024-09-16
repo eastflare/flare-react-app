@@ -61,7 +61,7 @@ const StyledMainBody = styled.div`
 
 const StyledMainLeft = styled.div<{ showLeftMenu: boolean; showPageTabBar: boolean }>`
   width: ${({ showLeftMenu }) => (!showLeftMenu ? "0px" : "150px")};
-  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 51px)" : "100%")};
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 55px)" : "100%")};
   border-right: 1px solid #ddd;
   transition: width 0.3s;
   background-color: ${BgColor.Gray50};
@@ -77,7 +77,7 @@ const StyledMainRight = styled.div<{ showLeftMenu: boolean }>`
 
 const StyledMainPage = styled.div<{ showPageTabBar: boolean }>`
   width: 100%;
-  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 91px)" : "100%")};
+  height: ${({ showPageTabBar }) => (showPageTabBar ? "calc(100% - 95px)" : "100%")};
   overflow-x: hidden;
   overflow-y: auto;
 `;
